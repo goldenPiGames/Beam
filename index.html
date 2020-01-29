@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+		<meta content="utf-8" http-equiv="encoding">
+		<title>Beam</title>
+		<link rel="shortcut icon" type="image/png" href="favicon.png">
+		<style>
+			@font-face {
+				font-family: 'Determination Mono';
+				src: url('src/Fonts/DTM-Mono.otf');
+			}
+			@font-face {
+				font-family: 'VL Gothic Regular';
+				src: url('src/Fonts/VLGothicRegular.ttf');
+			}
+			@font-face {
+				font-family: 'Futura Medium';
+				src: url('src/Fonts/FuturaMedium.otf');
+			}
+			@font-face {
+				font-family: 'OpenDyslexic';
+				src: url('src/Fonts/OpenDyslexicAlta-Regular.otf');
+			}
+			body {
+				background-color : #101010;
+			}
+		</style>
+		<!-- <script src='https://cdn1.kongregate.com/javascripts/kongregate_api.js'></script> -->
+		<script type="text/javascript" src="src/main.js"></script>
+		<script type="text/javascript" src="src/math.js"></script>
+		<script type="text/javascript" src="src/sm64rng.js"></script>
+		<script type="text/javascript" src="src/engine.js"></script>
+		<script type="text/javascript" src="src/controller.js"></script>
+		
+		<!-- UIObjects -->
+		<script type="text/javascript" src="src/UIObjects/UIObjectBase.js"></script>
+		<script type="text/javascript" src="src/UIObjects/Label.js"></script>
+		<script type="text/javascript" src="src/UIObjects/Button.js"></script>
+		<!--<script type="text/javascript" src="src/UIObjects/Checkbox.js"></script>-->
+		<!--<script type="text/javascript" src="src/UIObjects/RadioButtons.js"></script>-->
+		<script type="text/javascript" src="src/UIObjects/Slider.js"></script>
+		<script type="text/javascript" src="src/UIObjects/ScrollMenu.js"></script>
+		
+		<script type="text/javascript" src="src/ScreenBase.js"></script>
+		
+		<script type="text/javascript" src="src/Beam.js"></script>
+		<!-- Particles -->
+		<script type="text/javascript" src="src/settings.js"></script>
+		<script type="text/javascript" src="src/Particles/ParticleBase.js"></script>
+		<script type="text/javascript" src="src/Particles/ParticleText.js"></script>
+		<script type="text/javascript" src="src/Particles/musicInfoBar.js"></script>
+		<script type="text/javascript" src="src/Particles/Transitions.js"></script>
+		
+		<!-- Levels -->
+		<script type="text/javascript" src="src/Levels/Level.js"></script>
+		<script type="text/javascript" src="src/Levels/PipePath/PipePath.js"></script>
+		<script type="text/javascript" src="src/Levels/PipePath/Levels.js"></script>
+		<script type="text/javascript" src="src/Levels/Gridlock/Gridlock.js"></script>
+		<script type="text/javascript" src="src/Levels/Gridlock/Levels.js"></script>
+		<script type="text/javascript" src="src/Levels/ToggleGates/ToggleGates.js"></script>
+		<script type="text/javascript" src="src/Levels/ToggleGates/Levels.js"></script>
+		<script type="text/javascript" src="src/Levels/LevelList.js"></script>
+		
+		<!-- Menus -->
+		<script type="text/javascript" src="src/mainMenu.js"></script>
+		<script type="text/javascript" src="src/Music/Jukebox.js"></script>
+		<script type="text/javascript" src="src/credits.js"></script>
+		
+	</head>
+	<body>
+		<div id="BackgroundBox" style="overflow:hidden; position: absolute; left: 0px; top: 0px; width: 800px; height: 600px; background-color: #000000; border-color: #BBBBBB; border-style: solid; border-width: 0px;">
+			<canvas id="GraphicsBox" width="800px" height="600px" style="overflow:hidden; position: absolute; width: 800px; height: 600px; left: 0px; top: 0px;">Your browser requires Canvas support to play this game.</canvas>
+			<!-- <input id="TextInput" type="text" hidden maxlength="16" style="position:absolute;left:100px;top:300px;width:600px;" /> -->
+		</div>
+		
+		<script>
+			const ONLINE = window.location.href.indexOf("C:") < 0;
+			var kongregate = {stats:{submit:function(){}}};
+			/*
+			kongregateAPI.loadAPI(function(){
+				window.kongregate = kongregateAPI.getAPI();
+				updateFields();
+				
+				kongregate.services.addEventListener('login', function(){
+					updateFields();
+				});
+			});
+			*/
+			startLoading()
+		</script>
+	</body>
+</html>

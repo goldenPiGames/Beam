@@ -1,0 +1,105 @@
+const EXTRA_EMBER = true;
+var hovered = false;
+
+class ParticleBase {
+    constructor() {
+		
+	}
+	go() {
+		this.updatePosition();
+		ctx.globalAlpha = this.alpha;
+		this.draw(ctx);
+		this.updateAlpha();
+		return !this.dead;
+    }
+    updatePosition() {
+        this.x += this.dx;
+		this.y += this.dy;
+		if (this.x < 0 || this.y < 0 || this.x > canvas.width || this.y > canvas.height)
+			this.die();
+    }
+	updateAlpha(ctx) {
+		this.alpha -= (this.fade > 1) ? (1/this.fade) : this.fade;
+		if (this.alpha <= 0)
+			this.die();
+    }
+	die(ctx) {
+		this.dead = true;
+	}
+}
+ParticleBase.prototype.dead = false;
+ParticleBase.prototype.dx = 0;
+ParticleBase.prototype.dy = 0;
+ParticleBase.prototype.alpha = 1;
+
+//--------------------------------------------------------- Ember ------------------------------------------
+class Ember extends ParticleBase { 
+	constructor(x, y, dx, dy, radius, color, fade) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.dx = dx;
+		this.dy = dy;
+		this.radius = radius;
+		this.color = color;
+		this.fade = fade;
+	}
+	draw() {
+		ctx.fillStyle = this.color;
+		ctx.beginPath();
+		ctx.arc(this.x, this.y, this.radius, 0, 2*Math.PI);
+		ctx.closePath();
+		ctx.fill();
+	}
+}
+Ember.prototype = Object.create(ParticleBase);
+Ember.prototype.overInfo = false;
+
+function addRandomEmbers() {
+	particles.push(randomCursorEmber(mouse.x, mouse.y));
+	if (EXTRA_EMBER) {
+		//console.log(mouse.x, mouse.lastX)
+		particles.push(randomCursorEmber((mouse.x + mouse.lastX) / 2, (mouse.y + mouse.lastY) / 2));
+	}
+}
+
+function randomCursorEmber(x, y, color = null) {
+	var direction = randomDirection();
+	var speed = .5 + .5 * Math.random();
+	var color = color || (mouse.down ? settings.click_color : (hovered ? settings.hover_color : settings.normal_color));
+	var dx = Math.cos(direction) * speed;
+	var dy = Math.sin(direction) * speed;
+	return new Ember(x - dx, y - dy, dx, dy, 2, color, .03);
+}
+
+//------------------------------------ Ring --------------------------
+class ParticleRing extends ParticleBase {
+	constructor(x, y, growth, color, fade) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.radius = 0;
+		this.growth = growth;
+		this.color = color;
+		this.fade = fade;
+	}
+	draw(ctx) {
+		ctx.lineWidth = 2;
+		this.radius += this.growth;
+		ctx.globalAlpha = this.alpha;
+		ctx.strokeWidth = 3;
+		ctx.strokeStyle = this.color;
+		ctx.beginPath();
+		ctx.arc(this.x, this.y, this.radius, 0, 2*Math.PI);
+		ctx.closePath();
+		ctx.stroke();
+	}
+}
+
+function randomDirection() {
+	return Math.random() * 2 * Math.PI; 
+}
+
+function rgb(r, g, b) {
+	return "rgb("+Math.round(r)+", "+Math.round(g)+", "+Math.round(b)+")";
+}

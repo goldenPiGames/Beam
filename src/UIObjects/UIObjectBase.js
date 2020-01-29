@@ -1,0 +1,33 @@
+class UIObject {
+	constructor(x, y, width, height) {
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+	}
+	update() {
+		this.updateMouse();
+	}
+	intersectsMouse() {
+		if (this.displayRadius || this.radius)
+			return Math.sqrt((mouse.x - (this.displayX || this.x)) ** 2 + (mouse.y - (this.displayY || this.y))**2) <= (this.displayRadius || this.radius);
+		else
+			return mouse.x >= (this.displayX || this.x) && mouse.x < (this.displayX || this.x) + (this.displayWidth || this.width) && mouse.y >= (this.displayY || this.y) && mouse.y < (this.displayY || this.y) + (this.displayHeight || this.height);
+	}
+	updateMouse() {
+		this.hovered = this.intersectsMouse();
+		this.wasPressed = this.pressed;
+		this.pressed = mouse.down && this.hovered;
+		this.clicked = mouse.clicked && this.hovered;
+		this.released = this.held && !mouse.down;
+		this.held = (this.clicked || (this.held && mouse.down)) ? this.held+1 : false;
+		this.draggedX = this.held && mouse.x - mouse.lastX;
+		this.draggedY = this.held && mouse.y - mouse.lastY;
+	}
+}
+
+class BlankUIObject extends UIObject {
+	draw() {
+		
+	}
+}
