@@ -29,9 +29,9 @@ class Button extends UIObject {
 		var fontSize = 20;
 		ctx.fillStyle = color;
 		ctx.font = fontSize + "px "+settings.font;
-		ctx.textBaseline = "top";
 		ctx.textAlign = "center";
+		ctx.textBaseline = "middle";
 		
-		ctx.fillText(this.text, this.x + this.width/2, this.y + this.height/2 - fontSize/2);
+		ctx.fillText(this.text, this.x + this.width/2, this.y + this.height/2);
 	}
 }

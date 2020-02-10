@@ -1,7 +1,7 @@
 const EXTRA_EMBER = true;
 var hovered = false;
 
-class ParticleBase {
+class Particle {
     constructor() {
 		
 	}
@@ -27,13 +27,13 @@ class ParticleBase {
 		this.dead = true;
 	}
 }
-ParticleBase.prototype.dead = false;
-ParticleBase.prototype.dx = 0;
-ParticleBase.prototype.dy = 0;
-ParticleBase.prototype.alpha = 1;
+Particle.prototype.dead = false;
+Particle.prototype.dx = 0;
+Particle.prototype.dy = 0;
+Particle.prototype.alpha = 1;
 
 //--------------------------------------------------------- Ember ------------------------------------------
-class Ember extends ParticleBase { 
+class Ember extends Particle { 
 	constructor(x, y, dx, dy, radius, color, fade) {
 		super();
 		this.x = x;
@@ -52,7 +52,6 @@ class Ember extends ParticleBase {
 		ctx.fill();
 	}
 }
-Ember.prototype = Object.create(ParticleBase);
 Ember.prototype.overInfo = false;
 
 function addRandomEmbers() {
@@ -73,7 +72,7 @@ function randomCursorEmber(x, y, color = null) {
 }
 
 //------------------------------------ Ring --------------------------
-class ParticleRing extends ParticleBase {
+class ParticleRing extends Particle {
 	constructor(x, y, growth, color, fade) {
 		super();
 		this.x = x;

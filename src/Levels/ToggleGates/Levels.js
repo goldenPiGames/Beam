@@ -10,6 +10,19 @@ class LevelToggleSingle extends ToggleLevel {
 	}
 }
 
+class LevelToggleDouble extends ToggleLevel {
+	constructor() {
+		super({
+			numSwitches : 2,
+			gates : [
+				[0],
+				[1],
+			],
+			direction : 1,
+		});
+	}
+}
+
 class LevelToggleFirstTrick extends ToggleLevel {
 	constructor() {
 		super({
@@ -23,3 +36,5 @@ class LevelToggleFirstTrick extends ToggleLevel {
 		});
 	}
 }
+
+//https://youtu.be/JoEok5sLuuk?t=536

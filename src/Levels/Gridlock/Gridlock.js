@@ -72,6 +72,9 @@ class GridlockLevel extends GridLevel {
 		return this.pieces.find(pis => i >= pis.gridX && i < pis.gridX + pis.gridWidth && j >= pis.gridY && j < pis.gridY + pis.gridHeight);
 	}
 }
+GridlockLevel.prototype.lModeName = "Gridlock-Name";
+GridlockLevel.prototype.lModeRules = "Gridlock-Rules";
+GridlockLevel.prototype.lModeHints = "Gridlock-Hints";
 
 class GridlockPiece extends UIObject {
 	constructor(x, y, length, movesHoriz) {
@@ -106,7 +109,7 @@ class GridlockPiece extends UIObject {
 	draw() {
 		ctx.lineWidth = 3;
 		ctx.strokeStyle = this.held ? settings.click_color : this.hovered ? settings.hover_color : settings.normal_color;
-		ctx.strokeRect(this.displayX, this.displayY, this.displayWidth, this.displayHeight);
+		ctx.strokeRect(this.displayX+1, this.displayY+1, this.displayWidth-2, this.displayHeight-2);
 	}
 	findDragBounds() {
 		var s;

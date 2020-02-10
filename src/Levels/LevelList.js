@@ -1,12 +1,21 @@
 var levelNumber = 0;
 
 const LEVEL_LIST = [
+	//LevelGridlockFirst4,
 	LevelToggleSingle,
-	LevelGridlockTest,
+	LevelToggleDouble,
+	LevelGridlock1,
+	LevelGridlock2,
+	LevelConcentricSingle,
+	LevelConcentricDouble,
+	LevelConcentricCascade3,
+	LevelOnceSBend,
+	LevelOnceMGrid,
+	LevelOnceSymPip,
 	LevelPipeIntro,
 	LevelToggleFirstTrick,
-	LevelGridlock2,
 	LevelPipeReal,
+	LevelConcentricReverse4,
 ]
 
 function continueGame() {

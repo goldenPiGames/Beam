@@ -29,7 +29,7 @@ class PipeLevel extends GridLevel {
 			this.pieces.forEach(row=>row.forEach(pis=>pis.scrambleRotation()));
 			failsafe++;
 		}
-		this.beamStopX = null;
+		//this.beamStopX = null;
 	}
 	update() {
 		//super.update();
@@ -42,32 +42,10 @@ class PipeLevel extends GridLevel {
 		this.beamStopX = null;
 		this.beamPath = new Path2D();
 		var d = (this.entranceSide + 2) % 4;
-		var x;
-		var y;
-		var bx;
-		var by;
-		switch (this.entranceSide) {
-			case 0: x = this.entrancePosition;
-					y = -1;
-					bx = this.beamEntrancePosition;
-					by = 0;
-					break;
-			case 1: x = this.pieces.length;
-					y = this.entrancePosition;
-					bx = WIDTH;
-					by = this.beamEntrancePosition;
-					break;
-			case 2: x = this.entrancePosition;
-					y = this.pieces[0].length;
-					bx = this.beamEntrancePosition;
-					by = HEIGHT;
-					break;
-			case 3: x = -1;
-					y = this.entrancePosition;
-					bx = 0;
-					by = this.beamEntrancePosition;
-					break;
-		}
+		var x = this.gridStartOutX;
+		var y = this.gridStartOutY;
+		var bx = this.beamStartX;
+		var by = this.beamStartY;
 		this.beamPath.moveTo(bx, by);
 		var i = 0;
 		var p;
@@ -128,8 +106,8 @@ class PipeLevel extends GridLevel {
 		ctx.strokeStyle = settings.normal_color;
 		ctx.lineWidth = 4;
 		ctx.stroke(this.borderPath);
-		this.pieces.forEach(row=>row.forEach(pis=>pis.draw()));
 		drawBeam(this.beamPath);
+		this.pieces.forEach(row=>row.forEach(pis=>pis.draw()));
 		if (this.beamStopX)
 			drawBeamStop(this.beamStopX, this.beamStopY);
 	}
@@ -139,6 +117,10 @@ class PipeLevel extends GridLevel {
 		super.win();
 	}
 }
+PipeLevel.prototype.lModeName = "PipePath-Name";
+PipeLevel.prototype.lModeRules = "PipePath-Rules";
+PipeLevel.prototype.lModeHints = "PipePath-Hints";
+
 //----------------------------------------------------------- Pipe Piece ----------------------------------------------------------------------------
 
 class PipePiece extends UIObject {

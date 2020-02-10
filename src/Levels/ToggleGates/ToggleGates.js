@@ -9,14 +9,14 @@ class ToggleLevel extends Level {
 					this.beamExitSide = 0;
 					this.beamEntrancePosition = WIDTH*2/3;
 					this.beamExitPosition = WIDTH*2/3;
-					gateXStart = WIDTH*2/3;
+					gateXStart = WIDTH*2/3;//TODO switch locations for directions other that right
 					gateXInc = 0;
 					gateYInc = -Math.floor(HEIGHT / (numGates + 2));
 					gateYStart = HEIGHT/2 - numGates*gateYInc/2;
 					gateOrient = false;
 					break;
-			case 1: this.beamEntranceSide = 3;
-					this.beamExitSide = 1;
+			case RIGHT: this.beamEntranceSide = LEFT;
+					this.beamExitSide = RIGHT;
 					this.beamEntrancePosition = HEIGHT*2/3;
 					this.beamExitPosition = HEIGHT*2/3;
 					switchYStart = HEIGHT*1/3;
@@ -109,6 +109,9 @@ class ToggleLevel extends Level {
 		super.win();
 	}
 }
+ToggleLevel.prototype.lModeName = "ToggleGates-Name";
+ToggleLevel.prototype.lModeRules = "ToggleGates-Rules";
+ToggleLevel.prototype.lModeHints = "ToggleGates-Hints";
 
 //----------------------------------------------------------- Switch ----------------------------------------------------------------------------
 

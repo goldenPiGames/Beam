@@ -1,9 +1,8 @@
 class Slider extends UIObject {
-	constructor(x, y, width, height, text, hoverText, min, max, handler, getter, getterText) {
+	constructor(x, y, width, height, text, min, max, handler, getter, getterText) {
 		super(x, y, width, height);
 		this.position = 0;
 		this.text = text;
-		this.hoverText = hoverText;
 		this.min = min;
 		this.max = max;
 		this.handler = handler;
@@ -13,7 +12,7 @@ class Slider extends UIObject {
 	update() {
 		super.update();
 		if (this.hovered) {
-			infoField.setText(this.hoverText);
+			hovered = true;
 		}
 		if (this.held) {
 			var portion;

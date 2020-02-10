@@ -4,16 +4,25 @@ class LevelWrapper extends Screen {
 	constructor(level) {
 		super();
 		this.level = level;
+		this.buttons = [
+			new BubbleButton(35, 35, 30, ()=>runJukebox(), bubbleDrawIJukebox),
+			new BubbleButton(WIDTH-35, 35, 30, ()=>runnee=new HintScreen(this), bubbleDrawIHint),
+		];
+		this.timeTaken = 0;
 	}
 	update() {
 		this.level.update();
+		this.timeTaken++;
 		if (this.level.won) {
 			nextLevel();
+			return;
 		}
+		this.buttons.forEach(oj=>oj.update());
 	}
 	draw() {
 		ctx.globalAlpha = 1;
 		this.level.draw();
+		this.buttons.forEach(oj=>oj.draw());
 	}
 }
 
@@ -21,7 +30,40 @@ class Level {
 	win() {
 		this.won = true;
 	}
+	calcBeamEnds() {
+		switch (this.beamEntranceSide) {
+			case 0: this.beamStartX = this.beamEntrancePosition;
+					this.beamStartY = 0;
+					break;
+			case 1: this.beamStartX = WIDTH;
+					this.beamStartY = this.beamEntrancePosition;
+					break;
+			case 2: this.beamStartX = this.beamEntrancePosition;
+					this.beamStartY = HEIGHT;
+					break;
+			case 3: this.beamStartX = 0;
+					this.beamStartY = this.beamEntrancePosition;
+					break;
+		}
+		switch (this.beamExitSide) {
+			case 0: this.beamEndX = this.beamExitPosition;
+					this.beamEndY = 0;
+					break;
+			case 1: this.beamEndX = WIDTH;
+					this.beamEndY = this.beamExitPosition;
+					break;
+			case 2: this.beamEndX = this.beamExitPosition;
+					this.beamEndY = HEIGHT;
+					break;
+			case 3: this.beamEndX = 0;
+					this.beamEndY = this.beamExitPosition;
+					break;
+		}
+	}
 }
+Level.prototype.lModeName = "LevelOther-Name";
+Level.prototype.lModeRules = "LevelOther-Rules";
+Level.prototype.lModeHints = "LevelOther-Hints";
 
 /**
 For any levels that use a grid.
@@ -47,30 +89,62 @@ class GridLevel extends Level {
 		this.beamEntranceSide = args.entranceSide;
 		switch (this.beamEntranceSide) {
 			case 0: this.beamEntrancePosition = this.gridToPixX(args.entrancePosition);
+					this.gridStartX = args.entrancePosition;
+					this.gridStartY = 0;
+					this.gridStartOutX = this.gridStartX;
+					this.gridStartOutY = -1;
 					break;
 			case 1: this.beamEntrancePosition = this.gridToPixY(args.entrancePosition);
+					this.gridStartX = args.width-1;
+					this.gridStartY = args.entrancePosition;
+					this.gridStartOutX = this.gridWidth;
+					this.gridStartOutY = this.gridStartY;
 					break;
 			case 2: this.beamEntrancePosition = this.gridToPixX(args.entrancePosition);
+					this.gridStartX = args.entrancePosition;
+					this.gridStartY = this.gridHeight-1;
+					this.gridStartOutX = this.gridStartX;
+					this.gridStartOutY = args.gridHeight;
 					break;
 			case 3: this.beamEntrancePosition = this.gridToPixY(args.entrancePosition);
+					this.gridStartX = 0;
+					this.gridStartY = args.entrancePosition;
+					this.gridStartOutX = -1;
+					this.gridStartOutY = this.gridStartY;
 					break;
 		}
 		this.beamExitSide = args.exitSide;
 		switch (this.beamExitSide) {
 			case 0: this.beamExitPosition = this.gridToPixX(args.exitPosition);
+					this.gridEndX = args.exitPosition;
+					this.gridEndY = 0;
+					this.gridEndOutX = this.gridEndX;
+					this.gridEndOutY = -1;
 					break;
 			case 1: this.beamExitPosition = this.gridToPixY(args.exitPosition);
+					this.gridEndX = args.width-1;
+					this.gridEndY = args.exitPosition;
+					this.gridEndOutX = this.gridWidth;
+					this.gridEndOutY = this.gridEndY;
 					break;
 			case 2: this.beamExitPosition = this.gridToPixX(args.exitPosition);
+					this.gridEndX = args.exitPosition;
+					this.gridEndY = this.gridHeight-1;
+					this.gridEndOutX = this.gridEndX;
+					this.gridEndOutY = args.gridHeight;
 					break;
 			case 3: this.beamExitPosition = this.gridToPixY(args.exitPosition);
+					this.gridEndX = 0;
+					this.gridEndY = args.exitPosition;
+					this.gridEndOutX = -1;
+					this.gridEndOutY = this.gridEndY;
 					break;
 		}
 		//set borders
-		this.borderTop = this.gridYOffset - this.gridScale * (args.gap + 1/2);
-		this.borderRight = this.gridXOffset + this.gridScale * (this.gridWidth + args.gap - 1/2);
-		this.borderBottom = this.gridYOffset + this.gridScale * (this.gridHeight + args.gap - 1/2);
-		this.borderLeft = this.gridXOffset - this.gridScale * (args.gap + 1/2);
+		this.borderTop = this.gridYOffset - this.gridScale * (args.gap + 1/2) - 1;
+		this.borderRight = this.gridXOffset + this.gridScale * (this.gridWidth + args.gap - 1/2) + 1;
+		this.borderBottom = this.gridYOffset + this.gridScale * (this.gridHeight + args.gap - 1/2) + 1;
+		this.borderLeft = this.gridXOffset - this.gridScale * (args.gap + 1/2) - 1;
 		//Creates a path for the border, so it doesn't have to create it again every frame
 		//The border is rectangular with gaps in it for the beam to enter and exit
 		this.borderPath = new Path2D();
@@ -105,6 +179,7 @@ class GridLevel extends Level {
 		}
 		this.borderPath.lineTo(this.borderLeft, this.borderTop);
 		this.borderPath.closePath();
+		this.calcBeamEnds();
 	}
 	gridToPixX(x) {
 		return this.gridXOffset + x * this.gridScale;

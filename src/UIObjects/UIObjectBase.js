@@ -1,9 +1,11 @@
 class UIObject {
 	constructor(x, y, width, height) {
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
+		if (x != undefined) {
+			this.x = x;
+			this.y = y;
+			this.width = width;
+			this.height = height;
+		}
 	}
 	update() {
 		this.updateMouse();
@@ -20,9 +22,10 @@ class UIObject {
 		this.pressed = mouse.down && this.hovered;
 		this.clicked = mouse.clicked && this.hovered;
 		this.released = this.held && !mouse.down;
-		this.held = (this.clicked || (this.held && mouse.down)) ? this.held+1 : false;
+		this.held = (this.clicked || (this.held && mouse.down)) ? this.held+1 : 0;
 		this.draggedX = this.held && mouse.x - mouse.lastX;
 		this.draggedY = this.held && mouse.y - mouse.lastY;
+		this.draggedTheta = this.held && (Math.atan2(mouse.y-this.y, mouse.x-this.x) - Math.atan2(mouse.lastY-this.y, mouse.lastX-this.x));
 	}
 }
 

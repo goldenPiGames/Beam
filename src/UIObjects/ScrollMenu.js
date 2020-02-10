@@ -11,9 +11,9 @@ class ScrollMenu extends UIObject {
 		this.hovered = false;
 		this.active = true;
 		this.returnFunction = returnFunction;
-		this.scrollBar = new ScrollBar(x + width - SCROLL_BAR_WIDTH, y + SCROLL_BUTTON_HEIGHT, SCROLL_BAR_WIDTH, height - 2*SCROLL_BUTTON_HEIGHT, "Scroll directly", this.maxEntries, items.length, (s)=>this.setBarScroll(s), ()=>this.currentScroll)
-		this.upButton = new Button(x + width - SCROLL_BAR_WIDTH, y, SCROLL_BAR_WIDTH, SCROLL_BUTTON_HEIGHT, "↑", "Scroll up", ()=>this.scrollUp());
-		this.downButton = new Button(x + width - SCROLL_BAR_WIDTH, y + height - SCROLL_BUTTON_HEIGHT, SCROLL_BAR_WIDTH, SCROLL_BUTTON_HEIGHT, "↓", "Scroll down", ()=>this.scrollDown());
+		this.scrollBar = new ScrollBar(x + width - SCROLL_BAR_WIDTH, y + SCROLL_BUTTON_HEIGHT, SCROLL_BAR_WIDTH, height - 2*SCROLL_BUTTON_HEIGHT, this.maxEntries, items.length, (s)=>this.setBarScroll(s), ()=>this.currentScroll)
+		this.upButton = new Button(x + width - SCROLL_BAR_WIDTH, y, SCROLL_BAR_WIDTH, SCROLL_BUTTON_HEIGHT, "↑", ()=>this.scrollUp());
+		this.downButton = new Button(x + width - SCROLL_BAR_WIDTH, y + height - SCROLL_BUTTON_HEIGHT, SCROLL_BAR_WIDTH, SCROLL_BUTTON_HEIGHT, "↓", ()=>this.scrollDown());
 		
 		this.secondProperty = secondProperty;
 		this.infoProperty = infoProperty;
@@ -97,6 +97,7 @@ class ScrollMenu extends UIObject {
 		}
 	}
 	setHovered(value) {
+		hovered = true;
 		this.hoveredValue = value;
 	}
 	returnItem(value) {
@@ -120,7 +121,6 @@ class ScrollMenuElement extends UIObject {
 		super.update();
 		if (this.value != undefined) {
 			if (this.hovered) {
-				infoField.setText(typeof this.parent.infoProperty == "function" ? this.parent.infoProperty(this.value) : this.value[this.parent.infoProperty]);
 				this.parent.setHovered(this.value);
 			}
 			if (this.clicked)
@@ -146,9 +146,8 @@ class ScrollMenuElement extends UIObject {
 /* --------------------------------------------------------- Scroll Bar ---------------------------------------------------- */
 
 class ScrollBar extends UIObject {
-	constructor(x, y, width, height, hoverText, size, max, handler, getter) {
+	constructor(x, y, width, height, size, max, handler, getter) {
 		super(x, y, width, height);
-		this.hoverText = hoverText;
 		this.min = 0;
 		this.size = size;
 		this.max = max;
@@ -157,8 +156,8 @@ class ScrollBar extends UIObject {
 	}
 	update() {
 		super.update();
-		if (this.hovered && this.hoverText) {
-			infoField.setText(this.hoverText);
+		if (this.hovered) {
+			hovered = true;
 		}
 		if (this.clicked || this.held) {
 			this.handler(Math.round(Math.max(this.min, Math.min(this.max-this.size, this.min - this.size/2 + (mouse.y-this.y)/this.height * (this.max-this.min)))));

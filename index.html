@@ -26,6 +26,7 @@
 				background-color : #101010;
 			}
 		</style>
+		<!-- Important stuff -->
 		<!-- <script src='https://cdn1.kongregate.com/javascripts/kongregate_api.js'></script> -->
 		<script type="text/javascript" src="src/main.js"></script>
 		<script type="text/javascript" src="src/math.js"></script>
@@ -33,10 +34,18 @@
 		<script type="text/javascript" src="src/engine.js"></script>
 		<script type="text/javascript" src="src/controller.js"></script>
 		
-		<!-- UIObjects -->
+		<!-- Languages -->
+		<script type="text/javascript" src="src/Lang/Lang.js"></script>
+		<script type="text/javascript" src="src/Lang/en.js"></script>
+		<script type="text/javascript" src="src/Lang/cg.js"></script>
+		
+		
+		<!-- UI Objects -->
 		<script type="text/javascript" src="src/UIObjects/UIObjectBase.js"></script>
 		<script type="text/javascript" src="src/UIObjects/Label.js"></script>
 		<script type="text/javascript" src="src/UIObjects/Button.js"></script>
+		<script type="text/javascript" src="src/UIObjects/BubbleButton.js"></script>
+		<script type="text/javascript" src="src/UIObjects/Tabs.js"></script>
 		<!--<script type="text/javascript" src="src/UIObjects/Checkbox.js"></script>-->
 		<!--<script type="text/javascript" src="src/UIObjects/RadioButtons.js"></script>-->
 		<script type="text/javascript" src="src/UIObjects/Slider.js"></script>
@@ -45,13 +54,16 @@
 		<script type="text/javascript" src="src/ScreenBase.js"></script>
 		
 		<script type="text/javascript" src="src/Beam.js"></script>
+		<script type="text/javascript" src="src/Audio/Music.js"></script>
+		<script type="text/javascript" src="src/Audio/SongData.js"></script>
+		<script type="text/javascript" src="src/Audio/Jukebox.js"></script>
 		<!-- Particles -->
 		<script type="text/javascript" src="src/settings.js"></script>
 		<script type="text/javascript" src="src/Particles/ParticleBase.js"></script>
 		<script type="text/javascript" src="src/Particles/ParticleText.js"></script>
-		<script type="text/javascript" src="src/Particles/musicInfoBar.js"></script>
 		<script type="text/javascript" src="src/Particles/Transitions.js"></script>
 		
+		<script type="text/javascript" src="src/Hints.js"></script>
 		<!-- Levels -->
 		<script type="text/javascript" src="src/Levels/Level.js"></script>
 		<script type="text/javascript" src="src/Levels/PipePath/PipePath.js"></script>
@@ -60,11 +72,16 @@
 		<script type="text/javascript" src="src/Levels/Gridlock/Levels.js"></script>
 		<script type="text/javascript" src="src/Levels/ToggleGates/ToggleGates.js"></script>
 		<script type="text/javascript" src="src/Levels/ToggleGates/Levels.js"></script>
+		<script type="text/javascript" src="src/Levels/ConcentricCircles/ConcentricCircles.js"></script>
+		<script type="text/javascript" src="src/Levels/ConcentricCircles/Levels.js"></script>
+		<script type="text/javascript" src="src/Levels/WalkOnce/WalkOnce.js"></script>
+		<script type="text/javascript" src="src/Levels/WalkOnce/Levels.js"></script>
 		<script type="text/javascript" src="src/Levels/LevelList.js"></script>
 		
 		<!-- Menus -->
 		<script type="text/javascript" src="src/mainMenu.js"></script>
-		<script type="text/javascript" src="src/Music/Jukebox.js"></script>
+		<script type="text/javascript" src="src/Lang/Select.js"></script>
+		<!--<script type="text/javascript" src="src/Music/Jukebox.js"></script>-->
 		<script type="text/javascript" src="src/credits.js"></script>
 		
 	</head>
@@ -73,6 +90,7 @@
 			<canvas id="GraphicsBox" width="800px" height="600px" style="overflow:hidden; position: absolute; width: 800px; height: 600px; left: 0px; top: 0px;">Your browser requires Canvas support to play this game.</canvas>
 			<!-- <input id="TextInput" type="text" hidden maxlength="16" style="position:absolute;left:100px;top:300px;width:600px;" /> -->
 		</div>
+		<audio id="Music" preload="auto" controls="none" style="display:none"></audio>
 		
 		<script>
 			const ONLINE = window.location.href.indexOf("C:") < 0;
@@ -87,7 +105,7 @@
 				});
 			});
 			*/
-			startLoading()
+			startLoading();
 		</script>
 	</body>
 </html>
