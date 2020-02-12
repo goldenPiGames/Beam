@@ -54,7 +54,7 @@ class PipeLevel extends GridLevel {
 			x += directionDX(d);
 			y += directionDY(d);
 			if (x < 0 || y < 0 || x >= this.pieces.length || y >= this.pieces[x].length) {
-				if (d == this.exitSide && ((d % 2 == 1 && x == this.exitPosition) || (d % 2 == 1 && y == this.exitPosition))) {
+				if (x == this.gridEndOutX && y == this.gridEndOutY) {
 					switch (d) {
 						case 0: by = 0;
 								break;

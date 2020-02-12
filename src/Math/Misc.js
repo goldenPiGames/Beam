@@ -1,8 +1,3 @@
-const UP = 0;
-const RIGHT = 1;
-const DOWN = 2;
-const LEFT = 3;
-
 function randomTerm(ray) {
 	return ray[Math.floor(Math.random() * ray.length)];
 }
@@ -80,30 +75,6 @@ function fillLeft(str, length, filler="0") {
 	return str;
 }
 
-function directionDX(direction) {
-	switch (direction) {
-		case 0: return 0;
-		case 1: return 1;
-		case 2: return 0;
-		case 3: return -1;
-	}
-}
-function directionDY(direction) {
-	switch (direction) {
-		case 0: return -1;
-		case 1: return 0;
-		case 2: return 1;
-		case 3: return 0;
-	}
-}
-function directionTheta(direction) {
-	switch (direction) {
-		case 0: return -Math.PI/2;
-		case 1: return 0;
-		case 2: return Math.PI/2;
-		case 3: return Math.PI;
-	}
-}
 
 
 

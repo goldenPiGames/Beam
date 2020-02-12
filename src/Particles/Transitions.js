@@ -1,5 +1,5 @@
 class ColorFade extends Particle {
-	constructor(fade, x=0, y=0, width=settings.width, height=settings.height, color=settings.background_color) {
+	constructor(fade=.25, x=0, y=0, width=WIDTH, height=HEIGHT, color=settings.background_color) {
 		super();
 		this.fade = fade;
 		this.color = color;

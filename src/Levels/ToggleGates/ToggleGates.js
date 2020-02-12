@@ -1,8 +1,8 @@
 class ToggleLevel extends Level {
 	constructor(layout) {
 		super();
-		let numSwitches = layout.numSwitches;
 		let numGates = layout.gates.length;
+		let numSwitches = layout.gates[0].length;
 		var switchXStart, switchYStart, switchXInc, switchYInc, gateXStart, gateYStart, gateXInc, gateYInc, gateOrient;
 		switch (layout.direction) {
 			case 0: this.beamEntranceSide = 2;
@@ -52,12 +52,12 @@ class ToggleLevel extends Level {
 		}
 		//console.log(numSwitches, numGates, switchXStart, switchYStart, switchXInc, switchYInc, gateXStart, gateYStart, gateXInc, gateYInc, gateOrient);
 		this.switches = [];
-		for (var i = 0; i < layout.numSwitches; i++) {
+		for (var i = 0; i < numSwitches; i++) {
 			this.switches[i] = new ToggleSwitch(switchXStart + switchXInc * i, switchYStart + switchYInc * i);
 		}
 		this.gates = [];
-		for (var i = 0; i < layout.gates.length; i++) {
-			this.gates[i] = new ToggleGate(layout.gates[i].map(bap=>this.switches[bap]), gateXStart + gateXInc * i, gateYStart + gateYInc * i, gateOrient);
+		for (var i = 0; i < numGates; i++) {
+			this.gates[i] = new ToggleGate(layout.gates[i].map((is,dex)=>is?this.switches[dex]:null).filter(a=>a), gateXStart + gateXInc * i, gateYStart + gateYInc * i, gateOrient);
 		}
 		this.blocked = this.gates[0];
 	}

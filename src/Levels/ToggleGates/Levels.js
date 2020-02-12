@@ -1,9 +1,8 @@
 class LevelToggleSingle extends ToggleLevel {
 	constructor() {
 		super({
-			numSwitches : 1,
 			gates : [
-				[0],
+				[1],
 			],
 			direction : 1,
 		});
@@ -13,10 +12,9 @@ class LevelToggleSingle extends ToggleLevel {
 class LevelToggleDouble extends ToggleLevel {
 	constructor() {
 		super({
-			numSwitches : 2,
 			gates : [
-				[0],
-				[1],
+				[1,0],
+				[0,1],
 			],
 			direction : 1,
 		});
@@ -26,11 +24,10 @@ class LevelToggleDouble extends ToggleLevel {
 class LevelToggleFirstTrick extends ToggleLevel {
 	constructor() {
 		super({
-			numSwitches : 3,
 			gates : [
-				[0],
-				[1, 2],
-				[2],
+				[1,0,0],
+				[0,1,1],
+				[0,0,1],
 			],
 			direction : 1,
 		});

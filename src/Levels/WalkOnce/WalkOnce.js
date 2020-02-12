@@ -34,6 +34,10 @@ class OnceLevel extends GridLevel {
 		if (cutdex > -1)
 			this.path.splice(cutdex+1);
 	}
+	cutPathHeadOnly(pis) {
+		if (this.path[this.path.length-2] == pis)
+			this.cutPath(pis);
+	}
 	tryLinkTo(pis) {
 		let head = this.path[this.path.length-1];
 		if (head.canLinkTo(pis)) {
@@ -126,8 +130,11 @@ class OnceTile extends OncePiece {
 			hovered = true;
 		if (this.pressed && !this.tagged) {
 			this.parent.tryLinkTo(this);
-		} else if (this.clicked && this.tagged) {
-			this.parent.cutPath(this);
+		} else if (this.tagged) {
+			if (this.clicked)
+				this.parent.cutPath(this);
+			else if (this.pressed)
+				this.parent.cutPathHeadOnly(this);
 		}
 	}
 	canLinkTo(pis) {

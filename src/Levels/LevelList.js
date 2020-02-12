@@ -1,9 +1,11 @@
-var levelNumber = 0;
+var levelIterator = false;
 
-const LEVEL_LIST = [
+const MAIN_LEVEL_LIST = [
+	LevelPipeIntro,
 	//LevelGridlockFirst4,
 	LevelToggleSingle,
 	LevelToggleDouble,
+	LevelToggleFirstTrick,
 	LevelGridlock1,
 	LevelGridlock2,
 	LevelConcentricSingle,
@@ -13,18 +15,34 @@ const LEVEL_LIST = [
 	LevelOnceMGrid,
 	LevelOnceSymPip,
 	LevelPipeIntro,
-	LevelToggleFirstTrick,
 	LevelPipeReal,
 	LevelConcentricReverse4,
 ]
 
+class MainLevelIterator {
+	constructor(starting = 0) {
+		this.index = starting;
+	}
+	firstLevel() {
+		return new (MAIN_LEVEL_LIST[this.index])();
+	}
+	nextLevel() {
+		this.index++;
+		return new (MAIN_LEVEL_LIST[this.index])();
+	}
+}
+
 function continueGame() {
-	runnee = new LevelWrapper(new (LEVEL_LIST[levelNumber])());
+	levelIterator = new MainLevelIterator(0);
+	startLevel();
+}
+
+function startLevel() {
+	runnee = new LevelWrapper(levelIterator.firstLevel());
 }
 
 function nextLevel() {
-	levelNumber++;
-	runnee = new LevelTransition(runnee.level, new (LEVEL_LIST[levelNumber])());
+	runnee = new LevelTransition(runnee.level, levelIterator.nextLevel(runnee.level));
 }
 
 class LevelTransition extends Screen {
@@ -52,16 +70,18 @@ class LevelTransition extends Screen {
 					this.ty = this.from.beamExitPosition - this.to.beamEntrancePosition;
 					break;
 		}
-		this.p = 0;
+		this.st = 0;
+		this.sd = 0;
 	}
 	update() {
-		this.p += .02;
-		if (this.p >= 1.0) {
+		this.st += .02;
+		this.sd = (1-Math.cos(this.st*Math.PI))/2;
+		if (this.st >= 1.0) {
 			runnee = new LevelWrapper(this.to);
 		}
 	}
 	draw() {
-		ctx.putImageData(this.fromsnap, -this.p * this.tx, -this.p * this.ty);
-		ctx.putImageData(this.tosnap, (1-this.p) * this.tx, (1-this.p) * this.ty);
+		ctx.putImageData(this.fromsnap, -this.sd * this.tx, -this.sd * this.ty);
+		ctx.putImageData(this.tosnap, (1-this.sd) * this.tx, (1-this.sd) * this.ty);
 	}
 }

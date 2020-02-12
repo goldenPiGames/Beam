@@ -1,6 +1,9 @@
 LANG.en = {
 	"Lang-Name" : "English",
 	"Title" : "Beam",
+	"MainMenu-Play" : "Play the game",
+	"MainMenu-Jukebox" : "Listen to some tunes",
+	"MainMenu-Infinite" : "Infinite randomly-generated levels",
 	"Hint-TabModeRules" : "Mode Rules",
 	"Hint-TabModeHints" : "Mode Hints",
 	"Hint-TabLevelHints" : "Level Hints",
@@ -16,7 +19,7 @@ LANG.en = {
 	"PipePath-Name" : "Pipe Path",
 	"PipePath-Rules" : "Click the pieces to rotate them. Form a path from the entrance to the exit.",
 	"PipePath-Hints" : ["Puzzles often have multiple solutions.",
-			],
+			"Try working from both the entrance and the exit"],
 	"ConcentricCircles-Name" : "Concentric Circles",
 	"ConcentricCircles-Rules" : "Click and drag to rotate the rings so that the gaps line up and the beam can pass through. Some rings may also pull other rings with them when dragged.",
 	"ConcentricCircles-Hints" : ["If you're stuck, try making drawing out on a grid which rings affect which other rings.",

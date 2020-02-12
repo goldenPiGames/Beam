@@ -80,6 +80,7 @@ Arguments: {
 class GridLevel extends Level {
 	constructor(args) {
 		super();
+		//console.log(args);
 		this.gridWidth = args.width;
 		this.gridHeight = args.height;
 		this.gridScale = Math.floor(Math.min(WIDTH / (this.gridWidth+2*args.gap+1), HEIGHT / (this.gridHeight+2*args.gap+1)) / 2) * 2;
@@ -104,7 +105,7 @@ class GridLevel extends Level {
 					this.gridStartX = args.entrancePosition;
 					this.gridStartY = this.gridHeight-1;
 					this.gridStartOutX = this.gridStartX;
-					this.gridStartOutY = args.gridHeight;
+					this.gridStartOutY = this.gridStartY+1;
 					break;
 			case 3: this.beamEntrancePosition = this.gridToPixY(args.entrancePosition);
 					this.gridStartX = 0;
@@ -131,7 +132,7 @@ class GridLevel extends Level {
 					this.gridEndX = args.exitPosition;
 					this.gridEndY = this.gridHeight-1;
 					this.gridEndOutX = this.gridEndX;
-					this.gridEndOutY = args.gridHeight;
+					this.gridEndOutY = this.gridEndY+1;
 					break;
 			case 3: this.beamExitPosition = this.gridToPixY(args.exitPosition);
 					this.gridEndX = 0;
@@ -178,7 +179,7 @@ class GridLevel extends Level {
 			this.borderPath.moveTo(this.borderLeft, gop - 20);
 		}
 		this.borderPath.lineTo(this.borderLeft, this.borderTop);
-		this.borderPath.closePath();
+		//this.borderPath.closePath();
 		this.calcBeamEnds();
 	}
 	gridToPixX(x) {

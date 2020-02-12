@@ -32,7 +32,9 @@ class HintScreen extends Screen {
 	draw() {
 		this.returnTo.draw();
 		ctx.fillStyle = settings.background_color;
-		ctx.globalAlpha = .8;
+		ctx.globalAlpha = .3;
+		ctx.fillRect(0, 0, WIDTH, HEIGHT);
+		ctx.globalAlpha = .7;
 		ctx.fillRect(this.x, this.y, this.width, this.height);
 		ctx.globalAlpha = 1;
 		this.tabs.draw();
