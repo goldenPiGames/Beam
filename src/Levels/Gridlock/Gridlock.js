@@ -59,6 +59,7 @@ class GridlockLevel extends GridLevel {
 			return true;
 	}
 	draw() {
+		this.drawIndex();
 		ctx.globalAlpha = 1;
 		ctx.strokeStyle = settings.normal_color;
 		ctx.lineWidth = 4;

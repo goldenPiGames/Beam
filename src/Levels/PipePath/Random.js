@@ -25,7 +25,7 @@ class LevelPipeRandom extends PipeLevel {
 			layout.exitPosition = Math.floor(Math.random()*(layout.exitSide%2?layout.height:layout.width));
 		}
 		var pathgen = new RandomPathGenerator(layout);
-		console.log(pathgen);
+		//console.log(pathgen);
 		var path = pathgen.getPathPlusOut();
 		console.log(path);
 		layout.pipeGrid = new Array(layout.width).fill(-1).map(()=>new Array(layout.height).fill(-1));
@@ -40,5 +40,6 @@ class LevelPipeRandom extends PipeLevel {
 		}
 		console.log(JSON.stringify(layout));
 		super(layout);
+		this.index = layout.index;
 	}
 }

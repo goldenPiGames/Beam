@@ -3,9 +3,9 @@ class InfiniteSelectScreen extends Screen {
 		super();
 		this.buttons = [
 			new BubbleButton(WIDTH-50, HEIGHT-50, 45, ()=>switchScreen(new MainMenu()), bubbleDrawIReturn),
-			new Button(20, 20, 200, 30, "Toggle Gates", ()=> {levelIterator = new InfiniteToggleGatesIterator(); startLevel()}),
-			new Button(20, 70, 200, 30, "Pipe Path", ()=> {levelIterator = new InfinitePipePathIterator(); startLevel()}),
-			new Button(20, 120, 200, 30, "Walk Once", ()=> {levelIterator = new InfiniteWalkOnceIterator(); startLevel()}),
+			new Button(20, 100, 200, 40, "Toggle Gates", ()=> {levelIterator = new InfiniteToggleGatesIterator(); startLevel()}),
+			new Button(20, 150, 200, 40, "Pipe Path", ()=> {levelIterator = new InfinitePipePathIterator(); startLevel()}),
+			new Button(20, 200, 200, 40, "Walk Once", ()=> {levelIterator = new InfiniteWalkOnceIterator(); startLevel()}),
 		];
 	}
 	update() {
@@ -18,45 +18,58 @@ class InfiniteSelectScreen extends Screen {
 
 class InfiniteToggleGatesIterator {
 	constructor() {
-		
+		this.beaten = 0;
 	}
 	firstLevel() {
 		return new LevelToggleRandom();
 	}
 	nextLevel() {
+		this.beaten++;
 		return new LevelToggleRandom();
 	}
 }
 
 class InfinitePipePathIterator {
 	constructor() {
-		
+		this.beaten = 0;
 	}
 	firstLevel() {
-		return new LevelPipeRandom();
+		return new LevelPipeRandom({
+			index:0,
+		});
 	}
 	nextLevel(prev) {
-		return new LevelPipeRandom({entranceSide:directionOpposite(prev.beamExitSide)});
+		this.beaten++;
+		return new LevelPipeRandom({
+			entranceSide:directionOpposite(prev.beamExitSide),
+			index:this.beaten,
+		});
 	}
 }
 
 class InfiniteWalkOnceIterator {
 	constructor() {
-		
+		this.beaten = 0;
 	}
 	firstLevel() {
-		return new LevelOnceRandom();
+		return new LevelOnceRandom({
+			index:0,
+		});
 	}
 	nextLevel(prev) {
-		return new LevelOnceRandom({entranceSide:directionOpposite(prev.beamExitSide)});
+		this.beaten++;
+		return new LevelOnceRandom({
+			entranceSide:directionOpposite(prev.beamExitSide),
+			index:this.beaten,
+		});
 	}
 }
 
 function bubbleDrawIInfinity() {
 	ctx.lineWidth = .06*this.radius;
 	ctx.beginPath();
-	ctx.arc(this.x+this.radius/3, this.y, this.radius/3, -Math.PI*3/4, Math.PI*3/4);
-	ctx.arc(this.x-this.radius/3, this.y, this.radius/3, -Math.PI*1/4, Math.PI*1/4, true);
+	ctx.arc(this.x+this.radius*2/5, this.y, this.radius/3, -Math.PI*3/4, Math.PI*3/4);
+	ctx.arc(this.x-this.radius*2/5, this.y, this.radius/3, -Math.PI*1/4, Math.PI*1/4, true);
 	ctx.closePath();
 	ctx.stroke();
 }

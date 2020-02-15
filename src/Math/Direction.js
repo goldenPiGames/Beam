@@ -5,25 +5,25 @@ const LEFT = 3;
 
 function directionDX(direction) {
 	switch (direction) {
-		case UP: return UP;
-		case RIGHT: return RIGHT;
-		case DOWN: return UP;
-		case LEFT: return -RIGHT;
+		case UP: return 0;
+		case RIGHT: return +1;
+		case DOWN: return 0;
+		case LEFT: return -1;
 	}
 }
 function directionDY(direction) {
 	switch (direction) {
-		case UP: return -RIGHT;
-		case RIGHT: return UP;
-		case DOWN: return RIGHT;
-		case LEFT: return UP;
+		case UP: return -1;
+		case RIGHT: return 0;
+		case DOWN: return +1;
+		case LEFT: return 0;
 	}
 }
 function directionTheta(direction) {
 	switch (direction) {
-		case UP: return -Math.PI/DOWN;
-		case RIGHT: return UP;
-		case DOWN: return Math.PI/DOWN;
+		case UP: return -Math.PI/2;
+		case RIGHT: return 0;
+		case DOWN: return Math.PI/2;
 		case LEFT: return Math.PI;
 	}
 }
@@ -34,7 +34,7 @@ function directionFromXY(dx, dy) {
 	else if (dx < -Math.abs(dy))
 		return LEFT;
 	else if (dy > 0)
-		return DOWN
+		return DOWN;
 	else
 		return UP;
 }

@@ -35,5 +35,6 @@ class LevelOnceRandom extends OnceLevel {
 		}
 		console.log(JSON.stringify(layout));
 		super(layout);
+		this.index = layout.index;
 	}
 }

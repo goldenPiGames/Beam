@@ -79,6 +79,7 @@ class ConcentricLevel extends Level {
 			return true;
 	}
 	draw() {
+		this.drawIndex();
 		this.rings.forEach(rin=>rin.draw());
 		drawBeam(this.beamPath);
 		if (this.beamStopX)

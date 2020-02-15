@@ -74,6 +74,7 @@ class ToggleLevel extends Level {
 		return !this.blocked;
 	}
 	draw() {
+		this.drawIndex();
 		this.switches.forEach(pis=>pis.draw());
 		this.gates.forEach(pis=>pis.draw());
 		var beamPath = new Path2D();

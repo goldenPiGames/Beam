@@ -75,10 +75,13 @@ class OnceLevel extends GridLevel {
 		}
 	}
 	draw() {
+		this.drawIndex();
 		ctx.globalAlpha = 1;
 		ctx.strokeStyle = settings.normal_color;
 		ctx.lineWidth = 4;
 		ctx.stroke(this.borderPath);
+		if (!this.won)
+			ctx.stroke(this.exitArrowPath);
 		this.pieces.forEach(row=>row.forEach(pis=>pis.draw()));
 		drawBeam(this.beamPath);
 		if (this.beamStopX)

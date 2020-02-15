@@ -1,7 +1,7 @@
 var levelIterator = false;
 
 const MAIN_LEVEL_LIST = [
-	LevelPipeIntro,
+	//LevelPipeIntro,
 	//LevelGridlockFirst4,
 	LevelToggleSingle,
 	LevelToggleDouble,
@@ -19,6 +19,14 @@ const MAIN_LEVEL_LIST = [
 	LevelConcentricReverse4,
 ]
 
+MAIN_LEVEL_LIST.forEach((con, dex) => con.prototype.index = dex);
+
+class LevelIterator {
+	constructor() {
+		
+	}
+}
+
 class MainLevelIterator {
 	constructor(starting = 0) {
 		this.index = starting;
@@ -29,6 +37,9 @@ class MainLevelIterator {
 	nextLevel() {
 		this.index++;
 		return new (MAIN_LEVEL_LIST[this.index])();
+	}
+	getTopText() {
+		
 	}
 }
 

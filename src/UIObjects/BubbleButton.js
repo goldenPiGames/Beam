@@ -55,3 +55,15 @@ function bubbleDrawIReturn() {
 	path.lineTo(this.x-.2*this.radius, this.y+.6*this.radius);
 	ctx.fill(path);
 }
+
+function bubbleDrawIHyperlink() {
+	ctx.lineWidth = .1*this.radius;
+	ctx.beginPath();
+	ctx.arc(this.x+.3*this.radius, this.y-.3*this.radius, .3*this.radius, -Math.PI*3/4, Math.PI/4);
+	ctx.arc(this.x+.1*this.radius, this.y-.1*this.radius, .3*this.radius, Math.PI/4, Math.PI*3/4);
+	ctx.stroke();
+	ctx.beginPath();
+	ctx.arc(this.x-.3*this.radius, this.y+.3*this.radius, .3*this.radius, Math.PI/4, -Math.PI*3/4);
+	ctx.arc(this.x-.1*this.radius, this.y+.1*this.radius, .3*this.radius, -Math.PI*3/4, -Math.PI/4);
+	ctx.stroke();
+}

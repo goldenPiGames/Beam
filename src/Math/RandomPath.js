@@ -10,7 +10,7 @@ class RandomPathGenerator extends GridLevel {
 		var downs = 0;
 		while (!this.isAtEnd()) {
 			cycles++;
-			if (cycles >= 1000) {
+			if (cycles >= 696969) {
 				console.log(this);
 				throw "no";
 			}
@@ -91,7 +91,7 @@ class RandomPathGenerator extends GridLevel {
 	}
 	fleshOut() {
 		var downs = 0;
-		while (downs < 12) {
+		while (downs < 16) {
 			if (this.tryFlesh())
 				downs = 0;
 			else
@@ -99,10 +99,13 @@ class RandomPathGenerator extends GridLevel {
 		}
 	}
 	tryFlesh() {
+		if (this.path.length <= 1)
+			return false;
 		var i = Math.floor(Math.random()*(this.path.length-1));
 		var o1 = this.path[i];
 		var o2 = this.path[i+1];
-		//console.log(i, o1, o2)
+		//console.log(i);
+		//console.log(this.path);
 		var d = directionFromXY(o2.x-o1.x, o2.y-o1.y);
 		var dr = Math.random() < .5 ? directionLeft(d) : directionRight(d);
 		var n1 = {x:o1.x+directionDX(dr), y:o1.y+directionDY(dr)};

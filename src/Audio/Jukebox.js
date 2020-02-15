@@ -7,9 +7,7 @@ class Jukebox extends Screen {
 		this.drawBack.draw();
 		this.backsnap = ctx.getImageData(0, 0, WIDTH, HEIGHT);
 		var thisser = this;
-		var midx = WIDTH/2;
-		var thic = 190;
-		var ritx = WIDTH-thic-10;
+		var midx = WIDTH*.6;
 		this.songList = SONG_LIST.slice();
 		this.songMenu = new ScrollMenu(0, 0, midx-10, HEIGHT-49, function(elem) {
 				playMusic(elem);
@@ -26,23 +24,25 @@ class Jukebox extends Screen {
 				} else {
 					bubbleDrawIPlay.apply(this);
 				}}),
-		this.siteButton = new Button(ritx, 10, thic, 40, "Artist's site", ()=>{window.open(song.site)}, false),
-		this.siteButton.active = song && song.site;
-		this.youtubeButton = new Button(ritx, 60, thic, 40, "YouTube", ()=>{window.open("https://youtu.be/"+song.yt)}, false),
-		this.youtubeButton.active = song && song.yt;
+		this.linkButton = new BubbleButton(WIDTH*2/3, 150, 45, ()=>{if (song) runnee=new JukeboxLinkPopup(this)}, bubbleDrawIHyperlink);
+		//this.siteButton = new Button(ritx, 10, thic, 40, "Artist's site", ()=>{window.open(song.site)}, false),
+		//this.siteButton.active = song && song.site;
+		//this.youtubeButton = new Button(ritx, 60, thic, 40, "YouTube", ()=>{window.open("https://youtu.be/"+song.yt)}, false),
+		//this.youtubeButton.active = song && song.yt;
 		var swid = Math.floor(midx/3)-3;
-		this.sortOrderButton = new Button(5, HEIGHT-45, swid-10, 40, "Index", ()=>{this.songList.sort(function(a,b){return a.index - b.index}); thisser.songMenu.putItems()}),
-		this.sortNameButton = new Button(swid+5, HEIGHT-45, swid-10, 40, "Name", ()=>{this.songList.sort(function(a,b){return a.name < b.name ?-1:1}); thisser.songMenu.putItems()}),
-		this.sortArtistButton = new Button(2*swid+5, HEIGHT-45, swid-10, 40, "Artist", ()=>{this.songList.sort(function(a,b){return a.by < b.by ?-1:1}); thisser.songMenu.putItems()}),
-		this.positionSlider = new Slider(midx, 300, midx-10, 50, "Position", 0, 60, setMusicPosition, getMusicPosition);
-		this.volumeSlider = new Slider(midx, 400, midx-10, 30, "Volume", 0, 1, val=>{settings.music=val;setMusicVolume(val);saveSettings();}, ()=>round(settings.music,2));
+		this.sortOrderButton = new Button(5, HEIGHT-45, swid-10, 40, "Index", ()=>{this.songList.sort((a,b)=>a.index-b.index); thisser.songMenu.putItems()}),
+		this.sortNameButton = new Button(swid+5, HEIGHT-45, swid-10, 40, "Name", ()=>{this.songList.sort((a,b)=>a.name < b.name ?-1:1); thisser.songMenu.putItems()}),
+		this.sortArtistButton = new Button(2*swid+5, HEIGHT-45, swid-10, 40, "Artist", ()=>{this.songList.sort((a,b)=>a.by < b.by ?-1:1); thisser.songMenu.putItems()}),
+		this.positionSlider = new Slider(midx, 300, WIDTH-midx-10, 50, "Position", 0, 60, setMusicPosition, getMusicPosition);
+		this.volumeSlider = new Slider(midx, 400, WIDTH-midx-10, 30, "Volume", 0, 1, val=>{settings.music=val;setMusicVolume(val);saveSettings();}, ()=>settings.music, ()=>asInfuriatingPercent(settings.music));
 		this.setSliderBounds();
 		this.objects = [
 			this.songMenu,
 			this.returnButton,
 			this.pauseButton,
-			this.siteButton,
-			this.youtubeButton,
+			this.linkButton,
+			//this.siteButton,
+			//this.youtubeButton,
 			this.sortOrderButton,
 			this.sortNameButton,
 			this.sortArtistButton,
@@ -68,9 +68,38 @@ class Jukebox extends Screen {
 	}
 }
 
-function runJukebox() {
-	runnee = new Jukebox(runnee);
+class JukeboxLinkPopup extends Screen {
+	constructor(returnTo) {
+		super();
+		this.returnTo = returnTo;
+		this.x = WIDTH/3;
+		this.y = HEIGHT/3;
+		this.width = WIDTH/3;
+		this.height = HEIGHT/3;
+		this.buttons = song.siteList.map((sit, dex) => new Button(this.x+this.width/10, this.y+5+50*dex, this.width*4/5, 40, sit.name, ()=>window.open(sit.href)));
+	}
+	update() {
+		if (mouse.clicked && !this.intersectsMouse()) {
+			runnee = this.returnTo;
+			return;
+		}
+		this.buttons.forEach(butt=>butt.update());
+	}
+	draw() {
+		this.returnTo.draw();
+		ctx.fillStyle = settings.background_color;
+		ctx.globalAlpha = .7;
+		ctx.fillRect(0, 0, WIDTH, HEIGHT);
+		ctx.globalAlpha = .4;
+		ctx.fillRect(this.x, this.y, this.width, this.height);
+		ctx.globalAlpha = 1;
+		ctx.lineWidth = 4;
+		ctx.strokeStyle = settings.normal_color;
+		ctx.strokeRect(this.x, this.y, this.width, this.height);
+		this.buttons.forEach(butt=>butt.draw());
+	}
 }
+JukeboxLinkPopup.prototype.intersectsMouse = UIObject.prototype.intersectsMouse;
 
 function bubbleDrawIJukebox() {
 	ctx.lineWidth = .08*this.radius;
