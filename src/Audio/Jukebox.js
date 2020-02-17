@@ -17,7 +17,7 @@ class Jukebox extends Screen {
 				//thisser.youtubeButton.active = elem.yt;
 				thisser.setSliderBounds();
 			}, this.songList, "by", "description", ()=>true, (val)=>val==song),
-		this.returnButton = new BubbleButton(WIDTH-50, HEIGHT-50, 45, ()=>{runnee=this.returnTo}, bubbleDrawIReturn),
+		this.returnButton = new BubbleButton(WIDTH-50, 50, 45, ()=>{runnee=this.returnTo}, bubbleDrawIReturn),
 		this.pauseButton = new BubbleButton(WIDTH*2/3, 50, 45, ()=>{if (music.paused) music.play(); else music.pause()}, function() {
 				if (!music.paused) {
 					bubbleDrawIPause.apply(this);

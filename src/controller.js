@@ -1,5 +1,9 @@
 //mouse
-var mouse = {x:0,y:0,clicked:false,down:false,
+var mouse = {
+	x:NaN,
+	y:0,
+	clicked:false,
+	down:false,
 	unClick : function() {
 		this.clicked = false;
 		this.wasPressed = this.pressed;
@@ -35,5 +39,33 @@ function addEvents() {
 	eventCatcher.addEventListener("wheel", function(e) {
 		mouse.scrolled += e.deltaY > 0 ? 1 : -1;
 		//console.log(mouse.scrolled);
+	});
+	
+	eventCatcher.addEventListener("touchstart", function(e) {
+		e.preventDefault();
+		mouse.clicked = true;
+		mouse.down = true;
+		mouse.x = e.changedTouches[0].clientX;
+		mouse.y = e.changedTouches[0].clientY;
+	});
+	
+	eventCatcher.addEventListener("touchend", function(e) {
+		e.preventDefault();
+		mouse.down = false;
+		mouse.x = NaN;
+		mouse.y = NaN;
+	});
+	
+	eventCatcher.addEventListener("touchcancel", function(e) {
+		e.preventDefault();
+		mouse.down = false;
+		mouse.x = NaN;
+		mouse.y = NaN;
+	});
+	
+	eventCatcher.addEventListener("touchmove", function(e) {
+		e.preventDefault();
+		mouse.x = e.changedTouches[0].clientX;
+		mouse.y = e.changedTouches[0].clientY;
 	});
 }
