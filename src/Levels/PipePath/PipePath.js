@@ -103,10 +103,7 @@ class PipeLevel extends GridLevel {
 	}
 	draw() {
 		this.drawIndex();
-		ctx.globalAlpha = 1;
-		ctx.strokeStyle = settings.normal_color;
-		ctx.lineWidth = 4;
-		ctx.stroke(this.borderPath);
+		this.drawBorder();
 		drawBeam(this.beamPath);
 		this.pieces.forEach(row=>row.forEach(pis=>pis.draw()));
 		if (this.beamStopX)

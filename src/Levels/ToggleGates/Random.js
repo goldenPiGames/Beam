@@ -8,40 +8,40 @@ class LevelToggleRandom extends ToggleLevel {
 			layout.numSwitches = solution.length;
 		}
 		if (!layout.numGates) {
-			if (layout.numSwitches && Math.random() < .8)
+			if (layout.numSwitches && rng.get() < .8)
 				layout.numGates = layout.numGates;
 			else
-				layout.numGates = Math.floor(4 + 3 * Math.random());
+				layout.numGates = Math.floor(4 + 3 * rng.get());
 		}
 		if (!layout.numSwitches) {
-			if (Math.random() < .8)
+			if (rng.get() < .8)
 				layout.numSwitches = layout.numGates;
 			else
-				layout.numSwitches = Math.floor(4 + 2 * Math.random());
+				layout.numSwitches = Math.floor(4 + 2 * rng.get());
 		}
 		if (!layout.solution) {
-			layout.solution = new Array(layout.numSwitches).fill(0).map(()=>Math.random()<.3);
-			layout.solution[Math.floor(layout.numSwitches*Math.random())] = true;
-			layout.solution[Math.floor(layout.numSwitches*Math.random())] = true;
+			layout.solution = new Array(layout.numSwitches).fill(0).map(()=>rng.get()<.3);
+			layout.solution[Math.floor(layout.numSwitches*rng.get())] = true;
+			layout.solution[Math.floor(layout.numSwitches*rng.get())] = true;
 		}
 		var corrects = layout.solution.map((a,d)=>d).filter((a,d)=>layout.solution[d]);
 		var incorrects = layout.solution.map((a,d)=>d).filter((a,d)=>!layout.solution[d]);
 		layout.gates = new Array(layout.numGates).fill(0).map((a, dex)=>{
 			var gat = new Array(layout.numSwitches).fill(0);
-			let corrLeft = Math.floor(Math.random() * (corrects.length - 1) / 2) * 2 + 1;
+			let corrLeft = Math.floor(rng.get() * (corrects.length - 1) / 2) * 2 + 1;
 			if (layout.numGates == layout.numSwitches) {
 				gat[dex] = 1;
 				if (layout.solution[dex])
 					corrLeft--;
 			}
 			while (corrLeft > 0) {
-				let cdex = corrects[Math.floor(corrects.length*Math.random())];
+				let cdex = corrects[Math.floor(corrects.length*rng.get())];
 				if (!gat[cdex]) {
 					gat[cdex] = 1;
 					corrLeft--;
 				}
 			}
-			incorrects.forEach(idex => gat[idex] = Math.random() < .5 ? 1 : gat[idex])
+			incorrects.forEach(idex => gat[idex] = rng.get() < .5 ? 1 : gat[idex])
 			return gat;
 		});
 		console.log(JSON.stringify(layout));

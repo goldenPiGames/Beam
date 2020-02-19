@@ -27,14 +27,16 @@ class LevelGridlock2 extends GridlockLevel {
 	}
 }
 
-class LevelGridlockFirst4 extends GridlockLevel {
+class LevelGridlock4 extends GridlockLevel {
 	constructor() {
 		super({
 			width : 4,
-			height : 4,
+			height : 6,
 			pieces : [
-				new GridlockPiece(1, 0, 2, false),
-				new GridlockPiece(3, 1, 2, false),
+				new GridlockPiece(0, 0, 2, false),
+				new GridlockPiece(3, 0, 2, false),
+				new GridlockPiece(0, 2, 3, true),
+				new GridlockPiece(1, 3, 3, true),
 			],
 			direction : 1,
 			position : 1,

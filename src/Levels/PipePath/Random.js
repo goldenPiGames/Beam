@@ -5,24 +5,24 @@ class LevelPipeRandom extends PipeLevel {
 		if (!layout)
 			layout = {};
 		if (layout.entranceSide == undefined) {
-			layout.entranceSide = Math.floor(Math.random()*4);
+			layout.entranceSide = Math.floor(rng.get()*4);
 		}
 		if (layout.exitSide == undefined) {
-			layout.exitSide = Math.floor(Math.random()*4);
+			layout.exitSide = Math.floor(rng.get()*4);
 			if (layout.exitSide == layout.entranceSide)
 				layout.exitSide = (layout.entranceSide + 2) % 4;
 		}
 		if (!layout.width) {
-			layout.width = Math.floor(6 + 3 * Math.random());
+			layout.width = Math.floor(6 + 3 * rng.get());
 		}
 		if (!layout.height) {
-			layout.height = Math.floor(4 + 3 * Math.random());
+			layout.height = Math.floor(4 + 3 * rng.get());
 		}
 		if (layout.entrancePosition == undefined) {
-			layout.entrancePosition = Math.floor(Math.random()*(layout.entranceSide%2?layout.height:layout.width));
+			layout.entrancePosition = Math.floor(rng.get()*(layout.entranceSide%2?layout.height:layout.width));
 		}
 		if (layout.exitPosition == undefined) {
-			layout.exitPosition = Math.floor(Math.random()*(layout.exitSide%2?layout.height:layout.width));
+			layout.exitPosition = Math.floor(rng.get()*(layout.exitSide%2?layout.height:layout.width));
 		}
 		var pathgen = new RandomPathGenerator(layout);
 		//console.log(pathgen);
@@ -35,7 +35,7 @@ class LevelPipeRandom extends PipeLevel {
 		for (var i = 0; i < layout.pipeGrid.length; i++) {
 			for (var j = 0; j < layout.pipeGrid[i].length; j++) {
 				if (layout.pipeGrid[i][j] == -1)
-					layout.pipeGrid[i][j] = Math.random() < .4 ? 0 : 1;
+					layout.pipeGrid[i][j] = rng.get() < .4 ? 0 : 1;
 			}
 		}
 		console.log(JSON.stringify(layout));

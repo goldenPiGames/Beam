@@ -11,20 +11,7 @@ class Screen {
 	}
 }
 Screen.prototype.isScreen = true;
-
-var ScreenBase = {
-	isScreen : true,
-	resize : function() {
-		
-	},
-	update : function() {
-		this.objects.forEach(oj => oj.update());
-	},
-	draw : function() {
-		clearBack();
-		this.objects.forEach(oj => oj.draw());
-	},
-}
+Screen.prototype.overrideTouch = true;
 
 function switchScreen(to) {
 	if (typeof to == "function") {

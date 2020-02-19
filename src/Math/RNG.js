@@ -1,4 +1,47 @@
+class JSRandom {
+	constructor() {
+		
+	}
+	get() {
+		//console.log("bup");
+		return Math.random();
+	}
+}
+
+var rng = new JSRandom();
+
 //TODO allow the use of PRNG for level data
+
+class SM64RNG {
+	constructor(seed = 0) {
+		this.val = seed;
+	}
+	get() {
+		var input = this.val;
+		if (input == 0x560A) {
+			input = 0;
+		}
+		var S0 = force_ushort(force_uchar(input) << 8);
+		S0 = S0 ^ input;
+		input = force_ushort((S0 & 0xFF) << 8) | force_ushort((S0 & 0xFF00) >> 8);
+		S0 = force_ushort(force_ushort(force_uchar(S0) << 1) ^ force_ushort(input));
+		// vvv wtf isn't S1 declared as 'unsigned short'? assuming it doesn't matter...
+		var S1 = force_ushort(force_ushort(S0 >> 1) ^ 0xFF80);
+		if ((S0 & 1) == 0) {
+		if (S1 == 0xAA55) {
+			input = 0;
+		} else {
+			input = force_ushort(S1 ^ 0x1FF4);
+		}
+		} else {
+			input = force_ushort(S1 ^ 0x8180);
+		}
+		// doing this here; where this is done omitted from the video, but assumedly in caller
+		this.val = force_ushort(input);
+		//console.log(this.val);
+		return this.val / 0x10000;
+	}
+}
 
 
 //https://jsfiddle.net/L3rfzy05/

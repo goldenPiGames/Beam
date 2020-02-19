@@ -1,3 +1,4 @@
+//TODO change layout so it has data instead of actual pieces
 class GridlockLevel extends GridLevel {
 	constructor(layout) {
 		super({
@@ -27,27 +28,28 @@ class GridlockLevel extends GridLevel {
 		this.beamStopX = null;
 		this.beamPath = new Path2D();
 		var blocked;
-		var bx = this.beamEntrancePosition;
-		var by = this.beamEntrancePosition;
+		var bx = this.beamStartX;
+		var by = this.beamStartY;
+		this.beamPath.moveTo(bx, by);
 		//It uses the beam's and pieces' display position instead of their grid position because that's how you separate model and view.
 		//Just kidding, it's so that the beam goes through as soon as you drag the last piece out of the way, instead of waiting until you set it down.
 		switch (this.direction) {
-			case 0: this.beamPath.moveTo(this.beamEntrancePosition, HEIGHT);
-					blocked = this.pieces.filter(pis => this.beamEntrancePosition >= pis.displayX && this.beamEntrancePosition <= pis.displayX + pis.displayWidth).sort((a, b) => a.displayY > b.displayY)[0];
-					by = blocked ? blocked.displayY + blocked.displayHeight : 0;
+			case UP:
+					blocked = this.pieces.filter(pis => this.beamEntrancePosition >= pis.displayX && this.beamEntrancePosition <= pis.displayX + pis.displayWidth).sort((a, b) => a.displayY - b.displayY)[0];
+					by = blocked ? blocked.displayY + blocked.displayHeight : this.beamEndY;
 					break;
-			case 1: this.beamPath.moveTo(0, this.beamEntrancePosition);
+			case RIGHT:
 					//this.pieces.forEach(pis => console.log(this.beamEntrancePosition, pis.displayY, pis.displayHeight));
-					blocked = this.pieces.filter(pis => this.beamEntrancePosition >= pis.displayY && this.beamEntrancePosition <= pis.displayY + pis.displayHeight).sort((a, b) => a.displayX < b.displayX)[0];
-					bx = blocked ? blocked.displayX : WIDTH;
+					blocked = this.pieces.filter(pis => this.beamEntrancePosition >= pis.displayY && this.beamEntrancePosition <= pis.displayY + pis.displayHeight).sort((a, b) => a.displayX - b.displayX)[0];
+					bx = blocked ? blocked.displayX : this.beamEndX;
 					break;
-			case 2: this.beamPath.moveTo(this.beamEntrancePosition, 0);
-					blocked = this.pieces.filter(pis => this.beamEntrancePosition >= pis.displayX && this.beamEntrancePosition <= pis.displayX + pis.displayWidth).sort((a, b) => a.displayY < b.displayY)[0];
-					by = blocked ? blocked.displayY : HEIGHT;
+			case DOWN:
+					blocked = this.pieces.filter(pis => this.beamEntrancePosition >= pis.displayX && this.beamEntrancePosition <= pis.displayX + pis.displayWidth).sort((a, b) => a.displayY - b.displayY)[0];
+					by = blocked ? blocked.displayY : this.beamEndY;
 					break;
-			case 3: this.beamPath.moveTo(WIDTH, this.beamEntrancePosition);
-					blocked = this.pieces.filter(pis => this.beamEntrancePosition >= pis.displayY && this.beamEntrancePosition <= pis.displayY + pis.displayHeight).sort((a, b) => a.displayX > b.displayX)[0];
-					bx = blocked ? blocked.displayX + blocked.displayWidth : 0;
+			case LEFT:
+					blocked = this.pieces.filter(pis => this.beamEntrancePosition >= pis.displayY && this.beamEntrancePosition <= pis.displayY + pis.displayHeight).sort((a, b) => a.displayX - b.displayX)[0];
+					bx = blocked ? blocked.displayX + blocked.displayWidth : this.beamEndX;
 					break;
 		}
 		this.beamPath.lineTo(bx, by);
@@ -60,10 +62,7 @@ class GridlockLevel extends GridLevel {
 	}
 	draw() {
 		this.drawIndex();
-		ctx.globalAlpha = 1;
-		ctx.strokeStyle = settings.normal_color;
-		ctx.lineWidth = 4;
-		ctx.stroke(this.borderPath);
+		this.drawBorder();
 		this.pieces.forEach(pis=>pis.draw());
 		drawBeam(this.beamPath);
 		if (this.beamStopX)

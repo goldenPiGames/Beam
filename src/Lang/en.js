@@ -16,9 +16,9 @@ LANG.en = {
 	"LevelOther-Hints" : ["Look for things that change color when your mouse is over them. If clicking does nothing, try dragging."
 			],
 	"ToggleGates-Name" : "Toggle Gates",
-	"ToggleGates-Rules" : "Click the buttons to toggle certain gates. A gate can be toggled by multiple buttons. <br> It doesn't matter what order the buttons are pressed; all that matters is whether they're on or off.",
-	"ToggleGates-Hints" : ["If you're stuck, try having only one button on at a time so you can take note of what affects what. Try drawing it out on a grid.",
-			],
+	"ToggleGates-Rules" : "Click the buttons to toggle certain gates. A button may toggle multiple gates. <br> It doesn't matter what order the buttons are pressed; all that matters is whether they're on or off.",
+	"ToggleGates-Hints" : ["If you're stuck, take which buttons affect which gates. Try drawing it out on a grid.",
+			"If there's any gate that's only affected by one switch, that switch must be on."],
 	"PipePath-Name" : "Pipe Path",
 	"PipePath-Rules" : "Click the pieces to rotate them. Form a path from the entrance to the exit.",
 	"PipePath-Hints" : ["Puzzles often have multiple solutions.",
@@ -36,6 +36,10 @@ LANG.en = {
 	"WalkOnce-Rules" : "Click or drag to move the beam from tile to tile. Make a path to the exit, going through each tile exactly once. Click on your path to rewind to that point.",
 	"WalkOnce-Hints" : ["Remember that the tile next to the exit must be the last tile in the path.",
 			"Never make a move that would result in a dead end."],
+	"SameGame-Name" : "SameGame",
+	"SameGame-Rules" : "Click groups of 2 or more blocks of the same color to remove them. Remove all the blocks so the beam can pass through. Click the reset button at the bottom to reset.",
+	"SameGame-Hints" : ["If there's only one block of a certain color left, you know you've messed up.",
+		"If there's a lonely block, you'll need to make sure it meets up in a group."],
 	
-	"OnceSymPip-Hints" : ["You have to go down from the start; otherwise, you'll leave yourself with a dead end.", "The solution is symmetrical."]
+	"OnceSymPip-Hints" : ["You have to go down from the start; otherwise, you'll leave yourself with a dead end.", "The solution is symmetrical."],
 }

@@ -1,8 +1,7 @@
 var levelIterator = false;
 
 const MAIN_LEVEL_LIST = [
-	//LevelPipeIntro,
-	//LevelGridlockFirst4,
+	//LevelGridlock4,
 	LevelToggleSingle,
 	LevelToggleDouble,
 	LevelToggleFirstTrick,
@@ -16,7 +15,10 @@ const MAIN_LEVEL_LIST = [
 	LevelOnceSymPip,
 	LevelPipeIntro,
 	LevelPipeReal,
+	LevelSameIntro,
+	LevelSameTower1,
 	LevelConcentricReverse4,
+	LevelVictory,
 ]
 
 MAIN_LEVEL_LIST.forEach((con, dex) => con.prototype.index = dex);

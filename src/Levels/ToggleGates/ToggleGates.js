@@ -173,6 +173,7 @@ class ToggleGate extends UIObject {
 	}
 	draw() {
 		//console.log("bup")
+		this.hovered = this.switches.find(s=>s.hovered);
 		ctx.strokeStyle = this.hovered ? settings.hover_color : settings.normal_color;
 		ctx.lineWidth = 3;
 		if (this.shut) {
@@ -189,8 +190,5 @@ class ToggleGate extends UIObject {
 		ctx.arc(this.pillarBX, this.pillarBY, this.pillarRadius, 0, 2*Math.PI);
 		ctx.closePath();
 		ctx.stroke();
-	}
-	scrambleRotation() {
-		this.rotation = Math.floor(Math.random() * (this.type == 0 ? 2 : 4));
 	}
 }

@@ -32,7 +32,7 @@ class RandomPathGenerator extends GridLevel {
 		this.path.forEach(oj=>this.taggedGrid[oj.x][oj.y]=1);
 	}
 	tryExtendPath() {
-		var d = Math.floor(Math.random()*4);
+		var d = Math.floor(rng.get()*4);
 		var now = this.path[this.path.length-1];
 		var then = {x:now.x+directionDX(d), y:now.y+directionDY(d)};
 		if (!this.isOpen(then.x, then.y))
@@ -101,13 +101,13 @@ class RandomPathGenerator extends GridLevel {
 	tryFlesh() {
 		if (this.path.length <= 1)
 			return false;
-		var i = Math.floor(Math.random()*(this.path.length-1));
+		var i = Math.floor(rng.get()*(this.path.length-1));
 		var o1 = this.path[i];
 		var o2 = this.path[i+1];
 		//console.log(i);
 		//console.log(this.path);
 		var d = directionFromXY(o2.x-o1.x, o2.y-o1.y);
-		var dr = Math.random() < .5 ? directionLeft(d) : directionRight(d);
+		var dr = rng.get() < .5 ? directionLeft(d) : directionRight(d);
 		var n1 = {x:o1.x+directionDX(dr), y:o1.y+directionDY(dr)};
 		if (!this.isOpen(n1.x, n1.y))
 			return false;

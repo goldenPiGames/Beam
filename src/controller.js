@@ -42,7 +42,8 @@ function addEvents() {
 	});
 	
 	eventCatcher.addEventListener("touchstart", function(e) {
-		e.preventDefault();
+		if (runnee.overrideTouch)
+			e.preventDefault();
 		mouse.clicked = true;
 		mouse.down = true;
 		mouse.x = e.changedTouches[0].clientX;
@@ -50,21 +51,24 @@ function addEvents() {
 	});
 	
 	eventCatcher.addEventListener("touchend", function(e) {
-		e.preventDefault();
+		if (runnee.overrideTouch)
+			e.preventDefault();
 		mouse.down = false;
 		mouse.x = NaN;
 		mouse.y = NaN;
 	});
 	
 	eventCatcher.addEventListener("touchcancel", function(e) {
-		e.preventDefault();
+		if (runnee.overrideTouch)
+			e.preventDefault();
 		mouse.down = false;
 		mouse.x = NaN;
 		mouse.y = NaN;
 	});
 	
 	eventCatcher.addEventListener("touchmove", function(e) {
-		e.preventDefault();
+		if (runnee.overrideTouch)
+			e.preventDefault();
 		mouse.x = e.changedTouches[0].clientX;
 		mouse.y = e.changedTouches[0].clientY;
 	});

@@ -33,6 +33,7 @@ class GameMenu extends Screen {
 	}
 }
 GameMenu.prototype.intersectsMouse = UIObject.prototype.intersectsMouse;
+GameMenu.prototype.overrideTouch = false;
 
 
 class GameMenuQuitConfirm extends Screen {

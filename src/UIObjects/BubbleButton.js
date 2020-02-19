@@ -56,6 +56,18 @@ function bubbleDrawIReturn() {
 	ctx.fill(path);
 }
 
+function bubbleDrawIReset() {
+	ctx.lineWidth = .1*this.radius;
+	ctx.beginPath();
+	ctx.arc(this.x, this.y, this.radius*.6, -Math.PI/4, Math.PI*3/2);
+	ctx.stroke();
+	var path = new Path2D();
+	path.moveTo(this.x-.1*this.radius, this.y-.8*this.radius);
+	path.lineTo(this.x+.3*this.radius, this.y-.6*this.radius);
+	path.lineTo(this.x-.1*this.radius, this.y-.4*this.radius);
+	ctx.fill(path);
+}
+
 function bubbleDrawIHyperlink() {
 	ctx.lineWidth = .1*this.radius;
 	ctx.beginPath();

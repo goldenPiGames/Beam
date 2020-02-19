@@ -66,7 +66,7 @@ class Level {
 	}
 	drawTextInBack(str) {
 		ctx.fillStyle = settings.normal_color;
-		ctx.globalAlpha = 1/8;
+		ctx.globalAlpha = 1/6;
 		drawTextInRect(str, 0, 0, WIDTH, HEIGHT);
 	}
 	drawIndex() {
