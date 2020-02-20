@@ -4,6 +4,7 @@ class LevelWrapper extends Screen {
 	constructor(level) {
 		super();
 		this.level = level;
+		this.level.wrapper = this;
 		this.menuButton = new BubbleButton(35, 35, 30, ()=>runnee=new GameMenu(this), bubbleDrawIMenu);
 		this.jukeboxButton = new BubbleButton(WIDTH-35, 35, 30, ()=>runnee=new Jukebox(this, this.level), bubbleDrawIJukebox);
 		this.hintButton = new BubbleButton(WIDTH-35, HEIGHT-35, 30, ()=>runnee=new HintScreen(this), bubbleDrawIHint);
@@ -15,6 +16,7 @@ class LevelWrapper extends Screen {
 		this.timeTaken = 0;
 	}
 	update() {
+		this.timeTaken++;
 		this.level.update();
 		this.timeTaken++;
 		if (this.level.won) {
@@ -25,8 +27,15 @@ class LevelWrapper extends Screen {
 	}
 	draw() {
 		ctx.globalAlpha = 1;
+		levelIterator.drawBack(this);
 		this.level.draw();
 		this.buttons.forEach(oj=>oj.draw());
+	}
+	snap() {
+		clearBack();
+		levelIterator.drawBack(this);
+		this.level.draw();
+		return ctx.getImageData(0, 0, WIDTH, HEIGHT);
 	}
 }
 
@@ -63,15 +72,6 @@ class Level {
 					this.beamEndY = this.beamExitPosition;
 					break;
 		}
-	}
-	drawTextInBack(str) {
-		ctx.fillStyle = settings.normal_color;
-		ctx.globalAlpha = 1/6;
-		drawTextInRect(str, 0, 0, WIDTH, HEIGHT);
-	}
-	drawIndex() {
-		if (typeof this.index == "number")
-			this.drawTextInBack(this.index);
 	}
 }
 Level.prototype.lModeName = "LevelOther-Name";

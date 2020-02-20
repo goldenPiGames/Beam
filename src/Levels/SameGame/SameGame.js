@@ -41,7 +41,6 @@ class SameLevel extends GridLevel {
 		}
 	}
 	draw() {
-		this.drawIndex();
 		this.drawBorder();
 		this.resetButton.draw();
 		this.blockList.forEach(b=>b.draw());

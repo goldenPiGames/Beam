@@ -75,7 +75,6 @@ class OnceLevel extends GridLevel {
 		}
 	}
 	draw() {
-		this.drawIndex();
 		this.drawBorder();
 		if (!this.won)
 			ctx.stroke(this.exitArrowPath);

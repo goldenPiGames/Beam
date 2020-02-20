@@ -15,6 +15,7 @@ LANG.en = {
 	"Hint-TabLevelHints" : "Level Hints",
 	"Hint-NoLevelHints" : "No hints available for this particular level.",
 	"Hint-Poke" : "Need a hint?",
+	"Race-End" : "FINISH",
 	
 	"LevelOther-Name" : "???",
 	"LevelOther-Rules" : "This is some other level. Figuring out the rules is part of the challenge.",

@@ -1,11 +1,12 @@
 class NumberSelector extends UIObject {
 	constructor(x, y, width, height, digits, radix = 10) {
 		super();
+		this.digits = digits;
 		this.radix = radix;
 		var chwidth = width / digits;
 		this.children = [];
 		for (var i = 0; i < digits; i++) {
-			this.children.unshift(new NumberSelectorDigit(x + chwidth * i, y, chwidth, height, this.radix, this));
+			this.children[i] = new NumberSelectorDigit(x + chwidth * i, y, chwidth, height, this.radix, this);
 		}
 	}
 	update() {
@@ -15,7 +16,11 @@ class NumberSelector extends UIObject {
 		this.children.forEach(oj=>oj.draw());
 	}
 	getNumber() {
-		
+		var num = 0;
+		for (var i = 0; i < this.digits; i++) {
+			num += this.children[i].value * this.radix**(this.digits-1-i);
+		}
+		return num;
 	}
 }
 

@@ -27,10 +27,16 @@ class LevelIterator {
 	constructor() {
 		
 	}
+	drawBackText(str) {
+		ctx.fillStyle = settings.normal_color;
+		ctx.globalAlpha = 1/6;
+		drawTextInRect(str, 0, 0, WIDTH, HEIGHT);
+	}
 }
 
-class MainLevelIterator {
+class MainLevelIterator extends LevelIterator {
 	constructor(starting = 0) {
+		super();
 		this.index = starting;
 	}
 	firstLevel() {
@@ -40,8 +46,8 @@ class MainLevelIterator {
 		this.index++;
 		return new (MAIN_LEVEL_LIST[this.index])();
 	}
-	getTopText() {
-		
+	drawBack() {
+		this.drawBackText(this.index);
 	}
 }
 
@@ -55,32 +61,30 @@ function startLevel() {
 }
 
 function nextLevel() {
-	runnee = new LevelTransition(runnee.level, levelIterator.nextLevel(runnee.level));
+	runnee = new LevelTransition(runnee, levelIterator);
 }
 
 class LevelTransition extends Screen {
-	constructor(from, to) {
+	constructor(fromWrap, iter) {
 		super();
-		this.from = from;
-		this.to = to;
-		clearBack();
-		this.from.draw();
-		this.fromsnap = ctx.getImageData(0, 0, WIDTH, HEIGHT);
-		clearBack();
-		this.to.draw();
-		this.tosnap = ctx.getImageData(0, 0, WIDTH, HEIGHT);
-		switch (this.to.beamEntranceSide) {
-			case 0: this.tx = this.from.beamExitPosition - this.to.beamEntrancePosition;
+		this.fromWrap = fromWrap;
+		this.fromLevel = fromWrap.level;
+		this.fromsnap = this.fromWrap.snap();
+		this.toLevel = iter.nextLevel(this.fromLevel);
+		this.toWrap = new LevelWrapper(this.toLevel);
+		this.tosnap = this.toWrap.snap();
+		switch (this.toLevel.beamEntranceSide) {
+			case 0: this.tx = this.fromLevel.beamExitPosition - this.toLevel.beamEntrancePosition;
 					this.ty = HEIGHT;
 					break;
 			case 1: this.tx = -WIDTH;
-					this.ty = this.from.beamExitPosition - this.to.beamEntrancePosition;
+					this.ty = this.fromLevel.beamExitPosition - this.toLevel.beamEntrancePosition;
 					break;
-			case 2: this.tx = this.from.beamExitPosition - this.to.beamEntrancePosition;
+			case 2: this.tx = this.fromLevel.beamExitPosition - this.toLevel.beamEntrancePosition;
 					this.ty = -HEIGHT;
 					break;
 			case 3: this.tx = WIDTH;
-					this.ty = this.from.beamExitPosition - this.to.beamEntrancePosition;
+					this.ty = this.fromLevel.beamExitPosition - this.toLevel.beamEntrancePosition;
 					break;
 		}
 		this.st = 0;
@@ -90,7 +94,7 @@ class LevelTransition extends Screen {
 		this.st += .02;
 		this.sd = (1-Math.cos(this.st*Math.PI))/2;
 		if (this.st >= 1.0) {
-			runnee = new LevelWrapper(this.to);
+			runnee = this.toWrap;
 		}
 	}
 	draw() {

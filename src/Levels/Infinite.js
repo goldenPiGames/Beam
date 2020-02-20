@@ -3,27 +3,37 @@ class InfiniteSelectScreen extends Screen {
 		super();
 		this.modeButtons = new RadioButtons(10, 10, 200, 30, INFINITE_MODES.map(mod=>lg(mod.lName)), dex=>this.modeClicked(dex));
 		this.beginButton = new BubbleButton(WIDTH-50, HEIGHT-50, 45, ()=>this.tryPlay(), bubbleDrawIPlay);
-		this.seedCheckbox = new Checkbox(WIDTH-170, HEIGHT/2, 160, 24, "Seed PRNG", val=>this.toggleSeed(val), false);
+		this.seedCheckbox = new Checkbox(WIDTH-170, HEIGHT/2, 160, 30, "Seed PRNG", val=>this.toggleSeed(val), false);
+		this.raceCheckbox = new Checkbox(WIDTH-370, HEIGHT/2, 160, 30, "Race", val=>this.toggleRace(val), false);
 		this.objects = [
 			new BubbleButton(WIDTH-50, 50, 45, ()=>switchScreen(new MainMenu()), bubbleDrawIReturn),
 			this.modeButtons,
 			this.beginButton,
 			this.seedCheckbox,
+			this.raceCheckbox,
 		];
 		this.seedSelector = new NumberSelector(this.seedCheckbox.x, this.seedCheckbox.y+this.seedCheckbox.height, this.seedCheckbox.width, 100, 4, 16);
 		this.objectsSeedOnly = [
 			this.seedSelector,
+		];
+		this.goalSelector = new NumberSelector(this.raceCheckbox.x, this.raceCheckbox.y+this.raceCheckbox.height, this.raceCheckbox.width, 100, 2);
+		this.objectsRaceOnly = [
+			this.goalSelector,
 		];
 	}
 	update() {
 		this.objects.forEach(butt=>butt.update());
 		if (this.doingSeed)
 			this.objectsSeedOnly.forEach(butt=>butt.update());
+		if (this.doingRace)
+			this.objectsRaceOnly.forEach(butt=>butt.update());
 	}
 	draw() {
 		this.objects.forEach(butt=>butt.draw());
 		if (this.doingSeed)
 			this.objectsSeedOnly.forEach(butt=>butt.draw());
+		if (this.doingRace)
+			this.objectsRaceOnly.forEach(butt=>butt.draw());
 	}
 	modeClicked(dex) {
 		
@@ -31,70 +41,93 @@ class InfiniteSelectScreen extends Screen {
 	tryPlay() {
 		if (this.modeButtons.index >= 0) {
 			if (this.doingSeed) {
-				rng = new SM64RNG(this.seedSelector.getNumber);
+				rng = new SM64RNG(this.seedSelector.getNumber());
 			}
-			levelIterator = new (INFINITE_MODES[this.modeButtons.index].iterCons)();
+			if (this.doingRace) {
+				var num = this.goalSelector.getNumber();
+				//console.log(num);
+				if (num <= 0) {
+					return false;
+				}
+				levelIterator = new RaceIterator(INFINITE_MODES[this.modeButtons.index].getLevel, num);
+			} else
+				levelIterator = new InfiniteIterator(INFINITE_MODES[this.modeButtons.index].getLevel);
 			startLevel();
-		}
+			return true;
+		} else
+			return false;
 	}
 	toggleSeed(val) {
 		this.doingSeed = val;
 	}
-}
-
-class InfiniteToggleGatesIterator {
-	constructor() {
-		this.beaten = 0;
-	}
-	firstLevel() {
-		return new LevelToggleRandom();
-	}
-	nextLevel() {
-		this.beaten++;
-		return new LevelToggleRandom();
+	toggleRace(val) {
+		this.doingRace = val;
 	}
 }
 
-class InfinitePipePathIterator {
-	constructor() {
+class InfiniteIterator extends LevelIterator {
+	constructor(stageGetter) {
+		super();
 		this.beaten = 0;
+		this.stageGetter = stageGetter;
 	}
 	firstLevel() {
-		return new LevelPipeRandom({
-			index:0,
-		});
+		return this.stageGetter(1);
 	}
 	nextLevel(prev) {
 		this.beaten++;
-		return new LevelPipeRandom({
-			entranceSide:directionOpposite(prev.beamExitSide),
-			index:this.beaten,
-		});
+		return this.stageGetter(prev.beamExitSide);
+	}
+	drawBack() {
+		this.drawBackText(this.beaten);
 	}
 }
 
-class InfiniteWalkOnceIterator {
-	constructor() {
-		this.beaten = 0;
+class RaceIterator extends InfiniteIterator {
+	constructor(stageGetter, goal) {
+		super(stageGetter);
+		this.goal = goal;
+		this.timeTaken = 0;
 	}
 	firstLevel() {
-		return new LevelOnceRandom({
-			index:0,
-		});
+		this.startTime = Date.now();
+		return super.firstLevel();
 	}
 	nextLevel(prev) {
-		this.beaten++;
-		return new LevelOnceRandom({
-			entranceSide:directionOpposite(prev.beamExitSide),
-			index:this.beaten,
-		});
+		if (this.beaten < this.goal-1) {
+			this.timeTaken += prev.wrapper.timeTaken;
+			return super.nextLevel(prev);
+		} else {
+			this.finished = true;
+			this.finishTime = Date.now();
+			return new RaceEndScreen(directionOpposite(prev.beamExitSide), this.timeTaken);
+		}
+	}
+	drawBack(wrap) {
+		this.timeTaken += lastFrameDelay;
+		if (!this.finished) {
+			this.drawBackText(this.goal - this.beaten);
+			ctx.globalAlpha = 1;
+			var now = Date.now();
+			//var elap = now - this.startTime;
+			var mins = Math.floor(this.timeTaken/60000);
+			var secs = Math.floor((this.timeTaken%60000)/1000);
+			drawTextInRect(mins+":"+secs.toString().padStart(2,"0"), WIDTH/4, 5, WIDTH/2, 35);
+			//drawTextInRect(this.timeTaken+wrap.timeTaken, WIDTH/4, 5, WIDTH/2, 35)
+		}
 	}
 }
 
 const INFINITE_MODES = [
-	{lName:"ToggleGates-Name", iterCons:InfiniteToggleGatesIterator},
-	{lName:"PipePath-Name", iterCons:InfinitePipePathIterator},
-	{lName:"WalkOnce-Name", iterCons:InfiniteWalkOnceIterator},
+	{lName:"ToggleGates-Name", getLevel:(pex)=>new LevelToggleRandom({
+			direction: pdir
+		})},
+	{lName:"PipePath-Name", getLevel:(pex)=>new LevelPipeRandom({
+			entranceSide:directionOpposite(pex)
+		})},
+	{lName:"WalkOnce-Name", getLevel:(pex)=>new LevelOnceRandom({
+			entranceSide:directionOpposite(pex)
+		})},
 ];
 
 function bubbleDrawIInfinity() {

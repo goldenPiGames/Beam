@@ -74,7 +74,6 @@ class ToggleLevel extends Level {
 		return !this.blocked;
 	}
 	draw() {
-		this.drawIndex();
 		ctx.globalAlpha = 1;
 		this.switches.forEach(pis=>pis.draw());
 		this.gates.forEach(pis=>pis.draw());

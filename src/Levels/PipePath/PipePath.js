@@ -102,7 +102,6 @@ class PipeLevel extends GridLevel {
 		}
 	}
 	draw() {
-		this.drawIndex();
 		this.drawBorder();
 		drawBeam(this.beamPath);
 		this.pieces.forEach(row=>row.forEach(pis=>pis.draw()));

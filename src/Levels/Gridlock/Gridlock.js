@@ -61,7 +61,6 @@ class GridlockLevel extends GridLevel {
 			return true;
 	}
 	draw() {
-		this.drawIndex();
 		this.drawBorder();
 		this.pieces.forEach(pis=>pis.draw());
 		drawBeam(this.beamPath);

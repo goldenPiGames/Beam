@@ -2,12 +2,16 @@ var runnee;
 var overlay;
 const FPS = 30;
 var particles = [];
+var lastFrameDelay = 0;
 
 var coreEngine = {
     frameDelay : 1000 / FPS,
-	particles : [],
+	lastRunTime : 0,
 	run : function() {
-		var desiredTime = Date.now() + this.frameDelay;
+		var now = Date.now();
+		var desiredTime = now + this.frameDelay;
+		lastFrameDelay = now - this.lastRunTime;
+		this.lastRunTime = now;
 		musicLoopCheck();
 		hovered = false;
 		runnee.update();
