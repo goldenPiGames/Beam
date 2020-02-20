@@ -2,8 +2,8 @@ var levelIterator = false;
 
 const MAIN_LEVEL_LIST = [
 	//LevelGridlock4,
-	LevelToggleSingle,
-	LevelToggleDouble,
+	LevelToggle1,
+	LevelToggle2,
 	LevelToggleFirstTrick,
 	LevelGridlock1,
 	LevelGridlock2,

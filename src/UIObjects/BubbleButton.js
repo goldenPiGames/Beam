@@ -79,3 +79,22 @@ function bubbleDrawIHyperlink() {
 	ctx.arc(this.x-.1*this.radius, this.y+.1*this.radius, .3*this.radius, -Math.PI*3/4, -Math.PI/4);
 	ctx.stroke();
 }
+
+function bubbleDrawIHeart() {
+	ctx.beginPath();
+	ctx.arc(this.x+.3*this.radius, this.y-.2*this.radius, .3*this.radius, Math.PI, Math.PI/4);
+	ctx.lineTo(this.x, this.y+.5*this.radius);
+	ctx.arc(this.x-.3*this.radius, this.y-.2*this.radius, .3*this.radius, -Math.PI*5/4, 0);
+	ctx.closePath();
+	ctx.stroke();
+}
+function bubbleDrawIHeartFull() {
+	ctx.fillStyle = "#FF8080";
+	ctx.beginPath();
+	ctx.arc(this.x+.3*this.radius, this.y-.2*this.radius, .3*this.radius, Math.PI, Math.PI/4);
+	ctx.lineTo(this.x, this.y+.5*this.radius);
+	ctx.arc(this.x-.3*this.radius, this.y-.2*this.radius, .3*this.radius, -Math.PI*5/4, 0);
+	ctx.closePath();
+	ctx.fill();
+	ctx.stroke();
+}

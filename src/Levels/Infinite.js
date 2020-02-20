@@ -1,18 +1,44 @@
 class InfiniteSelectScreen extends Screen {
 	constructor() {
 		super();
-		this.buttons = [
-			new BubbleButton(WIDTH-50, HEIGHT-50, 45, ()=>switchScreen(new MainMenu()), bubbleDrawIReturn),
-			new Button(20, 100, 200, 40, "Toggle Gates", ()=> {levelIterator = new InfiniteToggleGatesIterator(); startLevel()}),
-			new Button(20, 150, 200, 40, "Pipe Path", ()=> {levelIterator = new InfinitePipePathIterator(); startLevel()}),
-			new Button(20, 200, 200, 40, "Walk Once", ()=> {levelIterator = new InfiniteWalkOnceIterator(); startLevel()}),
+		this.modeButtons = new RadioButtons(10, 10, 200, 30, INFINITE_MODES.map(mod=>lg(mod.lName)), dex=>this.modeClicked(dex));
+		this.beginButton = new BubbleButton(WIDTH-50, HEIGHT-50, 45, ()=>this.tryPlay(), bubbleDrawIPlay);
+		this.seedCheckbox = new Checkbox(WIDTH-170, HEIGHT/2, 160, 24, "Seed PRNG", val=>this.toggleSeed(val), false);
+		this.objects = [
+			new BubbleButton(WIDTH-50, 50, 45, ()=>switchScreen(new MainMenu()), bubbleDrawIReturn),
+			this.modeButtons,
+			this.beginButton,
+			this.seedCheckbox,
+		];
+		this.seedSelector = new NumberSelector(this.seedCheckbox.x, this.seedCheckbox.y+this.seedCheckbox.height, this.seedCheckbox.width, 100, 4, 16);
+		this.objectsSeedOnly = [
+			this.seedSelector,
 		];
 	}
 	update() {
-		this.buttons.forEach(butt=>butt.update());
+		this.objects.forEach(butt=>butt.update());
+		if (this.doingSeed)
+			this.objectsSeedOnly.forEach(butt=>butt.update());
 	}
 	draw() {
-		this.buttons.forEach(butt=>butt.draw());
+		this.objects.forEach(butt=>butt.draw());
+		if (this.doingSeed)
+			this.objectsSeedOnly.forEach(butt=>butt.draw());
+	}
+	modeClicked(dex) {
+		
+	}
+	tryPlay() {
+		if (this.modeButtons.index >= 0) {
+			if (this.doingSeed) {
+				rng = new SM64RNG(this.seedSelector.getNumber);
+			}
+			levelIterator = new (INFINITE_MODES[this.modeButtons.index].iterCons)();
+			startLevel();
+		}
+	}
+	toggleSeed(val) {
+		this.doingSeed = val;
 	}
 }
 
@@ -64,6 +90,12 @@ class InfiniteWalkOnceIterator {
 		});
 	}
 }
+
+const INFINITE_MODES = [
+	{lName:"ToggleGates-Name", iterCons:InfiniteToggleGatesIterator},
+	{lName:"PipePath-Name", iterCons:InfinitePipePathIterator},
+	{lName:"WalkOnce-Name", iterCons:InfiniteWalkOnceIterator},
+];
 
 function bubbleDrawIInfinity() {
 	ctx.lineWidth = .06*this.radius;

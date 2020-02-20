@@ -1,4 +1,4 @@
-class LevelToggleSingle extends ToggleLevel {
+class LevelToggle1 extends ToggleLevel {
 	constructor() {
 		super({
 			gates : [
@@ -8,8 +8,9 @@ class LevelToggleSingle extends ToggleLevel {
 		});
 	}
 }
+LevelToggle1.prototype.lLevelHints = "Toggle1-Hints";
 
-class LevelToggleDouble extends ToggleLevel {
+class LevelToggle2 extends ToggleLevel {
 	constructor() {
 		super({
 			gates : [

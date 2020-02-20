@@ -25,6 +25,7 @@ function loadSettings() {
 			settings[sett] = loaded[sett];
 		}
 	}
+	loadFavSongs();
 	setMusicVolume(settings.music);
 }
 

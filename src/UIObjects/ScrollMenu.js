@@ -1,6 +1,6 @@
 const SCROLL_ELEMENT_HEIGHT = 22;
 const SCROLL_BUTTON_HEIGHT = 30;
-const SCROLL_BAR_WIDTH = 20;
+const SCROLL_BAR_WIDTH = 25;
 
 class ScrollMenu extends UIObject {
 	constructor(x, y, width, height, returnFunction, items = [], secondProperty = null, infoProperty = "description", enableProperty = function(val){return true}, highlightProperty = function(val){return false}) {
@@ -88,6 +88,7 @@ class ScrollMenu extends UIObject {
 		ctx.fillStyle = settings.background_color;
 		ctx.fillRect(this.x, this.y, this.width, this.height);
 		ctx.strokeStyle = settings.normal_color;
+		ctx.lineWidth = 2;
 		ctx.strokeRect(this.x + 1, this.y + 1, this.width - 2, this.height - 2);
 		this.scrollBar.draw();
 		this.upButton.draw();

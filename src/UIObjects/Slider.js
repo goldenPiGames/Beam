@@ -26,6 +26,7 @@ class Slider extends UIObject {
 		}
 	}
 	draw() {
+		ctx.lineWidth = BUTTON_BORDER_WIDTH;
 		var val = this.getter();
 		var portion = (val-this.min)/(this.max-this.min);
 		

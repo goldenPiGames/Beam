@@ -2,17 +2,21 @@ const SONG_LIST = [
 	{name:"Boat Paint", intensity:1/4,
 		by:"Al Gorgeous", sc:"al-goregous/boat-paint"},
 	{name:"Beatdown City", intensity:3/4,
-		by:"Darren Curtis", yt:"qL4u3u5WKgU", site:"https://www.darrencurtismusic.com", siten:"DarrenCurtisMusic.com", pat:"darrencurtismusic"},
+		by:"Darren Curtis", yt:"qL4u3u5WKgU", site:"https://www.darrencurtismusic.com", siten:"DarrenCurtisMusic.com", sc:"desperate-measurez/beatdown-city-80s-action-theme-royalty-free", pat:"darrencurtismusic"},
 	{name:"Dark Anthem", intensity:3/4,
 		by:"Darren Curtis", yt:"G-VY51L2AQU", site:"https://www.darrencurtismusic.com", siten:"DarrenCurtisMusic.com", pat:"darrencurtismusic"},
 	{name:"Dueling With Cyborg Ninjas", intensity:1,
-		by:"Darren Curtis", yt:"j1TSpz7Itso", site:"https://www.darrencurtismusic.com", siten:"DarrenCurtisMusic.com", pat:"darrencurtismusic"},
+		by:"Darren Curtis", yt:"j1TSpz7Itso", site:"https://www.darrencurtismusic.com", siten:"DarrenCurtisMusic.com", sc:"desperate-measurez/dueling-with-cyborg-ninjas-sci-fi-royalty-free-music", pat:"darrencurtismusic"},
 	{name:"Dusty Memories", intensity:0,
 		by:"Darren Curtis", yt:"F0k_5H7_OT4", site:"https://www.darrencurtismusic.com/sad-music", siten:"DarrenCurtisMusic.com", pat:"darrencurtismusic"},
 	{name:"Feel It In Your Feet", intensity:1/2,
 		by:"Darren Curtis", yt:"PkQoZNEVZ-4", site:"https://www.darrencurtismusic.com/piano", siten:"DarrenCurtisMusic.com", pat:"darrencurtismusic"},
+	{name:"Massacre on Teddy Bear Hill", intensity:3/4,
+		by:"Darren Curtis", yt:"qG5e8cmoL_s", site:"https://www.darrencurtismusic.com/hybrid-other", siten:"DarrenCurtisMusic.com", sc:"desperate-measurez/massacre-on-teddy-bear-hill-royalty-free-music", pat:"darrencurtismusic"},
+	{name:"Samurai Sake Showdown", intensity:3/4, loopStart:0.7, loopEnd:69.664,
+		by:"Darren Curtis", yt:"NOGZX7Z4wSI", site:"https://www.darrencurtismusic.com", siten:"DarrenCurtisMusic.com", sc:"desperate-measurez/samurai-sake-showdown-asian-royalty-free-music", pat:"darrencurtismusic"},
 	{name:"War of the Pianos",
-		by:"Darren Curtis", yt:"CP8HoV4ArHw", site:"https://www.darrencurtismusic.com", siten:"DarrenCurtisMusic.com", pat:"darrencurtismusic"},
+		by:"Darren Curtis", yt:"CP8HoV4ArHw", site:"https://www.darrencurtismusic.com", siten:"DarrenCurtisMusic.com", sc:"desperate-measurez/war-of-the-pianos-royalty-free", pat:"darrencurtismusic"},
 	{name:"Decisions", intensity:0, bpm:95.34,
 		by:"Eric Matyas", site:"https://soundimage.org/introspective/", siten:"SoundImage.org", sc:"eric-matyas/decisions"},
 	{name:"Hong Kong Midnight", intensity:0,
@@ -29,14 +33,30 @@ const SONG_LIST = [
 		by:"Eric Matyas", site:"https://soundimage.org/nature-science-3/", siten:"SoundImage.org"},
 	{name:"Flex", intensity:3/4,
 		by:"Jeremy Blake", yt:"dK0C536YxA0"},
+	{name:"Blip Stream", intensity:1/2,
+		by:"Kevin MacLeod", yt:"9np9KK4ccuA", site:"https://incompetech.com/music/royalty-free/index.html?isrc=usuan1500056", siten:"Incompetech", sc:"kevin-9-1/blip-stream", pat:"kmacleod"},
+	{name:"Exit the Premises", intensity:3/4,
+		by:"Kevin MacLeod", yt:"Yy-NyPTRYU8", site:"https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1500029", siten:"Incompetech", sc:"kevin-9-1/exit-the-premises", pat:"kmacleod"},
+	{name:"Fearless First", intensity:1/4,
+		by:"Kevin MacLeod", yt:"NrwsOuJ2VvY", site:"https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1600058", siten:"Incompetech", sc:"kevin-9-1/fearless-first", pat:"kmacleod"},
+	{name:"Pixelland", intensity:1/4,
+		by:"Kevin MacLeod", yt:"Z-bi29z4Z1k", site:"https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1500076", siten:"Incompetech", sc:"kevin-9-1/pixelland", pat:"kmacleod"},
+	{name:"Who Likes to Party", intensity:1/2,
+		by:"Kevin MacLeod", yt:"O-2DwDG0EqM", site:"https://incompetech.com/music/royalty-free/index.html?isrc=usuan1200075", siten:"Incompetech", pat:"kmacleod"},
 	{name:"Up In My Jam (All Of A Sudden)", intensity:3/4,
 		by:"Kubbi", yt:"6DB6hBRPsWc", site:"https://kubbimusic.com/track/up-in-my-jam-all-of-a-sudden", siten:"KubbiMusic.com", sc:"kubbi/up-in-my-jam-all-of-a-sudden", ng:538102},
+	{name:"Seahorse Dreams", intensity:3/4,
+		by:"Kubbi", yt:"DLvrDRRaftQ", site:"https://kubbimusic.com/track/seahorse-dreams", siten:"KubbiMusic.com", sc:"kubbi/seahorse-dreams", ng:538406},
 	{name:"Deep Valley 2", intensity:0,
 		by:"PeriTune", yt:"iStkj9BMmWw", site:"https://peritune.com/deep_valley2/", siten:"PeriTune.com", sc:"sei_peridot/deep-valley2"},
 	{name:"Firmament", loopStart:8.365, loopEnd:109.615, alt:true, intensity:1/4,
 		by:"PeriTune", yt:"4cBY3v4NCsw", site:"https://peritune.com/firmament/", siten:"PeriTune.com", sc:"sei_peridot/firmament-calm"},
 	{name:"Firmament 2", intensity:1/4,
 		by:"PeriTune", yt:"QlyLJjhyLK8", site:"https://peritune.com/firmament2/", siten:"PeriTune.com", sc:"sei_peridot/firmament2_calm", alt:true},
+	{name:"Gothic Dark", intensity:1, loopStart:10.977, loopEnd:89.727,
+		by:"PeriTune", yt:"brZWB8cdBDs", site:"https://peritune.com/gothic_dark/", siten:"PeriTune.com", sc:"sei_peridot/gothic-dark"},
+	{name:"Havoc", intensity:1, loopStart:4.304, loopEnd:112.101,
+		by:"PeriTune", yt:"yfE5y2uiBX0", site:"https://peritune.com/havoc", siten:"PeriTune.com", sc:"sei_peridot/havoc"},
 	{name:"Investigation 3", intensity:1/4,
 		by:"PeriTune", yt:"NhpYAtmA-mk", site:"https://peritune.com/investigation3/", siten:"PeriTune.com", sc:"sei_peridot/investigation3"},
 	{name:"Let's Party 2", intensuty:1/2,
@@ -69,7 +89,10 @@ const SONG_LIST = [
 var SONG_HASH = {};
 SONG_LIST.forEach(function(sing, dex) {
 	sing.description = "\"" + sing.name + "\" by " + sing.by + ". Click to listen.";
-	sing.src = "src/Audio/Songs/" + ((sing.fname || sing.name) + "-" + sing.by).replace(/\s/g, "") + ".mp3";
+	if (!sing.iname)
+		sing.iname = ((sing.fname || sing.name) + "-" + sing.by).replace(/\s/g, "");
+	sing.src = "src/Audio/Songs/" + sing.iname + ".mp3";
+	SONG_HASH[sing.iname] = sing;
 	SONG_HASH[sing.name + " - " + sing.by] = sing;
 	SONG_HASH[sing.name] = sing;
 	sing.index = dex;
@@ -85,3 +108,28 @@ SONG_LIST.forEach(function(sing, dex) {
 	if (sing.pat)
 		sing.siteList.push({name:"Patreon", href:"https://www.patreon.com/"+sing.pat});
 });
+
+function loadFavSongs() {
+	var loaded = localStorage.getItem("FavSongs");
+	if (loaded) {
+		var favs = JSON.parse(loaded);
+		SONG_LIST.forEach(sing => sing.fav = favs[sing.iname]);
+	}
+}
+
+function toggleFavSong(sing) {
+	if (sing) {
+		sing.fav = !sing.fav;
+		var favs;
+		var loaded = localStorage.getItem("FavSongs");
+		if (favs) {
+			favs = JSON.parse(loaded);
+			favs[sing.iname] = sing.fav;
+		} else {
+			favs = {};
+			SONG_LIST.forEach(sang => favs[sang.iname] = sang.fav);
+		}
+		localStorage.setItem("FavSongs", JSON.stringify(favs));
+	}
+}
+

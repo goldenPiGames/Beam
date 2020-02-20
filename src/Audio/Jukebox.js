@@ -8,46 +8,42 @@ class Jukebox extends Screen {
 		this.backsnap = ctx.getImageData(0, 0, WIDTH, HEIGHT);
 		var thisser = this;
 		var midx = WIDTH*.6;
-		this.songList = SONG_LIST.slice();
-		this.songMenu = new ScrollMenu(0, 0, midx-10, HEIGHT-49, function(elem) {
+		this.refreshList();
+		this.songMenu = new ScrollMenu(0, 0, midx-10, HEIGHT, function(elem) {
 				playMusic(elem);
 				thisser.pauseButton.text = "Pause";
-				//thisser.switchButton.active = elem.alt;
-				//thisser.siteButton.active = elem.site;
-				//thisser.youtubeButton.active = elem.yt;
 				thisser.setSliderBounds();
 			}, this.songList, "by", "description", ()=>true, (val)=>val==song),
 		this.returnButton = new BubbleButton(WIDTH-50, 50, 45, ()=>{runnee=this.returnTo}, bubbleDrawIReturn),
-		this.pauseButton = new BubbleButton(WIDTH*2/3, 50, 45, ()=>{if (music.paused) music.play(); else music.pause()}, function() {
+		this.pauseButton = new BubbleButton(midx+50, 50, 45, ()=>{if (music.paused) music.play(); else music.pause()}, function() {
 				if (!music.paused) {
-					bubbleDrawIPause.apply(this);
+					bubbleDrawIPause.call(this);
 				} else {
-					bubbleDrawIPlay.apply(this);
-				}}),
-		this.linkButton = new BubbleButton(WIDTH*2/3, 150, 45, ()=>{if (song) runnee=new JukeboxLinkPopup(this)}, bubbleDrawIHyperlink);
-		//this.siteButton = new Button(ritx, 10, thic, 40, "Artist's site", ()=>{window.open(song.site)}, false),
-		//this.siteButton.active = song && song.site;
-		//this.youtubeButton = new Button(ritx, 60, thic, 40, "YouTube", ()=>{window.open("https://youtu.be/"+song.yt)}, false),
-		//this.youtubeButton.active = song && song.yt;
-		var swid = Math.floor(midx/3)-3;
-		this.sortOrderButton = new Button(5, HEIGHT-45, swid-10, 40, "Index", ()=>{this.songList.sort((a,b)=>a.index-b.index); thisser.songMenu.putItems()}),
-		this.sortNameButton = new Button(swid+5, HEIGHT-45, swid-10, 40, "Name", ()=>{this.songList.sort((a,b)=>a.name < b.name ?-1:1); thisser.songMenu.putItems()}),
-		this.sortArtistButton = new Button(2*swid+5, HEIGHT-45, swid-10, 40, "Artist", ()=>{this.songList.sort((a,b)=>a.by < b.by ?-1:1); thisser.songMenu.putItems()}),
-		this.positionSlider = new Slider(midx, 300, WIDTH-midx-10, 50, "Position", 0, 60, setMusicPosition, getMusicPosition);
-		this.volumeSlider = new Slider(midx, 400, WIDTH-midx-10, 30, "Volume", 0, 1, val=>{settings.music=val;setMusicVolume(val);saveSettings();}, ()=>settings.music, ()=>asInfuriatingPercent(settings.music));
+					bubbleDrawIPlay.call(this);
+				}});
+		this.linkButton = new BubbleButton(midx+50, 150, 45, ()=>{if (song) runnee=new JukeboxLinkPopup(this)}, bubbleDrawIHyperlink);
+		this.favButton = new BubbleButton(midx+150, 150, 45, ()=>toggleFavSong(song), function() {
+				if (song && song.fav) {
+					bubbleDrawIHeartFull.call(this);
+				} else {
+					bubbleDrawIHeart.call(this);
+				}});
+		var swid = Math.floor(WIDTH - midx) - 10;
+		this.positionSlider = new Slider(midx, 205, swid, 50, "Position", 0, 60, setMusicPosition, getMusicPosition);
+		this.volumeSlider = new Slider(midx, 265, swid, 30, "Volume", 0, 1, val=>{settings.music=val;setMusicVolume(val);saveSettings();}, ()=>settings.music, ()=>asInfuriatingPercent(settings.music));
 		this.setSliderBounds();
+		this.sortButtons = new RadioButtons(midx, 450, swid/2, 24, [lg("Jukebox-SortBy"), lg("Jukebox-SortName")], dex=>this.setSort(dex), jukeboxSpecs.sort);
+		this.favCheckbox = new Checkbox(midx+swid/2, 450, swid/2, 24, lg("Jukebox-FavsOnly"), val=>this.setFavsOnly(val), jukeboxSpecs.favsOnly);
 		this.objects = [
 			this.songMenu,
 			this.returnButton,
 			this.pauseButton,
 			this.linkButton,
-			//this.siteButton,
-			//this.youtubeButton,
-			this.sortOrderButton,
-			this.sortNameButton,
-			this.sortArtistButton,
+			this.favButton,
 			this.positionSlider,
 			this.volumeSlider,
+			this.sortButtons,
+			this.favCheckbox,
 		];
 	}
 	update() {
@@ -65,6 +61,25 @@ class Jukebox extends Screen {
 	}
 	setSliderBounds() {
 		this.positionSlider.max = song ? song.loopEnd || music.duration : 60;
+	}
+	refreshList() {
+		this.songList = SONG_LIST.slice();
+		if (jukeboxSpecs.favsOnly)
+			this.songList = this.songList.filter(s=>s.fav);
+		switch (jukeboxSpecs.sort) {
+			case 0: this.songList.sort((a,b)=> a.by < b.by ? -1 : 1); break;
+			case 1: this.songList.sort((a,b)=> a.name < b.name ? -1 : 1); break;
+		}
+		if (this.songMenu)
+			this.songMenu.setItems(this.songList);
+	}
+	setSort(val) {
+		jukeboxSpecs.sort = val;
+		this.refreshList();
+	}
+	setFavsOnly(val) {
+		jukeboxSpecs.favsOnly = val;
+		this.refreshList();
 	}
 }
 
@@ -100,6 +115,13 @@ class JukeboxLinkPopup extends Screen {
 	}
 }
 JukeboxLinkPopup.prototype.intersectsMouse = UIObject.prototype.intersectsMouse;
+
+var jukeboxSpecs = {
+	sort : 0,
+	intensityMin : 0,
+	intensityMax : 1,
+	favsOnly : false,
+}
 
 function bubbleDrawIJukebox() {
 	ctx.lineWidth = .08*this.radius;

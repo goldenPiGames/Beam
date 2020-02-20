@@ -4,6 +4,9 @@ LANG.en = {
 	"MainMenu-Play" : "Play the game",
 	"MainMenu-Jukebox" : "Listen to some tunes",
 	"MainMenu-Infinite" : "Infinite randomly-generated levels",
+	"Jukebox-SortBy" : "Author A-Z",
+	"Jukebox-SortName" : "Title A-Z",
+	"Jukebox-FavsOnly" : "Favorites Only",
 	"GameMenu-Quit" : "Quit",
 	"GameMenu-QuitConfirm" : "Confirm",
 	"GameMenu-QuitCancel" : "Cancel",
@@ -11,6 +14,8 @@ LANG.en = {
 	"Hint-TabModeHints" : "Mode Hints",
 	"Hint-TabLevelHints" : "Level Hints",
 	"Hint-NoLevelHints" : "No hints available for this particular level.",
+	"Hint-Poke" : "Need a hint?",
+	
 	"LevelOther-Name" : "???",
 	"LevelOther-Rules" : "This is some other level. Figuring out the rules is part of the challenge.",
 	"LevelOther-Hints" : ["Look for things that change color when your mouse is over them. If clicking does nothing, try dragging."
@@ -41,5 +46,6 @@ LANG.en = {
 	"SameGame-Hints" : ["If there's only one block of a certain color left, you know you've messed up.",
 		"If there's a lonely block, you'll need to make sure it meets up in a group."],
 	
+	"Toggle1-Hints" : ["You see that circly thing up there? Click on it."],
 	"OnceSymPip-Hints" : ["You have to go down from the start; otherwise, you'll leave yourself with a dead end.", "The solution is symmetrical."],
 }
