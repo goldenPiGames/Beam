@@ -9,6 +9,7 @@ class LevelVictory extends Level {
 		
 	}
 	draw() {
+		ctx.globalAlpha = 1;
 		ctx.fillStyle = settings.normal_color;
 		ctx.textAlign = "center";
 		ctx.textBaseline = "middle";

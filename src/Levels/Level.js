@@ -23,13 +23,16 @@ class LevelWrapper extends Screen {
 			nextLevel();
 			return;
 		}
-		this.buttons.forEach(oj=>oj.update());
+		if (runnee == this)
+			this.buttons.forEach(oj=>oj.update());
 	}
 	draw() {
 		ctx.globalAlpha = 1;
 		levelIterator.drawBack(this);
 		this.level.draw();
-		this.buttons.forEach(oj=>oj.draw());
+		ctx.globalAlpha = 1;
+		if (runnee == this)
+			this.buttons.forEach(oj=>oj.draw());
 	}
 	snap() {
 		clearBack();

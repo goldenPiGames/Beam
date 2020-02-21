@@ -32,7 +32,9 @@ class Jukebox extends Screen {
 		this.positionSlider = new Slider(midx, 205, swid, 50, "Position", 0, 60, setMusicPosition, getMusicPosition);
 		this.volumeSlider = new Slider(midx, 265, swid, 30, "Volume", 0, 1, val=>{settings.music=val;setMusicVolume(val);saveSettings();}, ()=>settings.music, ()=>asInfuriatingPercent(settings.music));
 		this.setSliderBounds();
-		this.sortButtons = new RadioButtons(midx, 450, swid/2, 24, [lg("Jukebox-SortBy"), lg("Jukebox-SortName")], dex=>this.setSort(dex), jukeboxSpecs.sort);
+		this.sortButtons = new RadioButtons(midx, 300, swid/2, 24, [lg("Jukebox-SortBy"), lg("Jukebox-SortName")], dex=>this.setSort(dex), jukeboxSpecs.sort);
+		this.intensityMinSlider = new Slider(midx, 360, swid/2-5, 25, lg("Jukebox-MinimumIntensity"), 0, 1, val=>this.setIntensityMin(val), ()=>jukeboxSpecs.intensityMin, ()=>getIntensityDesc(jukeboxSpecs.intensityMin));
+		this.intensityMaxSlider = new Slider(midx, 390, swid/2-5, 25, lg("Jukebox-MaximumIntensity"), 0, 1, val=>this.setIntensityMax(val), ()=>jukeboxSpecs.intensityMax, ()=>getIntensityDesc(jukeboxSpecs.intensityMax));
 		this.favCheckbox = new Checkbox(midx+swid/2, 450, swid/2, 24, lg("Jukebox-FavsOnly"), val=>this.setFavsOnly(val), jukeboxSpecs.favsOnly);
 		this.objects = [
 			this.songMenu,
@@ -44,6 +46,8 @@ class Jukebox extends Screen {
 			this.volumeSlider,
 			this.sortButtons,
 			this.favCheckbox,
+			this.intensityMinSlider,
+			this.intensityMaxSlider,
 		];
 	}
 	update() {
@@ -63,7 +67,7 @@ class Jukebox extends Screen {
 		this.positionSlider.max = song ? song.loopEnd || music.duration : 60;
 	}
 	refreshList() {
-		this.songList = SONG_LIST.slice();
+		this.songList = SONG_LIST.slice().filter(s=>s.intensity>=jukeboxSpecs.intensityMin && s.intensity<=jukeboxSpecs.intensityMax);
 		if (jukeboxSpecs.favsOnly)
 			this.songList = this.songList.filter(s=>s.fav);
 		switch (jukeboxSpecs.sort) {
@@ -79,6 +83,24 @@ class Jukebox extends Screen {
 	}
 	setFavsOnly(val) {
 		jukeboxSpecs.favsOnly = val;
+		this.refreshList();
+	}
+	setIntensityMin(val) {
+		val = Math.round(val*4)/4;
+		if (jukeboxSpecs.intensityMin == val)
+			return;
+		jukeboxSpecs.intensityMin = val;
+		if (val > jukeboxSpecs.intensityMax)
+			jukeboxSpecs.intensityMax = val;
+		this.refreshList();
+	}
+	setIntensityMax(val) {
+		val = Math.round(val*4)/4;
+		if (jukeboxSpecs.intensityMax == val)
+			return;
+		jukeboxSpecs.intensityMax = val;
+		if (val < jukeboxSpecs.intensityMin)
+			jukeboxSpecs.intensityMin = val;
 		this.refreshList();
 	}
 }
@@ -123,6 +145,10 @@ var jukeboxSpecs = {
 	intensityMin : 0,
 	intensityMax : 1,
 	favsOnly : false,
+}
+
+function getIntensityDesc(val) {
+	return lg("Jukebox-Intensities")[val*4];
 }
 
 function bubbleDrawIJukebox() {

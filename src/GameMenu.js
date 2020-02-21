@@ -20,7 +20,7 @@ class GameMenu extends Screen {
 		this.objects.forEach(oj=>oj.update());
 	}
 	draw() {
-		this.wrap.level.draw();
+		this.wrap.draw();
 		ctx.fillStyle = settings.background_color;
 		ctx.globalAlpha = .3;
 		ctx.fillRect(0, 0, WIDTH, HEIGHT);
