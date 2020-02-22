@@ -12,6 +12,7 @@ LANG.en = {
 	"Jukebox-MinimumIntensity" : "Min",
 	"Jukebox-MaximumIntensity" : "Max",
 	"Jukebox-Intensities" : ["Lullaby", "Calm", "Moderate", "Exciting", "Intense"],
+	"Jukebox-Shuffle" : "Shuffle",
 	"GameMenu-Quit" : "Quit",
 	"GameMenu-QuitConfirm" : "Confirm",
 	"GameMenu-QuitCancel" : "Cancel",

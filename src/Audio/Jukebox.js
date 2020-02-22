@@ -9,11 +9,7 @@ class Jukebox extends Screen {
 		var thisser = this;
 		var midx = WIDTH*.6;
 		this.refreshList();
-		this.songMenu = new ScrollMenu(0, 0, midx-10, HEIGHT, function(elem) {
-				playMusic(elem);
-				thisser.pauseButton.text = "Pause";
-				thisser.setSliderBounds();
-			}, this.songList, "by", "description", ()=>true, (val)=>val==song),
+		this.songMenu = new ScrollMenu(0, 0, midx-10, HEIGHT, playMusic, songList, "by", "description", ()=>true, (val)=>val==song),
 		this.returnButton = new BubbleButton(WIDTH-50, 50, 45, ()=>{runnee=this.returnTo}, bubbleDrawIReturn),
 		this.pauseButton = new BubbleButton(midx+50, 50, 45, ()=>{if (music.paused) music.play(); else music.pause()}, function() {
 				if (!music.paused) {
@@ -36,6 +32,7 @@ class Jukebox extends Screen {
 		this.intensityMinSlider = new Slider(midx, 360, swid/2-5, 25, lg("Jukebox-MinimumIntensity"), 0, 1, val=>this.setIntensityMin(val), ()=>jukeboxSpecs.intensityMin, ()=>getIntensityDesc(jukeboxSpecs.intensityMin));
 		this.intensityMaxSlider = new Slider(midx, 390, swid/2-5, 25, lg("Jukebox-MaximumIntensity"), 0, 1, val=>this.setIntensityMax(val), ()=>jukeboxSpecs.intensityMax, ()=>getIntensityDesc(jukeboxSpecs.intensityMax));
 		this.favCheckbox = new Checkbox(midx+swid/2, 450, swid/2, 24, lg("Jukebox-FavsOnly"), val=>this.setFavsOnly(val), jukeboxSpecs.favsOnly);
+		this.shuffleCheckbox = new Checkbox(midx, HEIGHT-35, swid, 30, lg("Jukebox-Shuffle"), val=>this.setShuffle(val), jukeboxSpecs.shuffle);
 		this.objects = [
 			this.songMenu,
 			this.returnButton,
@@ -48,11 +45,14 @@ class Jukebox extends Screen {
 			this.favCheckbox,
 			this.intensityMinSlider,
 			this.intensityMaxSlider,
+			this.shuffleCheckbox,
 		];
 	}
 	update() {
-		if (!this.positionSlider.max)
+		if (song != this.lastSong || !this.positionSlider.max) {
+			this.lastSong = song;
 			this.setSliderBounds();
+		}
 		this.objects.forEach(oj=>oj.update());
 	}
 	draw() {
@@ -64,18 +64,18 @@ class Jukebox extends Screen {
 		this.objects.forEach(oj=>oj.draw());
 	}
 	setSliderBounds() {
-		this.positionSlider.max = song ? song.loopEnd || music.duration : 60;
+		this.positionSlider.max = song ? (jukeboxSpecs.shuffle ? music.duration : song.loopEnd) || music.duration : 60;
 	}
 	refreshList() {
-		this.songList = SONG_LIST.slice().filter(s=>s.intensity>=jukeboxSpecs.intensityMin && s.intensity<=jukeboxSpecs.intensityMax);
+		songList = SONG_LIST.slice().filter(s=>s.intensity>=jukeboxSpecs.intensityMin && s.intensity<=jukeboxSpecs.intensityMax);
 		if (jukeboxSpecs.favsOnly)
-			this.songList = this.songList.filter(s=>s.fav);
+			songList = songList.filter(s=>s.fav);
 		switch (jukeboxSpecs.sort) {
-			case 0: this.songList.sort((a,b)=> a.by < b.by ? -1 : 1); break;
-			case 1: this.songList.sort((a,b)=> a.name < b.name ? -1 : 1); break;
+			case 0: songList.sort((a,b)=> a.by < b.by ? -1 : 1); break;
+			case 1: songList.sort((a,b)=> a.name < b.name ? -1 : 1); break;
 		}
 		if (this.songMenu)
-			this.songMenu.setItems(this.songList);
+			this.songMenu.setItems(songList);
 	}
 	setSort(val) {
 		jukeboxSpecs.sort = val;
@@ -102,6 +102,12 @@ class Jukebox extends Screen {
 		if (val < jukeboxSpecs.intensityMin)
 			jukeboxSpecs.intensityMin = val;
 		this.refreshList();
+		this.setSliderBounds();
+	}
+	setShuffle(val) {
+		jukeboxSpecs.shuffle = val;
+		setMusicShuffle(jukeboxSpecs.shuffle)
+		this.setSliderBounds();
 	}
 }
 //TODO add intensity selectors
@@ -140,11 +146,15 @@ class JukeboxLinkPopup extends Screen {
 }
 JukeboxLinkPopup.prototype.intersectsMouse = UIObject.prototype.intersectsMouse;
 
+
+var songList = SONG_LIST.slice();
+
 var jukeboxSpecs = {
 	sort : 0,
 	intensityMin : 0,
 	intensityMax : 1,
 	favsOnly : false,
+	shuffle : false,
 }
 
 function getIntensityDesc(val) {

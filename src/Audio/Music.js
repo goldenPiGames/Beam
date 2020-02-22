@@ -8,14 +8,7 @@ var musicIsAlt;
 
 function initMusic() {
 	music = document.getElementById("Music");
-	if (typeof music.loop == 'boolean') {
-		music.loop = true;
-	} else {
-		music.addEventListener('ended', function() {
-			this.currentTime = 0;
-			this.play();
-		}, false);
-	}
+	setMusicShuffle(jukeboxSpecs.shuffle);
 }
 
 function playMusic(sin) {
@@ -50,6 +43,33 @@ function switchMusic() {
 	}
 }
 
+function setMusicShuffle(val) {
+	if (val) {
+		if (typeof music.loop == 'boolean') {
+			music.loop = false;
+		} else {
+			music.removeEventListener('ended', awkwardLoopSubstitute, false);
+		}
+		music.addEventListener('ended', shuffleMusic, false);
+	} else {
+		music.removeEventListener('ended', shuffleMusic, false);
+		if (typeof music.loop == 'boolean') {
+			music.loop = true;
+		} else {
+			music.addEventListener('ended', awkwardLoopSubstitute, false);
+		}
+	}
+}
+
+function awkwardLoopSubstitute() {
+	this.currentTime = 0;
+	this.play();
+}
+
+function shuffleMusic() {
+	playMusic(randomTerm(songList));
+}
+
 function setMusicVolume(pingas) {
 	if (!music)
 		return;
@@ -59,6 +79,7 @@ function setMusicVolume(pingas) {
 function getMusicPosition() {
 	return !song ? 0 : music.currentTime.toFixed(2);
 }
+
 function setMusicPosition(port) {
 	/*var p = !music.paused;
 	if (p)
@@ -71,14 +92,10 @@ function setMusicPosition(port) {
 
 function musicLoopCheck() {
 	//console.log(music.currentTime);
-	if (song && song.loopEnd && music.currentTime >= song.loopEnd) {
+	if (!jukeboxSpecs.shuffle && song && song.loopEnd && music.currentTime >= song.loopEnd) {
 		var d = song.loopEnd - song.loopStart;
 		//music.pause();
 		music.currentTime -= d;
 		//music.play();
 	}
-}
-
-function disableLooping() {
-	musicLoopChack = doNothing;
 }

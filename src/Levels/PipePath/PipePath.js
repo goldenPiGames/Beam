@@ -135,8 +135,10 @@ class PipePiece extends UIObject {
 		this.updateMouse();
 		if (this.hovered)
 			hovered = true;
-		if (this.clicked)
+		if (this.clicked) {
+			playSFX("blip1");
 			this.rotation = (this.rotation + 1) % (this.type == 0 ? 2 : 4);
+		}
 	}
 	draw() {
 		//console.log("bup")

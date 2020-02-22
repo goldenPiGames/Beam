@@ -30,6 +30,9 @@ class OnceLevel extends GridLevel {
 		}
 	}
 	cutPath(pis) {
+		if (this.path[this.path.length-1] == pis)
+			return false;
+		playSFX("blipdown");
 		let cutdex = this.path.indexOf(pis);
 		if (cutdex > -1)
 			this.path.splice(cutdex+1);
@@ -41,6 +44,7 @@ class OnceLevel extends GridLevel {
 	tryLinkTo(pis) {
 		let head = this.path[this.path.length-1];
 		if (head.canLinkTo(pis)) {
+			playSFX("blip1");
 			this.path.push(pis);
 			pis.tagged = true;
 		}
