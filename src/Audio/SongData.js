@@ -1,5 +1,7 @@
 const CC_BY_3 = "Creative Commons Attribution 3.0 License";
 const CC_BY_4 = "Creative Commons Attribution 4.0 International License";
+const MUSIC_GENRES = ["all", "chiptune"];
+
 
 const SONG_LIST = [
 	{name:"Boat Paint", intensity:1/4,

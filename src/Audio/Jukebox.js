@@ -33,6 +33,7 @@ class Jukebox extends Screen {
 		this.intensityMaxSlider = new Slider(midx, 390, swid/2-5, 25, lg("Jukebox-MaximumIntensity"), 0, 1, val=>this.setIntensityMax(val), ()=>jukeboxSpecs.intensityMax, ()=>getIntensityDesc(jukeboxSpecs.intensityMax));
 		this.favCheckbox = new Checkbox(midx+swid/2, 450, swid/2, 24, lg("Jukebox-FavsOnly"), val=>this.setFavsOnly(val), jukeboxSpecs.favsOnly);
 		this.shuffleCheckbox = new Checkbox(midx, HEIGHT-35, swid, 30, lg("Jukebox-Shuffle"), val=>this.setShuffle(val), jukeboxSpecs.shuffle);
+		this.genreButtons = new RadioButtons(midx+swid/2, 300, swid/2, 24, MUSIC_GENRES.map(n=>lg("Jukebox-Genre-"+n)), val=>this.setGenre(val), jukeboxSpecs.genre);
 		this.objects = [
 			this.songMenu,
 			this.returnButton,
@@ -46,6 +47,7 @@ class Jukebox extends Screen {
 			this.intensityMinSlider,
 			this.intensityMaxSlider,
 			this.shuffleCheckbox,
+			this.genreButtons,
 		];
 	}
 	update() {
@@ -70,6 +72,10 @@ class Jukebox extends Screen {
 		songList = SONG_LIST.slice().filter(s=>s.intensity>=jukeboxSpecs.intensityMin && s.intensity<=jukeboxSpecs.intensityMax);
 		if (jukeboxSpecs.favsOnly)
 			songList = songList.filter(s=>s.fav);
+		if (jukeboxSpecs.genre) {
+			var genreName = MUSIC_GENRES[jukeboxSpecs.genre];
+			songList = songList.filter(s=>s[genreName]);
+		}
 		switch (jukeboxSpecs.sort) {
 			case 0: songList.sort((a,b)=> a.by < b.by ? -1 : 1); break;
 			case 1: songList.sort((a,b)=> a.name < b.name ? -1 : 1); break;
@@ -102,12 +108,16 @@ class Jukebox extends Screen {
 		if (val < jukeboxSpecs.intensityMin)
 			jukeboxSpecs.intensityMin = val;
 		this.refreshList();
-		this.setSliderBounds();
+		//this.setSliderBounds();
 	}
 	setShuffle(val) {
 		jukeboxSpecs.shuffle = val;
 		setMusicShuffle(jukeboxSpecs.shuffle)
 		this.setSliderBounds();
+	}
+	setGenre(val) {
+		jukeboxSpecs.genre = val;
+		this.refreshList();
 	}
 }
 //TODO add intensity selectors
@@ -155,6 +165,7 @@ var jukeboxSpecs = {
 	intensityMax : 1,
 	favsOnly : false,
 	shuffle : false,
+	genre : 0,
 }
 
 function getIntensityDesc(val) {

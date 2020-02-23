@@ -13,6 +13,8 @@ LANG.en = {
 	"Jukebox-MaximumIntensity" : "Max",
 	"Jukebox-Intensities" : ["Lullaby", "Calm", "Moderate", "Exciting", "Intense"],
 	"Jukebox-Shuffle" : "Shuffle",
+	"Jukebox-Genre-all" : "Any",
+	"Jukebox-Genre-chiptune" : "Chiptune",
 	"GameMenu-Quit" : "Quit",
 	"GameMenu-QuitConfirm" : "Confirm",
 	"GameMenu-QuitCancel" : "Cancel",

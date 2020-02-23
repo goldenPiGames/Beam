@@ -148,7 +148,7 @@ class SameBlock extends UIObject {
 			this.displayY = Math.min(this.displayYGoal, this.displayY + 20);
 		}
 	}
-	draw() {
+	draw() {//TODO add patterns for the colorblind
 		ctx.lineWidth = 4;
 		ctx.fillStyle = ["#0000FF", "#00FF00", "#FFFF00", "#FF00FF", "#FF8000", "#008000"][this.color];
 		ctx.fillRect(this.displayX, this.displayY, this.displayWidth, this.displayHeight);
