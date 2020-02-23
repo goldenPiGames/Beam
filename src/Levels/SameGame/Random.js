@@ -64,13 +64,13 @@ class SameGameGenStepper {
 	getNextStep() {
 		//if (this.totalLeft < 2)
 		//	return false;
-		this.color = Math.floor(Math.random()*this.numColors+1);
+		this.color = Math.floor(rng.get()*this.numColors+1);
 		var startX, startY;
 		var downs = 0;
 		this.group = [];
 		while (this.group.length <= 0) {
-			var startX = Math.floor(Math.random()*this.lastep.length);
-			var startY = Math.floor(Math.random()*(this.heights[startX]+1));
+			var startX = Math.floor(rng.get()*this.lastep.length);
+			var startY = Math.floor(rng.get()*(this.heights[startX]+1));
 			if (this.insertIfPossible(startX, startY, true)) {
 				
 			} else {
@@ -84,7 +84,7 @@ class SameGameGenStepper {
 		//console.log(this)
 		//console.log(downs < 16, this.group, this.group.length, this.group.length < maxSize, maxSize)
 		while (downs < 16 && this.group.length < maxSize) {
-			var from = randomTerm(this.group);
+			var from = randomTerm(this.group, true);
 			var direct = directionRandom(true);
 			//console.log(from, direct);
 			if (this.insertIfPossible(from.x+directionDX(direct), from.y+directionDY(direct))) {

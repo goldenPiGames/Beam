@@ -1,5 +1,5 @@
-function randomTerm(ray) {
-	return ray[Math.floor(Math.random() * ray.length)];
+function randomTerm(ray, determ) {
+	return ray[Math.floor((determ ? rng.get() : Math.random()) * ray.length)];
 }
 
 function randomTermWeighted(ray, weightgen = ()=>1) {
