@@ -39,7 +39,7 @@ class ToggleLevel extends Level {
 					gateYStart = HEIGHT/2 - (numGates-1)*gateYInc/2;
 					gateOrient = false;
 					break;
-			case 3: this.beamEntranceSide = 1;
+			case 3: this.beamEntranceSide = 1;//these other directions might not actually work
 					this.beamExitSide = 3;
 					this.beamEntrancePosition = HEIGHT*2/3;
 					this.beamExitPosition = HEIGHT*2/3;
@@ -128,8 +128,10 @@ class ToggleSwitch extends UIObject {
 		this.updateMouse();
 		if (this.hovered)
 			hovered = true;
-		if (this.clicked)
+		if (this.clicked) {
 			this.on = !this.on;
+			playSFX(this.on ? "blip1" : "blipdown");
+		}
 	}
 	draw() {
 		//console.log("bup")

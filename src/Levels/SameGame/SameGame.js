@@ -13,10 +13,12 @@ class SameLevel extends GridLevel {
 		});
 		this.direction = layout.direction;
 		this.initGrid = layout.grid;
-		this.reset();
-		this.resetButton = new BubbleButton(WIDTH/2, HEIGHT-35, 30, ()=>this.reset(), bubbleDrawIReset);
+		this.reset(false);
+		this.resetButton = new BubbleButton(WIDTH/2, HEIGHT-35, 30, ()=>this.reset(true), bubbleDrawIReset);
 	}
-	reset() {
+	reset(re) {
+		if (re)
+			playSFX("blipdown");
 		this.blockGrid = this.initGrid.map((col,x)=>col.map((pis,y)=>new SameBlock(x, y, pis, this)));
 		this.refreshList();
 		this.evalPath();
@@ -73,6 +75,7 @@ class SameLevel extends GridLevel {
 		this.tryingRemove = true;
 	}
 	removeTagged() {
+		playSFX("blip1");
 		this.blockGrid = this.blockGrid.map(col=> {
 			col = col.filter(b=>!b||!b.tagged);
 			while (col.length < this.gridHeight)
@@ -132,6 +135,7 @@ class SameBlock extends UIObject {
 		this.color = color;
 		this.parent = parent;
 		this.updateDisplayPosition();
+		this.displayY = this.displayYGoal;
 	}
 	update() {
 		super.update();
@@ -140,10 +144,13 @@ class SameBlock extends UIObject {
 		if (this.clicked) {
 			this.parent.click(this);
 		}
+		if (this.displayY != this.displayYGoal) {
+			this.displayY = Math.min(this.displayYGoal, this.displayY + 20);
+		}
 	}
 	draw() {
 		ctx.lineWidth = 4;
-		ctx.fillStyle = ["#0000FF", "#00FF00", "#FFFF00"][this.color];
+		ctx.fillStyle = ["#0000FF", "#00FF00", "#FFFF00", "#FF00FF", "#FF8000", "#008000"][this.color];
 		ctx.fillRect(this.displayX, this.displayY, this.displayWidth, this.displayHeight);
 		ctx.strokeStyle = this.drawHovered ? settings.hover_color : settings.normal_color;
 		ctx.strokeRect(this.displayX+2, this.displayY+2, this.displayWidth-4, this.displayHeight-4);
@@ -153,7 +160,7 @@ class SameBlock extends UIObject {
 		this.displayWidth = this.parent.gridScale;
 		this.displayHeight = this.parent.gridScale;
 		this.displayX = this.parent.gridToPixX(this.gridX - 1/2);
-		this.displayY = this.parent.gridToPixY(this.gridY - 1/2);
+		this.displayYGoal = this.parent.gridToPixY(this.gridY - 1/2);
 	}
 	fall() {
 		this.updateDisplayPosition();

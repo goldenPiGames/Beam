@@ -63,3 +63,8 @@ function directionOpposite(direction) {
 		case LEFT: return RIGHT;
 	}
 }
+
+function directionRandom(determ) {
+	var ring = determ ? rng.get() : Math.random();
+	return Math.floor(ring*4);
+}

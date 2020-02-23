@@ -120,13 +120,16 @@ class RaceIterator extends InfiniteIterator {
 
 const INFINITE_MODES = [
 	{lName:"ToggleGates-Name", getLevel:(pex)=>new LevelToggleRandom({
-			direction: pdir
+			direction: pex
 		})},
 	{lName:"PipePath-Name", getLevel:(pex)=>new LevelPipeRandom({
 			entranceSide:directionOpposite(pex)
 		})},
 	{lName:"WalkOnce-Name", getLevel:(pex)=>new LevelOnceRandom({
 			entranceSide:directionOpposite(pex)
+		})},
+	{lName:"SameGame-Name", getLevel:(pex)=>new LevelSameRandom({
+			direction: pex
 		})},
 ];
 

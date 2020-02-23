@@ -67,7 +67,13 @@ function awkwardLoopSubstitute() {
 }
 
 function shuffleMusic() {
-	playMusic(randomTerm(songList));
+	var failsafe = 10;
+	var toplay = null;
+	while(failsafe > 0 && (!toplay || toplay == song)) {
+		failsafe--;
+		toplay = randomTerm(songList);
+	}
+	playMusic(toplay)
 }
 
 function setMusicVolume(pingas) {
@@ -80,14 +86,9 @@ function getMusicPosition() {
 	return !song ? 0 : music.currentTime.toFixed(2);
 }
 
-function setMusicPosition(port) {
-	/*var p = !music.paused;
-	if (p)
-		music.pause();
-	music.currentTime = port;
-	if (p)
-		music.play();*/
-	music.currentTime = port;
+function setMusicPosition(tim) {
+	if (tim == tim)
+		music.currentTime = tim;
 }
 
 function musicLoopCheck() {
