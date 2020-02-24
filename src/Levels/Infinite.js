@@ -131,6 +131,9 @@ const INFINITE_MODES = [
 	{lName:"SameGame-Name", getLevel:(pex)=>new LevelSameRandom({
 			direction: pex
 		})},
+	{lName:"Maze-Name", getLevel:(pex)=>new LevelMazeRandom({
+			entranceSide:directionOpposite(pex)
+		})},
 ];
 
 function bubbleDrawIInfinity() {

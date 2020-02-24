@@ -27,7 +27,6 @@ function initSFX() {
 		"blip1_1" : makeSound("blip1.mp3"),
 		"blip1" : new SFXCycler(["blip1_0", "blip1_1"]),
 		"blipdown" : makeSound("blipdown.mp3"),
-		"erase" : makeSound("erase.mp3"), //https://freesound.org/people/bdunis4/sounds/271470/
 	}
 }
 

@@ -1,6 +1,9 @@
 var levelIterator = false;
 
 const MAIN_LEVEL_LIST = [
+	LevelMazeStraight,
+	LevelMazeU,
+	LevelMaze3,
 	//LevelGridlock4,
 	LevelToggle1,
 	LevelToggle2,
@@ -13,6 +16,8 @@ const MAIN_LEVEL_LIST = [
 	LevelOnceSBend,
 	LevelOnceMGrid,
 	LevelOnceSymPip,
+	LevelPipeStraight,
+	LevelPipeSBend,
 	LevelPipeIntro,
 	LevelPipeReal,
 	LevelSameIntro,

@@ -87,7 +87,7 @@ class SameLevel extends GridLevel {
 		this.blockList.forEach(b=>b.fall());
 		if (this.evalPath())
 			this.win();
-	}
+	}//TODO make it shift to the left to close empty columns, and also change random to reflect that
 	evalPath() {
 		this.beamStopX = null;
 		this.beamPath = new Path2D();

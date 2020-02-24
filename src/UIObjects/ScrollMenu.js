@@ -3,7 +3,7 @@ const SCROLL_BUTTON_HEIGHT = 30;
 const SCROLL_BAR_WIDTH = 25;
 
 class ScrollMenu extends UIObject {
-	constructor(x, y, width, height, returnFunction, items = [], secondProperty = null, infoProperty = "description", enableProperty = function(val){return true}, highlightProperty = function(val){return false}) {
+	constructor(x, y, width, height, returnFunction, items = [], secondProperty = null, infoProperty = "description", enableProperty = ()=>true, highlightProperty = ()=>false) {
 		super(x, y, width, height);
 		this.currentScroll = 0;
 		this.maxEntries = Math.floor((height - 4) / SCROLL_ELEMENT_HEIGHT);
@@ -55,6 +55,13 @@ class ScrollMenu extends UIObject {
 	}
 	setBarScroll(val) {
 		this.currentScroll = val;
+		this.putItems();
+	}
+	scrollToSelected() {
+		var selectIndex = this.items.findIndex(i=>this.highlightProperty(i));
+		if (selectIndex < 0)
+			return;
+		this.currentScroll = Math.max(0, Math.min(this.maxScroll, Math.floor(selectIndex-this.maxEntries/2)));
 		this.putItems();
 	}
 	putItems() { //TODO use putItems as part of setItems

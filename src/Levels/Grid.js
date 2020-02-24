@@ -83,7 +83,7 @@ class GridLevel extends Level {
 		//Creates a path for the border, so it doesn't have to create it again every frame
 		//The border is rectangular with gaps in it for the beam to enter and exit
 		this.borderPath = new Path2D();
-		var gopR = args.borderExitGap || 20;
+		var gopR = this.gridScale/2;
 		var gop;
 		this.borderPath.moveTo(this.borderLeft, this.borderTop);
 		//top

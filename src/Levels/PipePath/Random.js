@@ -1,16 +1,14 @@
 class LevelPipeRandom extends PipeLevel {
 	constructor(layout) {
-		if (typeof layout == "number")
-			layout = {entranceSide : layout}
 		if (!layout)
 			layout = {};
 		if (layout.entranceSide == undefined) {
-			layout.entranceSide = Math.floor(rng.get()*4);
+			layout.entranceSide = directionRandom(true);
 		}
 		if (layout.exitSide == undefined) {
-			layout.exitSide = Math.floor(rng.get()*4);
+			layout.exitSide = directionRandom(true);
 			if (layout.exitSide == layout.entranceSide)
-				layout.exitSide = (layout.entranceSide + 2) % 4;
+				layout.exitSide = directionOpposite(layout.entranceSide);
 		}
 		if (!layout.width) {
 			layout.width = Math.floor(6 + 3 * rng.get());
@@ -28,7 +26,7 @@ class LevelPipeRandom extends PipeLevel {
 		//console.log(pathgen);
 		var path = pathgen.getPathPlusOut();
 		console.log(path);
-		layout.pipeGrid = new Array(layout.width).fill(-1).map(()=>new Array(layout.height).fill(-1));
+		layout.pipeGrid = newArray2d(layout.width, layout.height, -1);
 		for (var i = 1; i < path.length - 1; i++) {
 			layout.pipeGrid[path[i].x][path[i].y] = (path[i-1].x == path[i+1].x || path[i-1].y == path[i+1].y) ? 0 : 1;
 		}
@@ -40,6 +38,5 @@ class LevelPipeRandom extends PipeLevel {
 		}
 		console.log(JSON.stringify(layout));
 		super(layout);
-		this.index = layout.index;
 	}
 }

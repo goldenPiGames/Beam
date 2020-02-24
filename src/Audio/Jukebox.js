@@ -9,8 +9,10 @@ class Jukebox extends Screen {
 		var thisser = this;
 		var midx = WIDTH*.6;
 		this.refreshList();
-		this.songMenu = new ScrollMenu(0, 0, midx-10, HEIGHT, playMusic, songList, "by", "description", ()=>true, (val)=>val==song),
-		this.returnButton = new BubbleButton(WIDTH-50, 50, 45, ()=>{runnee=this.returnTo}, bubbleDrawIReturn),
+		this.songMenu = new ScrollMenu(0, 0, midx-10, HEIGHT, playMusic, songList, "by", "description", ()=>true, (val)=>val==song);
+		if (song)
+			this.songMenu.scrollToSelected();
+		this.returnButton = new BubbleButton(WIDTH-50, 50, 45, ()=>{runnee=this.returnTo}, bubbleDrawIReturn);
 		this.pauseButton = new BubbleButton(midx+50, 50, 45, ()=>{if (music.paused) music.play(); else music.pause()}, function() {
 				if (!music.paused) {
 					bubbleDrawIPause.call(this);
@@ -80,8 +82,10 @@ class Jukebox extends Screen {
 			case 0: songList.sort((a,b)=> a.by < b.by ? -1 : 1); break;
 			case 1: songList.sort((a,b)=> a.name < b.name ? -1 : 1); break;
 		}
-		if (this.songMenu)
+		if (this.songMenu) {
 			this.songMenu.setItems(songList);
+			this.songMenu.scrollToSelected();
+		}
 	}
 	setSort(val) {
 		jukeboxSpecs.sort = val;

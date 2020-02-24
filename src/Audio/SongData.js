@@ -6,6 +6,12 @@ const MUSIC_GENRES = ["all", "chiptune"];
 const SONG_LIST = [
 	{name:"Boat Paint", intensity:1/4,
 		by:"Al Gorgeous", sc:"al-goregous/boat-paint"},
+	/*
+	{name:"Saturday Morning Mood", intensity:1/4,
+		by"Asher Please", sc:"asherplease/saturday-morning-mood-1"},
+	{name:"Broken Record Blues", intensity:1/4,
+		by"Asher Please", sc:"asherplease/broken-record-blues"},
+	*/
 	{name:"Beatdown City", intensity:3/4,
 		by:"Darren Curtis", yt:"qL4u3u5WKgU", site:"https://www.darrencurtismusic.com", siten:"DarrenCurtisMusic.com", sc:"desperate-measurez/beatdown-city-80s-action-theme-royalty-free", pat:"darrencurtismusic"},
 	{name:"Dark Anthem", intensity:3/4,
@@ -39,7 +45,9 @@ const SONG_LIST = [
 	//{name:"Toilet Story 4", intensity:1/2, chiptune:1,
 	//	by:"Ghidorah", site:"https://www.last.fm/music/Ghidorah/_/Toilet+Story+4", siten:"last.fm"},
 	{name:"Flex", intensity:3/4,
-		by:"Jeremy Blake", yt:"dK0C536YxA0"},
+		by:"Jeremy Blake", yt:"btp2AZVWekM", sc:"jeremyblake", pat:"redmeansrecording"},
+	{name:"Turn Up, Let's Go", intensity:1/2,
+		by:"Jeremy Blake", yt:"btp2AZVWekM", sc:"jeremyblake", pat:"redmeansrecording"},
 	{name:"Blip Stream", intensity:1/2, chiptune:1,
 		by:"Kevin MacLeod", yt:"9np9KK4ccuA", site:"https://incompetech.com/music/royalty-free/index.html?isrc=usuan1500056", siten:"Incompetech", sc:"kevin-9-1/blip-stream", pat:"kmacleod"},
 	{name:"Exit the Premises", intensity:3/4,
@@ -83,9 +91,9 @@ const SONG_LIST = [
 	{name:"Unknown World 2", intensity:1/2, alt:true,
 		by:"PeriTune", yt:"OpsZR7O5H-A", site:"https://peritune.com/unknownworld2/", siten:"PeriTune.com", sc:"sei_peridot/unknownworld2", license:CC_BY_4}, //alt sc:"sei_peridot/unknownworld2_harp"
 	{name:"Inside Prism City", intensity:1/4,
-		by:"TeknoAXE", yt:"GW2gm806RUc", site:"http://teknoaxe.com/Link_Code_2.php?q=170", siten:"TeknoAXE.com"},
+		by:"TeknoAXE", yt:"GW2gm806RUc", site:"http://teknoaxe.com/Link_Code_2.php?q=170", siten:"TeknoAXE.com", license:CC_BY_4},
 	{name:"Looked Back Saw Nothing - Kenyon", bpm:100, intensity:0,
-		by:"Twin Musicom", yt:"A1LiBWXE_08", site:"http://www.twinmusicom.org/song/273/looked-back-saw-nothing-kenyon", siten:"TwinMusicom.org",},
+		by:"Twin Musicom", yt:"A1LiBWXE_08", site:"http://www.twinmusicom.org/song/273/looked-back-saw-nothing-kenyon", siten:"TwinMusicom.org", license:CC_BY_4},
 	{name:"Don't Sleep", intensity:1, loopStart:13.81606, loopEnd:97.81608, bpm:160,
 		by:"Ucchii 0", yt:"pluUDQCBSso", site:"https://creofuga.net/audios/106981", siten:"CreoFuga"},
 	{name:"Gambles", intensity:1, bpm:155,

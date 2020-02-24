@@ -89,6 +89,11 @@ class RandomPathGenerator extends GridLevel {
 	getPathPlusOut() {
 		return [{x:this.gridStartOutX, y:this.gridStartOutY}, ...this.path, {x:this.gridEndOutX, y:this.gridEndOutY}];
 	}
+	dPath() {
+		for (var i = 0; i < this.path.length-1; i++) {
+			this.path[i].d = directionFromXY(this.path[i+1].x - this.path[i].x, this.path[i+1].y - this.path[i].y);
+		}
+	}
 	fleshOut() {
 		var downs = 0;
 		while (downs < 16) {

@@ -1,3 +1,35 @@
+class LevelPipeStraight extends PipeLevel {
+	constructor() {
+		super({
+			pipeGrid : [
+			[0],
+			[0],
+			[0],
+			],
+			entranceSide : 3,
+			entrancePosition : 0,
+			exitSide : 1,
+			exitPosition : 0,
+		});
+	}
+}
+
+class LevelPipeSBend extends PipeLevel {
+	constructor() {
+		super({
+			pipeGrid : [
+				[0,0],
+				[1,1],
+				[1,0],
+			],
+			entranceSide : 3,
+			entrancePosition : 0,
+			exitSide : 1,
+			exitPosition : 1,
+		});
+	}
+}
+
 class LevelPipeIntro extends PipeLevel {
 	constructor() {
 		super({
