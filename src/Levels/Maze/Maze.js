@@ -152,12 +152,12 @@ class MazeTile extends UIObject {
 		ctx.lineWidth = 4;
 		ctx.beginPath();
 		if (!this.neighborsD[UP]) {
-			ctx.moveTo(this.displayX, this.displayY);
-			ctx.lineTo(this.displayX+this.displayWidth, this.displayY);
+			ctx.moveTo(this.displayX-2, this.displayY);
+			ctx.lineTo(this.displayX+this.displayWidth+2, this.displayY);
 		}
 		if (!this.neighborsD[LEFT]) {
-			ctx.moveTo(this.displayX, this.displayY);
-			ctx.lineTo(this.displayX, this.displayY+this.displayHeight);
+			ctx.moveTo(this.displayX, this.displayY-2);
+			ctx.lineTo(this.displayX, this.displayY+this.displayHeight+2);
 		}
 		ctx.stroke();
 		ctx.strokeStyle = this.hovered ? settings.hover_color : this.tagged ? settings.beam_color : settings.normal_color;

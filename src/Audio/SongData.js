@@ -88,8 +88,12 @@ const SONG_LIST = [
 		by:"PeriTune", yt:"zpXKr5VK5go", site:"https://peritune.com/raid_folkmetal/", siten:"PeriTune.com", sc:"sei_peridot/raid_folkmetal", license:CC_BY_4},
 	{name:"Raid FolkMetal 2", intensity:1,
 		by:"PeriTune", yt:"0w-rRQq67HE", site:"https://peritune.com/raid_folkmetal2/", siten:"PeriTune.com", sc:"sei_peridot/raid_folkmetal2", license:CC_BY_4},
+	{name:"Rapid 2", intensity:3/4,
+		by:"PeriTune", yt:"amnMq-0nv5A", site:"https://peritune.com/rapid2/", siten:"PeriTune.com", sc:"sei_peridot/rapid2"},
 	{name:"Unknown World 2", intensity:1/2, alt:true,
 		by:"PeriTune", yt:"OpsZR7O5H-A", site:"https://peritune.com/unknownworld2/", siten:"PeriTune.com", sc:"sei_peridot/unknownworld2", license:CC_BY_4}, //alt sc:"sei_peridot/unknownworld2_harp"
+	{name:"Edge of Tomorrow", intensity:1/2,
+		by:"TeknoAXE", yt:"hqsI5atn1U4", site:"http://teknoaxe.com/Link_Code_3.php?q=1242", siten:"TeknoAXE.com", license:CC_BY_4},
 	{name:"Inside Prism City", intensity:1/4,
 		by:"TeknoAXE", yt:"GW2gm806RUc", site:"http://teknoaxe.com/Link_Code_2.php?q=170", siten:"TeknoAXE.com", license:CC_BY_4},
 	{name:"Looked Back Saw Nothing - Kenyon", bpm:100, intensity:0,

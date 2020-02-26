@@ -1,13 +1,13 @@
 var levelIterator = false;
 
 const MAIN_LEVEL_LIST = [
-	LevelMazeStraight,
-	LevelMazeU,
-	LevelMaze3,
 	//LevelGridlock4,
 	LevelToggle1,
 	LevelToggle2,
 	LevelToggleFirstTrick,
+	LevelMazeStraight,
+	LevelMazeU,
+	LevelMaze3,
 	LevelGridlock1,
 	LevelGridlock2,
 	LevelConcentricSingle,
@@ -21,6 +21,7 @@ const MAIN_LEVEL_LIST = [
 	LevelPipeIntro,
 	LevelPipeReal,
 	LevelSameIntro,
+	LevelSameSlideDemo,
 	LevelSameTower1,
 	LevelConcentricReverse4,
 	LevelVictory,
@@ -103,7 +104,7 @@ class LevelTransition extends Screen {
 		}
 	}
 	draw() {
-		ctx.putImageData(this.fromsnap, -this.sd * this.tx, -this.sd * this.ty);
-		ctx.putImageData(this.tosnap, (1-this.sd) * this.tx, (1-this.sd) * this.ty);
+		ctx.putImageData(this.fromsnap, Math.floor(-this.sd * this.tx), Math.floor(-this.sd * this.ty));
+		ctx.putImageData(this.tosnap, Math.floor((1-this.sd) * this.tx), Math.floor((1-this.sd) * this.ty));
 	}
 }

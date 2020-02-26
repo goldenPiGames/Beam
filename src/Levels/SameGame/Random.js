@@ -18,14 +18,14 @@ class LevelSameRandom extends SameLevel {
 		var downs = 0;
 		var downs2 = 0;
 		var done = false;
-		var gridt = [newArray2d(layout.width, layout.height, 0)];
+		var gridt = [[]];
 		while (!done) {
 			cycles++;
 			if (cycles >= 6969) {
 				console.log(gridt);
 				throw "no";
 			}
-			var nextep = new SameGameGenStepper(gridt[gridt.length-1], layout.numColors).getNextStep();
+			var nextep = new SameGameGenStepper(gridt[gridt.length-1], layout.width, layout.height, layout.numColors).getNextStep();
 			if (nextep) {
 				gridt.push(nextep);
 				downs = 0;
@@ -41,7 +41,7 @@ class LevelSameRandom extends SameLevel {
 					}
 				}
 			}
-			if (gridt[gridt.length-1].reduce((a, col)=> a && col[col.length-1], true))
+			if (gridt[gridt.length-1].length == layout.width && gridt[gridt.length-1].reduce((a, col)=> a && col.length == layout.height, true))
 				done = true;
 		}
 		console.log(gridt);
@@ -52,13 +52,15 @@ class LevelSameRandom extends SameLevel {
 }
 
 class SameGameGenStepper {
-	constructor(lastep, numColors) {
+	constructor(lastep, width, height, numColors) {
 		this.lastep = slice2d(lastep);
 		this.curstep = slice2d(this.lastep);
 		this.numColors = numColors;
-		this.heights = this.lastep.map(col=>col.filter(b=>b).length);
-		this.totalAfter = this.heights.reduce((a,b)=>a+b);
-		this.totalAll = this.lastep.length*this.lastep[0].length;
+		this.width = width;
+		this.height = height;
+		//this.heights = this.lastep.map(col=>col.filter(b=>b).length);
+		this.totalAfter = this.lastep.reduce((a,c)=>a+c.length, 0);
+		this.totalAll = this.width*this.height;
 		this.totalLeft = this.totalAll - this.totalAfter;
 	}
 	getNextStep() {
@@ -68,17 +70,24 @@ class SameGameGenStepper {
 		var startX, startY;
 		var downs = 0;
 		this.group = [];
-		while (this.group.length <= 0) {
-			var startX = Math.floor(rng.get()*this.lastep.length);
-			var startY = Math.floor(rng.get()*(this.heights[startX]+1));
-			if (this.insertIfPossible(startX, startY, true)) {
-				
-			} else {
-				downs++;
-				if (downs > 16)
-					return false;
+		if (this.lastep.length <= 0) {
+			this.insertIfPossible(0, 0, true);
+			//this.curstep = [[this.color]];
+			//this.group = [{x:0,y:0}];
+		} else {
+			while (this.group.length <= 0) {
+				var startX = Math.floor(rng.get()*this.lastep.length);
+				var startY = Math.floor(rng.get()*(this.lastep[startX].length+1));
+				if (this.insertIfPossible(startX, startY, true)) {
+					
+				} else {
+					downs++;
+					if (downs > 16)
+						return false;
+				}
 			}
 		}
+		//console.log(this)
 		downs = 0;
 		var maxSize = Math.max(2, 2+rng.get()*this.totalAll*2.5/this.totalLeft)
 		//console.log(this)
@@ -112,15 +121,19 @@ class SameGameGenStepper {
 		return toret;
 	}
 	insertIfPossible(x, y, first) {
-		if (x < 0 || x >= this.curstep.length || y < 0 || y >= this.curstep[x].length)
+		//console.log(x, y, this.width, this.height)
+		if (x < 0 || x >= this.width || y < 0 || y >= this.height)
 			return false;
-		if (this.heights[x] >= this.curstep[x].length)
-			return false;
-		if (y > this.heights[x])
-			return false;
+		//console.log("yeah")
 		var hypoth = slice2d(this.curstep);
-		hypoth[x].splice(y, 0, -1);
-		hypoth[x].pop();
+		if (y == 0 && hypoth.length < this.width && (x >= hypoth.length || rng.get() < .6)) {
+			hypoth.splice(x, 0, [-1]);
+		} else {
+			if (x >= hypoth.length || hypoth[x].length >= this.height)
+				return false;
+			hypoth[x].splice(y, 0, -1);
+			//hypoth[x].pop();
+		}
 		for (var i = 0; i < hypoth.length; i++) {
 			for (var j = 0; j < hypoth[i].length; j++) {
 				if (hypoth[i][j] == -1) {
@@ -146,7 +159,7 @@ class SameGameGenStepper {
 				}
 			}
 		}
-		this.heights = this.curstep.map(col=>col.filter(b=>b).length);
+		//this.heights = this.curstep.map(col=>col.filter(b=>b).length);
 	}
 }
 

@@ -24,7 +24,7 @@ class SameLevel extends GridLevel {
 		this.evalPath();
 	}
 	refreshList() {
-		this.blockList = this.blockGrid.reduce((a,c)=>a.concat(c)).filter(a=>a).reverse();
+		this.blockList = this.blockGrid.reduce((a,c)=>a.concat(c), []).filter(a=>a).reverse();
 	}
 	update() {
 		this.resetButton.update();
@@ -41,6 +41,8 @@ class SameLevel extends GridLevel {
 				}
 			}
 		}
+		if (this.evalPath())
+			this.win();
 	}
 	draw() {
 		this.drawBorder();
@@ -83,11 +85,14 @@ class SameLevel extends GridLevel {
 			col.forEach((b,y)=>{if (b) b.gridY=y});
 			return col;
 		});
+		var afterRemoveCol = this.blockGrid.filter(col=>col.find(b=>b));
+		if (afterRemoveCol.length < this.blockGrid.length) {
+			this.blockGrid = afterRemoveCol;
+			this.blockGrid.forEach((col,x)=>col.forEach(b=>b?b.gridX=x:0));
+		}
 		this.refreshList();
 		this.blockList.forEach(b=>b.fall());
-		if (this.evalPath())
-			this.win();
-	}//TODO make it shift to the left to close empty columns, and also change random to reflect that
+	}
 	evalPath() {
 		this.beamStopX = null;
 		this.beamPath = new Path2D();
@@ -136,6 +141,7 @@ class SameBlock extends UIObject {
 		this.parent = parent;
 		this.updateDisplayPosition();
 		this.displayY = this.displayYGoal;
+		this.displayX = this.displayXGoal;
 	}
 	update() {
 		super.update();
@@ -146,6 +152,9 @@ class SameBlock extends UIObject {
 		}
 		if (this.displayY != this.displayYGoal) {
 			this.displayY = Math.min(this.displayYGoal, this.displayY + 20);
+		}
+		if (this.displayX != this.displayXGoal) {
+			this.displayX = Math.max(this.displayXGoal, this.displayX - 20);
 		}
 	}
 	draw() {//TODO add patterns for the colorblind
@@ -159,7 +168,7 @@ class SameBlock extends UIObject {
 	updateDisplayPosition() {
 		this.displayWidth = this.parent.gridScale;
 		this.displayHeight = this.parent.gridScale;
-		this.displayX = this.parent.gridToPixX(this.gridX - 1/2);
+		this.displayXGoal = this.parent.gridToPixX(this.gridX - 1/2);
 		this.displayYGoal = this.parent.gridToPixY(this.gridY - 1/2);
 	}
 	fall() {

@@ -11,6 +11,19 @@ class LevelSameIntro extends SameLevel {
 	}
 }
 
+class LevelSameSlideDemo extends SameLevel {
+	constructor() {
+		super({
+			grid : [
+				[1,0],
+				[2,2],
+				[1,0],
+			],
+			direction : 1,
+		});
+	}
+}
+
 class LevelSameTower1 extends SameLevel {
 	constructor() {
 		super({
