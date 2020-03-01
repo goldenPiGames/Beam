@@ -1,5 +1,5 @@
 var runnee;
-var overlay;
+var globalTimer = 0;
 const FPS = 30;
 var particles = [];
 var lastFrameDelay = 0;
@@ -12,6 +12,7 @@ var coreEngine = {
 		var desiredTime = now + this.frameDelay;
 		lastFrameDelay = now - this.lastRunTime;
 		this.lastRunTime = now;
+		globalTimer++;
 		musicLoopCheck();
 		hovered = false;
 		runnee.update();

@@ -18,12 +18,12 @@ class Particle {
 		if (this.x < 0 || this.y < 0 || this.x > canvas.width || this.y > canvas.height)
 			this.die();
     }
-	updateAlpha(ctx) {
+	updateAlpha() {
 		this.alpha -= (this.fade > 1) ? (1/this.fade) : this.fade;
 		if (this.alpha <= 0)
 			this.die();
     }
-	die(ctx) {
+	die() {
 		this.dead = true;
 	}
 }
@@ -82,7 +82,7 @@ class ParticleRing extends Particle {
 		this.color = color;
 		this.fade = fade;
 	}
-	draw(ctx) {
+	draw() {
 		ctx.lineWidth = 2;
 		this.radius += this.growth;
 		ctx.globalAlpha = this.alpha;

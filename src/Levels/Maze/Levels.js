@@ -1,4 +1,4 @@
-class LevelMazeStraight extends MazeLevel {
+Levels.MazeStraight = class LevelMazeStraight extends MazeLevel {
 	constructor() {
 		super({
 			gridTo : [
@@ -14,7 +14,7 @@ class LevelMazeStraight extends MazeLevel {
 	}
 }
 
-class LevelMazeU extends MazeLevel {
+Levels.MazeU = class LevelMazeU extends MazeLevel {
 	constructor() {
 		super({
 			gridTo : [
@@ -29,7 +29,7 @@ class LevelMazeU extends MazeLevel {
 	}
 }
 
-class LevelMaze3 extends MazeLevel {
+Levels.Maze3 = class LevelMaze3 extends MazeLevel {
 	constructor() {
 		super({
 			gridTo : [

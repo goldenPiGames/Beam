@@ -1,4 +1,4 @@
-class LevelSameIntro extends SameLevel {
+Levels.SameIntro = class LevelSameIntro extends SameLevel {
 	constructor() {
 		super({
 			grid : [
@@ -11,7 +11,7 @@ class LevelSameIntro extends SameLevel {
 	}
 }
 
-class LevelSameSlideDemo extends SameLevel {
+Levels.SameSlideDemo = class LevelSameSlideDemo extends SameLevel {
 	constructor() {
 		super({
 			grid : [
@@ -24,7 +24,7 @@ class LevelSameSlideDemo extends SameLevel {
 	}
 }
 
-class LevelSameTower1 extends SameLevel {
+Levels.SameTower1 = class LevelSameTower1 extends SameLevel {
 	constructor() {
 		super({
 			grid : [
@@ -35,3 +35,4 @@ class LevelSameTower1 extends SameLevel {
 		});
 	}
 }
+//LevelSameTower1.prototype.lLevelHints = "SameTower1-Hints";

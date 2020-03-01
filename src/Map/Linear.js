@@ -5,30 +5,30 @@ function continueGame() {
 
 const MAIN_LEVEL_SEQ = {
 	id : "MainLinear",
-	levels : [
+	levelIDs : [
 		//LevelGridlock4,
-		LevelToggle1,
-		LevelToggle2,
-		LevelToggleFirstTrick,
-		LevelMazeStraight,
-		LevelMazeU,
-		LevelMaze3,
-		LevelGridlock1,
-		LevelGridlock2,
-		LevelConcentricSingle,
-		LevelConcentricDouble,
-		LevelConcentricCascade3,
-		LevelOnceSBend,
-		LevelOnceMGrid,
-		LevelOnceSymPip,
-		LevelPipeStraight,
-		LevelPipeSBend,
-		LevelPipeIntro,
-		LevelPipeReal,
-		LevelSameIntro,
-		LevelSameSlideDemo,
-		LevelSameTower1,
-		LevelConcentricReverse4,
+		"Toggle1",
+		"Toggle2",
+		"ToggleFirstTrick",
+		"MazeStraight",
+		"MazeU",
+		"Maze3",
+		"Gridlock1",
+		"Gridlock2",
+		"ConcentricSingle",
+		"ConcentricDouble",
+		"ConcentricCascade3",
+		"OnceSBend",
+		"OnceMGrid",
+		"OnceSymPip",
+		"PipeStraight",
+		"PipeSBend",
+		"Pipe3",
+		"PipeReal",
+		"SameIntro",
+		"SameSlideDemo",
+		"SameTower1",
+		"ConcentricReverse4",
 		//LevelVictory,
 	],
 }
@@ -47,13 +47,13 @@ class LinearLevelIterator extends LevelIterator {
 		var currSaved = localStorage.getItem("Beam"+this.seq.id+"Progress");
 		if (this.index > currSaved)
 			localStorage.setItem("Beam"+this.seq.id+"Progress", this.index);
-		if (this.index >= this.seq.levels.length) {
+		if (this.index >= this.seq.levelIDs.length) {
 			this.index = "";
 			localStorage.setItem("Beam"+this.seq.id+"Beaten", 1);
 			localStorage.setItem("Beam"+this.seq.id+"Progress", 0);
 			return new LevelVictory(prev);
 		} else {
-			return new (this.seq.levels[this.index])();
+			return new (Levels[this.seq.levelIDs[this.index]])();
 		}
 	}
 	drawBack() {

@@ -1,4 +1,4 @@
-class LevelPipeStraight extends PipeLevel {
+Levels.PipeStraight = class LevelPipeStraight extends PipeLevel {
 	constructor() {
 		super({
 			pipeGrid : [
@@ -14,7 +14,7 @@ class LevelPipeStraight extends PipeLevel {
 	}
 }
 
-class LevelPipeSBend extends PipeLevel {
+Levels.PipeSBend = class LevelPipeSBend extends PipeLevel {
 	constructor() {
 		super({
 			pipeGrid : [
@@ -30,7 +30,7 @@ class LevelPipeSBend extends PipeLevel {
 	}
 }
 
-class LevelPipeIntro extends PipeLevel {
+Levels.Pipe3 = class LevelPipeIntro extends PipeLevel {
 	constructor() {
 		super({
 			pipeGrid : [
@@ -46,7 +46,7 @@ class LevelPipeIntro extends PipeLevel {
 	}
 }
 
-class LevelPipeReal extends PipeLevel {
+Levels.PipeReal = class LevelPipeReal extends PipeLevel {
 	constructor() {
 		super({
 			pipeGrid : [

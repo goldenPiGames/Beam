@@ -17,7 +17,7 @@ class HintScreen extends Screen {
 		switch (this.tabIndex) {
 			case 0: this.text = lg(this.wrap.level.lModeRules); break;
 			case 1: this.text = lg(this.wrap.level.lModeHints); break;
-			case 2: this.text = lg(this.wrap.level.lLevelHints) || lg("Hint-NoLevelHints"); break;
+			case 2: this.text = lg(this.wrap.level.lLevelHints) || lg(+"Hint-NoLevelHints"); break;
 		}
 	}
 	update() {

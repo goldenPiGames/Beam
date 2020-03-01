@@ -1,4 +1,4 @@
-class LevelConcentricSingle extends ConcentricLevel {
+Levels.ConcentricSingle = class LevelConcentricSingle extends ConcentricLevel {
 	constructor() {
 		super({
 			also : [
@@ -9,7 +9,7 @@ class LevelConcentricSingle extends ConcentricLevel {
 	}
 }
 
-class LevelConcentricDouble extends ConcentricLevel {
+Levels.ConcentricDouble = class LevelConcentricDouble extends ConcentricLevel {
 	constructor() {
 		super({
 			also : [
@@ -21,7 +21,7 @@ class LevelConcentricDouble extends ConcentricLevel {
 	}
 }
 
-class LevelConcentricCascade3 extends ConcentricLevel {
+Levels.ConcentricCascade3 = class LevelConcentricCascade3 extends ConcentricLevel {
 	constructor() {
 		super({
 			also : [
@@ -34,7 +34,7 @@ class LevelConcentricCascade3 extends ConcentricLevel {
 	}
 }
 
-class LevelConcentricReverse4 extends ConcentricLevel {
+Levels.ConcentricReverse4 = class LevelConcentricReverse4 extends ConcentricLevel {
 	constructor() {
 		super({
 			also : [

@@ -1,4 +1,4 @@
-class LevelGridlock1 extends GridlockLevel {
+Levels.Gridlock1 = class LevelGridlock1 extends GridlockLevel {
 	constructor() {
 		super({
 			width : 1,
@@ -12,7 +12,7 @@ class LevelGridlock1 extends GridlockLevel {
 	}
 }
 
-class LevelGridlock2 extends GridlockLevel {
+Levels.Gridlock2 = class LevelGridlock2 extends GridlockLevel {
 	constructor() {
 		super({
 			width : 3,
@@ -27,7 +27,7 @@ class LevelGridlock2 extends GridlockLevel {
 	}
 }
 
-class LevelGridlock4 extends GridlockLevel {
+Levels.Gridlock4 =class LevelGridlock4 extends GridlockLevel {
 	constructor() {
 		super({
 			width : 4,

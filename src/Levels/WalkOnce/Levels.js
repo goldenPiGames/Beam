@@ -1,4 +1,4 @@
-class LevelOnceSBend extends OnceLevel {
+Levels.OnceSBend = class LevelOnceSBend extends OnceLevel {
 	constructor() {
 		super({
 			grid : transposeArray([
@@ -13,7 +13,7 @@ class LevelOnceSBend extends OnceLevel {
 	}
 }
 
-class LevelOnceMGrid extends OnceLevel {
+Levels.OnceMGrid = class LevelOnceMGrid extends OnceLevel {
 	constructor() {
 		super({
 			grid : transposeArray([
@@ -28,7 +28,7 @@ class LevelOnceMGrid extends OnceLevel {
 	}
 }
 
-class LevelOnceSymPip extends OnceLevel {
+Levels.OnceSymPip = class LevelOnceSymPip extends OnceLevel {
 	constructor() {
 		super({
 			grid : [
@@ -44,7 +44,7 @@ class LevelOnceSymPip extends OnceLevel {
 		});
 	}
 }
-LevelOnceSymPip.prototype.lLevelHints = "OnceSymPip-Hints";
+//LevelOnceSymPip.prototype.lLevelHints = "OnceSymPip-Hints";
 
 /*class LevelOnceStraight extends OnceLevel {
 	constructor() {

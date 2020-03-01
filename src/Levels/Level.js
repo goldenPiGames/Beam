@@ -1,4 +1,4 @@
-//var Levels = {};
+var Levels = {};
 
 class LevelWrapper extends Screen {
 	constructor(level) {
