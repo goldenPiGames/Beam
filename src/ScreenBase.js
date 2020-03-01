@@ -9,6 +9,11 @@ class Screen {
 		clearBack();
 		this.objects.forEach(oj => oj.draw());
 	}
+	snap() {
+		clearBack();
+		this.draw();
+		return ctx.getImageData(0, 0, WIDTH, HEIGHT);
+	}
 }
 Screen.prototype.isScreen = true;
 Screen.prototype.overrideTouch = true;

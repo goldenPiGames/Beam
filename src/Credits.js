@@ -13,10 +13,10 @@ class CreditsScreen extends Screen {
 		ctx.fillStyle = settings.normal_color;
 		ctx.font = "25px "+settings.font;
 		ctx.fillText(lg("Credits-Me"), 5, 5);
-		ctx.fillText("Prexot (goldenPiGames)", 5, 30);
+		ctx.fillText("Prexot (goldenPiGames)", 20, 30);
 		ctx.fillText(lg("Credits-Music"), 5, 100);
-		ctx.fillText(lg("Credits-MusicVarious"), 5, 125);
-		ctx.fillText(lg("Credits-MusicVisit"), 5, 150);
+		ctx.fillText(lg("Credits-MusicVarious"), 20, 125);
+		ctx.fillText(lg("Credits-MusicVisit"), 35, 150);
 	}
 }
 

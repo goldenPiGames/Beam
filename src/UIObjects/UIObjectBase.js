@@ -12,7 +12,7 @@ class UIObject {
 	}
 	intersectsMouse() {
 		if (this.displayRadius || this.radius)
-			return Math.sqrt((mouse.x - (this.displayX || this.x)) ** 2 + (mouse.y - (this.displayY || this.y))**2) <= (this.displayRadius || this.radius);
+			return distanceBetween(mouse.x, mouse.y, this.displayX || this.x, this.displayY || this.y) <= (this.displayRadius || this.radius);
 		else
 			return mouse.x >= (this.displayX || this.x) && mouse.x < (this.displayX || this.x) + (this.displayWidth || this.width) && mouse.y >= (this.displayY || this.y) && mouse.y < (this.displayY || this.y) + (this.displayHeight || this.height);
 	}

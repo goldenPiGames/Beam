@@ -5,6 +5,13 @@ LANG.en = {
 	"MainMenu-Jukebox" : "Listen to some tunes",
 	"MainMenu-Infinite" : "Infinite randomly-generated levels",
 	"MainMenu-Credits" : "Credits",
+	
+	"LevelSet-Intro" : "Intro",
+	"LevelSet-ToggleIntro" : "Toggle Gates Intro",
+	"LevelSet-PipeIntro" : "Pipe Path Intro",
+	"LevelSet-MazeIntro" : "Maze Intro",
+	"LevelSet-OnceIntro" : "Walk-Once Intro",
+	
 	"Credits-Me" : "Programming, Concept, Design, SFX, etc.",
 	"Credits-Music" : "Music",
 	"Credits-MusicVarious" : "Various Artists",

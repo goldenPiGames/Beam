@@ -47,6 +47,19 @@ function fillLeft(str, length, filler="0") {
 	return str;
 }
 
+function distanceBetween(vx, vy, wx, wy) {
+	return Math.sqrt((vx-wx)**2 + (vy-wy)**2);
+}
+
+function distanceToSegment(px, py, vx, vy, wx, wy) {
+	var l2 = Math.pow(distanceBetween(vx, vy, wx, wy), 2);
+	if (l2 <= 0)
+		return distanceBetween(px, py, vx, vy);
+	var t = Math.max(0, Math.min(1, ((px - vx) * (wx - vx) + (py - vy) * (wy - vy)) / l2));
+	//console.log(l2, t)
+	return distanceBetween(px, py, vx + t * (wx - vx), vy + t * (wy - vy));
+}
+
 
 function differenceBetweenColors(c1, c2) {
 	return Math.abs(parseInt(c1.substring(1, 3), 16) - parseInt(c2.substring(1, 3), 16)) + Math.abs(parseInt(c1.substring(3, 5), 16) - parseInt(c2.substring(3, 5), 16)) + Math.abs(parseInt(c1.substring(5, 7), 16) - parseInt(c2.substring(5, 7), 16))

@@ -11,8 +11,8 @@ class Checkbox extends UIObject {
 	}
 	update() {
 		this.updateMouse();
-		if (this.hovered && this.hoverText != undefined)
-			infoField.setText(this.hoverText);
+		if (this.hovered)
+			hovered = true;
 		if (this.clicked) {
 			this.checked = !this.checked;
 			this.handler(this.checked);

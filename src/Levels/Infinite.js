@@ -6,7 +6,7 @@ class InfiniteSelectScreen extends Screen {
 		this.seedCheckbox = new Checkbox(WIDTH-170, HEIGHT/2, 160, 30, "Seed PRNG", val=>this.toggleSeed(val), false);
 		this.raceCheckbox = new Checkbox(WIDTH-370, HEIGHT/2, 160, 30, "Race", val=>this.toggleRace(val), false);
 		this.objects = [
-			new BubbleButton(WIDTH-50, 50, 45, ()=>switchScreen(new MainMenu()), bubbleDrawIReturn),
+			new BubbleButton(50, HEIGHT-50, 45, ()=>switchScreen(new MainMenu()), bubbleDrawIReturn),
 			this.modeButtons,
 			this.beginButton,
 			this.seedCheckbox,
@@ -71,12 +71,9 @@ class InfiniteIterator extends LevelIterator {
 		this.beaten = 0;
 		this.stageGetter = stageGetter;
 	}
-	firstLevel() {
-		return this.stageGetter(1);
-	}
 	nextLevel(prev) {
 		this.beaten++;
-		return this.stageGetter(prev.beamExitSide);
+		return this.stageGetter(prev ? prev.beamExitSide : RIGHT);
 	}
 	drawBack() {
 		this.drawBackText(this.beaten);
@@ -89,12 +86,10 @@ class RaceIterator extends InfiniteIterator {
 		this.goal = goal;
 		this.timeTaken = 0;
 	}
-	firstLevel() {
-		this.startTime = Date.now();
-		return super.firstLevel();
-	}
 	nextLevel(prev) {
-		if (this.beaten < this.goal-1) {
+		if (!prev) {
+			return super.nextLevel();
+		} else if (this.beaten < this.goal-1) {
 			this.timeTaken += prev.wrapper.timeTaken;
 			return super.nextLevel(prev);
 		} else {
@@ -109,7 +104,6 @@ class RaceIterator extends InfiniteIterator {
 			this.drawBackText(this.goal - this.beaten);
 			ctx.globalAlpha = 1;
 			var now = Date.now();
-			//var elap = now - this.startTime;
 			var mins = Math.floor(this.timeTaken/60000);
 			var secs = Math.floor((this.timeTaken%60000)/1000);
 			drawTextInRect(mins+":"+secs.toString().padStart(2,"0"), WIDTH/4, 5, WIDTH/2, 35);

@@ -86,7 +86,6 @@ class ParticleRing extends Particle {
 		ctx.lineWidth = 2;
 		this.radius += this.growth;
 		ctx.globalAlpha = this.alpha;
-		ctx.strokeWidth = 3;
 		ctx.strokeStyle = this.color;
 		ctx.beginPath();
 		ctx.arc(this.x, this.y, this.radius, 0, 2*Math.PI);

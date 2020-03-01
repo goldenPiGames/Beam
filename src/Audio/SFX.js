@@ -1,8 +1,5 @@
 var lastSFXvolume;
 
-function makeCycler(args) {
-	return new SFXCycler(Array.prototype.slice.call(arguments, 0));
-}
 function makeSound(nom) {
 	var fec = document.createElement("audio");
 	fec.preload = "auto";
@@ -49,7 +46,7 @@ class SFXCycler {
 		this.names = names;
 		this.cycle = 0;
 	}
-	play = function() {
+	play() {
 		this.cycle = this.cycle % this.names.length;
 		playSFX(this.names[this.cycle]);
 		this.cycle++;

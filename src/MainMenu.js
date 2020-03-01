@@ -6,10 +6,10 @@ class MainMenu extends Screen {
 	constructor() {
 		super();
 		this.buttons = [
-			new BubbleButtonMainMenu(WIDTH/2, HEIGHT-300, 45, ()=>continueGame(), bubbleDrawIPlay, "MainMenu-Play", this),
+			new BubbleButtonMainMenu(WIDTH/2, HEIGHT-200, 45, ()=>continueGame(), bubbleDrawIPlay, "MainMenu-Play", this),
 			new BubbleButtonMainMenu(WIDTH-50, 50, 45, ()=>runnee=new Jukebox(this), bubbleDrawIJukebox, "MainMenu-Jukebox", this),
-			new BubbleButtonMainMenu(WIDTH/2, HEIGHT-200, 45, ()=>switchScreen(new InfiniteSelectScreen()), bubbleDrawIInfinity, "MainMenu-Infinite", this),
-			new BubbleButtonMainMenu(WIDTH/2, HEIGHT-100, 45, ()=>switchScreen(new CreditsScreen()), bubbleDrawICredits, "MainMenu-Credits", this),
+			new BubbleButtonMainMenu(WIDTH/2, HEIGHT-100, 45, ()=>switchScreen(new InfiniteSelectScreen()), bubbleDrawIInfinity, "MainMenu-Infinite", this),
+			new BubbleButtonMainMenu(WIDTH*3/4, HEIGHT-100, 35, ()=>switchScreen(new CreditsScreen()), bubbleDrawICredits, "MainMenu-Credits", this),
 			//new Button(WIDTH/2, mainHeight()-100, 400, 45, "Credits", ()=>switchScreen(Credits)),
 			//new Button(WIDTH/2, mainHeight()-50, 400, 45, "Settings", doSettings),
 		]
