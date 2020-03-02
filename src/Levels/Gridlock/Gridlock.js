@@ -107,7 +107,7 @@ class GridlockPiece extends UIObject {
 	}
 	draw() {
 		ctx.lineWidth = 3;
-		ctx.strokeStyle = this.held ? settings.click_color : this.hovered ? settings.hover_color : settings.normal_color;
+		ctx.strokeStyle = this.held ? palette.click : this.hovered ? palette.hover : palette.normal;
 		ctx.strokeRect(this.displayX+1, this.displayY+1, this.displayWidth-2, this.displayHeight-2);
 	}
 	findDragBounds() {

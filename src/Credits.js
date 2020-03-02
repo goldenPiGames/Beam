@@ -10,7 +10,7 @@ class CreditsScreen extends Screen {
 		this.returnButton.draw();
 		ctx.textAlign = "left";
 		ctx.textBaseline = "top";
-		ctx.fillStyle = settings.normal_color;
+		ctx.fillStyle = palette.normal;
 		ctx.font = "25px "+settings.font;
 		ctx.fillText(lg("Credits-Me"), 5, 5);
 		ctx.fillText("Prexot (goldenPiGames)", 20, 30);

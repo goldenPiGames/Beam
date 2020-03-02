@@ -36,7 +36,7 @@ function doNothing() {
 function clearBack() {
 	ctx.globalAlpha = 1;
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	ctx.fillStyle = settings.background_color;
+	ctx.fillStyle = palette.background;
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
@@ -62,7 +62,7 @@ function drawParagraphInRect(text, x, y, width, height, size) {
 	var cx = x;
 	var cy = y;
 	for (var i = 0; i < words.length; i++) {
-		ctx.fillStyle = settings.normal_color;
+		ctx.fillStyle = palette.normal;
 		var word = words[i];
 		if (word.indexOf("<") >= 0) {
 			if (word == "<br>") {

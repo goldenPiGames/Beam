@@ -20,14 +20,14 @@ class Checkbox extends UIObject {
 	}
 	draw() {
 		ctx.lineWidth = 4;
-		ctx.strokeStyle = (this.hovered) ? settings.hover_color : settings.normal_color;
-		ctx.fillStyle = (this.checked) ? settings.click_color : settings.background_color;
+		ctx.strokeStyle = (this.hovered) ? palette.hover : palette.normal;
+		ctx.fillStyle = (this.checked) ? palette.click : palette.background;
 		
 		ctx.strokeRect(this.x, this.y + this.height/6, this.height*2/3, this.height*2/3);
 		ctx.fillRect(this.x, this.y + this.height/6, this.height*2/3, this.height*2/3);
 		
 		var fontSize = this.height * 4/5;
-		ctx.fillStyle = this.selected ? settings.click_color : (this.hovered ? settings.hover_color : settings.normal_color);
+		ctx.fillStyle = this.selected ? palette.click : (this.hovered ? palette.hover : palette.normal);
 		ctx.font = fontSize + "px "+settings.font;
 		ctx.textAlign = "left";
 		

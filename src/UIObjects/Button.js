@@ -16,11 +16,11 @@ class Button extends UIObject {
 	}
 	draw() {
 		ctx.globalAlpha = 1;
-		var color = this.active ? (this.clicked ? settings.click_color : (this.hovered ? settings.hover_color : settings.normal_color)) : settings.disabled_color;
+		var color = this.active ? (this.clicked ? palette.click : (this.hovered ? palette.hover : palette.normal)) : palette.disabled;
 		ctx.lineWidth = BUTTON_BORDER_WIDTH;
 		ctx.strokeStyle = color;
 		
-		ctx.fillStyle = settings.background_color;
+		ctx.fillStyle = palette.background;
 		ctx.fillRect(this.x, this.y, this.width, this.height);
 		
 		var bbw = BUTTON_BORDER_WIDTH;

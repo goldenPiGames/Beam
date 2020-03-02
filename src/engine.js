@@ -18,7 +18,7 @@ var coreEngine = {
 		runnee.update();
 		clearBack();
 		if (mouse.clicked)
-			particles.push(new ParticleRing(mouse.x, mouse.y, 1.5, settings.click_color, .04));
+			particles.push(new ParticleRing(mouse.x, mouse.y, 1.5, palette.click, .04));
 		runnee.draw();
 		addRandomEmbers();
 		particles = particles.filter((oj)=>oj.go());

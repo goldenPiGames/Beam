@@ -140,7 +140,7 @@ class ConcentricRing extends UIObject {//TODO prevent them from being aligned at
 		return (off >= this.gapLen && off <= Math.PI - this.gapLen);
 	}
 	draw() {
-		ctx.strokeStyle = this.drawHeld ? settings.click_color : this.drawHovered ? settings.hover_color : settings.normal_color;
+		ctx.strokeStyle = this.drawHeld ? palette.click : this.drawHovered ? palette.hover : palette.normal;
 		ctx.beginPath();
 		ctx.lineWidth = 4;
 		ctx.arc(this.x, this.y, this.radiusInner+2, this.gapTheta+this.gapLenI, this.gapTheta+Math.PI-this.gapLenI);

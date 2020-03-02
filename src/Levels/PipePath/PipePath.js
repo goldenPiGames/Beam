@@ -142,7 +142,7 @@ class PipePiece extends UIObject {
 	}
 	draw() {
 		//console.log("bup")
-		ctx.strokeStyle = this.hovered ? settings.hover_color : settings.normal_color;
+		ctx.strokeStyle = this.hovered ? palette.hover : palette.normal;
 		ctx.lineWidth = 3;
 		this.vtheta = directionTheta(this.rotation);
 		if (this.type) {

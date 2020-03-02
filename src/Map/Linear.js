@@ -25,6 +25,7 @@ const MAIN_LEVEL_SEQ = {
 		"PipeSBend",
 		"Pipe3",
 		"PipeReal",
+		"PipeAround",
 		"SameIntro",
 		"SameSlideDemo",
 		"SameTower1",

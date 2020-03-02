@@ -92,6 +92,8 @@ const SONG_LIST = [
 		by:"PeriTune", yt:"amnMq-0nv5A", site:"https://peritune.com/rapid2/", siten:"PeriTune.com", sc:"sei_peridot/rapid2"},
 	{name:"Unknown World 2", intensity:1/2, alt:true,
 		by:"PeriTune", yt:"OpsZR7O5H-A", site:"https://peritune.com/unknownworld2/", siten:"PeriTune.com", sc:"sei_peridot/unknownworld2", license:CC_BY_4}, //alt sc:"sei_peridot/unknownworld2_harp"
+	{name:"Heartbeam 1", bpm:128, //intensity:1/4, 
+		by:"Prexot"},
 	{name:"Edge of Tomorrow", intensity:1/2,
 		by:"TeknoAXE", yt:"hqsI5atn1U4", site:"http://teknoaxe.com/Link_Code_3.php?q=1242", siten:"TeknoAXE.com", license:CC_BY_4},
 	{name:"Inside Prism City", intensity:1/4,
@@ -112,6 +114,8 @@ const SONG_LIST = [
 		by:"Ucchii 0", yt:"vcJNE87j7js"},
 	{name:"聖域決戦", fname:"Seiiki Kessen", intensity:1, loopStart:11.380, loopEnd:169.484,
 		by:"Ucchii 0", yt:"6Yx2__wLYek"},
+	{name:"Deadly Sins", intensity:3/4, loopStart:11.475668934240362, loopEnd:90.53138321995465,
+		by:"YouFulca", site:"https://wingless-seraph.net/material-music_battle.html", siten:"Wingless Seraph"},
 	{name:"Never Surrender", intensity:1, loopStart:3.6729931972789114, loopEnd:54.53356009070295,
 		by:"YouFulca", site:"https://wingless-seraph.net/material-music_dangeon.html", siten:"Wingless Seraph"},
 	{name:"Never Surrender (8bit)", intensity:3/4, chiptune:1, loopStart:3.3784353741496598, loopEnd:54.23882086167801,

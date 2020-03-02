@@ -31,16 +31,16 @@ class Slider extends UIObject {
 		var portion = (val-this.min)/(this.max-this.min);
 		
 		ctx.globalAlpha = 1;
-		ctx.fillStyle = this.forceBG || settings.background_color;
+		ctx.fillStyle = this.forceBG || palette.background;
 		ctx.fillRect(this.x, this.y, this.width, this.height);
 		
-		var color = this.forceColor || (this.held ? settings.click_color : (this.hovered ? settings.hover_color : settings.normal_color));
+		var color = this.forceColor || (this.held ? palette.click : (this.hovered ? palette.hover : palette.normal));
 		ctx.strokeStyle = color;
 		ctx.strokeRect(this.x-BUTTON_BORDER_WIDTH/2, this.y+BUTTON_BORDER_WIDTH/2, this.width+BUTTON_BORDER_WIDTH, this.height-BUTTON_BORDER_WIDTH);
 		ctx.fillStyle = color;
 		ctx.fillRect(this.x, this.y, this.width*portion, this.height);
 		ctx.strokeStyle = color;
-		ctx.fillStyle = this.forceBG || settings.background_color;
+		ctx.fillStyle = this.forceBG || palette.background;
 		ctx.font = (this.height - 6) + "px " + settings.font;
 		ctx.textBaseline = "top";
 		ctx.textAlign = "left";
@@ -56,22 +56,22 @@ class Slider extends UIObject {
 // ------------------------------------------------------------------------------ Color Picker ---------------------------------
 
 class ColorPicker extends UIObject {
-	constructor(x, y, text, hoverText, handler, initial) {
+	constructor(x, y, text, handler, initial) {
 		super(x, y, 255, 150);
 		this.handler = handler;
-		this.header = new Label(this.x, this.y, 255, 30, text, hoverText);
-		this.redSlider =   new Slider(this.x, this.y+ 65, 255, 25, "Red", "The amount of red that goes into the color. Mix it with blue to get magenta, or with green to get yellow.", 0, 255, (val)=>{this.changed=true;this.red=val}, ()=>this.red);
+		this.header = new Label(this.x, this.y, 255, 30, text);
+		this.redSlider =   new Slider(this.x, this.y+ 65, 255, 25, "Red", 0, 255, (val)=>{this.changed=true;this.red=val}, ()=>this.red);
 		this.redSlider.forceColor = "#FF0000"; this.redSlider.forceBG = "#000000";
-		this.greenSlider = new Slider(this.x, this.y+ 95, 255, 25, "Green", "The amount of green that goes into the color. Mix it with red to get yellow, or with blue to get cyan.", 0, 255, (val)=>{this.changed=true;this.green=val}, ()=>this.green);
+		this.greenSlider = new Slider(this.x, this.y+ 95, 255, 25, "Green", 0, 255, (val)=>{this.changed=true;this.green=val}, ()=>this.green);
 		this.greenSlider.forceColor = "#00FF00"; this.greenSlider.forceBG = "#000000";
-		this.blueSlider =  new Slider(this.x, this.y+125, 255, 25, "Blue", "The amount of blue that goes into the color. Mix it with green to get cyan, or with red to get magenta.", 0, 255, (val)=>{this.changed=true;this.blue=val}, ()=>this.blue);
+		this.blueSlider =  new Slider(this.x, this.y+125, 255, 25, "Blue", 0, 255, (val)=>{this.changed=true;this.blue=val}, ()=>this.blue);
 		this.blueSlider.forceColor = "#0000FF"; this.blueSlider.forceBG = "#000000";
 		if (initial) {
 			if (typeof initial == "function") {
 				initial = initial();
 			}
 		} else
-			initial = settings.normal_color;
+			initial = palette.normal;
 		this.red = parseInt(initial.substring(1, 3), 16);
 		this.green = parseInt(initial.substring(3, 5), 16);
 		this.blue = parseInt(initial.substring(5, 7), 16);

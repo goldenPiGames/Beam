@@ -5,7 +5,7 @@ class LevelIterator {
 		
 	}
 	drawBackText(str) {
-		ctx.fillStyle = settings.normal_color;
+		ctx.fillStyle = palette.normal;
 		ctx.globalAlpha = 1/5;
 		drawTextInRect(str, 0, 0, WIDTH, HEIGHT);
 	}

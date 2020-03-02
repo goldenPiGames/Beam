@@ -148,7 +148,7 @@ class MazeTile extends UIObject {
 		return this.neighborsD.indexOf(pis) >= 0;
 	}
 	draw() {
-		ctx.strokeStyle = settings.normal_color;
+		ctx.strokeStyle = palette.normal;
 		ctx.lineWidth = 4;
 		ctx.beginPath();
 		if (!this.neighborsD[UP]) {
@@ -160,7 +160,7 @@ class MazeTile extends UIObject {
 			ctx.lineTo(this.displayX, this.displayY+this.displayHeight+2);
 		}
 		ctx.stroke();
-		ctx.strokeStyle = this.hovered ? settings.hover_color : this.tagged ? settings.beam_color : settings.normal_color;
+		ctx.strokeStyle = this.hovered ? palette.hover : this.tagged ? palette.beam : palette.normal;
 		ctx.lineWidth = 2;
 		ctx.beginPath();
 		ctx.arc(this.displayX+this.displayWidth/2, this.displayY+this.displayHeight/2, this.displayHeight/8, 0, 2*Math.PI);

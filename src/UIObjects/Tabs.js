@@ -48,11 +48,11 @@ class TabsTab extends UIObject {
 			this.parent.tabClicked(this.index);
 	}
 	draw(index) {
-		var color = index == this.index ? settings.click_color : this.hovered ? settings.hover_color : settings.normal_color;
+		var color = index == this.index ? palette.click : this.hovered ? palette.hover : palette.normal;
 		ctx.lineWidth = BUTTON_BORDER_WIDTH;
 		ctx.strokeStyle = color;
 		
-		ctx.fillStyle = settings.background_color;
+		ctx.fillStyle = palette.background;
 		ctx.fillRect(this.x, this.y, this.width, this.height);
 		
 		var bbw = BUTTON_BORDER_WIDTH;

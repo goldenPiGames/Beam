@@ -31,14 +31,14 @@ class HintScreen extends Screen {
 	}//TODO show one hint at a time
 	draw() {
 		this.wrap.level.draw();
-		ctx.fillStyle = settings.background_color;
+		ctx.fillStyle = palette.background;
 		ctx.globalAlpha = .3;
 		ctx.fillRect(0, 0, WIDTH, HEIGHT);
 		ctx.globalAlpha = .7;
 		ctx.fillRect(this.x, this.y, this.width, this.height);
 		ctx.globalAlpha = 1;
 		this.tabs.draw();
-		ctx.fillStyle = settings.normal_color;
+		ctx.fillStyle = palette.normal;
 		drawTextInRect(lg(this.wrap.level.lModeName), this.x, this.y, this.width, 60);
 		drawParagraphInRect(this.text, this.x, this.y+140, this.width, this.height-140, 20);
 		this.wrap.menuButton.draw();

@@ -232,7 +232,7 @@ class SameBlock extends UIObject {
 					break;
 			}
 		}
-		ctx.strokeStyle = this.drawHovered ? settings.hover_color : settings.normal_color;
+		ctx.strokeStyle = this.drawHovered ? palette.hover : palette.normal;
 		ctx.strokeRect(this.displayX+2, this.displayY+2, this.displayWidth-4, this.displayHeight-4);
 		this.drawHovered = false;
 	}

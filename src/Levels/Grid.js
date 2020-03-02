@@ -138,7 +138,7 @@ class GridLevel extends Level {
 	}
 	drawBorder() {
 		ctx.globalAlpha = 1;
-		ctx.strokeStyle = settings.normal_color;
+		ctx.strokeStyle = palette.normal;
 		ctx.lineWidth = 4;
 		ctx.stroke(this.borderPath);
 	}

@@ -144,10 +144,10 @@ class OnceTile extends OncePiece {
 		return this.neighborsL.indexOf(pis) >= 0;
 	}
 	draw() {
-		ctx.strokeStyle = this.hovered ? settings.hover_color : settings.normal_color;
+		ctx.strokeStyle = this.hovered ? palette.hover : palette.normal;
 		ctx.lineWidth = 2;
 		ctx.strokeRect(this.displayX+1, this.displayY+1, this.displayWidth-2, this.displayHeight-2);
-		ctx.strokeStyle = this.hovered ? settings.hover_color : this.tagged ? settings.beam_color : settings.normal_color;
+		ctx.strokeStyle = this.hovered ? palette.hover : this.tagged ? palette.beam : palette.normal;
 		ctx.beginPath();
 		ctx.arc(this.displayX+this.displayWidth/2, this.displayY+this.displayHeight/2, this.displayHeight/5, 0, 2*Math.PI);
 		ctx.stroke();
@@ -160,7 +160,7 @@ class OnceTile extends OncePiece {
 class OnceEmpty extends OncePiece {
 	draw() {
 		ctx.lineWidth = 3;
-		ctx.strokeStyle = settings.normal_color;
+		ctx.strokeStyle = palette.normal;
 		ctx.beginPath();
 		ctx.moveTo(this.displayX, this.displayY);
 		ctx.lineTo(this.displayX+this.displayWidth, this.displayY+this.displayHeight);

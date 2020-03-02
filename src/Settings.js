@@ -26,6 +26,7 @@ function loadSettings() {
 		}
 	}
 	loadFavSongs();
+	loadPaletteFromSettings();
 	setMusicVolume(settings.music);
 }
 

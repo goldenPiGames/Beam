@@ -51,7 +51,7 @@ class NumberSelectorDigit extends UIObject {
 	draw() {
 		this.upButton.draw();
 		this.downButton.draw();
-		ctx.fillStyle = this.hovered ? settings.hover_color : settings.normal_color;
+		ctx.fillStyle = this.hovered ? palette.hover : palette.normal;
 		drawTextInRect(this.value.toString(this.radix).toUpperCase(), this.x, this.y+this.height/4, this.width, this.height/2);
 	}
 	scrollDown(amount = 1, canLoop = true) {

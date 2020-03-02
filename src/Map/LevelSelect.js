@@ -111,7 +111,7 @@ class LevelSelectEdge extends UIObject {
 	}
 	draw() {
 		ctx.lineWidth = 4;
-		ctx.strokeStyle = this.parent.selectedEdge == this ? settings.click_color : this.hovered ? settings.hover_color : settings.normal_color;
+		ctx.strokeStyle = this.parent.selectedEdge == this ? palette.click : this.hovered ? palette.hover : palette.normal;
 		ctx.beginPath();
 		ctx.moveTo(this.prev.displayX, this.prev.displayY);
 		ctx.lineTo(this.next.displayX, this.next.displayY);
@@ -132,7 +132,7 @@ class LevelSelectBottomBeads extends UIObject {
 	draw() {
 		ctx.globalAlpha = 1;
 		ctx.lineWidth = 4;
-		ctx.strokeStyle = settings.normal_color;
+		ctx.strokeStyle = palette.normal;
 		ctx.beginPath();
 		ctx.moveTo(this.beads[0].x, this.beads[0].y);
 		ctx.lineTo(this.beads[this.beads.length-1].x, this.beads[this.beads.length-1].y);
@@ -140,7 +140,7 @@ class LevelSelectBottomBeads extends UIObject {
 		this.beads.forEach(b=>b.draw());
 		ctx.textBaseline = "bottom";
 		ctx.font = "30px "+settings.font;
-		ctx.fillStyle = settings.normal_color;
+		ctx.fillStyle = palette.normal;
 		ctx.fillText(this.edge.name, WIDTH/2, HEIGHT-60);
 	}
 	beadClicked(dex) {
@@ -167,9 +167,9 @@ class LevelSelectBottomBeadsBead extends UIObject {
 		}
 	}
 	draw() {
-		var color = this.parent.index == this.index ? settings.click_color : this.hovered ? settings.hover_color : settings.normal_color;
+		var color = this.parent.index == this.index ? palette.click : this.hovered ? palette.hover : palette.normal;
 		ctx.strokeStyle = color;
-		ctx.fillStyle = settings.background_color;
+		ctx.fillStyle = palette.background;
 		ctx.lineWidth = 4;
 		ctx.beginPath();
 		ctx.arc(this.x, this.y, this.radius, 0, 2*Math.PI);
@@ -227,8 +227,8 @@ class MainPrismNode extends Level {
 		//draw the central prism
 		/*ctx.globalAlpha = 1;
 		ctx.lineWidth = 4;
-		ctx.strokeStyle = settings.normal_color;
-		ctx.fillStyle = settings.background_color;
+		ctx.strokeStyle = palette.normal;
+		ctx.fillStyle = palette.background;
 		ctx.moveTo(this.prismX + this.prismRadius * Math.cos(this.prismTheta), this.prismY + this.prismRadius * Math.sin(this.prismTheta));
 		for (var i = 1; i <= 3; i++)
 			ctx.lineTo(this.prismX + this.prismRadius * Math.cos(this.prismTheta + Math.PI*i/2), this.prismY + this.prismRadius * Math.sin(this.prismTheta + Math.PI*i/2));

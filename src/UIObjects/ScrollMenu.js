@@ -92,9 +92,9 @@ class ScrollMenu extends UIObject {
 		}
 	}
 	draw() {
-		ctx.fillStyle = settings.background_color;
+		ctx.fillStyle = palette.background;
 		ctx.fillRect(this.x, this.y, this.width, this.height);
-		ctx.strokeStyle = settings.normal_color;
+		ctx.strokeStyle = palette.normal;
 		ctx.lineWidth = 2;
 		ctx.strokeRect(this.x + 1, this.y + 1, this.width - 2, this.height - 2);
 		this.scrollBar.draw();
@@ -137,7 +137,7 @@ class ScrollMenuElement extends UIObject {
 	}
 	draw() {
 		if (this.value) {
-			var color = this.parent.enableProperty(this.value) ? ((this.clicked || this.parent.highlightProperty(this.value)) ? settings.click_color : (this.hovered ? settings.hover_color : settings.normal_color)) : settings.disabled_color;
+			var color = this.parent.enableProperty(this.value) ? ((this.clicked || this.parent.highlightProperty(this.value)) ? palette.click : (this.hovered ? palette.hover : palette.normal)) : palette.disabled;
 			var fontSize = this.height - 3;
 			ctx.fillStyle = color;
 			ctx.font = fontSize + "px "+settings.font;
@@ -172,7 +172,7 @@ class ScrollBar extends UIObject {
 		}
 	}
 	draw() {
-		ctx.strokeStyle = this.held ? settings.click_color : this.hovered ? settings.hover_color : settings.normal_color;
+		ctx.strokeStyle = this.held ? palette.click : this.hovered ? palette.hover : palette.normal;
 		//ctx.strokeRect(this.x + this.width - SCROLL_BAR_WIDTH + 1, this.y + SCROLL_BUTTON_HEIGHT + (this.height - SCROLL_BUTTON_HEIGHT * 2) * this.currentScroll / (this.maxEntries + this.maxScroll), SCROLL_BAR_WIDTH - 2, (this.height - SCROLL_BUTTON_HEIGHT * 2) * this.maxEntries / (this.maxEntries + this.maxScroll));
 		if (this.size < (this.max-this.min))
 			ctx.strokeRect(this.x +1, this.y + this.height*this.getter()/this.max +1, this.width -2, this.height*this.size/this.max -2);

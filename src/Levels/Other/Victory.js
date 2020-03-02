@@ -1,3 +1,4 @@
+//TODO make it not look like shit
 class LevelVictory extends Level {
 	constructor() {
 		super();
@@ -10,7 +11,7 @@ class LevelVictory extends Level {
 	}
 	draw() {
 		ctx.globalAlpha = 1;
-		ctx.fillStyle = settings.normal_color;
+		ctx.fillStyle = palette.normal;
 		ctx.textAlign = "center";
 		ctx.textBaseline = "middle";
 		drawTextInRect("placeholder win screen", 0, 0, WIDTH, HEIGHT/2);
@@ -33,7 +34,7 @@ class RaceEndScreen extends Level {
 		
 	}
 	draw() {
-		ctx.fillStyle = settings.normal_color;
+		ctx.fillStyle = palette.normal;
 		drawTextInRect(lg("Race-End"), 0, 0, WIDTH, HEIGHT/2);
 		drawTextInRect(this.score, 0, HEIGHT/2, WIDTH, HEIGHT/2);
 	}

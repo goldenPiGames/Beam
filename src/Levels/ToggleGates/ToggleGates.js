@@ -135,7 +135,7 @@ class ToggleSwitch extends UIObject {
 	}
 	draw() {
 		//console.log("bup")
-		ctx.strokeStyle = this.hovered ? settings.hover_color : settings.normal_color;
+		ctx.strokeStyle = this.hovered ? palette.hover : palette.normal;
 		ctx.lineWidth = 3;
 		ctx.beginPath();
 		ctx.arc(this.x, this.y, this.radius-1, 0, 2*Math.PI);
@@ -175,7 +175,7 @@ class ToggleGate extends UIObject {
 	draw() {
 		//console.log("bup")
 		this.hovered = this.switches.find(s=>s.hovered);
-		ctx.strokeStyle = this.hovered ? settings.hover_color : settings.normal_color;
+		ctx.strokeStyle = this.hovered ? palette.hover : palette.normal;
 		ctx.lineWidth = 3;
 		if (this.shut) {
 			ctx.beginPath();

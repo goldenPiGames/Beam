@@ -65,7 +65,7 @@ function addRandomEmbers() {
 function randomCursorEmber(x, y, color = null) {
 	var direction = randomDirection();
 	var speed = .5 + .5 * Math.random();
-	var color = color || (mouse.down ? settings.click_color : (hovered ? settings.hover_color : settings.normal_color));
+	var color = color || (mouse.down ? palette.click : (hovered ? palette.hover : palette.normal));
 	var dx = Math.cos(direction) * speed;
 	var dy = Math.sin(direction) * speed;
 	return new Ember(x - dx, y - dy, dx, dy, 2, color, .03);

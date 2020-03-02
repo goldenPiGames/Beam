@@ -62,7 +62,7 @@ class Jukebox extends Screen {
 	draw() {
 		ctx.putImageData(this.backsnap, 0, 0);
 		ctx.globalAlpha = .9;
-		ctx.fillStyle = settings.background_color;
+		ctx.fillStyle = palette.background;
 		ctx.fillRect(0, 0, WIDTH, HEIGHT);
 		ctx.globalAlpha = 1;
 		this.objects.forEach(oj=>oj.draw());
@@ -146,14 +146,14 @@ class JukeboxLinkPopup extends Screen {
 	}
 	draw() {
 		this.returnTo.draw();
-		ctx.fillStyle = settings.background_color;
+		ctx.fillStyle = palette.background;
 		ctx.globalAlpha = .7;
 		ctx.fillRect(0, 0, WIDTH, HEIGHT);
 		ctx.globalAlpha = .4;
 		ctx.fillRect(this.x, this.y, this.width, this.height);
 		ctx.globalAlpha = 1;
 		ctx.lineWidth = 4;
-		ctx.strokeStyle = settings.normal_color;
+		ctx.strokeStyle = palette.normal;
 		ctx.strokeRect(this.x, this.y, this.width, this.height);
 		this.buttons.forEach(butt=>butt.draw());
 	}

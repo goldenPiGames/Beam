@@ -52,8 +52,8 @@ class RadioButtonElement extends UIObject {
 	}
 	draw() {
 		ctx.lineWidth = 4;
-		ctx.strokeStyle = (this.hovered) ? settings.hover_color : settings.normal_color;
-		ctx.fillStyle = (this.selected) ? settings.click_color : settings.background_color;
+		ctx.strokeStyle = (this.hovered) ? palette.hover : palette.normal;
+		ctx.fillStyle = (this.selected) ? palette.click : palette.background;
 		
 		var r = this.height/3;
 		
@@ -64,7 +64,7 @@ class RadioButtonElement extends UIObject {
 		ctx.fill();
 		
 		var fontSize = this.height * 4/5;
-		ctx.fillStyle = this.selected ? settings.click_color : (this.hovered ? settings.hover_color : settings.normal_color);
+		ctx.fillStyle = this.selected ? palette.click : (this.hovered ? palette.hover : palette.normal);
 		ctx.font = fontSize + "px "+settings.font;
 		ctx.textAlign = "left";
 		ctx.textBaseline = "top";

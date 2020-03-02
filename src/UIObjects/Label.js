@@ -1,6 +1,6 @@
 
 class Label extends UIObject {
-	constructor(x, y, width, height, text, hoverText, normalColor = settings.normal_color, align = "center") {
+	constructor(x, y, width, height, text, hoverText, normalColor = palette.normal, align = "center") {
 		super(x, y, width, height);
 		this.text = text;
 		this.hoverText = hoverText;

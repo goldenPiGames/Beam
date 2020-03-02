@@ -16,7 +16,7 @@ class BubbleButton extends UIObject {
 	}
 	draw() {
 		ctx.lineWidth = 4;
-		var color = this.clicked ? settings.click_color : (this.hovered ? settings.hover_color : settings.normal_color);
+		var color = this.clicked ? palette.click : (this.hovered ? palette.hover : palette.normal);
 		ctx.strokeStyle = color;
 		ctx.fillStyle = color;
 		ctx.beginPath();

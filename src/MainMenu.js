@@ -10,10 +10,11 @@ class MainMenu extends Screen {
 			new BubbleButtonMainMenu(WIDTH-50, 50, 45, ()=>runnee=new Jukebox(this), bubbleDrawIJukebox, "MainMenu-Jukebox", this),
 			new BubbleButtonMainMenu(WIDTH/2, HEIGHT-100, 45, ()=>switchScreen(new InfiniteSelectScreen()), bubbleDrawIInfinity, "MainMenu-Infinite", this),
 			new BubbleButtonMainMenu(WIDTH*3/4, HEIGHT-100, 35, ()=>switchScreen(new CreditsScreen()), bubbleDrawICredits, "MainMenu-Credits", this),
+			new BubbleButtonMainMenu(WIDTH*1/4, HEIGHT-100, 35, ()=>switchScreen(new PaletteScreen(this)), bubbleDrawIPalette, "MainMenu-Palette", this),
 			//new Button(WIDTH/2, mainHeight()-100, 400, 45, "Credits", ()=>switchScreen(Credits)),
 			//new Button(WIDTH/2, mainHeight()-50, 400, 45, "Settings", doSettings),
 		]
-		//if (differenceBetweenColors(settings.normal_color, settings.background_color) < 72)
+		//if (differenceBetweenColors(palette.normal, palette.background) < 72)
 			//this.objects.push(new EmergencyColorResetter(0, mainHeight()-20, 200, 20));
 	}
 	update() {
@@ -27,14 +28,14 @@ class MainMenu extends Screen {
 		ctx.font = "100px "+settings.font;
 		ctx.textBaseline = "top";
 		ctx.textAlign = "center";
-		ctx.fillStyle = settings.beam_color;
+		ctx.fillStyle = palette.beam;
 		ctx.fillText(lg("Title"), canvas.width/2, 10);
 		this.buttons.forEach(oj=>oj.draw());
 		if (this.hoverText) {
 			ctx.font = "25px "+settings.font;
 			ctx.textBaseline = "bottom";
 			ctx.textAlign = "center";
-			ctx.fillStyle = settings.hover_color;
+			ctx.fillStyle = palette.hover;
 			ctx.fillText(this.hoverText, WIDTH/2, HEIGHT-10);
 		}
 	}

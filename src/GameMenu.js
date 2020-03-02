@@ -21,7 +21,7 @@ class GameMenu extends Screen {
 	}
 	draw() {
 		this.wrap.draw();
-		ctx.fillStyle = settings.background_color;
+		ctx.fillStyle = palette.background;
 		ctx.globalAlpha = .3;
 		ctx.fillRect(0, 0, WIDTH, HEIGHT);
 		ctx.globalAlpha = .7;
@@ -58,14 +58,14 @@ class GameMenuQuitConfirm extends Screen {
 	}
 	draw() {
 		this.returnTo.draw();
-		ctx.fillStyle = settings.background_color;
+		ctx.fillStyle = palette.background;
 		ctx.globalAlpha = .7;
 		ctx.fillRect(0, 0, WIDTH, HEIGHT);
 		ctx.globalAlpha = 1;
 		ctx.lineWidth = 4;
-		ctx.strokeStyle = settings.normal_color;
+		ctx.strokeStyle = palette.normal;
 		ctx.strokeRect(this.x, this.y, this.width, this.height);
-		ctx.fillStyle = settings.normal_color;
+		ctx.fillStyle = palette.normal;
 		drawTextInRect(lg("GameMenu-Quit"), this.x, this.y, this.width, this.height/2);
 		this.buttons.forEach(butt=>butt.draw());
 	}
