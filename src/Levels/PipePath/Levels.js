@@ -83,3 +83,16 @@ Levels.PipeAround = class LevelPipeAround extends PipeLevel {
 		});
 	}
 }
+
+//TODO quest for the single straight piece?
+
+const SEQ_MAIN_PIPE = {
+	id : "MainPipe", 
+	levelIDs : [
+		"PipeStraight",
+		"PipeSBend",
+		"Pipe3",
+		"PipeReal",
+		"PipeAround",
+	]
+}

@@ -7,11 +7,13 @@ LANG.en = {
 	"MainMenu-Credits" : "Credits",
 	"MainMenu-Palette" : "Change the colors",
 	
-	"LevelSet-Intro" : "Intro",
-	"LevelSet-ToggleIntro" : "Toggle Gates Intro",
-	"LevelSet-PipeIntro" : "Pipe Path Intro",
-	"LevelSet-MazeIntro" : "Maze Intro",
-	"LevelSet-OnceIntro" : "Walk-Once Intro",
+	"Seq-MainPipe" : "Pipe Path",
+	"Seq-MainToggle" : "Toggle Gates",
+	"Seq-MainConcentric" : "Concentric Circles",
+	"Seq-MainGridlock" : "Gridlock",
+	"Seq-MainOnce" : "Walk Once",
+	"Seq-MainMaze" : "Maze",
+	"Seq-MainSame" : "SameGame",
 	
 	"Credits-Me" : "Programming, Concept, Design, SFX, etc.",
 	"Credits-Music" : "Music",
@@ -36,6 +38,8 @@ LANG.en = {
 	"Hint-TabLevelHints" : "Level Hints",
 	"Hint-NoLevelHints" : "No hints available for this particular level.",
 	"Hint-Poke" : "Need a hint?",
+	"Victory-Title" : "Sequence Complete",
+	"Victory-Paragraph" : "I should probably put a button to return to the level select here. Whatever. <br> Check out the other modes, or try the infinite levels. I think I forgot to mention, you can return to the main menu by clicking that button in the upper-left corner, then \"Quit\". ",
 	"Race-End" : "FINISH",
 	
 	"LevelOther-Name" : "???",

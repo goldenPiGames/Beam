@@ -27,7 +27,7 @@ Levels.Gridlock2 = class LevelGridlock2 extends GridlockLevel {
 	}
 }
 
-Levels.Gridlock4 =class LevelGridlock4 extends GridlockLevel {
+Levels.Gridlock4 = class LevelGridlock4 extends GridlockLevel {
 	constructor() {
 		super({
 			width : 4,
@@ -42,4 +42,12 @@ Levels.Gridlock4 =class LevelGridlock4 extends GridlockLevel {
 			position : 1,
 		});
 	}
+}
+
+const SEQ_MAIN_GRIDLOCK = {
+	id : "MainGridlock",
+	levelIDs : [
+		"Gridlock1",
+		"Gridlock2",
+	]
 }

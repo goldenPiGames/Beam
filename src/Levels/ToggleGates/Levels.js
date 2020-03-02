@@ -36,3 +36,12 @@ Levels.ToggleFirstTrick = class LevelToggleFirstTrick extends ToggleLevel {
 }
 
 //https://youtu.be/JoEok5sLuuk?t=536
+
+const SEQ_MAIN_TOGGLE = {
+	id : "MainToggle",
+	levelIDs : [
+		"Toggle1",
+		"Toggle2",
+		"ToggleFirstTrick",
+	]
+}

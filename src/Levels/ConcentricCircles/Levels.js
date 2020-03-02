@@ -47,3 +47,13 @@ Levels.ConcentricReverse4 = class LevelConcentricReverse4 extends ConcentricLeve
 		});
 	}
 }
+
+const SEQ_MAIN_CONCENTRIC = {
+	id : "MainConcentric",
+	levelIDs : [
+		"ConcentricSingle",
+		"ConcentricDouble",
+		"ConcentricCascade3",
+		"ConcentricReverse4",
+	]
+}

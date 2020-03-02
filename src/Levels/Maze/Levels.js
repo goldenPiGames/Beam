@@ -44,3 +44,12 @@ Levels.Maze3 = class LevelMaze3 extends MazeLevel {
 		});
 	}
 }
+
+const SEQ_MAIN_MAZE = {
+	id : "MainMaze",
+	levelIDs : [
+		"MazeStraight",
+		"MazeU",
+		"Maze3",
+	]
+}

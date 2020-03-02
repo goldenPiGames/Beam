@@ -35,4 +35,12 @@ Levels.SameTower1 = class LevelSameTower1 extends SameLevel {
 		});
 	}
 }
-//LevelSameTower1.prototype.lLevelHints = "SameTower1-Hints";
+
+const SEQ_MAIN_SAME = {
+	id : "MainSame",
+	levelIDs : [
+		"SameIntro",
+		"SameSlideDemo",
+		"SameTower1",
+	]
+}

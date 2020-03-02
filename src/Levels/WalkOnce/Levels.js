@@ -58,3 +58,35 @@ Levels.OnceSymPip = class LevelOnceSymPip extends OnceLevel {
 		});
 	}
 }*/
+
+Levels.OnceFR1 = class LevelOnceFR1 extends OnceLevel {
+	constructor() {
+		super({
+			grid:[
+				[0,0,0,1,1],
+				[1,1,0,1,1],
+				[1,1,1,1,0],
+				[1,1,1,1,1],
+				[1,1,1,1,1],
+				[0,1,1,0,1],
+				[1,1,1,0,1],
+				[1,0,1,1,1],
+			],
+			entranceSide:3,
+			exitSide:1,
+			entrancePosition:3,
+			exitPosition:0,
+		});
+	}
+}
+
+
+const SEQ_MAIN_ONCE = {
+	id : "MainOnce",
+	levelIDs : [
+		"OnceSBend",
+		"OnceMGrid",
+		"OnceSymPip",
+		"OnceFR1",
+	]
+}
