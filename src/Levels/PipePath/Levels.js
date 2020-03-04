@@ -68,10 +68,6 @@ Levels.PipeReal = class LevelPipeReal extends PipeLevel {
 Levels.PipeAround = class LevelPipeAround extends PipeLevel {
 	constructor() {
 		super({
-			entranceSide:3,
-			exitSide:1,
-			entrancePosition:0,
-			exitPosition:0,
 			pipeGrid:[
 				[0,1,1,1],
 				[0,0,0,0],
@@ -80,11 +76,37 @@ Levels.PipeAround = class LevelPipeAround extends PipeLevel {
 				[0,1,1,0],
 				[1,1,1,1],
 			],
+			entranceSide:3,
+			exitSide:1,
+			entrancePosition:0,
+			exitPosition:0,
 		});
 	}
 }
 
-//TODO quest for the single straight piece?
+Levels.PipeStraightSearch = class LevelStraightSearch extends PipeLevel {
+	constructor() {
+		super({
+			entranceSide:3,
+			exitSide:1,
+			entrancePosition:4,
+			exitPosition:4,
+			pipeGrid:[
+				[1,1,1,1,1,1,1],
+				[1,1,1,1,1,1,1],
+				[1,0,1,1,1,1,1],
+				[1,1,1,1,1,1,1],
+				[1,1,1,1,1,1,1],
+				[1,1,1,1,1,1,1],
+				[1,1,1,1,1,1,1],
+				[1,1,1,1,1,1,1],
+				[1,1,1,1,1,1,1],
+				[1,1,1,1,1,1,1],
+				[1,1,1,1,1,1,1],
+			],
+		});
+	}
+}
 
 const SEQ_MAIN_PIPE = {
 	id : "MainPipe", 
@@ -94,5 +116,6 @@ const SEQ_MAIN_PIPE = {
 		"Pipe3",
 		"PipeReal",
 		"PipeAround",
+		"PipeStraightSearch",
 	]
 }

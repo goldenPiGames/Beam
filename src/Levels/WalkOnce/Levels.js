@@ -28,6 +28,22 @@ Levels.OnceMGrid = class LevelOnceMGrid extends OnceLevel {
 	}
 }
 
+Levels.Once3x5 = class LevelOnce3x5 extends OnceLevel { //One of Bonte's games
+	constructor() {
+		super({
+			grid : [
+				[1,1,1,1,1],
+				[1,1,1,1,1],
+				[1,1,1,1,1],
+			],
+			entranceSide : 3,
+			entrancePosition : 2,
+			exitSide : 1,
+			exitPosition : 2,
+		});
+	}
+}
+
 Levels.OnceSymPip = class LevelOnceSymPip extends OnceLevel {
 	constructor() {
 		super({
@@ -59,6 +75,28 @@ Levels.OnceSymPip = class LevelOnceSymPip extends OnceLevel {
 	}
 }*/
 
+Levels.OnceIronFortress = class LevelOnceIronFortress extends OnceLevel { //Reference to Epic Battle Fantasy 5
+	constructor() {
+		super({
+			grid:[
+				[0,1,1,1,1,1,1],
+				[1,1,1,1,0,0,1],
+				[1,0,0,1,1,1,1],
+				[1,1,1,1,1,1,1],
+				[1,1,1,0,0,1,1],
+				[1,0,1,1,1,1,0],
+				[1,1,0,1,1,1,1],
+				[1,1,1,1,0,0,1],
+				[1,1,1,1,1,1,1],
+			],
+			entranceSide:3,
+			exitSide:1,
+			entrancePosition:3,
+			exitPosition:3,
+		});
+	}
+}
+
 Levels.OnceFR1 = class LevelOnceFR1 extends OnceLevel {
 	constructor() {
 		super({
@@ -86,7 +124,9 @@ const SEQ_MAIN_ONCE = {
 	levelIDs : [
 		"OnceSBend",
 		"OnceMGrid",
+		"Once3x5",
 		"OnceSymPip",
+		"OnceIronFortress",
 		"OnceFR1",
 	]
 }

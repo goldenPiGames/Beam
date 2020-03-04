@@ -1,5 +1,5 @@
 class InfiniteSelectScreen extends Screen {
-	constructor() {
+	constructor(specs) {
 		super();
 		this.modeButtons = new RadioButtons(10, 10, 200, 30, INFINITE_MODES.map(mod=>lg(mod.lName)), dex=>this.modeClicked(dex));
 		this.beginButton = new BubbleButton(WIDTH-50, HEIGHT-50, 45, ()=>this.tryPlay(), bubbleDrawIPlay);
@@ -20,6 +20,21 @@ class InfiniteSelectScreen extends Screen {
 		this.objectsRaceOnly = [
 			this.goalSelector,
 		];
+		if (specs) {
+			this.setSpecs(specs);
+		}
+	}
+	setSpecs(specs) {
+		this.doingRace = specs.race;
+		this.modeButtons.setIndex(INFINITE_MODES.findIndex(m=>m.id==specs.mode));
+		this.raceCheckbox.checked = this.doingRace;
+		this.seedSelector.setNumber(specs.rngseed);
+		if (typeof specs.goal == "number")
+			this.goalSelector.setNumber(specs.goal);
+		this.doingSeed = specs.rng;
+		this.seedCheckbox.checked = this.doingSeed;
+		if (typeof specs.rngseed == "number")
+			this.seedSelector.setNumber(specs.rngseed);
 	}
 	update() {
 		this.objects.forEach(butt=>butt.update());
@@ -40,8 +55,10 @@ class InfiniteSelectScreen extends Screen {
 	}
 	tryPlay() {
 		if (this.modeButtons.index >= 0) {
+			var rngseed = null;
 			if (this.doingSeed) {
-				rng = new SM64RNG(this.seedSelector.getNumber());
+				rngseed = this.seedSelector.getNumber()
+				rng = new SM64RNG(rngseed);
 			}
 			if (this.doingRace) {
 				var num = this.goalSelector.getNumber();
@@ -49,9 +66,9 @@ class InfiniteSelectScreen extends Screen {
 				if (num <= 0) {
 					return false;
 				}
-				levelIterator = new RaceIterator(INFINITE_MODES[this.modeButtons.index].getLevel, num);
+				levelIterator = new RaceIterator(INFINITE_MODES[this.modeButtons.index], num, rngseed);
 			} else
-				levelIterator = new InfiniteIterator(INFINITE_MODES[this.modeButtons.index].getLevel);
+				levelIterator = new InfiniteIterator(INFINITE_MODES[this.modeButtons.index]);
 			startLevel();
 			return true;
 		} else
@@ -66,14 +83,14 @@ class InfiniteSelectScreen extends Screen {
 }
 
 class InfiniteIterator extends LevelIterator {
-	constructor(stageGetter) {
+	constructor(mode) {
 		super();
-		this.beaten = 0;
-		this.stageGetter = stageGetter;
+		this.beaten = -1;
+		this.mode = mode;
 	}
 	nextLevel(prev) {
 		this.beaten++;
-		return this.stageGetter(prev ? prev.beamExitSide : RIGHT);
+		return this.mode.getLevel(prev ? prev.beamExitSide : RIGHT);
 	}
 	drawBack() {
 		this.drawBackText(this.beaten);
@@ -81,9 +98,10 @@ class InfiniteIterator extends LevelIterator {
 }
 
 class RaceIterator extends InfiniteIterator {
-	constructor(stageGetter, goal) {
-		super(stageGetter);
+	constructor(mode, goal, seed) {
+		super(mode);
 		this.goal = goal;
+		this.seed = seed;
 		this.timeTaken = 0;
 	}
 	nextLevel(prev) {
@@ -95,7 +113,7 @@ class RaceIterator extends InfiniteIterator {
 		} else {
 			this.finished = true;
 			this.finishTime = Date.now();
-			return new RaceEndScreen(directionOpposite(prev.beamExitSide), this.timeTaken);
+			return new RaceEndScreen(directionOpposite(prev.beamExitSide), this);
 		}
 	}
 	drawBack(wrap) {
@@ -113,19 +131,19 @@ class RaceIterator extends InfiniteIterator {
 }
 
 const INFINITE_MODES = [
-	{lName:"ToggleGates-Name", getLevel:(pex)=>new LevelToggleRandom({
+	{id:"ToggleGates", lName:"ToggleGates-Name", getLevel:(pex)=>new LevelToggleRandom({
 			direction: pex
 		})},
-	{lName:"PipePath-Name", getLevel:(pex)=>new LevelPipeRandom({
+	{id:"PipePath", lName:"PipePath-Name", getLevel:(pex)=>new LevelPipeRandom({
 			entranceSide:directionOpposite(pex)
 		})},
-	{lName:"WalkOnce-Name", getLevel:(pex)=>new LevelOnceRandom({
+	{id:"WalkOnce", lName:"WalkOnce-Name", getLevel:(pex)=>new LevelOnceRandom({
 			entranceSide:directionOpposite(pex)
 		})},
-	{lName:"SameGame-Name", getLevel:(pex)=>new LevelSameRandom({
+	{id:"SameGame", lName:"SameGame-Name", getLevel:(pex)=>new LevelSameRandom({
 			direction: pex
 		})},
-	{lName:"Maze-Name", getLevel:(pex)=>new LevelMazeRandom({
+	{id:"Maze", lName:"Maze-Name", getLevel:(pex)=>new LevelMazeRandom({
 			entranceSide:directionOpposite(pex)
 		})},
 ];

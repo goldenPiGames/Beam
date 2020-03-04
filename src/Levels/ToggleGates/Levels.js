@@ -35,6 +35,24 @@ Levels.ToggleFirstTrick = class LevelToggleFirstTrick extends ToggleLevel {
 	}
 }
 
+Levels.ToggleAlternating = class LevelToggleAlternating extends ToggleLevel {
+	constructor() {
+		super({
+			gates : [
+				[1,0,0,0,0,0,0],
+				[1,1,0,0,0,0,0],
+				[0,1,1,0,0,0,0],
+				[0,0,1,1,0,0,0],
+				[0,0,0,1,1,0,0],
+				[0,0,0,0,1,1,0],
+				[0,0,0,0,0,1,1],
+				[0,0,0,0,0,0,1],
+			],
+			direction : 1,
+		});
+	}
+}
+
 //https://youtu.be/JoEok5sLuuk?t=536
 
 const SEQ_MAIN_TOGGLE = {
@@ -43,5 +61,6 @@ const SEQ_MAIN_TOGGLE = {
 		"Toggle1",
 		"Toggle2",
 		"ToggleFirstTrick",
+		"ToggleAlternating",
 	]
 }

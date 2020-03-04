@@ -18,7 +18,7 @@ class PaletteScreen extends Screen {
 		this.backgroundPicker = new ColorPicker(310, 10, "Background", val=>{settings.background_color=val; loadPaletteFromSettings()}, settings.background_color);
 		this.hoverPicker = new ColorPicker(10, 210, "Hover", val=>{settings.hover_color=val; loadPaletteFromSettings()}, settings.hover_color);
 		this.clickPicker = new ColorPicker(310, 210, "Click", val=>{settings.click_color=val; loadPaletteFromSettings()}, settings.click_color);
-		this.colorblindBox = new Checkbox(10, 410, 200, 30, "Colorblind-Friendly", val=>settings.colorblind=val, settings.colorblind);//TODO colorblind friendly stuff like SameGame patterns
+		this.colorblindBox = new Checkbox(10, 410, 256, 30, "Colorblind-Friendly", val=>settings.colorblind=val, settings.colorblind);
 		//this.allowChangeBox = new Checkbox(//TODO prevent game from changing palette
 		this.objects = [
 			this.returnButton,

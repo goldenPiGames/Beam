@@ -124,8 +124,6 @@ class Jukebox extends Screen {
 		this.refreshList();
 	}
 }
-//TODO add intensity selectors
-//TODO add shuffle
 
 class JukeboxLinkPopup extends Screen {
 	constructor(returnTo) {

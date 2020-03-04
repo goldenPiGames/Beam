@@ -46,7 +46,7 @@ const MAIN_LEVEL_SEQ = {
 }
 
 class LevelSelectLinearScreen extends Screen {
-	constructor(seqs) {
+	constructor(seqs = MAIN_LEVEL_SEQS) {
 		super();
 		this.seqs = seqs;
 		this.seqBeads = this.seqs.map((seq, dex, ray) => new LevelSelectSeqBeads(seq, 10, HEIGHT*(dex)/(ray.length), WIDTH-120, HEIGHT/(ray.length+1), this));
@@ -174,7 +174,7 @@ class LinearLevelIterator extends LevelIterator {
 		if (this.index >= this.seq.levelIDs.length) {
 			this.index = "";
 			localStorage.setItem("Beam"+this.seq.id+"Beaten", 1);
-			return new LevelVictory(prev);
+			return new LevelVictoryLinear(this.seq, prev);
 		} else {
 			return new (Levels[this.seq.levelIDs[this.index]])();
 		}
@@ -184,3 +184,26 @@ class LinearLevelIterator extends LevelIterator {
 			this.drawBackText(this.index);
 	}
 }
+
+class LevelVictoryLinear extends Level {
+	constructor(seq, prev) {
+		super();
+		this.beamEntranceSide = directionOpposite(prev.beamExitSide);
+		this.beamEntrancePosition = HEIGHT/2;
+		this.calcBeamEnds();
+		this.levelButton = new Button(WIDTH/2-80, HEIGHT/2+100, 160, 40, lg("Victory-Return"), ()=>switchScreen(new LevelSelectLinearScreen()));
+	}
+	update() {
+		this.levelButton.update();
+	}
+	draw() {
+		ctx.globalAlpha = 1;
+		ctx.fillStyle = palette.normal;
+		ctx.textAlign = "center";
+		ctx.textBaseline = "middle";
+		drawTextInRect(lg("Victory-Title"), 0, 0, WIDTH, HEIGHT/2);
+		//drawParagraphInRect(lg("Victory-Paragraph"), 0, HEIGHT/2, WIDTH, HEIGHT/2, 24);
+		this.levelButton.draw();
+	}
+}
+LevelVictoryLinear.prototype.isEnd = true;

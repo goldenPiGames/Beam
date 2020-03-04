@@ -26,6 +26,7 @@ function startGame() {
 		runnee = new LangSelectScreen();
 	initMusic();
 	initSFX();
+	initTextInput();
 	coreEngine.run();
 }
 

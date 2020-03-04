@@ -13,7 +13,7 @@ class GridlockLevel extends GridLevel {
 		this.direction = layout.direction;
 		this.width = layout.width;
 		this.height = layout.height;
-		this.pieces = layout.pieces;
+		this.pieces = layout.pieces.map(d=>new GridlockPiece(d));
 		this.pieces.forEach(pis=>pis.setParent(this));
 		this.evalPath();
 		this.beamStopX = null;
@@ -35,20 +35,20 @@ class GridlockLevel extends GridLevel {
 		//Just kidding, it's so that the beam goes through as soon as you drag the last piece out of the way, instead of waiting until you set it down.
 		switch (this.direction) {
 			case UP:
-					blocked = this.pieces.filter(pis => this.beamEntrancePosition >= pis.displayX && this.beamEntrancePosition <= pis.displayX + pis.displayWidth).sort((a, b) => a.displayY - b.displayY)[0];
+					blocked = this.pieces.filter(pis => !pis.thru && this.beamEntrancePosition >= pis.displayX && this.beamEntrancePosition <= pis.displayX + pis.displayWidth).sort((a, b) => a.displayY - b.displayY)[0];
 					by = blocked ? blocked.displayY + blocked.displayHeight : this.beamEndY;
 					break;
 			case RIGHT:
 					//this.pieces.forEach(pis => console.log(this.beamEntrancePosition, pis.displayY, pis.displayHeight));
-					blocked = this.pieces.filter(pis => this.beamEntrancePosition >= pis.displayY && this.beamEntrancePosition <= pis.displayY + pis.displayHeight).sort((a, b) => a.displayX - b.displayX)[0];
+					blocked = this.pieces.filter(pis => !pis.thru && this.beamEntrancePosition >= pis.displayY && this.beamEntrancePosition <= pis.displayY + pis.displayHeight).sort((a, b) => a.displayX - b.displayX)[0];
 					bx = blocked ? blocked.displayX : this.beamEndX;
 					break;
 			case DOWN:
-					blocked = this.pieces.filter(pis => this.beamEntrancePosition >= pis.displayX && this.beamEntrancePosition <= pis.displayX + pis.displayWidth).sort((a, b) => a.displayY - b.displayY)[0];
+					blocked = this.pieces.filter(pis => !pis.thru && this.beamEntrancePosition >= pis.displayX && this.beamEntrancePosition <= pis.displayX + pis.displayWidth).sort((a, b) => a.displayY - b.displayY)[0];
 					by = blocked ? blocked.displayY : this.beamEndY;
 					break;
 			case LEFT:
-					blocked = this.pieces.filter(pis => this.beamEntrancePosition >= pis.displayY && this.beamEntrancePosition <= pis.displayY + pis.displayHeight).sort((a, b) => a.displayX - b.displayX)[0];
+					blocked = this.pieces.filter(pis => !pis.thru && this.beamEntrancePosition >= pis.displayY && this.beamEntrancePosition <= pis.displayY + pis.displayHeight).sort((a, b) => a.displayX - b.displayX)[0];
 					bx = blocked ? blocked.displayX + blocked.displayWidth : this.beamEndX;
 					break;
 		}
@@ -76,16 +76,24 @@ GridlockLevel.prototype.lModeRules = "Gridlock-Rules";
 GridlockLevel.prototype.lModeHints = "Gridlock-Hints";
 
 class GridlockPiece extends UIObject {
-	constructor(x, y, length, movesHoriz) {
+	constructor(data) {
 		super();
-		this.gridX = x;
-		this.gridY = y;
-		this.gridWidth = movesHoriz ? length : 1;
-		this.gridHeight = !movesHoriz ? length : 1;
-		this.movesHoriz = movesHoriz;
+		this.gridX = data.x;
+		this.gridY = data.y;
+		this.gridWidth = data.horiz ? data.len : 1;
+		this.gridHeight = !data.horiz ? data.len : 1;
+		this.movesHoriz = data.horiz;
+		this.thruGapR = 10;
 	}
 	setParent(parent) {
 		this.parent = parent;
+		if (this.parent.direction % 2) {//horizontal
+			if (this.movesHoriz && this.gridY == this.parent.gridStartY)
+				this.thru = true;
+		} else {//vertical
+			if (!this.movesHoriz && this.gridX == this.parent.gridStartX)
+				this.thru = true;
+		}
 		this.updateDisplayPosition();
 	}
 	update() {
@@ -108,7 +116,17 @@ class GridlockPiece extends UIObject {
 	draw() {
 		ctx.lineWidth = 3;
 		ctx.strokeStyle = this.held ? palette.click : this.hovered ? palette.hover : palette.normal;
-		ctx.strokeRect(this.displayX+1, this.displayY+1, this.displayWidth-2, this.displayHeight-2);
+		if (this.thru) {
+			if (this.movesHoriz) {
+				ctx.strokeRect(this.displayX+1, this.displayY+1, this.displayWidth-2, this.displayHeight/2-this.thruGapR);
+				ctx.strokeRect(this.displayX+1, this.displayY+this.displayHeight/2+this.thruGapR-1, this.displayWidth-2, this.displayHeight/2-this.thruGapR);
+			} else {
+				ctx.strokeRect(this.displayX+1, this.displayY+1, this.displayWidth/2-this.thruGapR, this.displayHeight-2);
+				ctx.strokeRect(this.displayX+this.displayWidth/2+this.thruGapR-1, this.displayY+1, this.displayWidth/2-this.thruGapR, this.displayHeight-2);
+			}
+		} else {
+			ctx.strokeRect(this.displayX+1, this.displayY+1, this.displayWidth-2, this.displayHeight-2);
+		}
 	}
 	findDragBounds() {
 		var s;

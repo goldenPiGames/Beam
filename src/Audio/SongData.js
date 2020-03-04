@@ -43,7 +43,7 @@ const SONG_LIST = [
 	{name:"Underwater Coolness", intensity:1/4,
 		by:"Eric Matyas", site:"https://soundimage.org/nature-science-3/", siten:"SoundImage.org"},
 	//{name:"Toilet Story 4", intensity:1/2, chiptune:1,
-	//	by:"Ghidorah", site:"https://www.last.fm/music/Ghidorah/_/Toilet+Story+4", siten:"last.fm"},
+	//	by:"Ghidorah", site:"https://modarchive.org/index.php?request=view_by_moduleid&query=63621", siten:"The Mod Archive"},//site:"https://www.last.fm/music/Ghidorah/_/Toilet+Story+4", siten:"last.fm"}, //
 	{name:"Flex", intensity:3/4,
 		by:"Jeremy Blake", yt:"btp2AZVWekM", sc:"jeremyblake", pat:"redmeansrecording"},
 	{name:"Turn Up, Let's Go", intensity:1/2,
@@ -104,6 +104,8 @@ const SONG_LIST = [
 		by:"TeknoAXE", yt:"08aevamNz60", site:"https://teknoaxe.com/Link_Code_3.php?q=1404", siten:"TeknoAXE.com", license:CC_BY_4},
 	{name:"Looked Back Saw Nothing - Kenyon", bpm:100, intensity:0,
 		by:"Twin Musicom", yt:"A1LiBWXE_08", site:"http://www.twinmusicom.org/song/273/looked-back-saw-nothing-kenyon", siten:"TwinMusicom.org", license:CC_BY_4},
+	{name:"Collapse of the Labyrinth", intensity:1, chiptune:1, bpm:145,// loopStart:13.81606, loopEnd:97.81608, 
+		by:"Ucchii 0", yt:"RiLqC-sFl6U", sc:"vskktqtpbuqs/chiptunecollapse-of-the-labyrinthucchii0"},
 	{name:"Don't Sleep", intensity:1, loopStart:13.81606, loopEnd:97.81608, bpm:160,
 		by:"Ucchii 0", yt:"pluUDQCBSso", site:"https://creofuga.net/audios/106981", siten:"CreoFuga"},
 	{name:"Gambles", intensity:1, bpm:155,
