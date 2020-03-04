@@ -124,8 +124,14 @@ const SONG_LIST = [
 		by:"YouFulca", site:"https://wingless-seraph.net/material-music_8bit.html", siten:"Wingless Seraph"},
 	{name:"まだ見ぬ明日への誓い", fname:"Battle Madaminu", intensity:1, loopStart:5.434172335600907, loopEnd:88.98675736961451,
 		by:"YouFulca", site:"https://wingless-seraph.net/material-music_battle.html", siten:"Wingless Seraph"},
+	{name:"ステージ4", fname:"Stage 4", intensity:3/4, chiptune:1, loopStart:0.09997732426303856, loopEnd:43.736281179138324,
+		by:"YouFulca", site:"https://wingless-seraph.net/material-music_8bit.html", siten:"Wingless Seraph"},
+	{name:"ステージ5", fname:"Stage 5", intensity:1/2, chiptune:1, loopStart:7.65827664399093, loopEnd:56.79172335600907,
+		by:"YouFulca", site:"https://wingless-seraph.net/material-music_8bit.html", siten:"Wingless Seraph"},
 	{name:"レイピアを継ぐ少女", fname:"Battle Rapier", intensity:1, loopStart:9.5762358276644, loopEnd:72.32124716553288,
 		by:"YouFulca", site:"https://wingless-seraph.net/material-music_battle.html", siten:"Wingless Seraph"},
+	{name:"勝利を信じて", fname:"Battle 1", intensity:3/4, chiptune:1, loopStart:6.1998185941043085, loopEnd:54.19823129251701,
+		by:"YouFulca", site:"https://wingless-seraph.net/material-music_8bit.html", siten:"Wingless Seraph"},
 ]
 var SONG_HASH = {};
 SONG_LIST.forEach(function(sing, dex) {
