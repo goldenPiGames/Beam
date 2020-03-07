@@ -17,7 +17,7 @@ class HintScreen extends Screen {
 		switch (this.tabIndex) {
 			case 0: this.text = lg(this.wrap.level.lModeRules); break;
 			case 1: this.text = lg(this.wrap.level.lModeHints); break;
-			case 2: this.text = lg(this.wrap.level.lLevelHints) || lg(+"Hint-NoLevelHints"); break;
+			case 2: this.text = lg(this.wrap.level.lLevelHints) || lg("Hint-NoLevelHints"); break;
 		}
 	}
 	update() {
@@ -30,7 +30,7 @@ class HintScreen extends Screen {
 		this.tabs.update();
 	}//TODO show one hint at a time
 	draw() {
-		this.wrap.level.draw();
+		this.wrap.draw();
 		ctx.fillStyle = palette.background;
 		ctx.globalAlpha = .3;
 		ctx.fillRect(0, 0, WIDTH, HEIGHT);

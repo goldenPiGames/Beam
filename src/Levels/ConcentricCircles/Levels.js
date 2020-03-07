@@ -61,6 +61,20 @@ Levels.ConcentricRound3 = class LevelConcentricRound3 extends ConcentricLevel {
 	}
 }
 
+Levels.ConcentricRound4 = class LevelConcentricRound3 extends ConcentricLevel {
+	constructor() {
+		super({
+			also : [
+				[1,1,0,1],
+				[1,1,1,0],
+				[0,1,1,1],
+				[1,0,1,1],
+				],
+			direction : 1,
+		});
+	}
+}
+
 const SEQ_MAIN_CONCENTRIC = {
 	id : "MainConcentric",
 	levelIDs : [
@@ -69,5 +83,6 @@ const SEQ_MAIN_CONCENTRIC = {
 		"ConcentricCascade3",
 		"ConcentricReverse4",
 		"ConcentricRound3",
+		"ConcentricRound4",
 	]
 }

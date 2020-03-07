@@ -33,8 +33,10 @@ class LevelOnceRandom extends OnceLevel {
 		for (var i = 0; i < path.length; i++) {
 			layout.grid[path[i].x][path[i].y] = 1;
 		}
-		console.log(JSON.stringify(layout));
+		layout.mode = "WalkOnce";
+		var json = JSON.stringify(layout);
 		super(layout);
-		this.index = layout.index;
+		this.json = json;
+		console.log(json);
 	}
 }

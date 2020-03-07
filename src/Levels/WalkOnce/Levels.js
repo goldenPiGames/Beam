@@ -101,7 +101,7 @@ Levels.OnceFR1 = class LevelOnceFR1 extends OnceLevel {
 	constructor() {
 		super({
 			grid:[
-				[0,0,0,1,1],
+				[1,1,0,1,1],
 				[1,1,0,1,1],
 				[1,1,1,1,0],
 				[1,1,1,1,1],

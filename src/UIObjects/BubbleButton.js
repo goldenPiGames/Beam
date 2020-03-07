@@ -15,12 +15,12 @@ class BubbleButton extends UIObject {
 			this.handler();
 	}
 	draw() {
-		ctx.lineWidth = 4;
+		ctx.lineWidth = BUTTON_BORDER_WIDTH;
 		var color = this.clicked ? palette.click : (this.hovered ? palette.hover : palette.normal);
 		ctx.strokeStyle = color;
 		ctx.fillStyle = color;
 		ctx.beginPath();
-		ctx.arc(this.x, this.y, this.radius, 0, 2*Math.PI);
+		ctx.arc(this.x, this.y, this.radius-BUTTON_BORDER_WIDTH/2, 0, 2*Math.PI);
 		ctx.closePath();
 		ctx.stroke();
 		this.drawI();

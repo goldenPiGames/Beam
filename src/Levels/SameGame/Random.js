@@ -47,7 +47,11 @@ class LevelSameRandom extends SameLevel {
 		console.log(gridt);
 		//Grid is initially generated one-indexed and y+up
 		layout.grid = gridt[gridt.length-1].map(col=>col.map(b=>b-1).reverse());
+		layout.mode = "SameGame";
+		var json = JSON.stringify(layout);
 		super(layout);
+		this.json = json;
+		console.log(json);
 	}
 }
 

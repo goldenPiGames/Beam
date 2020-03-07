@@ -1,11 +1,22 @@
 LANG.en = {
 	"Lang-Name" : "English",
 	"Title" : "Beam",
-	"MainMenu-Play" : "Play the game",
+	"MainMenu-Play" : "Play",
 	"MainMenu-Jukebox" : "Jukebox",
-	"MainMenu-Infinite" : "Infinite randomly-generated levels",
+	"MainMenu-Infinite" : "Infinite",
 	"MainMenu-Credits" : "Credits",
+	"MainMenu-Race" : "Race",
 	"MainMenu-Palette" : "Change the colors",
+	"Multiplayer-Anonymous" : "Anon",
+	"RaceMenu-TimeTrial" : "Time Trial",
+	"RaceMenu-HeadToHead" : "Head to Head",
+	"RaceMenu-Host" : "Host",
+	"RaceMenu-Join" : "Join",
+	"MultiplayerJoin-Waiting" : "Waiting for response...",
+	"MultiplayerJoin-NotFound" : "Host not found.",
+	"MultiplayerJoin-Joined" : "Joined.",
+	"MultiplayerGuestEnd-Header" : "FINISH.",
+	"MultiplayerGuestEnd-Paragraph" : "Look at the host's screen to figure out your place. I haven't gotten around to making it tell you what your place was.",
 	
 	"Seq-MainPipe" : "Pipe Path",
 	"Seq-MainToggle" : "Toggle Gates",
@@ -42,11 +53,13 @@ LANG.en = {
 	"Victory-Paragraph" : "I should probably put a button to return to the level select here. Whatever. <br> Check out the other modes, or try the infinite levels. I think I forgot to mention, you can return to the main menu by clicking that button in the upper-left corner, then \"Quit\". ",
 	"Victory-Return" : "Level Select",
 	
-	"RaceEnd-Header" : "FINISH",
-	"RaceEnd-Return" : "Play Again",
-	"RaceEnd-Length" : "Length: <num>",
-	"RaceEnd-SM64RNG" : "SM64RNG seed <seed>",
-	"RaceEnd-NoPRNG" : "Standard RNG",
+	"Infinite-PRNG" : "Seed PRNG",
+	"Infinite-TimeTrial" : "Time Trial",
+	"TimeTrialEnd-Header" : "FINISH",
+	"TimeTrialEnd-Return" : "Play Again",
+	"TimeTrialEnd-Length" : "Length: <num>",
+	"TimeTrialEnd-SM64RNG" : "SM64RNG seed <seed>",
+	"TimeTrialEnd-NoPRNG" : "Standard RNG",
 	
 	"LevelOther-Name" : "???",
 	"LevelOther-Rules" : "This is some other level. Figuring out the rules is part of the challenge.",
@@ -88,23 +101,28 @@ LANG.en = {
 	"MazeStraight-Hints" : ["Just drag from left to right."],
 	"MazeU-Hints" : [""],
 	"Maze3-Hints" : ["If you go the wrong way, you can always rewind."],
+	
 	"Gridlock1-Hints" : ["Just drag the rectangle down."],
 	"Gridlock2-Hints" : ["You'll need to drag the vertical rectangle down.", "First, you need to get the horizontal rectangle out of the way."],
-	//"GridlockRH3-Hints" //TODO
+	"GridlockRH3-Hints" : ["I can't write hints"],//TODO
+	
 	"ConcentricSingle-Hints" : ["Just drag the circle around so the beam goes through the gap."],
 	"ConcentricDouble-Hints" : ["The rings move independently.", "Drag both rings around so the beam goes through their gaps."],
 	"ConcentricCascade3-Hints" : ["When you drag one of the rings, it drags all of the rings inside it too.", "Work either from the outside in or from the inside out."],
 	"ConcentricReverse4-Hints" : ["Just like a previous level, but in reverse", "Each ring moves all of the rings outside itself.", "Work either from the outside in or from the inside out."],
 	"ConcentricRound3-Hints" : ["If you're near the end, make small movements."],//TODO maybe more hints?
+	
 	"OnceSBend-Hints" : ["Just drag from circle to circle."],
 	"OnceMGrid-Hints" : ["Go down from the start."],
 	"OnceSymPip-Hints" : ["You have to go down from the start; otherwise, you'll leave yourself with a dead end.", "The solution is symmetrical."],
+	
 	"PipeStraight-Hints" : ["Make all of the pieces horizontal."],
 	"PipeSBend-Hints" : ["You don't need to connect all the pieces. Just get to the exit."],
 	"Pipe3-Hints" : ["Go down from the start."],
 	"PipeReal-Hints" : ["There are three possible paths to complete this.", "You can go either up or down from the start."],
 	"PipeAround-Hints" : ["It may be easier to work backwards from the end on this one.", "Go along the bottom."],
-	"PipeStraightSearch" : ["You'll have to go through a straight piece to fix your alignment.", "The straight piece is around the upper-left."],
+	"PipeStraightSearch-Hints" : ["You'll have to go through a straight piece to fix your alignment.", "The straight piece is around the upper-left."],
+	
 	"SameIntro-Hints" : ["Click wither of the groups, then the other."],
 	"SameSlideDemo-Hints" : ["You literally can't fail this one, just click until you win."],
 	"SameTower1-Hints" : ["First, click the two-of-a-kind. Otherwise, you'll have a singleton block of one of the other color left."],

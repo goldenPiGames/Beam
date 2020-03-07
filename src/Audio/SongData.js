@@ -104,7 +104,7 @@ const SONG_LIST = [
 		by:"TeknoAXE", yt:"08aevamNz60", site:"https://teknoaxe.com/Link_Code_3.php?q=1404", siten:"TeknoAXE.com", license:CC_BY_4},
 	{name:"Looked Back Saw Nothing - Kenyon", bpm:100, intensity:0,
 		by:"Twin Musicom", yt:"A1LiBWXE_08", site:"http://www.twinmusicom.org/song/273/looked-back-saw-nothing-kenyon", siten:"TwinMusicom.org", license:CC_BY_4},
-	{name:"Collapse of the Labyrinth", intensity:1, chiptune:1, bpm:145,// loopStart:13.81606, loopEnd:97.81608, 
+	{name:"Collapse of the Labyrinth", intensity:1, chiptune:1, bpm:145, loopStart:108.161, loopEnd:232.294, //TODO find loopStart and loopEnd
 		by:"Ucchii 0", yt:"RiLqC-sFl6U", sc:"vskktqtpbuqs/chiptunecollapse-of-the-labyrinthucchii0"},
 	{name:"Don't Sleep", intensity:1, loopStart:13.81606, loopEnd:97.81608, bpm:160,
 		by:"Ucchii 0", yt:"pluUDQCBSso", site:"https://creofuga.net/audios/106981", siten:"CreoFuga"},

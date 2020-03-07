@@ -36,7 +36,10 @@ class LevelPipeRandom extends PipeLevel {
 					layout.pipeGrid[i][j] = rng.get() < .4 ? 0 : 1;
 			}
 		}
-		console.log(JSON.stringify(layout));
+		layout.mode = "PipePath";
+		var json = JSON.stringify(layout);
 		super(layout);
+		this.json = json;
+		console.log(json);
 	}
 }

@@ -3,10 +3,11 @@ class InfiniteSelectScreen extends Screen {
 		super();
 		this.modeButtons = new RadioButtons(10, 10, 200, 30, INFINITE_MODES.map(mod=>lg(mod.lName)), dex=>this.modeClicked(dex));
 		this.beginButton = new BubbleButton(WIDTH-50, HEIGHT-50, 45, ()=>this.tryPlay(), bubbleDrawIPlay);
-		this.seedCheckbox = new Checkbox(WIDTH-170, HEIGHT/2, 160, 30, "Seed PRNG", val=>this.toggleSeed(val), false);
-		this.raceCheckbox = new Checkbox(WIDTH-370, HEIGHT/2, 160, 30, "Race", val=>this.toggleRace(val), false);
+		this.seedCheckbox = new Checkbox(WIDTH-170, HEIGHT/2, 160, 30, lg("Infinite-PRNG"), val=>this.toggleSeed(val), false);
+		this.raceCheckbox = new Checkbox(WIDTH-370, HEIGHT/2, 160, 30, lg("Infinite-TimeTrial"), val=>this.toggleRace(val), false);
+		this.returnButton = new BubbleButton(50, HEIGHT-50, 45, ()=>switchScreen(new MainMenu()), bubbleDrawIReturn),
 		this.objects = [
-			new BubbleButton(50, HEIGHT-50, 45, ()=>switchScreen(new MainMenu()), bubbleDrawIReturn),
+			this.returnButton,
 			this.modeButtons,
 			this.beginButton,
 			this.seedCheckbox,
@@ -25,6 +26,7 @@ class InfiniteSelectScreen extends Screen {
 		}
 	}
 	setSpecs(specs) {
+		console.log(specs)
 		this.doingRace = specs.race;
 		this.modeButtons.setIndex(INFINITE_MODES.findIndex(m=>m.id==specs.mode));
 		this.raceCheckbox.checked = this.doingRace;
@@ -50,9 +52,6 @@ class InfiniteSelectScreen extends Screen {
 		if (this.doingRace)
 			this.objectsRaceOnly.forEach(butt=>butt.draw());
 	}
-	modeClicked(dex) {
-		
-	}
 	tryPlay() {
 		if (this.modeButtons.index >= 0) {
 			var rngseed = null;
@@ -66,13 +65,16 @@ class InfiniteSelectScreen extends Screen {
 				if (num <= 0) {
 					return false;
 				}
-				levelIterator = new RaceIterator(INFINITE_MODES[this.modeButtons.index], num, rngseed);
+				levelIterator = new TimeTrialIterator(INFINITE_MODES[this.modeButtons.index], num, rngseed);
 			} else
 				levelIterator = new InfiniteIterator(INFINITE_MODES[this.modeButtons.index]);
 			startLevel();
 			return true;
 		} else
 			return false;
+	}
+	modeClicked(dex) {
+		
 	}
 	toggleSeed(val) {
 		this.doingSeed = val;
@@ -94,39 +96,6 @@ class InfiniteIterator extends LevelIterator {
 	}
 	drawBack() {
 		this.drawBackText(this.beaten);
-	}
-}
-
-class RaceIterator extends InfiniteIterator {
-	constructor(mode, goal, seed) {
-		super(mode);
-		this.goal = goal;
-		this.seed = seed;
-		this.timeTaken = 0;
-	}
-	nextLevel(prev) {
-		if (!prev) {
-			return super.nextLevel();
-		} else if (this.beaten < this.goal-1) {
-			this.timeTaken += prev.wrapper.timeTaken;
-			return super.nextLevel(prev);
-		} else {
-			this.finished = true;
-			this.finishTime = Date.now();
-			return new RaceEndScreen(directionOpposite(prev.beamExitSide), this);
-		}
-	}
-	drawBack(wrap) {
-		this.timeTaken += lastFrameDelay;
-		if (!this.finished) {
-			this.drawBackText(this.goal - this.beaten);
-			ctx.globalAlpha = 1;
-			var now = Date.now();
-			var mins = Math.floor(this.timeTaken/60000);
-			var secs = Math.floor((this.timeTaken%60000)/1000);
-			drawTextInRect(mins+":"+secs.toString().padStart(2,"0"), WIDTH/4, 5, WIDTH/2, 35);
-			//drawTextInRect(this.timeTaken+wrap.timeTaken, WIDTH/4, 5, WIDTH/2, 35)
-		}
 	}
 }
 

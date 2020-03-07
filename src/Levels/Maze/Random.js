@@ -45,7 +45,10 @@ class LevelMazeRandom extends MazeLevel {
 			}
 		}
 		//TODO make final check to make sure there are no separate areas
-		console.log(JSON.stringify(layout));
+		layout.mode = "Maze";
+		var json = JSON.stringify(layout);
 		super(layout);
+		this.json = json;
+		console.log(json);
 	}
 }

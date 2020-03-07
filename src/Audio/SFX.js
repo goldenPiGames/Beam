@@ -22,7 +22,8 @@ function initSFX() {
 	sfx = {
 		"blip1_0" : makeSound("blip1.mp3"), //audacity: chirp: 440Hz, 0.8-0.1, .05s
 		"blip1_1" : makeSound("blip1.mp3"),
-		"blip1" : new SFXCycler(["blip1_0", "blip1_1"]),
+		"blip1_2" : makeSound("blip1.mp3"),
+		"blip1" : new SFXCycler(["blip1_0", "blip1_1", "blip1_2"]),
 		"blipdown" : makeSound("blipdown.mp3"),
 	}
 }

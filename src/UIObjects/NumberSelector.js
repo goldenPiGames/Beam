@@ -24,7 +24,7 @@ class NumberSelector extends UIObject {
 	}
 	setNumber(num) {
 		for (var i = 0; i < this.digits; i++) {
-			console.log(num, this.radix**(this.digits-1-i), this.radix**(this.digits-i), (num / (this.radix**(this.digits-1-i)))) % (this.radix**(this.digits-i))
+			//console.log(num, this.radix**(this.digits-1-i), this.radix**(this.digits-i), (num / (this.radix**(this.digits-1-i)))) % (this.radix**(this.digits-i))
 			this.children[i].value = Math.floor((num % (this.radix**(this.digits-i))) / (this.radix**(this.digits-1-i))) || 0;
 		}
 	}

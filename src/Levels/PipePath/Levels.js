@@ -84,7 +84,7 @@ Levels.PipeAround = class LevelPipeAround extends PipeLevel {
 	}
 }
 
-Levels.PipeStraightSearch = class LevelStraightSearch extends PipeLevel {
+Levels.PipeStraightSearch = class LevelPipeStraightSearch extends PipeLevel {
 	constructor() {
 		super({
 			entranceSide:3,

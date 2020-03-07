@@ -44,7 +44,10 @@ class LevelToggleRandom extends ToggleLevel {
 			incorrects.forEach(idex => gat[idex] = rng.get() < .5 ? 1 : gat[idex])
 			return gat;
 		});
-		console.log(JSON.stringify(layout));
+		layout.mode = "ToggleGates";
+		var json = JSON.stringify(layout);
 		super(layout);
+		this.json = json;
+		console.log(json);
 	}
 }

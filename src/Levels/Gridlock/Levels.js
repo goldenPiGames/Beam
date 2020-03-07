@@ -58,6 +58,21 @@ Levels.GridlockThruDemo = class LevelGridlockThruDemo extends GridlockLevel {
 		});
 	}
 }
+
+Levels.GridlockThruDouble = class LevelGridlockThruDouble extends GridlockLevel {
+	constructor() {
+		super({
+			width : 6,
+			height : 6,
+			pieces : [
+				{x:0, y:2, len:2, horiz:true},
+			],
+			direction : 1,
+			position : 2,
+		});
+	}
+}
+
 //TODO make more original levels
 Levels.GridlockRH3 = class LevelGridlockRH3 extends GridlockLevel {
 	constructor() {
@@ -87,6 +102,7 @@ const SEQ_MAIN_GRIDLOCK = {
 	levelIDs : [
 		"Gridlock1",
 		"Gridlock2",
+		//"GridlockThruDouble",
 		//"Gridlock4",
 		//"GridlockThruDemo",
 		"GridlockRH3",

@@ -25,5 +25,5 @@ function bubbleDrawICredits() {
 	ctx.textBaseline = "middle";
 	ctx.textAlign = "center";
 	ctx.font = (this.radius*5/4)+"px sans-serif";
-	ctx.fillText("by", this.x, this.y);
+	ctx.fillText("c", this.x, this.y);
 }

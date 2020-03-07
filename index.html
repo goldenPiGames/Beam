@@ -47,6 +47,7 @@
 		<script type="text/javascript" src="src/UIObjects/Label.js"></script>
 		<script type="text/javascript" src="src/UIObjects/Button.js"></script>
 		<script type="text/javascript" src="src/UIObjects/BubbleButton.js"></script>
+		<script type="text/javascript" src="src/UIObjects/HybridButtons.js"></script>
 		<script type="text/javascript" src="src/UIObjects/Tabs.js"></script>
 		<script type="text/javascript" src="src/UIObjects/Checkbox.js"></script>
 		<script type="text/javascript" src="src/UIObjects/RadioButtons.js"></script>
@@ -102,12 +103,25 @@
 		
 		<script type="text/javascript" src="src/Levels/Linear.js"></script>
 		<script type="text/javascript" src="src/Levels/Infinite.js"></script>
+		<script type="text/javascript" src="src/Levels/TimeTrial.js"></script>
 		
 		<!-- Menus -->
 		<script type="text/javascript" src="src/MainMenu.js"></script>
 		<script type="text/javascript" src="src/Lang/Select.js"></script>
 		<!--<script type="text/javascript" src="src/Music/Jukebox.js"></script>-->
 		<script type="text/javascript" src="src/Credits.js"></script>
+		
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-database.js"></script>
+		<!-- TODO: Add SDKs for Firebase products that you want to use
+			 https://firebase.google.com/docs/web/setup#available-libraries -->
+		<script type="text/javascript" src="src/Multiplayer/initFirebase.js"></script>
+		<script type="text/javascript" src="src/Multiplayer/Menu.js"></script>
+		<script type="text/javascript" src="src/Multiplayer/Host.js"></script>
+		<script type="text/javascript" src="src/Multiplayer/Player.js"></script>
+
+		
 		
 	</head>
 	<body>
@@ -130,7 +144,9 @@
 				});
 			});
 			*/
+			initFirebase();//TODO go back to initting only when needed
 			startLoading();
 		</script>
+		
 	</body>
 </html>
