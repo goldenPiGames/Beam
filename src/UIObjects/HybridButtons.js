@@ -83,5 +83,14 @@ function alternateHybridButtons(x, y, width, height, eak) {
 	var butts = [];
 	var yInterval = height / eak.length;
 	var heightEach = yInterval*.8 - 5;
-	return eak.map((ak, dex) => new HybridButton(x, y+dex*yInterval, width, heightEach, dex%2 ? x+width+heightEach*.75 : (x-heightEach*.75), y+dex*yInterval+heightEach/2, heightEach, ak.text, ak.drawI, ak.handler));
+	return eak.map((ak, dex) => {
+			var butt = new HybridButton(x, y+dex*yInterval, width, heightEach, dex%2 ? x+width+heightEach*.75 : (x-heightEach*.75), y+dex*yInterval+heightEach/2, heightEach, ak.text, ak.drawI, ak.handler);
+			butt.index = dex;
+			/*for (prop in ak) { //easy way to add extra properties, like hover text in the race/multiplayer menu
+				if (prop != "text" && prop != "drawI" && prop != "handler") {
+					butt[prop] = ak[prop];
+				}
+			}*/
+			return butt;
+		});
 }

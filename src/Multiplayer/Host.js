@@ -22,9 +22,9 @@ class HostSettingsScreen extends Screen {
 		this.callbackOn = this.gameRef.child("players").on("child_added", snap=>this.handlePlayer(snap));
 	}
 	update() {
-		this.objects.forEach(oj=>oj.update());
 		if (textInput.value != this.key)
 			textInput.value = this.key;
+		this.objects.forEach(oj=>oj.update());
 	}
 	draw() {
 		this.objects.forEach(oj=>oj.draw());
@@ -53,7 +53,7 @@ class HostSettingsScreen extends Screen {
 			this.gameRef.child("begun").set(true);
 			this.gameRef.child("players").off("child_added", this.callbackOn);
 			hideTextInput();
-			runnee = new HostScoreboard(this.gameRef);
+			runnee = new HostScoreboard(this.gameRef, levels);
 		}
 	}
 	delete() {
@@ -70,11 +70,11 @@ class HostSettingsScreen extends Screen {
 }
 
 class HostScoreboard extends Screen {
-	constructor(gameRef) {
+	constructor(gameRef, levels) {
 		super();
 		this.gameRef = gameRef;
 		this.callbackOn = this.gameRef.child("players").on("value", snap=>this.handleVal(snap));
-		
+		this.levels = levels;
 	}
 	update() {
 		var val = this.currVal;
@@ -82,6 +82,8 @@ class HostScoreboard extends Screen {
 		for (var key in val) {
 			this.ranking.push(val[key]);
 		}
+		this.progressDist = new Array(this.levels.length+1).fill(0);
+		this.ranking.forEach(a=>{if (a.progress >= 0) this.progressDist[a.progress]++});
 		this.ranking.sort((a,b)=> b.progress-a.progress || a.lastprog-b.lastprog);
 		//console.log(this.ranking);
 	}
@@ -92,9 +94,24 @@ class HostScoreboard extends Screen {
 			var yIncrement = 30;
 			var maxNames = Math.floor((HEIGHT-170) / yIncrement);
 			//console.log(yStart, yIncrement, maxNames, this.ranking);
+			ctx.font = yIncrement+"px "+settings.font;
+			ctx.textBaseline = "top";
+			ctx.textAlign = "left";
 			for (var i = 0; i < maxNames && i < this.ranking.length; i++) {
-				//console.log(this.ranking[i].name, 100, yStart+yIncrement*i, WIDTH/2, yIncrement);
-				drawTextInRect(this.ranking[i].name, 100, yStart+yIncrement*i, WIDTH/2, yIncrement);
+				let y = yStart+yIncrement*i;
+				let peep = this.ranking[i];
+				ctx.fillText(i+1, 5, y);
+				ctx.fillText(peep.progress, 100, y);
+				ctx.fillText(peep.name, 200, y);
+			}
+		}
+		if (this.progressDist) {
+			var xIncrement = WIDTH/(this.progressDist.length);
+			var max = Math.max(...this.progressDist, 1);
+			ctx.fillStyle = palette.normal;
+			for (var i = 0; i < this.progressDist.length; i++) {
+				let barHeight = this.progressDist[i] / max * 150;
+				ctx.fillRect(xIncrement*i, HEIGHT-barHeight, xIncrement, barHeight);
 			}
 		}
 	}

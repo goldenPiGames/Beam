@@ -123,6 +123,6 @@ class MultiplayerGuestEndScreen extends Level {
 		ctx.fillStyle = palette.normal;
 		drawTextInRect(lg("MultiplayerGuestEnd-Header"), 80, 0, WIDTH-160, HEIGHT/3);
 		drawTextInRect(settings.name, 0, HEIGHT/2-15, WIDTH, 30);
-		drawParagraphInRect(lg("MultiplayerGuestEnd-Header"), 0, HEIGHT*2/3, WIDTH, HEIGHT/3, 30);
+		drawParagraphInRect(lg("MultiplayerGuestEnd-Paragraph"), 0, HEIGHT*2/3, WIDTH, HEIGHT/3, 30);
 	}
 }
