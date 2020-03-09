@@ -50,7 +50,10 @@ class JoinWaitingScreen extends Screen {
 	constructor(gameRef) {
 		super();
 		this.gameRef = gameRef;
-		this.playRef = this.gameRef.child("players").push({name:settings.name,progress:-1,lastprog:Date.now()});
+		this.playRef = this.gameRef.child("players").push({
+				name:settings.name,progress:-1,
+				lastprogP:Date.now()
+			});
 		this.key = this.playRef.key;
 		this.callbackOn = this.gameRef.child("begun").on("value", snap=>this.handleBegin(snap));
 		this.objects = [
@@ -90,10 +93,16 @@ class MultiplayerGuestIterator extends LevelIterator {
 		this.playRef = playRef;
 		this.name = name;
 		this.index = -1;
+		this.callbackOn = this.playRef.on("value", snap=>this.handlePlace(snap));
 	}
-	nextLevel(prev) { 
+	nextLevel(prev) {
 		this.index++;
-		this.playRef.set({name:settings.name, progress:this.index, lastprog:Date.now()});
+		this.placeDrawBuffer = true;
+		this.playRef.update({
+				progress : this.index,
+				lastprogP : Date.now(),
+				lastbumpP : true,
+			});
 		if (this.index < this.levelData.length) {
 			return levelFromJSON(this.levelData[this.index]);
 		} else {
@@ -103,8 +112,20 @@ class MultiplayerGuestIterator extends LevelIterator {
 	}
 	drawBack(wrap) {
 		if (!this.finished) {
-			this.drawBackText(this.levelData.length - this.index);
+			this.drawBackText(this.index);
 		}
+		if (this.placeDrawBuffer) {
+			this.placeDrawBuffer = false;
+		} else if (this.place) {
+			ctx.globalAlpha = 1;
+			drawTextInRect(this.place, WIDTH/4, 5, WIDTH/2, 35);
+		}
+	}
+	handlePlace(snap) {
+		var val = snap.val();
+		console.log(val);
+		if (val && !val.lastBumpP)
+			this.place = val.place;
 	}
 }
 

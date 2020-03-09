@@ -13,7 +13,6 @@ class MultiplayerMenu extends Screen {
 			new ParagraphButton(WIDTH-500, 200, 490, HEIGHT-300, lg("RaceMenu-Join"), lg("RaceMenu-Join-Desc"), ()=>switchScreen(new JoinMultiplayerScreen())),
 			new BubbleButton(50, HEIGHT-50, 45, ()=>{hideTextInput(); switchScreen(new MainMenu())}, bubbleDrawIReturn),
 		];
-		this.lHelp
 		setTextInput(WIDTH-170, HEIGHT-90, 160, 30, "Name");
 		textInput.value = settings.name;
 		//console.log(textInput.value, settings.name);

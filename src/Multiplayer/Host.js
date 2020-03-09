@@ -73,18 +73,26 @@ class HostScoreboard extends Screen {
 	constructor(gameRef, levels) {
 		super();
 		this.gameRef = gameRef;
-		this.callbackOn = this.gameRef.child("players").on("value", snap=>this.handleVal(snap));
+		this.callbackOnV = this.gameRef.child("players").on("value", snap=>this.handleVal(snap));
+		this.callbackOnC = this.gameRef.child("players").on("child_changed", snap=>this.handleProg(snap));
 		this.levels = levels;
 	}
 	update() {
 		var val = this.currVal;
-		this.ranking = [];
-		for (var key in val) {
-			this.ranking.push(val[key]);
+		if (val && this.needUpdatePlaces) {
+			this.needUpdatePlaces = false;
+			this.ranking = [];
+			for (var key in val) {
+				val[key].key = key;
+				this.ranking.push(val[key]);
+			}
+			this.progressDist = new Array(this.levels.length+1).fill(0);
+			this.ranking.forEach(a=>{if (a.progress >= 0) this.progressDist[a.progress]++});
+			this.ranking.sort((a,b)=> b.progress-a.progress || a.lastprogH-b.lastprogH || a.lastprogP-b.lastprogP); //Sorts by progress, host-side time, and player-side time, in that order
+			this.ranking.forEach((p, dex)=> this.gameRef.child("players").child(p.key).update({
+					place : dex+1,
+				}));
 		}
-		this.progressDist = new Array(this.levels.length+1).fill(0);
-		this.ranking.forEach(a=>{if (a.progress >= 0) this.progressDist[a.progress]++});
-		this.ranking.sort((a,b)=> b.progress-a.progress || a.lastprog-b.lastprog);
 		//console.log(this.ranking);
 	}
 	draw() {
@@ -120,16 +128,14 @@ class HostScoreboard extends Screen {
 		if (val)
 			this.currVal = val;
 	}
-}
-
-function levelFromJSON(data) {
-	while (typeof data == "string")
-		data = JSON.parse(data);
-	switch (data.mode) {
-		case "PipePath": return new PipeLevel(data);
-		case "WalkOnce": return new OnceLevel(data);
-		case "ToggleGates": return new ToggleLevel(data);
-		case "SameGame": return new SameLevel(data);
-		case "Maze" : return new MazeLevel(data);
+	handleProg(snap) {
+		var val = snap.val();
+		if (!val || !val.lastbumpP)
+			return false;
+		snap.ref.update({
+				lastprogH : Date.now(),
+				lastbumpP : false,
+			})
+		this.needUpdatePlaces = true;
 	}
 }

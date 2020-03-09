@@ -29,23 +29,26 @@ class LevelMazeRandom extends MazeLevel {
 		console.log(path);
 		layout.gridTo = newArray2d(layout.width, layout.height, 9);
 		for (var i = 0; i < path.length; i++) {
-			layout.gridTo[path[i].x][path[i].y] = path[i].d;
+			layout.gridTo[path[i].x][path[i].y] = typeof path[i].d == "number" ? path[i].d : 8;
 		}
 		for (var i = 0; i < layout.gridTo.length; i++) {
 			for (var j = 0; j < layout.gridTo[i].length; j++) {
 				if (layout.gridTo[i][j] == 9) {
-					let dir = directionRandom(true)
+					let dir = directionRandom(true);
 					let tries = 0;
 					while (i == 0 && dir == LEFT || i == layout.gridTo.length-1 && dir == RIGHT || j == 0 && dir == UP || j == layout.gridTo[0].length-1 && dir == DOWN || tries < 20 && layout.gridTo[i+directionDX(dir)][j+directionDY(dir)] == directionOpposite(dir)) {
 						tries++;
 						dir = directionRandom(true);
 					}
+					if (tries >= 20)
+						dir = 8;
 					layout.gridTo[i][j] = dir;
 				}
 			}
 		}
 		//TODO make final check to make sure there are no separate areas
 		layout.mode = "Maze";
+		console.log(layout);
 		var json = JSON.stringify(layout);
 		super(layout);
 		this.json = json;

@@ -80,3 +80,15 @@ class Level {
 Level.prototype.lModeName = "LevelOther-Name";
 Level.prototype.lModeRules = "LevelOther-Rules";
 Level.prototype.lModeHints = "LevelOther-Hints";
+
+function levelFromJSON(data) {
+	while (typeof data == "string")
+		data = JSON.parse(data);
+	switch (data.mode) {
+		case "PipePath": return new PipeLevel(data);
+		case "WalkOnce": return new OnceLevel(data);
+		case "ToggleGates": return new ToggleLevel(data);
+		case "SameGame": return new SameLevel(data);
+		case "Maze" : return new MazeLevel(data);
+	}
+}
