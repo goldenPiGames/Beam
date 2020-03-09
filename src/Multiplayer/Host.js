@@ -138,4 +138,11 @@ class HostScoreboard extends Screen {
 			})
 		this.needUpdatePlaces = true;
 	}
+	tryReplay() {
+		this.callbackOnV = this.gameRef.child("players").on("value", snap=>this.handleVal(snap));
+		this.callbackOnC = this.gameRef.child("players").on("child_changed", snap=>this.handleProg(snap));
+		this.gameRef.child("players").off("value", this.callbackOnV);
+		this.gameRef.child("players").on("child_changed", this.callbackOnC);
+		
+	}
 }

@@ -11,7 +11,7 @@ var settings = {
 	hover_color : "#00DDFF",
 	click_color : "#00FF00",
 	disabled_color : "#808080",
-	name : "Anon",
+	name : "Anon " + Math.floor((Math.random()*36**4)).toString(36).toUpperCase(),
 }
 
 function mainHeight() {

@@ -48,7 +48,6 @@ class LevelMazeRandom extends MazeLevel {
 		}
 		//TODO make final check to make sure there are no separate areas
 		layout.mode = "Maze";
-		console.log(layout);
 		var json = JSON.stringify(layout);
 		super(layout);
 		this.json = json;

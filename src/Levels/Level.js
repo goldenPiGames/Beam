@@ -90,5 +90,6 @@ function levelFromJSON(data) {
 		case "ToggleGates": return new ToggleLevel(data);
 		case "SameGame": return new SameLevel(data);
 		case "Maze" : return new MazeLevel(data);
+		case "Gridlock": return new GridlockLevel(data);
 	}
 }

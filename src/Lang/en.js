@@ -18,6 +18,7 @@ LANG.en = {
 	"MultiplayerJoin-Waiting" : "Waiting for response...",
 	"MultiplayerJoin-NotFound" : "Host not found.",
 	"MultiplayerJoin-Joined" : "Joined.",
+	"MultiplayerJoin-JoinedPara" : "When the host clicks the play button, the race will begin.",
 	"MultiplayerGuestEnd-Header" : "FINISH",
 	"MultiplayerGuestEnd-Paragraph" : "Look at the host's screen to figure out your place. I haven't gotten around to making it tell you what your place was.",
 	

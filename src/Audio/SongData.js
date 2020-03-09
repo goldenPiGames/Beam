@@ -104,7 +104,7 @@ const SONG_LIST = [
 		by:"TeknoAXE", yt:"08aevamNz60", site:"https://teknoaxe.com/Link_Code_3.php?q=1404", siten:"TeknoAXE.com", license:CC_BY_4},
 	{name:"Looked Back Saw Nothing - Kenyon", bpm:100, intensity:0,
 		by:"Twin Musicom", yt:"A1LiBWXE_08", site:"http://www.twinmusicom.org/song/273/looked-back-saw-nothing-kenyon", siten:"TwinMusicom.org", license:CC_BY_4},
-	{name:"Collapse of the Labyrinth", intensity:1, chiptune:1, bpm:145, loopStart:108.161, loopEnd:232.294, //TODO find loopStart and loopEnd
+	{name:"Collapse of the Labyrinth", intensity:1, chiptune:1, bpm:145, loopStart:108.161, loopEnd:232.294,
 		by:"Ucchii 0", yt:"RiLqC-sFl6U", sc:"vskktqtpbuqs/chiptunecollapse-of-the-labyrinthucchii0"},
 	{name:"Don't Sleep", intensity:1, loopStart:13.81606, loopEnd:97.81608, bpm:160,
 		by:"Ucchii 0", yt:"pluUDQCBSso", site:"https://creofuga.net/audios/106981", siten:"CreoFuga"},
@@ -117,6 +117,8 @@ const SONG_LIST = [
 	{name:"聖域決戦", fname:"Seiiki Kessen", intensity:1, loopStart:11.380, loopEnd:169.484,
 		by:"Ucchii 0", yt:"6Yx2__wLYek"},
 	{name:"Deadly Sins", intensity:3/4, loopStart:11.475668934240362, loopEnd:90.53138321995465,
+		by:"YouFulca", site:"https://wingless-seraph.net/material-music_battle.html", siten:"Wingless Seraph"},
+	{name:"Get Along", intensity:3/4, loopStart:3.5554875283446714, loopEnd:62.29578231292517,
 		by:"YouFulca", site:"https://wingless-seraph.net/material-music_battle.html", siten:"Wingless Seraph"},
 	{name:"Never Surrender", intensity:1, loopStart:3.6729931972789114, loopEnd:54.53356009070295,
 		by:"YouFulca", site:"https://wingless-seraph.net/material-music_dangeon.html", siten:"Wingless Seraph"},
@@ -131,6 +133,8 @@ const SONG_LIST = [
 	{name:"レイピアを継ぐ少女", fname:"Battle Rapier", intensity:1, loopStart:9.5762358276644, loopEnd:72.32124716553288,
 		by:"YouFulca", site:"https://wingless-seraph.net/material-music_battle.html", siten:"Wingless Seraph"},
 	{name:"勝利を信じて", fname:"Battle 1", intensity:3/4, chiptune:1, loopStart:6.1998185941043085, loopEnd:54.19823129251701,
+		by:"YouFulca", site:"https://wingless-seraph.net/material-music_8bit.html", siten:"Wingless Seraph"},
+	{name:"決戦の地へ", fname:"Dungeon 03", intensity:1/2, loopStart:18.659954648526078, loopEnd:77.73732426303854,
 		by:"YouFulca", site:"https://wingless-seraph.net/material-music_8bit.html", siten:"Wingless Seraph"},
 ]
 var SONG_HASH = {};
