@@ -1,4 +1,4 @@
-const BUTTON_BORDER_WIDTH = 2;
+const BUTTON_BORDER_WIDTH = 3;
 
 class Button extends UIObject {
 	constructor(x, y, width, height, text, handler = doNothing, active = true) {

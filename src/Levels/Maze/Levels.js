@@ -45,11 +45,37 @@ Levels.Maze3 = class LevelMaze3 extends MazeLevel {
 	}
 }
 
+Levels.MazeRCTMini = class LevelMazeRCTMini extends MazeLevel { //Mini Maze from Roller Coaster Tycoon
+	constructor() {
+		super({
+			gridDownRight : [
+				[3,2,0,2,2,2,2,1],
+				[3,2,3,2,2,2,1,1],
+				[1,3,2,2,3,1,2,0],
+				[0,1,3,2,0,2,3,1],
+				[1,1,3,2,2,1,1,1],
+				[1,1,0,3,2,0,0,1],
+				[1,2,1,1,3,1,3,1],
+				[3,1,1,2,0,1,1,1],
+				[1,1,0,3,2,0,1,1],
+				[0,2,2,2,2,2,0,0],
+			],
+			entranceSide : LEFT,
+			entrancePosition : 7,
+			exitSide : RIGHT,
+			exitPosition : 0,
+		});
+	}
+}
+
+//TODO Emerald Temple from Cactus McCoy
+
 const SEQ_MAIN_MAZE = {
 	id : "MainMaze",
 	levelIDs : [
 		"MazeStraight",
 		"MazeU",
 		"Maze3",
+		"MazeRCTMini",
 	]
 }

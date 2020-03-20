@@ -1,8 +1,17 @@
 class MazeLevel extends GridLevel {
 	constructor(layout) {
+		var usingTo;
+		var gridUsed;
+		if (layout.gridTo) {
+			usingTo = true;
+			gridUsed = layout.gridTo;
+		} else {
+			usingTo = false;
+			gridUsed = layout.gridDownRight;
+		}
 		super({
-			width : layout.gridTo.length,
-			height : layout.gridTo[0].length,
+			width : gridUsed.length,
+			height : gridUsed[0].length,
 			gap : 0,
 			entranceSide : layout.entranceSide,
 			entrancePosition : layout.entrancePosition,
@@ -10,10 +19,10 @@ class MazeLevel extends GridLevel {
 			exitPosition : layout.exitPosition,
 		});
 		this.tiles = [];
-		for (var i = 0; i < layout.gridTo.length; i++) {
+		for (var i = 0; i < gridUsed.length; i++) {
 			this.tiles[i] = [];
-			for (var j = 0; j < layout.gridTo[i].length; j++) {
-				this.tiles[i][j] = new MazeTile(i, j, layout.gridTo[i][j]);
+			for (var j = 0; j < gridUsed[i].length; j++) {
+				this.tiles[i][j] = new MazeTile(i, j, gridUsed[i][j], usingTo);
 			}
 		}
 		//console.log(this)
@@ -103,24 +112,35 @@ MazeLevel.prototype.lModeHints = "Maze-Hints";
 
 //----------------------------------------------------------- Pieces ----------------------------------------------------------------------------
 class MazeTile extends UIObject {
-	constructor(x, y, dir) {
+	constructor(x, y, dir, usingTo) {
 		super();
 		this.gridX = x;
 		this.gridY = y;
 		this.dir = dir;
+		this.usingTo = usingTo;
 		this.neighborsD = [null, null, null, null];
 	}
 	setParent(parent) {
 		this.parent = parent;
-		if (this.dir <= 3) {
-			var neigh = this.parent.tiles[this.gridX+directionDX(this.dir)][this.gridY+directionDY(this.dir)];
-			if (neigh) {
-				this.neighborsD[this.dir] = neigh;
-				neigh.addNeighbor(this, directionOpposite(this.dir));
+		if (this.usingTo) {
+			if (this.dir <= 3) {
+				this.addTo(this.dir);
+				//this.neighborsL = this.neighborsD.filter(n=>n);
 			}
-			//this.neighborsL = this.neighborsD.filter(n=>n);
+		} else {
+			if (this.dir >= 2)
+				this.addTo(DOWN);
+			if (this.dir % 2)
+				this.addTo(RIGHT);
 		}
 		this.updateDisplayPosition();
+	}
+	addTo(side) {
+		var neigh = this.parent.tiles[this.gridX+directionDX(side)][this.gridY+directionDY(side)];
+		if (neigh) {
+			this.neighborsD[side] = neigh;
+			neigh.addNeighbor(this, directionOpposite(side));
+		}
 	}
 	addNeighbor(neigh, side) {
 		this.neighborsD[side] = neigh;

@@ -118,7 +118,7 @@ const SONG_LIST = [
 		by:"Ucchii 0", yt:"6Yx2__wLYek"},
 	{name:"Deadly Sins", intensity:3/4, loopStart:11.475668934240362, loopEnd:90.53138321995465,
 		by:"YouFulca", site:"https://wingless-seraph.net/material-music_battle.html", siten:"Wingless Seraph"},
-	{name:"Get Along", intensity:3/4, loopStart:3.5554875283446714, loopEnd:62.29578231292517,
+	{name:"Get Along", intensity:3/4, chiptune:1, loopStart:3.5554875283446714, loopEnd:62.29578231292517,
 		by:"YouFulca", site:"https://wingless-seraph.net/material-music_battle.html", siten:"Wingless Seraph"},
 	{name:"Never Surrender", intensity:1, loopStart:3.6729931972789114, loopEnd:54.53356009070295,
 		by:"YouFulca", site:"https://wingless-seraph.net/material-music_dangeon.html", siten:"Wingless Seraph"},
@@ -134,7 +134,7 @@ const SONG_LIST = [
 		by:"YouFulca", site:"https://wingless-seraph.net/material-music_battle.html", siten:"Wingless Seraph"},
 	{name:"勝利を信じて", fname:"Battle 1", intensity:3/4, chiptune:1, loopStart:6.1998185941043085, loopEnd:54.19823129251701,
 		by:"YouFulca", site:"https://wingless-seraph.net/material-music_8bit.html", siten:"Wingless Seraph"},
-	{name:"決戦の地へ", fname:"Dungeon 03", intensity:1/2, loopStart:18.659954648526078, loopEnd:77.73732426303854,
+	{name:"決戦の地へ", fname:"Dungeon 03", intensity:1/2, chiptune:1, loopStart:18.659954648526078, loopEnd:77.73732426303854,
 		by:"YouFulca", site:"https://wingless-seraph.net/material-music_8bit.html", siten:"Wingless Seraph"},
 ]
 var SONG_HASH = {};

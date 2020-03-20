@@ -11,6 +11,14 @@ var settings = {
 	hover_color : "#00DDFF",
 	click_color : "#00FF00",
 	disabled_color : "#808080",
+	samegame0_color : "#0000FF",
+	samegame1_color : "#00FF00",
+	samegame2_color : "#FFFF00",
+	samegame3_color : "#FF00FF",
+	samegame4_color : "#FF8000",
+	samegame5_color : "#008000",
+	samegame6_color : "#808080",
+	samegame7_color : "#808000",
 	name : "Anon " + Math.floor((Math.random()*36**4)).toString(36).toUpperCase(),
 }
 

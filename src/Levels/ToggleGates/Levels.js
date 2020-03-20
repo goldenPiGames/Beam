@@ -53,7 +53,56 @@ Levels.ToggleAlternating = class LevelToggleAlternating extends ToggleLevel {
 	}
 }
 
-//https://youtu.be/JoEok5sLuuk?t=536
+
+Levels.ToggleMirrorHall = class LevelToggleMirrorHall extends ToggleLevel {
+	constructor() {
+		super({
+			gates : [
+				[1,1,1,0,1,0,0,1],
+				[0,1,0,1,1,0,1,1],
+				[1,0,1,1,1,0,1,0],
+				[0,1,1,1,0,1,0,1],
+				[1,0,1,1,1,1,0,0],
+				[1,0,0,1,0,1,1,1],
+				[0,1,1,0,1,1,1,0],
+				[1,1,0,0,0,1,1,1],
+			],
+			direction : 1,
+		});
+	}
+}
+/*chugga's playthrough: https://youtu.be/JoEok5sLuuk?t=536
+(transposed)
+				[1,0,1,0, , , , ],
+				[1,1,0,1,0, , , ],
+				[1,0,1,1, , , , ],
+				[0,1,1,1,1, , , ],
+				[ , , ,0,1,0,1,0],
+				[0,0,0,1,1,1,1,1],
+				[ , , , ,0,1,1,1],
+				[ , , , ,0,1,0,1],
+				
+plus this shitty video	https://youtu.be/gNTK2Xk81M8?t=63
+				[1,0,1,0, , , , ],
+				[1,1,0,1,0, , , ],
+				[1,0,1,1,1,0,1,0],
+				[0,1,1,1,1, , , ],
+				[1,1,1,0,1,0,1,0],
+				[0,0,0,1,1,1,1,1],
+				[ , , , ,0,1,1,1],
+				[ , , , ,0,1,0,1],
+	solutions: 11111111 or 01111000
+gate-major but with nulls:
+
+				[1,1,1,0,null,0,null,null],
+				[0,1,0,1,null,0,null,null],
+				[1,0,1,1,null,0,null,null],
+				[0,1,1,1,0,1,null,null],
+				[null,0,null,1,1,1,0,0],
+				[null,null,null,null,0,1,1,1],
+				[null,null,null,null,1,1,1,0],
+				[null,null,null,null,0,1,1,1],
+*/
 
 const SEQ_MAIN_TOGGLE = {
 	id : "MainToggle",
@@ -62,5 +111,6 @@ const SEQ_MAIN_TOGGLE = {
 		"Toggle2",
 		"ToggleFirstTrick",
 		"ToggleAlternating",
+		"ToggleMirrorHall",
 	]
 }

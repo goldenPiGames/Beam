@@ -13,6 +13,7 @@ class MainMenu extends Screen {
 					{text:lg("MainMenu-Credits"), drawI:bubbleDrawICredits, handler:()=>switchScreen(new CreditsScreen())},
 				]),
 			new HybridButton(WIDTH-220, 5, 170, 35, WIDTH-50, 50, 45, lg("MainMenu-Jukebox"), bubbleDrawIJukebox, ()=>switchScreen(new Jukebox(this))),
+			new HybridButton(50, 5, 170, 35, 50, 50, 45, lg("MainMenu-Fullscreen"), bubbleDrawIFullscreen, ()=>attemptFullscreen()),
 		];
 		/*	new BubbleButtonMainMenu(WIDTH*1/4, HEIGHT-100, 35, ()=>switchScreen(new PaletteScreen(this)), bubbleDrawIPalette, "MainMenu-Palette", this),
 			//new Button(WIDTH/2, mainHeight()-100, 400, 45, "Credits", ()=>switchScreen(Credits)),

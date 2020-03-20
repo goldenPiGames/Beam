@@ -45,6 +45,7 @@ class JoinMultiplayerScreen extends Screen {
 		this.waiting = false;
 	}
 }
+JoinMultiplayerScreen.prototype.overrideTouch = false;
 
 class JoinWaitingScreen extends Screen {
 	constructor(gameRef) {
@@ -83,6 +84,7 @@ class JoinWaitingScreen extends Screen {
 		startLevel();
 	}
 }
+JoinWaitingScreen.prototype.overrideTouch = false;
 
 class MultiplayerGuestIterator extends LevelIterator {
 	constructor(val, gameRef, playRef) {

@@ -48,6 +48,21 @@ Levels.ConcentricReverse4 = class LevelConcentricReverse4 extends ConcentricLeve
 	}
 }
 
+Levels.ConcentricCascramble31425 = class LevelConcentricCascramble31425 extends ConcentricLevel {
+	constructor() {
+		super({
+			also : [
+				[1,1,0,1,1],
+				[0,1,0,0,1],
+				[1,1,1,1,1],
+				[0,1,0,1,1],
+				[0,0,0,0,1],
+				],
+			direction : 1,
+		});
+	}
+}
+
 Levels.ConcentricRound3 = class LevelConcentricRound3 extends ConcentricLevel {
 	constructor() {
 		super({
@@ -82,6 +97,7 @@ const SEQ_MAIN_CONCENTRIC = {
 		"ConcentricDouble",
 		"ConcentricCascade3",
 		"ConcentricReverse4",
+		"ConcentricCascramble31425",
 		"ConcentricRound3",
 		"ConcentricRound4",
 	]

@@ -158,17 +158,17 @@ class SameBlock extends UIObject {
 		}
 	}
 	draw() {//TODO add patterns for the colorblind
+		ctx.globalAlpha = 1;
 		ctx.lineWidth = 4;
-		if (!settings.colorblind) {
-			ctx.fillStyle = ["#0000FF", "#00FF00", "#FFFF00", "#FF00FF", "#FF8000", "#008000"][this.color];
-			ctx.fillRect(this.displayX, this.displayY, this.displayWidth, this.displayHeight);
-		} else {
+		ctx.fillStyle = palette["samegame"+this.color];
+		ctx.fillRect(this.displayX, this.displayY, this.displayWidth, this.displayHeight);
+		if (settings.colorblind) {
+			ctx.globalAlpha /= 2;
+			ctx.strokeStyle = palette.background;
+			ctx.fillStyle = palette.background;
 			switch (this.color) {
-				case 0:
-					ctx.fillStyle = "#0000FF";
-					ctx.fillRect(this.displayX, this.displayY, this.displayWidth, this.displayHeight);
+				case 0://vertical stripes
 					ctx.lineWidth = 4;
-					ctx.strokeStyle = "#000080";
 					for (var i = 4; i < this.displayWidth-2; i += 8) {
 						ctx.beginPath();
 						ctx.moveTo(this.displayX+i, this.displayY);
@@ -176,11 +176,8 @@ class SameBlock extends UIObject {
 						ctx.stroke();
 					}
 					break;
-				case 1:
-					ctx.fillStyle = "#00FF00";
-					ctx.fillRect(this.displayX, this.displayY, this.displayWidth, this.displayHeight);
+				case 1://horizontal stripes
 					ctx.lineWidth = 4;
-					ctx.strokeStyle = "#008000";
 					for (var i = 4; i < this.displayHeight-2; i += 8) {
 						ctx.beginPath();
 						ctx.moveTo(this.displayX, this.displayY+i);
@@ -188,22 +185,16 @@ class SameBlock extends UIObject {
 						ctx.stroke();
 					}
 					break;
-				case 2:
-					ctx.fillStyle = "#FFFF00";
-					ctx.fillRect(this.displayX, this.displayY, this.displayWidth, this.displayHeight);
-					ctx.fillStyle = "#808000";
+				case 2://square spots
 					for (var i = 8; i < this.displayWidth-4; i += 16) {
 						for (var j = 8; j < this.displayHeight-4; j += 16) {
 							ctx.fillRect(this.displayX+i, this.displayY+j, 8, 8);
 						}
 					}
 					break;
-				case 3:
-					ctx.fillStyle = "#FF00FF";
-					ctx.fillRect(this.displayX, this.displayY, this.displayWidth, this.displayHeight);
+				case 3://
 					ctx.lineWidth = 4;
-					ctx.strokeStyle = "#800080";
-					for (var i = 0; i < this.displayHeight-6; i += 12) {
+					for (var i = 6; i < this.displayHeight-6; i += 12) {
 						ctx.beginPath();
 						ctx.moveTo(this.displayX+2+i, this.displayY+2);
 						ctx.lineTo(this.displayX+this.displayWidth-2, this.displayY+this.displayHeight-2-i);
@@ -215,11 +206,8 @@ class SameBlock extends UIObject {
 					}
 					break;
 				case 4:
-					ctx.fillStyle = "#FF8000";
-					ctx.fillRect(this.displayX, this.displayY, this.displayWidth, this.displayHeight);
 					ctx.lineWidth = 4;
-					ctx.strokeStyle = "#804000";
-					for (var i = 0; i < this.displayHeight-6; i += 12) {
+					for (var i = 6; i < this.displayHeight-6; i += 12) {
 						ctx.beginPath();
 						ctx.moveTo(this.displayX+this.displayWidth-2-i, this.displayY+2);
 						ctx.lineTo(this.displayX+2, this.displayY+this.displayHeight-2-i);
@@ -232,6 +220,7 @@ class SameBlock extends UIObject {
 					break;
 			}
 		}
+		ctx.globalAlpha = 1;
 		ctx.strokeStyle = this.drawHovered ? palette.hover : palette.normal;
 		ctx.strokeRect(this.displayX+2, this.displayY+2, this.displayWidth-4, this.displayHeight-4);
 		this.drawHovered = false;

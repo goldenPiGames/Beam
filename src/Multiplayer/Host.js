@@ -6,13 +6,15 @@ class HostSettingsScreen extends Screen {
 		var allRef = firebase.database().ref("hostgames");
 		this.gameRef = allRef.push({begun:false, players:[]});
 		this.key = this.gameRef.key;
-		this.modeButtons = new RadioButtons(10, 10, 200, 30, INFINITE_MODES.map(mod=>lg(mod.lName)), dex=>this.modeClicked(dex));
+		this.modeButtons = new RadioButtons(10, 110, 200, 30, INFINITE_MODES.map(mod=>lg(mod.lName)), dex=>this.modeClicked(dex));
 		this.beginButton = new BubbleButton(WIDTH-50, HEIGHT-50, 45, ()=>this.tryPlay(), bubbleDrawIPlay);
-		this.goalSelector = new NumberSelector(10, HEIGHT/2, 180, 120, 2);
-		this.returnButton = new BubbleButton(50, HEIGHT-50, 45, ()=>{this.delete();hideTextInput();switchScreen(new MultiplayerMenu())}, bubbleDrawIReturn),
+		this.goalSelector = new NumberSelector(10, HEIGHT/2+50, 180, 120, 2);
+		this.returnButton = new BubbleButton(50, HEIGHT-50, 45, ()=>{this.delete();hideTextInput();switchScreen(new MultiplayerMenu())}, bubbleDrawIReturn);
+		this.fullscreenButton = new BubbleButton(50, 50, 45, ()=>attemptFullscreen(), bubbleDrawIFullscreen),
 		this.objects = [
 			this.returnButton,
 			this.modeButtons,
+			this.fullscreenButton,
 			this.beginButton,
 			this.goalSelector,
 		];
@@ -135,7 +137,7 @@ class HostScoreboard extends Screen {
 		snap.ref.update({
 				lastprogH : Date.now(),
 				lastbumpP : false,
-			})
+			});
 		this.needUpdatePlaces = true;
 	}
 	tryReplay() {

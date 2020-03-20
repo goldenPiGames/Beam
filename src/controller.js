@@ -15,10 +15,9 @@ var mouse = {
 
 function addEvents() {
 	eventCatcher.addEventListener("mousemove", function(e) {
-		mouse.x = e.offsetX;
-		mouse.y = e.offsetY;
-		//mouse.clicked = (e.which == 1 && !mouse.down);
-		//mouse.down = (e.which == 1);
+		var rekt = eventCatcher.getBoundingClientRect();
+		mouse.x = (e.clientX - rekt.x) / rekt.width * WIDTH;
+		mouse.y = (e.clientY - rekt.y) / rekt.height * HEIGHT;
 	});
 	
 	eventCatcher.addEventListener("mousedown", function(e) {
@@ -72,4 +71,55 @@ function addEvents() {
 		mouse.x = e.changedTouches[0].clientX;
 		mouse.y = e.changedTouches[0].clientY;
 	});
+	
+	backDiv.addEventListener("fullscreenchange", fitCanvas);
+	
+	window.addEventListener("resize", fitCanvas);
+}
+
+function fitCanvas(e) {
+	var rekt = backDiv.getBoundingClientRect();
+	//console.log(rekt, WIDTH, HEIGHT)
+	if (!document.fullscreen) {
+		//console.log("part");
+		canvas.classList.remove("fullscreenWider");
+		canvas.classList.remove("fullscreenTaller");
+		canvas.classList.add("partscreen");
+	} else if (rekt.width/rekt.height >= WIDTH/HEIGHT) {
+		//console.log("wider");
+		canvas.classList.remove("partscreen");
+		canvas.classList.remove("fullscreenTaller");
+		canvas.classList.add("fullscreenWider");
+	} else {
+		//console.log("taller");
+		canvas.classList.remove("partscreen");
+		canvas.classList.remove("fullscreenWider");
+		canvas.classList.add("fullscreenTaller");
+	}
+	resizeTextInput();
+}
+
+function attemptFullscreen() {
+	if (document.fullscreen) {
+		document.exitFullscreen();
+	} else {
+		backDiv.requestFullscreen();
+	}
+}
+
+function bubbleDrawIFullscreen() {
+	ctx.beginPath();
+	ctx.moveTo(this.x-this.radius/2, this.y-this.radius/4);
+	ctx.lineTo(this.x-this.radius/2, this.y-this.radius/2);
+	ctx.lineTo(this.x-this.radius/4, this.y-this.radius/2);
+	ctx.moveTo(this.x+this.radius/4, this.y-this.radius/2);
+	ctx.lineTo(this.x+this.radius/2, this.y-this.radius/2);
+	ctx.lineTo(this.x+this.radius/2, this.y-this.radius/4);
+	ctx.moveTo(this.x+this.radius/2, this.y+this.radius/4);
+	ctx.lineTo(this.x+this.radius/2, this.y+this.radius/2);
+	ctx.lineTo(this.x+this.radius/4, this.y+this.radius/2);
+	ctx.moveTo(this.x-this.radius/4, this.y+this.radius/2);
+	ctx.lineTo(this.x-this.radius/2, this.y+this.radius/2);
+	ctx.lineTo(this.x-this.radius/2, this.y+this.radius/4);
+	ctx.stroke();
 }

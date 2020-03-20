@@ -26,4 +26,5 @@ function bubbleDrawICredits() {
 	ctx.textAlign = "center";
 	ctx.font = (this.radius*5/4)+"px sans-serif";
 	ctx.fillText("c", this.x, this.y);
+	//TODO also draw inner circle
 }

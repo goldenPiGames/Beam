@@ -38,15 +38,15 @@ class HybridButtonRect extends UIObject {
 	}
 	draw1(color) {
 		ctx.strokeStyle = color;
-		ctx.lineWidth = 2;
+		ctx.lineWidth = BUTTON_BORDER_WIDTH;
 		ctx.strokeStyle = color;
-		ctx.strokeRect(this.x+1, this.y+1, this.width-2, this.height-2);
+		ctx.strokeRect(this.x+BUTTON_BORDER_WIDTH/2, this.y+BUTTON_BORDER_WIDTH/2, this.width-BUTTON_BORDER_WIDTH, this.height-BUTTON_BORDER_WIDTH);
 	}
 	draw2(color) {
 		ctx.fillStyle = palette.background;
-		ctx.fillRect(this.x+2, this.y+2, this.width-4, this.height-4);
+		ctx.fillRect(this.x+BUTTON_BORDER_WIDTH, this.y+BUTTON_BORDER_WIDTH, this.width-BUTTON_BORDER_WIDTH*2, this.height-BUTTON_BORDER_WIDTH*2);
 		ctx.fillStyle = color;
-		drawTextInRect(this.text, this.x+4, this.y+4, this.width-8, this.height-8);
+		drawTextInRect(this.text, this.x+BUTTON_BORDER_WIDTH*2, this.y+BUTTON_BORDER_WIDTH*2, this.width-BUTTON_BORDER_WIDTH*4, this.height-BUTTON_BORDER_WIDTH*4);
 	}
 }
 
@@ -84,7 +84,7 @@ function alternateHybridButtons(x, y, width, height, eak) {
 	var yInterval = height / eak.length;
 	var heightEach = yInterval*.8 - 5;
 	return eak.map((ak, dex) => {
-			var butt = new HybridButton(x, y+dex*yInterval, width, heightEach, dex%2 ? x+width+heightEach*.75 : (x-heightEach*.75), y+dex*yInterval+heightEach/2, heightEach, ak.text, ak.drawI, ak.handler);
+			var butt = new HybridButton(x, y+dex*yInterval, width, heightEach, dex%2 ? x+width+heightEach*.7 : (x-heightEach*.7), y+dex*yInterval+heightEach/2, heightEach, ak.text, ak.drawI, ak.handler);
 			butt.index = dex;
 			/*for (prop in ak) { //easy way to add extra properties, like hover text in the race/multiplayer menu
 				if (prop != "text" && prop != "drawI" && prop != "handler") {

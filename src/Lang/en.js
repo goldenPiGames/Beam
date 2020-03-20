@@ -7,6 +7,7 @@ LANG.en = {
 	"MainMenu-Credits" : "Credits",
 	"MainMenu-Race" : "Race",
 	"MainMenu-Palette" : "Change the colors",
+	"MainMenu-Fullscreen" : "Fullscreen",
 	"Multiplayer-Anonymous" : "Anon",
 	"RaceMenu-TimeTrial" : "Time Trial",
 	"RaceMenu-TimeTrial-Desc" : "Race against the clock! No actual multiplayer communication, so it'll always work. Use a PRNG to get the same set of levels as an opponent.",
@@ -97,24 +98,32 @@ LANG.en = {
 	"SameGame-Rules" : "Click groups of 2 or more blocks of the same color to remove them. Remove all the blocks so the beam can pass through. Click the reset button at the bottom to reset.",
 	"SameGame-Hints" : ["If there's only one block of a certain color left, you know you've messed up. Make sure this doesn't happen.",
 		"If there's a lonely block, you'll need to make sure it meets up with a group."],
+	"SameGame-Pattern0" : "vertical striped",
+	"SameGame-Pattern1" : "horizontal striped",
+	"SameGame-Pattern2" : "square spotted",
+	"SameGame-Pattern3" : "negative diagonal striped",
+	"SameGame-Pattern4" : "positive diagonal striped",
 	
 	"Toggle1-Hints" : ["You see that circly thing up there? Click on it."],
 	"Toggle2-Hints" : ["Click both of the circly buttons up there."],
 	"ToggleFirstTrick-Hints" : ["Don't click all three of the circly buttons up there. Only some of them."],
 	"ToggleAlternating-Hints" : ["Notice that the gates on each end are only affected by one button.", "Select every other button."],
 	"MazeStraight-Hints" : ["Just drag from left to right."],
-	"MazeU-Hints" : [""],
+	"MazeU-Hints" : [""],//TODO
 	"Maze3-Hints" : ["If you go the wrong way, you can always rewind."],
 	
 	"Gridlock1-Hints" : ["Just drag the rectangle down."],
 	"Gridlock2-Hints" : ["You'll need to drag the vertical rectangle down.", "First, you need to get the horizontal rectangle out of the way."],
+	"GridlockFR1-Hints" : ["The vertical piece on the far right needs to be 1 space away from the bottom so that both the gap piece and the bottom horizontal piece can move right."],
 	"GridlockRH3-Hints" : ["I can't write hints"],//TODO
 	
 	"ConcentricSingle-Hints" : ["Just drag the circle around so the beam goes through the gap."],
 	"ConcentricDouble-Hints" : ["The rings move independently.", "Drag both rings around so the beam goes through their gaps."],
 	"ConcentricCascade3-Hints" : ["When you drag one of the rings, it drags all of the rings inside it too.", "Work either from the outside in or from the inside out."],
 	"ConcentricReverse4-Hints" : ["Just like a previous level, but in reverse", "Each ring moves all of the rings outside itself.", "Work either from the outside in or from the inside out."],
+	"ConcentricCascramble31425" : ["This is just like the previous levels, except that the order of the rings is scrambled."],
 	"ConcentricRound3-Hints" : ["If you're near the end, make small movements."],//TODO maybe more hints?
+	"ConcentricRound4-Hints" : ["Each ring brings with it the bring to either side (looping around).", "If you can line up three of them, you can line up all of them."],//TODO maybe more hints?
 	
 	"OnceSBend-Hints" : ["Just drag from circle to circle."],
 	"OnceMGrid-Hints" : ["Go down from the start."],
@@ -127,7 +136,22 @@ LANG.en = {
 	"PipeAround-Hints" : ["It may be easier to work backwards from the end on this one.", "Go along the bottom."],
 	"PipeStraightSearch-Hints" : ["You'll have to go through a straight piece to fix your alignment.", "The straight piece is around the upper-left."],
 	
-	"SameIntro-Hints" : ["Click wither of the groups, then the other."],
+	"SameIntro-Hints" : ["Click either of the two groups, then the other."],
 	"SameSlideDemo-Hints" : ["You literally can't fail this one, just click until you win."],
-	"SameTower1-Hints" : ["First, click the two-of-a-kind. Otherwise, you'll have a singleton block of one of the other color left."],
+	"SameTower1-Hints" : ["First, click the <SameGameColor|0> pair. Otherwise, you'll have a singleton block of either <SameGameColor|1> or <SameGameColor|2> left."],
+	"SameFRHard-Hints" : ["Pick the two <SameGameColor|0> tiles in the middle first."],
+	
+	"Color-white" : "white",
+	"Color-black" : "black",
+	"Color-grey" : "grey",
+	"Color-red" : "red",
+	"Color-orange" : "orange",
+	"Color-yellow" : "yellow",
+	"Color-green" : "green",
+	"Color-cyan" : "cyan",
+	"Color-blue" : "blue",
+	"Color-magenta" : "magenta",
+	
+	"Color-dark" : "dark <hue>",
+	"Color-light" : "light <hue>",
 }
