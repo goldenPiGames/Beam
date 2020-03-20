@@ -13,11 +13,15 @@ var mouse = {
 	}
 }
 
+function setMousePosition(clientX, clientY) {
+	var rekt = eventCatcher.getBoundingClientRect();
+	mouse.x = (clientX - rekt.x) / rekt.width * WIDTH;
+	mouse.y = (clientY - rekt.y) / rekt.height * HEIGHT;
+}
+
 function addEvents() {
 	eventCatcher.addEventListener("mousemove", function(e) {
-		var rekt = eventCatcher.getBoundingClientRect();
-		mouse.x = (e.clientX - rekt.x) / rekt.width * WIDTH;
-		mouse.y = (e.clientY - rekt.y) / rekt.height * HEIGHT;
+		setMousePosition(e.clientX, e.clientY);
 	});
 	
 	eventCatcher.addEventListener("mousedown", function(e) {
@@ -45,8 +49,7 @@ function addEvents() {
 			e.preventDefault();
 		mouse.clicked = true;
 		mouse.down = true;
-		mouse.x = e.changedTouches[0].clientX;
-		mouse.y = e.changedTouches[0].clientY;
+		setMousePosition(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
 	});
 	
 	eventCatcher.addEventListener("touchend", function(e) {
@@ -68,8 +71,7 @@ function addEvents() {
 	eventCatcher.addEventListener("touchmove", function(e) {
 		if (runnee.overrideTouch)
 			e.preventDefault();
-		mouse.x = e.changedTouches[0].clientX;
-		mouse.y = e.changedTouches[0].clientY;
+		setMousePosition(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
 	});
 	
 	backDiv.addEventListener("fullscreenchange", fitCanvas);

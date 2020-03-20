@@ -10,7 +10,7 @@ class HostSettingsScreen extends Screen {
 		this.beginButton = new BubbleButton(WIDTH-50, HEIGHT-50, 45, ()=>this.tryPlay(), bubbleDrawIPlay);
 		this.goalSelector = new NumberSelector(10, HEIGHT/2+50, 180, 120, 2);
 		this.returnButton = new BubbleButton(50, HEIGHT-50, 45, ()=>{this.delete();hideTextInput();switchScreen(new MultiplayerMenu())}, bubbleDrawIReturn);
-		this.fullscreenButton = new BubbleButton(50, 50, 45, ()=>attemptFullscreen(), bubbleDrawIFullscreen),
+		this.fullscreenButton = new BubbleButton(50, 50, 45, ()=>attemptFullscreen(), bubbleDrawIFullscreen);
 		this.objects = [
 			this.returnButton,
 			this.modeButtons,
