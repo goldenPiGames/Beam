@@ -55,6 +55,21 @@ Levels.SameMeet = class LevelSameMeet extends SameLevel {
 
 //TODO meet
 
+Levels.SameLemonade = class LevelSameLemonade extends SameLevel {
+	constructor() {
+		super({
+			direction:1,
+			grid:[
+				[2,2,2,1,1,1,1],
+				[3,3,2,2,2,3,3],
+				[0,3,3,2,2,2,3],
+				[0,0,0,3,2,3,3],
+				[3,3,3,3,3,2,1],
+			],
+		});
+	}
+}
+
 Levels.SameFRHard = class LevelSameFRHard extends SameLevel {
 	constructor() {
 		super({
@@ -69,7 +84,8 @@ Levels.SameFRHard = class LevelSameFRHard extends SameLevel {
 				[1,3,2,2,2,0,0,1],
 				[1,1,1,3,3,3,1,1],
 				[1,3,2,2,2,2,2,2],
-				[1,1,1,1,1,0,3,0]],
+				[1,1,1,1,1,0,3,0],
+			],
 		});
 	}
 }
@@ -81,6 +97,7 @@ const SEQ_MAIN_SAME = {
 		"SameIntro",
 		"SameSlideDemo",
 		"SameTower1",
+		"SameLemonade",
 		"SameFRHard",
 	]
 }

@@ -4,47 +4,6 @@ function continueGame() {
 	runnee = new LevelSelectLinearScreen(MAIN_LEVEL_SEQS);
 }
 
-const MAIN_LEVEL_SEQS = [
-	SEQ_MAIN_PIPE,
-	SEQ_MAIN_ONCE,
-	SEQ_MAIN_TOGGLE,
-	SEQ_MAIN_GRIDLOCK,
-	SEQ_MAIN_SAME,
-	SEQ_MAIN_CONCENTRIC,
-	SEQ_MAIN_MAZE,
-]
-
-const MAIN_LEVEL_SEQ = {
-	id : "MainLinear",
-	levelIDs : [
-		//LevelGridlock4,
-		"Toggle1",
-		"Toggle2",
-		"ToggleFirstTrick",
-		"MazeStraight",
-		"MazeU",
-		"Maze3",
-		"Gridlock1",
-		"Gridlock2",
-		"ConcentricSingle",
-		"ConcentricDouble",
-		"ConcentricCascade3",
-		"OnceSBend",
-		"OnceMGrid",
-		"OnceSymPip",
-		"PipeStraight",
-		"PipeSBend",
-		"Pipe3",
-		"PipeReal",
-		"PipeAround",
-		"SameIntro",
-		"SameSlideDemo",
-		"SameTower1",
-		"ConcentricReverse4",
-		//LevelVictory,
-	],
-}
-
 class LevelSelectLinearScreen extends Screen {
 	constructor(seqs = MAIN_LEVEL_SEQS) {
 		super();

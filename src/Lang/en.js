@@ -108,14 +108,19 @@ LANG.en = {
 	"Toggle2-Hints" : ["Click both of the circly buttons up there."],
 	"ToggleFirstTrick-Hints" : ["Don't click all three of the circly buttons up there. Only some of them."],
 	"ToggleAlternating-Hints" : ["Notice that the gates on each end are only affected by one button.", "Select every other button."],
+	"ToggleMirrorHall-Hints" : ["The solution is much more simple than it ay seem."],
+	"ToggleMirrorHall-Source" : "Super Paper Mario; Mirror Hall",
+	
 	"MazeStraight-Hints" : ["Just drag from left to right."],
-	"MazeU-Hints" : [""],//TODO
+	"MazeU-Hints" : ["Wht dou you want me to say? It's a one-way path."],
 	"Maze3-Hints" : ["If you go the wrong way, you can always rewind."],
+	"MazeRCTMini-Source" : "Roller Coaster Tycoon; Mini Maze",
 	
 	"Gridlock1-Hints" : ["Just drag the rectangle down."],
 	"Gridlock2-Hints" : ["You'll need to drag the vertical rectangle down.", "First, you need to get the horizontal rectangle out of the way."],
 	"GridlockFR1-Hints" : ["The vertical piece on the far right needs to be 1 space away from the bottom so that both the gap piece and the bottom horizontal piece can move right."],
 	"GridlockRH3-Hints" : ["I can't write hints"],//TODO
+	"GridlockRH3-Source" : "Rush Hour; Level 3",
 	
 	"ConcentricSingle-Hints" : ["Just drag the circle around so the beam goes through the gap."],
 	"ConcentricDouble-Hints" : ["The rings move independently.", "Drag both rings around so the beam goes through their gaps."],
@@ -128,6 +133,8 @@ LANG.en = {
 	"OnceSBend-Hints" : ["Just drag from circle to circle."],
 	"OnceMGrid-Hints" : ["Go down from the start."],
 	"OnceSymPip-Hints" : ["You have to go down from the start; otherwise, you'll leave yourself with a dead end.", "The solution is symmetrical."],
+	"OnceIronFortress-Hints" : ["Go down from the start."],
+	"OnceIronFortress-Source" : "Epic Battle Fantasy 5; Iron Fortress",
 	
 	"PipeStraight-Hints" : ["Make all of the pieces horizontal."],
 	"PipeSBend-Hints" : ["You don't need to connect all the pieces. Just get to the exit."],
@@ -139,7 +146,8 @@ LANG.en = {
 	"SameIntro-Hints" : ["Click either of the two groups, then the other."],
 	"SameSlideDemo-Hints" : ["You literally can't fail this one, just click until you win."],
 	"SameTower1-Hints" : ["First, click the <SameGameColor|0> pair. Otherwise, you'll have a singleton block of either <SameGameColor|1> or <SameGameColor|2> left."],
-	"SameFRHard-Hints" : ["Pick the two <SameGameColor|0> tiles in the middle first."],
+	"SameLemonade-Hints" : ["Tempting though it may be, do not remove the large <SameGameColor|2> group at the start; otherwise, you'll leave that single <SameGameColor|2> remaining.", "Don't remove the <SameGameColor|1> in the lower left either, for the same reason."],
+	"SameFRHard-Hints" : ["The <SameGameColor|0> and <SameGameColor|3> in the lower-right will be the hardest, so focus on them.", "Pick the two <SameGameColor|0> tiles in the middle first."],
 	
 	"Color-white" : "white",
 	"Color-black" : "black",

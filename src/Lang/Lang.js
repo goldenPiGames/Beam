@@ -5,13 +5,13 @@ const LANGUAGES = ["en", "cg"];
 function lg(name) {
 	var got = LANG[settings.lang][name] || LANG.en[name];
 	if (!got)
-		return "undefined";
-	if (typeof got == "string")
+		return undefined;
+	else if (typeof got == "string")
 		return got.replace(/<.+?>/g, evalTag);
 	else if (Array.isArray(got))
 		return got.map(sub => sub.replace(/<.+?>/g, evalTag));
 	else
-		return "undefined";
+		return got;
 }
 
 function evalTag(tag) {

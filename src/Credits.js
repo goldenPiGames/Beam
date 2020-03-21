@@ -2,6 +2,7 @@ class CreditsScreen extends Screen {
 	constructor() {
 		super();
 		this.returnButton = new BubbleButton(WIDTH-50, 50, 45, ()=>switchScreen(new MainMenu()), bubbleDrawIReturn);
+		this.levelSources = ALL_LEVEL_IDS.map(id=>lg(id+"-Source")).filter(a=>a);
 	}
 	update() {
 		this.returnButton.update();
