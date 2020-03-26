@@ -46,8 +46,8 @@ class TimeTrialEndScreen extends Level {
 		this.seed = iter.seed;
 		this.goal = iter.goal;
 		this.paraText = lg(this.mode.lName) + " <br> " +
-				lg("TimeTrialEnd-Length").replace(/<num>/, this.goal) + " <br> " +
-				((typeof this.seed == "number") ? lg("TimeTrialEnd-SM64RNG").replace(/<seed>/, this.seed.toString(16)) : lg("TimeTrialEnd-NoPRNG"));
+				lg("TimeTrialEnd-Length", {"num":this.goal}) + " <br> " +
+	((typeof this.seed == "number") ? lg("TimeTrialEnd-SM64RNG", {"seed":this.seed.toString(16)}) : lg("TimeTrialEnd-NoPRNG"));
 		this.redoButton = new Button(WIDTH/2-80, HEIGHT/2+100, 160, 40, lg("TimeTrialEnd-Return"), ()=>{
 				switchScreen(new InfiniteSelectScreen({
 					mode : this.mode.id,

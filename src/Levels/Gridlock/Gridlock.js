@@ -1,15 +1,12 @@
 //TODO change layout so it has data instead of actual pieces
 class GridlockLevel extends GridLevel {
 	constructor(layout) {
-		super({
-			width : layout.width,
-			height : layout.height,
-			gap : 0.05,
-			entranceSide : (2 + layout.direction) % 4,
-			entrancePosition : layout.position,
-			exitSide : layout.direction,
-			exitPosition : layout.position,
-		});
+		layout.gap = 0.05;
+		layout.entranceSide = directionOpposite(layout.direction);
+		layout.entrancePosition = layout.position,
+		layout.exitSide = layout.direction,
+		layout.exitPosition = layout.position,
+		super(layout);
 		this.direction = layout.direction;
 		this.width = layout.width;
 		this.height = layout.height;
@@ -69,6 +66,10 @@ class GridlockLevel extends GridLevel {
 	}
 	isSpaceOccupied(i, j) {
 		return this.pieces.find(pis => i >= pis.gridX && i < pis.gridX + pis.gridWidth && j >= pis.gridY && j < pis.gridY + pis.gridHeight);
+	}
+	win() {
+		this.pieces.forEach(pis=>pis.snapEnd());
+		super.win();
 	}
 }
 GridlockLevel.prototype.lModeName = "Gridlock-Name";
@@ -164,6 +165,24 @@ class GridlockPiece extends UIObject {
 		else
 			this.gridY = Math.min(Math.max(Math.round(this.parent.pixToGridY(this.displayY) + 1/2), this.gridBoundTop), this.gridBoundBottom);
 		this.updateDisplayPosition();
+	}
+	snapEnd() {
+		if (this.held) {
+			if (this.movesHoriz) {
+				if (this.displayX+this.displayWidth/2 > this.parent.beamStartX)
+					this.displayX += this.parent.gridScale/4;
+				else
+					this.displayX -= this.parent.gridScale/4;
+			} else {
+				if (this.displayY+this.displayHeight/2 > this.parent.beamStartY)
+					this.displayY += this.parent.gridScale/4;
+				else
+					this.displayY -= this.parent.gridScale/4;
+			}
+			this.snapToGrid();
+		}
+		this.hovered = false;
+		this.held = false;
 	}
 	updateDisplayPosition() {
 		this.displayWidth = this.parent.gridScale * (this.gridWidth - .1);

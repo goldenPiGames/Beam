@@ -157,6 +157,6 @@ class HostScoreboard extends Screen {
 		this.gameRef.child("players").off("value", this.callbackOnV);
 		this.gameRef.child("players").off("child_changed", this.callbackOnC);
 		this.gameRef.remove();
-		runnee = new MultiplayerMenu();
+		switchScreen(new MultiplayerMenu());
 	}
 }

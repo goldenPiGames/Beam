@@ -25,9 +25,9 @@ function getColorDescription(color) {
 	}
 	var nhue = lg("Color-"+lhue);
 	if (hsl[2] < 33)
-		return lg("Color-dark").replace("<hue>", nhue);
+		return lg("Color-dark", {"hue":nhue});
 	else if (hsl[2] > 67)
-		return lg("Color-light").replace("<hue>", nhue);
+		return lg("Color-light", {"hue":nhue})
 	else
 		return nhue;
 }

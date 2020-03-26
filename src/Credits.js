@@ -7,7 +7,7 @@ class CreditsScreen extends Screen {
 			if (!sauce)
 				return false;
 			return {
-				name: lg("Credits-LevelName").replace("<seq>", lg("Seq-"+lev.prototype.seq.id)).replace("<index>", lev.prototype.index),
+				name: lg("Credits-LevelName", {"seq":lg("Seq-"+lev.prototype.seq.id), "index":lev.prototype.index}),
 				source: sauce,
 			}
 		}).filter(a=>a);
@@ -97,8 +97,8 @@ class CreditsArea extends UIObject {
 	}
 	addMultipleButtons(...butts) {
 		var len = butts.length;
-		butts.forEach((oj, dex) => this.objects.push(new ScrollingButton(this, this.x+this.width*dex/len, this.curry, this.width/len, 24, oj.text, oj.href?()=>window.open(oj.href):oj.handler)));
-		this.curry += 28;
+		butts.forEach((oj, dex) => this.objects.push(new ScrollingButton(this, this.x+this.width*dex/len, this.curry, this.width/len, 28, oj.text, oj.href ? ()=>{window.open(oj.href); this.held = false} : oj.handler)));
+		this.curry += 32;
 	}
 	finalize() {
 		this.maxScroll = this.curry;

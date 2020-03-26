@@ -1,15 +1,10 @@
 class OnceLevel extends DragPathLevel {
 	constructor(layout) {
-		super({
-			width : layout.grid.length,
-			height : layout.grid[0].length,
-			gap : 0,
-			entranceSide : layout.entranceSide,
-			entrancePosition : layout.entrancePosition,
-			exitSide : layout.exitSide,
-			exitPosition : layout.exitPosition,
-		});
-		this.pieces = [];
+		layout.width = layout.grid.length;
+		layout.height = layout.grid[0].length;
+		layout.gap = 0;
+		super(layout);
+		this.pieces = layout.grid.map((row, i) => row.map((pis, j) => pis ? new OnceTile(i, j) : new OnceEmpty(i, j)));
 		for (var i = 0; i < layout.grid.length; i++) {
 			this.pieces[i] = [];
 			for (var j = 0; j < layout.grid[i].length; j++) {
@@ -32,7 +27,6 @@ class OnceLevel extends DragPathLevel {
 	evalPath() {
 		this.beamStopX = null;
 		this.beamPath = new Path2D();
-		var d = (this.entranceSide + 2) % 4;
 		var x;
 		var y;
 		var bx = this.beamStartX;

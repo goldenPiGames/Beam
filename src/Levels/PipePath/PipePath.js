@@ -1,27 +1,16 @@
 class PipeLevel extends GridLevel {
 	constructor(layout) {
-		var pipeGrid = layout.pipeGrid;
-		super({
-			width : pipeGrid.length,
-			height : pipeGrid[0].length,
-			gap : 1/2,
-			entranceSide : layout.entranceSide,
-			entrancePosition : layout.entrancePosition,
-			exitSide : layout.exitSide,
-			exitPosition : layout.exitPosition,
-		});
-		this.layoutData = layout;
-		this.pieces = [];
-		for (var i = 0; i < pipeGrid.length; i++) {
+		layout.width = layout.pipeGrid.length;
+		layout.height = layout.pipeGrid[0].length;
+		layout.gap = 1/2;
+		super(layout);
+		this.pieces = layout.pipeGrid.map((row, i) => row.map((pis, j) => new PipePiece(this.gridToPixX(i), this.gridToPixY(j), this.gridScale / 2, pis)));
+		/*for (var i = 0; i < pipeGrid.length; i++) {
 			this.pieces[i] = [];
 			for (var j = 0; j < pipeGrid[i].length; j++) {
 				this.pieces[i][j] = new PipePiece(this.gridToPixX(i), this.gridToPixY(j), this.gridScale / 2, pipeGrid[i][j]);
 			}
-		}
-		this.entranceSide = layout.entranceSide;
-		this.entrancePosition = layout.entrancePosition;
-		this.exitSide = layout.exitSide;
-		this.exitPosition = layout.exitPosition;
+		}*/
 		//this.makeBorderPath();
 		//Make sure it's not already solved to begin with
 		let failsafe = 0;

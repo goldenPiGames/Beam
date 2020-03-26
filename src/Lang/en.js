@@ -72,7 +72,7 @@ LANG.en = {
 	"Hint-NoLevelHints" : "No hints available for this particular level.",
 	"Hint-Poke" : "Need a hint?",
 	"Victory-Title" : "Sequence Complete",
-	"Victory-Paragraph" : "I should probably put a button to return to the level select here. Whatever. <br> Check out the other modes, or try the infinite levels. I think I forgot to mention, you can return to the main menu by clicking that button in the upper-left corner, then \"Quit\". ",
+	"Victory-Paragraph" : "Check out the other modes, or try the infinite levels.",
 	"Victory-Return" : "Level Select",
 	
 	"Infinite-PRNG" : "Seed PRNG",
@@ -89,15 +89,16 @@ LANG.en = {
 			],
 	"ToggleGates-Name" : "Toggle Gates",
 	"ToggleGates-Rules" : "Click the buttons to toggle certain gates. A button may toggle multiple gates. <br> It doesn't matter what order the buttons are pressed; all that matters is whether they're on or off.",
-	"ToggleGates-Hints" : ["If you're stuck, take which buttons affect which gates. Try drawing it out on a grid.",
+	"ToggleGates-Hints" : ["If you're stuck, try drawing it out on a grid which buttons affect which gates.",
 			"If there's any gate that's only affected by one switch, that switch must be on."],
 	"PipePath-Name" : "Pipe Path",
 	"PipePath-Rules" : "Click the pieces to rotate them. Form a path from the entrance to the exit.",
 	"PipePath-Hints" : [//"Puzzles often have multiple solutions.",
-			"Work from both the entrance and the exit.",],
+			"Work from both the entrance and the exit.",
+			"If you're not aligned properly with the end, you need to go through one more or one fewer straight piece."],
 	"ConcentricCircles-Name" : "Concentric Circles",
 	"ConcentricCircles-Rules" : "Click and drag to rotate the rings so that the gaps line up and the beam can pass through. Some rings may also pull other rings with them when dragged.",
-	"ConcentricCircles-Hints" : ["If you're stuck, try making drawing out on a grid which rings affect which other rings.",
+	"ConcentricCircles-Hints" : ["If you're stuck, try drawing out on a grid which rings affect which other rings.",
 			"If there's any ring which isn't pulled by any other rings, get it into position first so you won't have to worry about it again."
 			],
 	"Gridlock-Name" : "Gridlock",
@@ -165,6 +166,8 @@ LANG.en = {
 	"SameTower1-Hints" : ["First, click the <SameGameColor|0> pair. Otherwise, you'll have a singleton block of either <SameGameColor|1> or <SameGameColor|2> left."],
 	"SameLemonade-Hints" : ["Tempting though it may be, do not remove the large <SameGameColor|2> group at the start; otherwise, you'll leave that single <SameGameColor|2> remaining.", "Don't remove the <SameGameColor|1> in the lower left either, for the same reason."],
 	"SameFRHard-Hints" : ["The <SameGameColor|0> and <SameGameColor|3> in the lower-right will be the hardest, so focus on them.", "Pick the two <SameGameColor|0> tiles in the middle first.", "You can't remove the rightmost <SameGameColor|0> using the closest group of <SameGameColor|0> - instead, remove it using the group in the third column."],
+	
+	"SameGame-SolutionStep" : "Move <move>: Remove <count> <color> at column <col> from left, row <row> from bottom.",
 	
 	"Settings-Music" : "Music",
 	"Settings-SFX" : "SFX",

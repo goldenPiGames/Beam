@@ -1,6 +1,6 @@
 class ToggleLevel extends Level {
 	constructor(layout) {
-		super();
+		super(layout);
 		let numGates = layout.gates.length;
 		let numSwitches = layout.gates[0].length;
 		var switchXStart, switchYStart, switchXInc, switchYInc, gateXStart, gateYStart, gateXInc, gateYInc, gateOrient;

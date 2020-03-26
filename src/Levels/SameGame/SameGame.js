@@ -1,16 +1,13 @@
 class SameLevel extends GridLevel {
 	constructor(layout) {
-		var width = layout.grid.length;
-		var height = layout.grid[0].length;
-		super({
-			width : width,
-			height : height,
-			gap : 0,
-			entranceSide : directionOpposite(layout.direction),
-			entrancePosition : height-1,
-			exitSide : layout.direction,
-			exitPosition : height-1,
-		});
+		layout.width = layout.grid.length;
+		layout.height = layout.grid[0].length;
+		layout.gap = 0;
+		layout.entranceSide = directionOpposite(layout.direction);
+		layout.entrancePosition = layout.direction%2 ? layout.height-1 : 0;
+		layout.exitSide = layout.direction;
+		layout.exitPosition = layout.direction%2 ? layout.height-1 : 0;
+		super(layout);
 		this.direction = layout.direction;
 		this.initGrid = layout.grid;
 		this.reset(false);
@@ -126,6 +123,10 @@ class SameLevel extends GridLevel {
 			return false;
 		} else
 			return true;
+	}
+	getSolutionHints() {
+		return this.solution.map((move, dex) => lg("SameGame-SolutionStep", {"move":dex+1, "count":move.length, "color":getSameGameColorDescription(move[0].color), "col":move[0].x+1, "row":move[0].y+1}));
+//			Move <move>: Remove <count> <color> at column <col> from left, row <row> from bottom.
 	}
 }
 SameLevel.prototype.lModeName = "SameGame-Name";

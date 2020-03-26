@@ -43,6 +43,11 @@ class LevelWrapper extends Screen {
 }
 
 class Level {
+	constructor(args) {
+		if (args) {
+			this.solution = args.solution;
+		}
+	}
 	win() {
 		this.won = true;
 	}
@@ -75,6 +80,15 @@ class Level {
 					this.beamEndY = this.beamExitPosition;
 					break;
 		}
+	}
+	getLevelHints() {
+		var basehints = lg(this.id + "-Hints");
+		if (basehints)
+			return basehints;
+		if (this.solution) {
+			return this.getSolutionHints();
+		}
+		return lg("Hint-NoLevelHints");
 	}
 }
 Level.prototype.lModeName = "LevelOther-Name";

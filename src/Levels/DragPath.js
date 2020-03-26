@@ -56,7 +56,7 @@ class DragPathTile extends UIObject {
 	clearChainTo(to) {
 		if (this.canLinkTo(to))
 			return [to];
-		var mids = this.neighborsL.filter(m => m.canLinkTo(to) && !m.tagged);
+		var mids = this.neighborsD.filter(m => m && typeof m == "object" && m.canLinkTo(to) && !m.tagged);
 		if (mids.length == 1)
 			return [mids[0], to];
 		return false;

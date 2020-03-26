@@ -47,6 +47,7 @@ class LevelSameRandom extends SameLevel {
 		console.log(gridt);
 		//Grid is initially generated one-indexed and y+up
 		layout.grid = gridt[gridt.length-1].map(col=>col.map(b=>b-1).reverse());
+		layout.solution = gridt.map(g=>g.added).slice(1).reverse();
 		layout.mode = "SameGame";
 		var json = JSON.stringify(layout);
 		super(layout);
@@ -120,6 +121,7 @@ class SameGameGenStepper {
 		}
 		if (lastLone)
 			return false;
+		this.group.forEach(b=>b.color = this.color-1);
 		let toret = this.curstep.map(col=>col.map(b=>b==-1?this.color:b));
 		toret.added = this.group;
 		return toret;

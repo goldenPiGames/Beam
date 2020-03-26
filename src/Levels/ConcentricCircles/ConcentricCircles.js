@@ -1,6 +1,6 @@
 class ConcentricLevel extends Level {
 	constructor(layout) {
-		super();
+		super(layout);
 		let numRings = layout.also.length;
 		var switchXStart, switchYStart, switchXInc, switchYInc, gateXStart, gateYStart, gateXInc, gateYInc, gateOrient;
 		this.direction = layout.direction;
