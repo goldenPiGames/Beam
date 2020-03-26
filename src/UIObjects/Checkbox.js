@@ -30,7 +30,8 @@ class Checkbox extends UIObject {
 		ctx.fillStyle = this.selected ? palette.click : (this.hovered ? palette.hover : palette.normal);
 		ctx.font = fontSize + "px "+settings.font;
 		ctx.textAlign = "left";
+		ctx.textBaseline = "middle";
 		
-		ctx.fillText(this.text, this.x + this.height, this.y + (this.height/2) - (fontSize/2));
+		ctx.fillText(this.text, this.x + this.height, this.y + this.height/2);
 	}
 }

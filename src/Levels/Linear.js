@@ -72,9 +72,12 @@ class LevelSelectSeqBeads extends UIObject {
 		ctx.fillText(lg("Seq-"+this.seq.id), this.x, this.y+this.height-this.beads[0].radius*2);
 	}
 	beadClicked(dex) {
-		if (dex <= this.progress);
-		this.index = dex;
-		this.clicked = true;
+		if (dex <= this.progress) {
+			if (dex == this.index && this.parent.selected == this)
+				this.parent.tryPlay();
+			this.index = dex;
+			this.clicked = true;
+		}
 	}
 }
 
@@ -137,6 +140,9 @@ class LinearLevelIterator extends LevelIterator {
 		} else {
 			return new (Levels[this.seq.levelIDs[this.index]])();
 		}
+	}
+	redoLevel() {
+		return new (Levels[this.seq.levelIDs[this.index]])();
 	}
 	drawBack() {
 		if (this.index >= 0)

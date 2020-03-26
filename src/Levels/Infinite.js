@@ -92,7 +92,12 @@ class InfiniteIterator extends LevelIterator {
 	}
 	nextLevel(prev) {
 		this.beaten++;
-		return this.mode.getLevel(prev ? prev.beamExitSide : RIGHT);
+		var level = this.mode.getLevel(prev ? prev.beamExitSide : RIGHT);
+		this.lastJSON = level.json;
+		return level;
+	}
+	redoLevel() {
+		return levelFromJSON(this.lastJSON);
 	}
 	drawBack() {
 		this.drawBackText(this.beaten);

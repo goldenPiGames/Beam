@@ -17,6 +17,7 @@ function lg(name) {
 function evalTag(tag) {
 	var args = tag.substring(1, tag.length-1).split("|");
 	switch (args[0]) {
+		case "lg" : return lg(args[1]); break;
 		case "SameGameColor" : return settings.colorblind ? lg("SameGame-Pattern"+args[1]) : getColorDescription(palette["samegame"+args[1]]); break;
 		default : return tag; break;
 	}

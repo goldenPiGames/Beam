@@ -7,7 +7,13 @@ class GameMenu extends Screen {
 		this.x = 0;
 		this.y = 0;
 		this.objects = [
-			new Button(this.x, this.y+100, this.width, 30, lg("GameMenu-Quit"), ()=>runnee=new GameMenuQuitConfirm(this))
+			...alternateHybridButtons(this.x+5, this.y+30, this.width-10, 200, [
+					{text:lg("GameMenu-Fullscreen"), drawI:bubbleDrawIFullscreen, handler:()=>attemptFullscreen()},
+					{text:lg("GameMenu-Quit"), drawI:bubbleDrawIReturn, handler:()=>popupConfirm(()=>exitLevel(), lg("GameMenu-QuitAsk"))},
+					{text:lg("GameMenu-Redo"), drawI:bubbleDrawIReset, handler:()=>redoLevel()},
+					{text:lg("GameMenu-Settings"), drawI:bubbleDrawISettings, handler:()=>switchScreen(new SettingsScreen(this))},
+				]),
+			//new Button(this.x, this.y+100, this.width, 30, lg("GameMenu-Quit"), ()=>runnee=new GameMenuQuitConfirm(this)),
 		];
 	}
 	update() {
@@ -34,43 +40,6 @@ class GameMenu extends Screen {
 }
 GameMenu.prototype.intersectsMouse = UIObject.prototype.intersectsMouse;
 GameMenu.prototype.overrideTouch = false;
-
-
-class GameMenuQuitConfirm extends Screen {
-	constructor(returnTo) {
-		super();
-		this.returnTo = returnTo;
-		this.x = WIDTH/3;
-		this.y = HEIGHT/3;
-		this.width = WIDTH/3;
-		this.height = HEIGHT/3;
-		this.buttons = [
-			new Button(this.x+this.width/10, this.y+this.height/2, this.width*4/5, this.height/5, lg("GameMenu-QuitConfirm"), ()=>runnee=new MainMenu()),
-			new Button(this.x+this.width/10, this.y+this.height*3/4, this.width*4/5, this.height/5, lg("GameMenu-QuitCancel"), ()=>runnee=this.returnTo),
-		];
-	}
-	update() {
-		if (mouse.clicked && !this.intersectsMouse()) {
-			runnee = this.returnTo;
-			return;
-		}
-		this.buttons.forEach(butt=>butt.update());
-	}
-	draw() {
-		this.returnTo.draw();
-		ctx.fillStyle = palette.background;
-		ctx.globalAlpha = .7;
-		ctx.fillRect(0, 0, WIDTH, HEIGHT);
-		ctx.globalAlpha = 1;
-		ctx.lineWidth = 4;
-		ctx.strokeStyle = palette.normal;
-		ctx.strokeRect(this.x, this.y, this.width, this.height);
-		ctx.fillStyle = palette.normal;
-		drawTextInRect(lg("GameMenu-Quit"), this.x, this.y, this.width, this.height/2);
-		this.buttons.forEach(butt=>butt.draw());
-	}
-}
-GameMenuQuitConfirm.prototype.intersectsMouse = UIObject.prototype.intersectsMouse;
 
 function bubbleDrawIMenu() {
 	ctx.lineWidth = this.radius*.1;

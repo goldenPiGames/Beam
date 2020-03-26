@@ -2,12 +2,14 @@ class JoinMultiplayerScreen extends Screen {
 	constructor() {
 		super();
 		initFirebase();
-		setTextInput(10, 10, WIDTH-20, 80, "Key");
+		setTextInput(10, 110, WIDTH-20, 80, "Key");
 		this.returnButton = new BubbleButton(50, HEIGHT-50, 45, ()=>{hideTextInput();switchScreen(new MultiplayerMenu())}, bubbleDrawIReturn);
 		this.beginButton = new BubbleButton(WIDTH-50, HEIGHT-50, 45, ()=>this.tryPlay(), bubbleDrawIPlay);
+		this.fullscreenButton = new BubbleButton(50, 50, 45, ()=>attemptFullscreen(), bubbleDrawIFullscreen);
 		this.objects = [
 			this.returnButton,
 			this.beginButton,
+			this.fullscreenButton,
 		];
 	}
 	update() {
@@ -22,8 +24,8 @@ class JoinMultiplayerScreen extends Screen {
 			text = lg("MultiplayerJoin-NotFound");
 		}
 		if (text) {
-			ctx.fillStyle = settings.normal_color;
-			drawTextInRect(text, 10, 100, WIDTH-20, 60);
+			ctx.fillStyle = palette.normal;
+			drawTextInRect(text, 0, 200, WIDTH, 60);
 		}
 	}
 	tryPlay() {
@@ -58,7 +60,7 @@ class JoinWaitingScreen extends Screen {
 		this.key = this.playRef.key;
 		this.callbackOn = this.gameRef.child("begun").on("value", snap=>this.handleBegin(snap));
 		this.objects = [
-			
+			new BubbleButton(50, 50, 45, ()=>attemptFullscreen(), bubbleDrawIFullscreen),
 		];
 	}
 	update() {
@@ -67,7 +69,8 @@ class JoinWaitingScreen extends Screen {
 	draw() {
 		this.objects.forEach(oj=>oj.draw());
 		ctx.fillStyle = settings.normal_color;
-		drawTextInRect(lg("MultiplayerJoin-Joined"), 10, 20, WIDTH-20, 60);
+		drawTextInRect(lg("MultiplayerJoin-Joined"), 10, 120, WIDTH-20, 60);
+		drawParagraphInRect(lg("MultiplayerJoin-JoinedPara"), 10, 220, WIDTH-20, 60, 24);
 	}
 	handleBegin(snap) {
 		var val = snap.val();
@@ -112,6 +115,9 @@ class MultiplayerGuestIterator extends LevelIterator {
 			return new MultiplayerGuestEndScreen(directionOpposite(prev.beamExitSide), this);
 		}
 	}
+	redoLevel() {
+		return levelFromJSON(this.levelData[this.index]);
+	}
 	drawBack(wrap) {
 		if (!this.finished) {
 			this.drawBackText(this.index);
@@ -128,6 +134,9 @@ class MultiplayerGuestIterator extends LevelIterator {
 		console.log(val);
 		if (val && !val.lastBumpP)
 			this.place = val.place;
+	}
+	exit() {
+		this.playRef.off("value", this.callbackOn);
 	}
 }
 

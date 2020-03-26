@@ -9,6 +9,9 @@ class LevelIterator {
 		ctx.globalAlpha = 1/5;
 		drawTextInRect(str, 0, 0, WIDTH, HEIGHT);
 	}
+	exit() {
+		
+	}
 }
 
 function startLevel() {
@@ -17,6 +20,15 @@ function startLevel() {
 
 function nextLevel() {
 	runnee = new LevelTransition(runnee, levelIterator);
+}
+
+function redoLevel() {
+	switchScreen(new LevelWrapper(levelIterator.redoLevel()))
+}
+
+function exitLevel() {
+	levelIterator.exit();
+	runnee = new MainMenu();
 }
 
 class LevelTransition extends Screen {

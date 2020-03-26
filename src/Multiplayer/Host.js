@@ -78,6 +78,10 @@ class HostScoreboard extends Screen {
 		this.callbackOnV = this.gameRef.child("players").on("value", snap=>this.handleVal(snap));
 		this.callbackOnC = this.gameRef.child("players").on("child_changed", snap=>this.handleProg(snap));
 		this.levels = levels;
+		this.exitButton = new BubbleButton(WIDTH-50, 50, 45, ()=>popupConfirm(()=>this.exit(), lg("MultiplayerHost-ExitAsk")), bubbleDrawIReturn);
+		this.objects = [
+			this.exitButton,
+		]
 	}
 	update() {
 		var val = this.currVal;
@@ -95,6 +99,7 @@ class HostScoreboard extends Screen {
 					place : dex+1,
 				}));
 		}
+		this.objects.forEach(oj=>oj.update());
 		//console.log(this.ranking);
 	}
 	draw() {
@@ -124,8 +129,9 @@ class HostScoreboard extends Screen {
 				ctx.fillRect(xIncrement*i, HEIGHT-barHeight, xIncrement, barHeight);
 			}
 		}
+		this.objects.forEach(oj=>oj.draw());
 	}
-	handleVal(snap) {
+	handleVal(snap) {//TODO why do i have two listeners
 		var val = snap.val();
 		if (val)
 			this.currVal = val;
@@ -140,11 +146,17 @@ class HostScoreboard extends Screen {
 			});
 		this.needUpdatePlaces = true;
 	}
-	tryReplay() {
+	/*tryReplay() { i have no idea what this was supposed to do
 		this.callbackOnV = this.gameRef.child("players").on("value", snap=>this.handleVal(snap));
 		this.callbackOnC = this.gameRef.child("players").on("child_changed", snap=>this.handleProg(snap));
 		this.gameRef.child("players").off("value", this.callbackOnV);
 		this.gameRef.child("players").on("child_changed", this.callbackOnC);
 		
+	}*/
+	exit() {
+		this.gameRef.child("players").off("value", this.callbackOnV);
+		this.gameRef.child("players").off("child_changed", this.callbackOnC);
+		this.gameRef.remove();
+		runnee = new MultiplayerMenu();
 	}
 }

@@ -1,15 +1,46 @@
 class CreditsScreen extends Screen {
 	constructor() {
 		super();
-		this.returnButton = new BubbleButton(WIDTH-50, 50, 45, ()=>switchScreen(new MainMenu()), bubbleDrawIReturn);
-		this.levelSources = ALL_LEVEL_IDS.map(id=>lg(id+"-Source")).filter(a=>a);
+		this.levelSources = ALL_LEVEL_IDS.map(id => {
+			var sauce = lg(id+"-Source");
+			var lev = Levels[id];
+			if (!sauce)
+				return false;
+			return {
+				name: lg("Credits-LevelName").replace("<seq>", lg("Seq-"+lev.prototype.seq.id)).replace("<index>", lev.prototype.index),
+				source: sauce,
+			}
+		}).filter(a=>a);
+		this.objectsIn = [];
+		this.scroll = 0;
+		this.scrollMax = 1200;
+		this.creditsArea = new CreditsArea(0, WIDTH-100);
+		this.creditsArea.addHeading(lg("Credits-IDid"));
+		this.creditsArea.addText("Prexot (goldenPiGames)");
+		this.creditsArea.addMultipleButtons(
+				{text:"Kongregate", href:"https://www.kongregate.com/accounts/goldenPiGames"},
+				{text:"Newgrounds", href:"https://goldenpigames.newgrounds.com/"},
+				{text:"itch", href:"https://goldenpigames.itch.io/"},
+				{text:"YouTube", href:"https://www.youtube.com/channel/UCb4QliR5GWppUqOLXBYKYHw"}
+			);
+		this.creditsArea.addHeading(lg("Credits-Sources"));
+		this.levelSources.forEach(sauce => this.creditsArea.addDouble(sauce.name, sauce.source));
+		this.creditsArea.addDouble(lg("Credits-SourcesRest"), lg("Credits-SourcesOriginal"));
+		this.creditsArea.finalize();
+		
+		this.scrollBar = new ScrollBar(WIDTH-50, 100, 50, HEIGHT-200, HEIGHT, this.creditsArea.maxScroll+this.creditsArea.height, val=>this.creditsArea.scroll=val, ()=>this.creditsArea.scroll);
+		this.returnButton = new BubbleButton(WIDTH-50, HEIGHT-50, 45, ()=>switchScreen(new MainMenu()), bubbleDrawIReturn);
+		this.objects = [
+			this.scrollBar,
+			this.creditsArea,
+			this.returnButton,
+		];
 	}
 	update() {
-		this.returnButton.update();
+		this.objects.forEach(oj=>oj.update());
 	}
 	draw() {
-		this.returnButton.draw();
-		ctx.textAlign = "left";
+		/*ctx.textAlign = "left";
 		ctx.textBaseline = "top";
 		ctx.fillStyle = palette.normal;
 		ctx.font = "25px "+settings.font;
@@ -17,7 +48,95 @@ class CreditsScreen extends Screen {
 		ctx.fillText("Prexot (goldenPiGames)", 20, 30);
 		ctx.fillText(lg("Credits-Music"), 5, 100);
 		ctx.fillText(lg("Credits-MusicVarious"), 20, 125);
-		ctx.fillText(lg("Credits-MusicVisit"), 35, 150);
+		ctx.fillText(lg("Credits-MusicVisit"), 35, 150);*/
+		this.objects.forEach(oj=>oj.draw());
+	}
+}
+
+class CreditsArea extends UIObject {
+	constructor(x, width) {
+		super();
+		this.x = x;
+		this.y = 0;
+		this.width = width;
+		this.height = HEIGHT;
+		this.scroll = this.height;
+		this.maxScroll = 1500;
+		this.curry = this.height;
+		this.objects = [];
+		
+	}
+	update() {
+		this.updateMouse();
+		if (this.hovered && mouse.scrolled) {
+			if (mouse.scrolled < 0)
+				this.scroll = Math.max(0, this.scroll-40);
+			else
+				this.scroll = Math.min(this.maxScroll, this.scroll+40);
+		}
+		if (this.draggedY) {
+			this.scroll = Math.max(0, Math.min(this.maxScroll, this.scroll-this.draggedY));
+		}
+		this.objects.forEach(oj=>oj.update());
+	}
+	draw() {
+		this.objects.forEach(oj=>oj.draw());
+	}
+	addHeading(text) {
+		this.objects.push(new ScrollingText(this, text, this.x+this.width/2, this.curry+16, 28, "center"));
+		this.curry += 48;
+	}
+	addText(text) {
+		this.objects.push(new ScrollingText(this, text, this.x+this.width/2, this.curry, 20, "center"));
+		this.curry += 24;
+	}
+	addDouble(textL, textR) {
+		this.objects.push(new ScrollingText(this, textL, this.x+this.width/2-5, this.curry, 20, "right"));
+		this.objects.push(new ScrollingText(this, textR, this.x+this.width/2+5, this.curry, 20, "left"));
+		this.curry += 24;
+	}
+	addMultipleButtons(...butts) {
+		var len = butts.length;
+		butts.forEach((oj, dex) => this.objects.push(new ScrollingButton(this, this.x+this.width*dex/len, this.curry, this.width/len, 24, oj.text, oj.href?()=>window.open(oj.href):oj.handler)));
+		this.curry += 28;
+	}
+	finalize() {
+		this.maxScroll = this.curry;
+	}
+}
+
+class ScrollingText extends UIObject {
+	constructor(scroller, text, x, y, height, align) {
+		super();
+		this.scroller = scroller;
+		this.text = text;
+		this.x = x;
+		this.y = y;
+		this.height = height;
+		this.align = align;
+	}
+	update() {
+		
+	}
+	draw() {
+		ctx.textAlign = this.align;
+		ctx.textBaseline = "top";
+		ctx.fillStyle = palette.normal;
+		ctx.font = this.height + "px " + settings.font;
+		ctx.fillText(this.text, this.x, this.y-this.scroller.scroll);
+	}
+}
+
+class ScrollingButton extends Button {
+	constructor(scroller, ...rest) {
+		super(...rest);
+		this.scroller = scroller;
+		this.baseY = this.y;
+	}
+	update() {
+		this.y = this.baseY - this.scroller.scroll;
+		//console.log(this.y);
+		super.update();
 	}
 }
 

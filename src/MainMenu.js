@@ -6,11 +6,12 @@ class MainMenu extends Screen {
 	constructor() {
 		super();
 		this.buttons = [
-			...alternateHybridButtons(WIDTH/3, HEIGHT/2, WIDTH/3, HEIGHT/3, [
+			...alternateHybridButtons(WIDTH/4, HEIGHT/3, WIDTH/2, HEIGHT/2, [
 					{text:lg("MainMenu-Play"), drawI:bubbleDrawIPlay, handler:()=>continueGame()},
 					{text:lg("MainMenu-Infinite"), drawI:bubbleDrawIInfinity, handler:()=>switchScreen(new InfiniteSelectScreen())},
 					{text:lg("MainMenu-Race"), drawI:bubbleDrawIRace, handler:()=>switchScreen(new MultiplayerMenu())},
 					{text:lg("MainMenu-Credits"), drawI:bubbleDrawICredits, handler:()=>switchScreen(new CreditsScreen())},
+					{text:lg("MainMenu-Settings"), drawI:bubbleDrawISettings, handler:()=>switchScreen(new SettingsScreen(this))},
 				]),
 			new HybridButton(WIDTH-220, 5, 170, 35, WIDTH-50, 50, 45, lg("MainMenu-Jukebox"), bubbleDrawIJukebox, ()=>switchScreen(new Jukebox(this))),
 			new HybridButton(50, 5, 170, 35, 50, 50, 45, lg("MainMenu-Fullscreen"), bubbleDrawIFullscreen, ()=>attemptFullscreen()),

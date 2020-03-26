@@ -1,4 +1,4 @@
-class OnceLevel extends GridLevel {
+class OnceLevel extends DragPathLevel {
 	constructor(layout) {
 		super({
 			width : layout.grid.length,
@@ -27,26 +27,6 @@ class OnceLevel extends GridLevel {
 		this.pieces.forEach(row=>row.forEach(pis=>pis.update()));
 		if (this.evalPath()) {
 			this.win();
-		}
-	}
-	cutPath(pis) {
-		if (this.path[this.path.length-1] == pis)
-			return false;
-		playSFX("blipdown");
-		let cutdex = this.path.indexOf(pis);
-		if (cutdex > -1)
-			this.path.splice(cutdex+1);
-	}
-	cutPathHeadOnly(pis) {
-		if (this.path[this.path.length-2] == pis)
-			this.cutPath(pis);
-	}
-	tryLinkTo(pis) {
-		let head = this.path[this.path.length-1];
-		if (head.canLinkTo(pis)) {
-			playSFX("blip1");
-			this.path.push(pis);
-			pis.tagged = true;
 		}
 	}
 	evalPath() {
@@ -98,7 +78,7 @@ OnceLevel.prototype.lModeRules = "WalkOnce-Rules";
 OnceLevel.prototype.lModeHints = "WalkOnce-Hints";
 
 //----------------------------------------------------------- Pieces ----------------------------------------------------------------------------
-class OncePiece extends UIObject {
+class OncePiece extends DragPathTile {
 	constructor(x, y) {
 		super();
 		this.gridX = x;
@@ -117,12 +97,6 @@ class OncePiece extends UIObject {
 			this.neighborsD[LEFT] = this.parent.pieces[this.gridX-1][this.gridY];
 		this.neighborsL = this.neighborsD.filter(n=>n);
 		this.updateDisplayPosition();
-	}
-	updateDisplayPosition() {
-		this.displayX = this.parent.gridToPixX(this.gridX - 1/2);
-		this.displayY = this.parent.gridToPixY(this.gridY - 1/2);
-		this.displayWidth = this.parent.gridScale;
-		this.displayHeight = this.parent.gridScale;
 	}
 }
 
@@ -167,6 +141,9 @@ class OnceEmpty extends OncePiece {
 		ctx.moveTo(this.displayX+this.displayWidth, this.displayY);
 		ctx.lineTo(this.displayX, this.displayY+this.displayHeight);
 		ctx.stroke();
+	}
+	canLinkTo(pis) {
+		return false;
 	}
 	holdUp() {
 		return false;

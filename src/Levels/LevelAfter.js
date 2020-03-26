@@ -6,12 +6,21 @@ for (lev in Levels) {
 
 const MAIN_LEVEL_SEQS = [
 	SEQ_MAIN_PIPE,
+	SEQ_MAIN_MAZE,
 	SEQ_MAIN_ONCE,
 	SEQ_MAIN_TOGGLE,
 	SEQ_MAIN_GRIDLOCK,
 	SEQ_MAIN_SAME,
 	SEQ_MAIN_CONCENTRIC,
-	SEQ_MAIN_MAZE,
 ]
 
+const MAIN_INDICES = {};
+
 const ALL_LEVEL_IDS = [].concat(...MAIN_LEVEL_SEQS.map(seq=>seq.levelIDs));
+
+MAIN_LEVEL_SEQS.forEach(seq => {
+	seq.levelIDs.forEach((lev, dex) => {
+		Levels[lev].prototype.seq = seq;
+		Levels[lev].prototype.index = dex;
+	});
+});

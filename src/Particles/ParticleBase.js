@@ -31,6 +31,7 @@ Particle.prototype.dead = false;
 Particle.prototype.dx = 0;
 Particle.prototype.dy = 0;
 Particle.prototype.alpha = 1;
+Particle.prototype.fade = 30;
 
 //--------------------------------------------------------- Ember ------------------------------------------
 class Ember extends Particle { 

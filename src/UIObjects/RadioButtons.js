@@ -34,9 +34,6 @@ class RadioButtonElement extends UIObject {
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		this.selected = false;
-		this.clicked = true;
-		this.hovered = false;
 		this.text = text;
 		this.parent = parent;
 		this.index = index;
@@ -51,24 +48,24 @@ class RadioButtonElement extends UIObject {
 		}
 	}
 	draw() {
-		ctx.lineWidth = 4;
-		ctx.strokeStyle = (this.hovered) ? palette.hover : palette.normal;
-		ctx.fillStyle = (this.selected) ? palette.click : palette.background;
+		this.drawBubble();
 		
-		var r = this.height/3;
+		ctx.fillStyle = this.selected ? palette.click : this.hovered ? palette.hover : palette.normal;
+		ctx.font = (this.height * 4/5) + "px " + settings.font;
+		ctx.textAlign = "left";
+		ctx.textBaseline = "middle";
+		
+		ctx.fillText(this.text, this.x + this.height, this.y + (this.height/2));
+	}
+	drawBubble() {
+		ctx.lineWidth = BUTTON_BORDER_WIDTH;
+		ctx.strokeStyle = this.hovered ? palette.hover : palette.normal;
+		ctx.fillStyle = this.selected ? palette.click : palette.background;
 		
 		ctx.beginPath();
-		ctx.arc(this.x + r, this.y + this.height/2, r, 0, 2*Math.PI);
+		ctx.arc(this.x + this.height/3, this.y + this.height/2, this.height/3, 0, 2*Math.PI);
 		ctx.closePath();
 		ctx.stroke();
 		ctx.fill();
-		
-		var fontSize = this.height * 4/5;
-		ctx.fillStyle = this.selected ? palette.click : (this.hovered ? palette.hover : palette.normal);
-		ctx.font = fontSize + "px "+settings.font;
-		ctx.textAlign = "left";
-		ctx.textBaseline = "top";
-		
-		ctx.fillText(this.text, this.x + this.height, this.y + (this.height/2) - (fontSize/2));
 	}
 }

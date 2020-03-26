@@ -172,6 +172,7 @@ class ScrollBar extends UIObject {
 		}
 	}
 	draw() {
+		ctx.lineWidth = 2;
 		ctx.strokeStyle = this.held ? palette.click : this.hovered ? palette.hover : palette.normal;
 		//ctx.strokeRect(this.x + this.width - SCROLL_BAR_WIDTH + 1, this.y + SCROLL_BUTTON_HEIGHT + (this.height - SCROLL_BUTTON_HEIGHT * 2) * this.currentScroll / (this.maxEntries + this.maxScroll), SCROLL_BAR_WIDTH - 2, (this.height - SCROLL_BUTTON_HEIGHT * 2) * this.maxEntries / (this.maxEntries + this.maxScroll));
 		if (this.size < (this.max-this.min))

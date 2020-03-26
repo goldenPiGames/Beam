@@ -60,11 +60,7 @@ class TabsTab extends UIObject {
 		
 		var fontSize = 18;
 		ctx.fillStyle = color;
-		ctx.font = fontSize + "px "+settings.font;
-		ctx.textAlign = "center";
-		ctx.textBaseline = "middle";
-		
-		ctx.fillText(this.text, this.x + this.width/2, this.y + this.height/2);
+		drawTextInRect(this.text, this.x+bbw, this.y+bbw, this.width-bbw*2, this.height-bbw*2);
 		
 	}
 }

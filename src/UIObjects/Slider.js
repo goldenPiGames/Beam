@@ -57,14 +57,18 @@ class Slider extends UIObject {
 
 class ColorPicker extends UIObject {
 	constructor(x, y, text, handler, initial) {
-		super(x, y, 255, 150);
+		super();
 		this.handler = handler;
-		this.header = new Label(this.x, this.y, 255, 30, text);
-		this.redSlider =   new Slider(this.x, this.y+ 65, 255, 25, "Red", 0, 255, (val)=>{this.changed=true;this.red=val}, ()=>this.red);
+		this.x = x;
+		this.y = y;
+		this.width = 255;
+		this.height = 150;
+		this.header = text;
+		this.redSlider =   new Slider(this.x, this.y+ 65, 255, 25, "R", 0, 255, (val)=>{this.changed=true;this.red=val}, ()=>this.red);
 		this.redSlider.forceColor = "#FF0000"; this.redSlider.forceBG = "#000000";
-		this.greenSlider = new Slider(this.x, this.y+ 95, 255, 25, "Green", 0, 255, (val)=>{this.changed=true;this.green=val}, ()=>this.green);
+		this.greenSlider = new Slider(this.x, this.y+ 95, 255, 25, "G", 0, 255, (val)=>{this.changed=true;this.green=val}, ()=>this.green);
 		this.greenSlider.forceColor = "#00FF00"; this.greenSlider.forceBG = "#000000";
-		this.blueSlider =  new Slider(this.x, this.y+125, 255, 25, "Blue", 0, 255, (val)=>{this.changed=true;this.blue=val}, ()=>this.blue);
+		this.blueSlider =  new Slider(this.x, this.y+125, 255, 25, "B", 0, 255, (val)=>{this.changed=true;this.blue=val}, ()=>this.blue);
 		this.blueSlider.forceColor = "#0000FF"; this.blueSlider.forceBG = "#000000";
 		if (initial) {
 			if (typeof initial == "function") {
@@ -78,19 +82,21 @@ class ColorPicker extends UIObject {
 	}
 	update() {
 		this.changed = false;
-		this.header.update();
 		this.redSlider.update();
 		this.greenSlider.update();
 		this.blueSlider.update();
 		this.color = "#" + fillLeft(this.red.toString(16), 2) + fillLeft(this.green.toString(16), 2) + fillLeft(this.blue.toString(16), 2);
-		this.header.normalColor = this.color;
 		if (this.changed && this.handler) {
 			this.handler(this.color);
 		}
 	}
 	draw() {
-		this.header.draw();
+		if (this.color == palette.background) {
+			ctx.fillStyle = palette.normal;
+			ctx.fillRect(this.x, this.y, this.width, 30);
+		}
 		ctx.fillStyle = this.color;
+		drawTextInRect(this.header, this.x, this.y, this.width, 30);
 		ctx.fillRect(this.x, this.y+35, this.width, 25);
 		this.redSlider.draw();
 		this.greenSlider.draw();

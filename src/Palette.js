@@ -8,38 +8,6 @@ function loadPaletteFromSettings() {
 	PALETTE_NAMES.forEach(nom => palette[nom] = settings[nom+"_color"]);
 }
 
-class PaletteScreen extends Screen {
-	constructor(returnTo) {
-		super();
-		this.returnTo = returnTo;
-		//TODO make these actually change stuff
-		this.returnButton = new BubbleButton(WIDTH-50, 50, 45, ()=>switchScreen(this.returnTo), bubbleDrawIReturn);
-		this.normalPicker = new ColorPicker(10, 10, "Normal", val=>{settings.normal_color=val; loadPaletteFromSettings()}, settings.normal_color);
-		this.backgroundPicker = new ColorPicker(310, 10, "Background", val=>{settings.background_color=val; loadPaletteFromSettings()}, settings.background_color);
-		this.hoverPicker = new ColorPicker(10, 210, "Hover", val=>{settings.hover_color=val; loadPaletteFromSettings()}, settings.hover_color);
-		this.clickPicker = new ColorPicker(310, 210, "Click", val=>{settings.click_color=val; loadPaletteFromSettings()}, settings.click_color);
-		this.colorblindBox = new Checkbox(10, 410, 256, 30, "Colorblind-Friendly", val=>settings.colorblind=val, settings.colorblind);
-		//this.allowChangeBox = new Checkbox(//TODO prevent game from changing palette
-		this.objects = [
-			this.returnButton,
-			this.normalPicker,
-			this.backgroundPicker,
-			this.hoverPicker,
-			this.clickPicker,
-			this.colorblindBox,
-		];
-	}
-	update() {
-		this.objects.forEach(oj=>oj.update());
-	}
-	draw() {
-		ctx.fillStyle = palette.normal;
-		let head = this.backgroundPicker.header;
-		ctx.fillRect(head.x, head.y, head.width, head.height+10);
-		this.objects.forEach(oj=>oj.draw());
-	}
-}
-
 function getColorDescription(color) {
 	var r = parseInt(color.substring(1, 3), 16);
 	var g = parseInt(color.substring(3, 5), 16);
@@ -53,15 +21,7 @@ function getColorDescription(color) {
 	else if (hsl[1] < 10)
 		lhue = "grey";
 	else {
-		switch (Math.round(hsl[0]/60)) {
-			case 0 : lhue = "red"; break;
-			case 1 : lhue = "yellow"; break;
-			case 2 : lhue = "green"; break;
-			case 3 : lhue = "cyan"; break;
-			case 4 : lhue = "blue"; break;
-			case 5 : lhue = "magenta"; break;
-			case 6 : lhue = "red"; break;
-		}
+		lhue = "hue"+(Math.round(hsl[0]/30)%12);
 	}
 	var nhue = lg("Color-"+lhue);
 	if (hsl[2] < 33)

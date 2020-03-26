@@ -79,12 +79,25 @@ class HybridButtonCirc extends UIObject {
 	}
 }
 
+
+/**
+* each data needs:
+*	text : 
+*	drawI : 
+*	handler : 
+*/
 function alternateHybridButtons(x, y, width, height, eak) {
 	var butts = [];
+	var yStart = y;
 	var yInterval = height / eak.length;
-	var heightEach = yInterval*.8 - 5;
+	var rheight = yInterval*.8 - 5;
+	var cradius = rheight;
+	var lcx = x+cradius;
+	var rcx = x+width-cradius;
+	var rx = x+cradius*1.7;
+	var rwidth = width-cradius*3.4;
 	return eak.map((ak, dex) => {
-			var butt = new HybridButton(x, y+dex*yInterval, width, heightEach, dex%2 ? x+width+heightEach*.7 : (x-heightEach*.7), y+dex*yInterval+heightEach/2, heightEach, ak.text, ak.drawI, ak.handler);
+			var butt = new HybridButton(rx, yStart+dex*yInterval, rwidth, rheight, dex%2 ? rcx : lcx, yStart+dex*yInterval+rheight/2, cradius, ak.text, ak.drawI, ak.handler);
 			butt.index = dex;
 			/*for (prop in ak) { //easy way to add extra properties, like hover text in the race/multiplayer menu
 				if (prop != "text" && prop != "drawI" && prop != "handler") {

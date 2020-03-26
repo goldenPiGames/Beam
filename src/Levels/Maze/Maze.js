@@ -1,4 +1,4 @@
-class MazeLevel extends GridLevel {
+class MazeLevel extends DragPathLevel {
 	constructor(layout) {
 		var usingTo;
 		var gridUsed;
@@ -38,26 +38,6 @@ class MazeLevel extends GridLevel {
 		this.tiles.forEach(row=>row.forEach(pis=>pis.update()));
 		if (this.evalPath()) {
 			this.win();
-		}
-	}
-	cutPath(pis) {
-		if (this.path[this.path.length-1] == pis)
-			return false;
-		playSFX("blipdown");
-		let cutdex = this.path.indexOf(pis);
-		if (cutdex > -1)
-			this.path.splice(cutdex+1);
-	}
-	cutPathHeadOnly(pis) {
-		if (this.path[this.path.length-2] == pis)
-			this.cutPath(pis);
-	}
-	tryLinkTo(pis) {
-		let head = this.path[this.path.length-1];
-		if (head.canLinkTo(pis)) {
-			playSFX("blip1");
-			this.path.push(pis);
-			pis.tagged = true;
 		}
 	}
 	evalPath() {
@@ -111,7 +91,7 @@ MazeLevel.prototype.lModeHints = "Maze-Hints";
 
 
 //----------------------------------------------------------- Pieces ----------------------------------------------------------------------------
-class MazeTile extends UIObject {
+class MazeTile extends DragPathTile {
 	constructor(x, y, dir, usingTo) {
 		super();
 		this.gridX = x;
@@ -134,22 +114,6 @@ class MazeTile extends UIObject {
 				this.addTo(RIGHT);
 		}
 		this.updateDisplayPosition();
-	}
-	addTo(side) {
-		var neigh = this.parent.tiles[this.gridX+directionDX(side)][this.gridY+directionDY(side)];
-		if (neigh) {
-			this.neighborsD[side] = neigh;
-			neigh.addNeighbor(this, directionOpposite(side));
-		}
-	}
-	addNeighbor(neigh, side) {
-		this.neighborsD[side] = neigh;
-	}
-	updateDisplayPosition() {
-		this.displayX = this.parent.gridToPixX(this.gridX - 1/2);
-		this.displayY = this.parent.gridToPixY(this.gridY - 1/2);
-		this.displayWidth = this.parent.gridScale;
-		this.displayHeight = this.parent.gridScale;
 	}
 	update() {
 		this.updateMouse();

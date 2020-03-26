@@ -40,8 +40,13 @@ function addEvents() {
 	});*/
 	
 	eventCatcher.addEventListener("wheel", function(e) {
+		e.preventDefault();
 		mouse.scrolled += e.deltaY > 0 ? 1 : -1;
 		//console.log(mouse.scrolled);
+	});
+	
+	eventCatcher.addEventListener('dblclick', function (e) {
+		e.preventDefault();
 	});
 	
 	eventCatcher.addEventListener("touchstart", function(e) {
@@ -76,6 +81,10 @@ function addEvents() {
 	
 	backDiv.addEventListener("fullscreenchange", fitCanvas);
 	
+	document.addEventListener("fullscreenerror", function(e) {
+		qAlert(lg("Fullscreen-Reject"));
+	});
+	
 	window.addEventListener("resize", fitCanvas);
 }
 
@@ -105,7 +114,11 @@ function attemptFullscreen() {
 	if (document.fullscreen) {
 		document.exitFullscreen();
 	} else {
-		backDiv.requestFullscreen();
+		try {
+			backDiv.requestFullscreen();
+		} catch (e) {
+			qAlert(lg("Fullscreen-Reject"));
+		}
 	}
 }
 
