@@ -2,7 +2,9 @@ class JoinMultiplayerScreen extends Screen {
 	constructor() {
 		super();
 		initFirebase();
-		setTextInput(10, 110, WIDTH-20, 80, "Key");
+		firebase.auth().onAuthStateChanged(user => this.signedIn(user));
+		firebase.auth().signInAnonymously();
+		setTextInput(10, 110, WIDTH-20, 40, "Key");
 		this.returnButton = new BubbleButton(50, HEIGHT-50, 45, ()=>{hideTextInput();switchScreen(new MultiplayerMenu())}, bubbleDrawIReturn);
 		this.beginButton = new BubbleButton(WIDTH-50, HEIGHT-50, 45, ()=>this.tryPlay(), bubbleDrawIPlay);
 		this.fullscreenButton = new BubbleButton(50, 50, 45, ()=>attemptFullscreen(), bubbleDrawIFullscreen);
@@ -14,6 +16,8 @@ class JoinMultiplayerScreen extends Screen {
 	}
 	update() {
 		this.objects.forEach(oj=>oj.update());
+		if (this.foundHost && this.user)
+			runnee = new JoinWaitingScreen(this.gameRef, this.user);
 	}
 	draw() {
 		this.objects.forEach(oj=>oj.draw());
@@ -31,16 +35,23 @@ class JoinMultiplayerScreen extends Screen {
 	tryPlay() {
 		if (!this.waiting && textInput.value) {
 			this.waiting = true;
-			this.gameRef = firebase.database().ref("hostgames").child(textInput.value);
+			this.gameRef = firebase.database().ref("hostgamesa").child(textInput.value);
 			this.gameRef.once("value", snap=>this.handleReturn(snap));
+		}
+	}
+	signedIn(user) {
+		if (user) {
+			this.user = user;
+		} else {
+		
 		}
 	}
 	handleReturn(snap) {
 		var val = snap.val();
-		console.log(val);
+		//console.log(val);
 		if (val) {
+			this.foundHost = true;
 			hideTextInput();
-			runnee = new JoinWaitingScreen(this.gameRef);
 		} else {
 			this.notFound = true;
 		}
@@ -50,10 +61,12 @@ class JoinMultiplayerScreen extends Screen {
 JoinMultiplayerScreen.prototype.overrideTouch = false;
 
 class JoinWaitingScreen extends Screen {
-	constructor(gameRef) {
+	constructor(gameRef, user) {
 		super();
 		this.gameRef = gameRef;
-		this.playRef = this.gameRef.child("players").push({
+		this.user = user;
+		this.playRef = this.gameRef.child("players").child(this.user.uid);
+		this.playRef.set({
 				name:settings.name,progress:-1,
 				lastprogP:Date.now()
 			});
@@ -74,7 +87,7 @@ class JoinWaitingScreen extends Screen {
 	}
 	handleBegin(snap) {
 		var val = snap.val();
-		console.log(val);
+		//console.log(val);
 		if (val) {
 			this.gameRef.child("begun").off("value", this.callbackOn);
 			this.gameRef.child("levels").once("value", snap=>this.trulyBegin(snap));
@@ -121,6 +134,8 @@ class MultiplayerGuestIterator extends LevelIterator {
 	drawBack(wrap) {
 		if (!this.finished) {
 			this.drawBackText(this.index);
+		} else {
+			wrap.level.place = this.place;
 		}
 		if (this.placeDrawBuffer) {
 			this.placeDrawBuffer = false;
@@ -154,7 +169,12 @@ class MultiplayerGuestEndScreen extends Level {
 	draw() {
 		ctx.fillStyle = palette.normal;
 		drawTextInRect(lg("MultiplayerGuestEnd-Header"), 80, 0, WIDTH-160, HEIGHT/3);
-		drawTextInRect(settings.name, 0, HEIGHT/2-15, WIDTH, 30);
-		drawParagraphInRect(lg("MultiplayerGuestEnd-Paragraph"), 0, HEIGHT*2/3, WIDTH, HEIGHT/3, 30);
+		if (this.placeDrawBuffer) {
+			this.placeDrawBuffer = false;
+		} else if (this.place) {
+			drawTextInRect(lg("MultiplayerGuestEnd-Place", {"place":this.place}), 80, HEIGHT/3, WIDTH-160, HEIGHT/3);
+		}
+		drawTextInRect(settings.name, 0, HEIGHT*2/3+15, WIDTH, 30);
+		//drawParagraphInRect(lg("MultiplayerGuestEnd-Paragraph"), 0, HEIGHT*2/3, WIDTH, HEIGHT/3, 30);
 	}
 }

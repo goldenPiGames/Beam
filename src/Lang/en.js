@@ -20,6 +20,7 @@ LANG.en = {
 	"RaceMenu-Join" : "Join",
 	"RaceMenu-Join-Desc" : "Join a game that's being hosted by another device. You can join using a code, similarly to Kahoot or Jackbox. Works regardless of device, browser, and site. <br> <br> Input your display name below.",
 	"Multiplayer-Anonymous" : "Anon",
+	"Multiplayer-Connecting" : "Connecting...",
 	"MultiplayerHost-ExitAsk" : "End?",
 	"MultiplayerJoin-Waiting" : "Waiting for response...",
 	"MultiplayerJoin-NotFound" : "Host not found.",
@@ -27,6 +28,7 @@ LANG.en = {
 	"MultiplayerJoin-JoinedPara" : "The race will begin when the host clicks the play button.",
 	"MultiplayerGuestEnd-Header" : "FINISH",
 	"MultiplayerGuestEnd-Paragraph" : "Look at the host's screen to figure out your place. I haven't gotten around to making it tell you what your place was.",
+	"MultiplayerGuestEnd-Place" : "You placed #<place>",
 	"Fullscreen-Reject" : "Fullscreen rejected by browser.",
 	
 	"Seq-MainPipe" : "Pipe Path",

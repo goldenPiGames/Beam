@@ -18,9 +18,10 @@ const MAIN_INDICES = {};
 
 const ALL_LEVEL_IDS = [].concat(...MAIN_LEVEL_SEQS.map(seq=>seq.levelIDs));
 
-MAIN_LEVEL_SEQS.forEach(seq => {
+MAIN_LEVEL_SEQS.forEach((seq, sdex) => {
 	seq.levelIDs.forEach((lev, dex) => {
 		Levels[lev].prototype.seq = seq;
 		Levels[lev].prototype.index = dex;
 	});
+	seq.color = RAINBOW_7[sdex];
 });

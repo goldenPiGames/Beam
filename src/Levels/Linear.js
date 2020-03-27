@@ -29,6 +29,7 @@ class LevelSelectLinearScreen extends Screen {
 	}
 	tryPlay() {
 		if (this.selected) {
+			palette.beam = this.selected.seq.color;
 			levelIterator = new LinearLevelIterator(this.selected.seq, this.selected.index);
 			startLevel();
 		}
@@ -47,7 +48,11 @@ class LevelSelectSeqBeads extends UIObject {
 		this.progress = parseInt(localStorage.getItem("Beam"+this.seq.id+"Progress")) || 0;
 		var bradius = this.height*5/16;
 		var by = this.y+this.height-bradius;
-		this.beads = this.seq.levelIDs.map((lev, dex, ray)=>new LevelSelectSeqBeadsBead(this.x+bradius + (this.width-2*bradius)*(dex/(ray.length-1)), by, bradius, dex, this));
+		this.beads = this.seq.levelIDs.map((lev, dex, ray)=>new LevelSelectSeqBeadsBead(this.x+bradius + (this.width-2*bradius)*(dex/(ray.length)), by, bradius, dex, this));
+		this.leftX = this.x+bradius;
+		this.midX = this.x+bradius+(this.width-2*bradius)*this.progress/this.seq.levelIDs.length;
+		this.rightX = this.x+this.width-bradius;
+		this.lineY = by;
 	}
 	update() {
 		this.clicked = false;
@@ -59,10 +64,15 @@ class LevelSelectSeqBeads extends UIObject {
 	draw() {
 		ctx.globalAlpha = 1;
 		ctx.lineWidth = 4;
-		ctx.strokeStyle = palette.normal;
+		ctx.strokeStyle = palette.disabled;
 		ctx.beginPath();
-		ctx.moveTo(this.beads[0].x, this.beads[0].y);
-		ctx.lineTo(this.beads[this.beads.length-1].x, this.beads[this.beads.length-1].y);
+		ctx.moveTo(this.midX, this.lineY);
+		ctx.lineTo(this.rightX, this.lineY);
+		ctx.stroke();
+		ctx.strokeStyle = settings.colorblind ? palette.normal : this.seq.color;
+		ctx.beginPath();
+		ctx.moveTo(this.leftX, this.lineY);
+		ctx.lineTo(this.midX, this.lineY);
 		ctx.stroke();
 		this.beads.forEach(b=>b.draw());
 		ctx.textBaseline = "bottom";

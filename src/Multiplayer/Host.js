@@ -2,10 +2,11 @@ class HostSettingsScreen extends Screen {
 	constructor() {
 		super();
 		initFirebase();
+		hideTextInput();
+		firebase.auth().onAuthStateChanged(user => this.signedIn(user));
+		firebase.auth().signInAnonymously();
 		//this.code = "TEST";
-		var allRef = firebase.database().ref("hostgames");
-		this.gameRef = allRef.push({begun:false, players:[]});
-		this.key = this.gameRef.key;
+		//this.key = this.gameRef.key;
 		this.modeButtons = new RadioButtons(10, 110, 200, 30, INFINITE_MODES.map(mod=>lg(mod.lName)), dex=>this.modeClicked(dex));
 		this.beginButton = new BubbleButton(WIDTH-50, HEIGHT-50, 45, ()=>this.tryPlay(), bubbleDrawIPlay);
 		this.goalSelector = new NumberSelector(10, HEIGHT/2+50, 180, 120, 2);
@@ -18,27 +19,29 @@ class HostSettingsScreen extends Screen {
 			this.beginButton,
 			this.goalSelector,
 		];
-		setTextInput(225, 10, WIDTH-250, 40, this.key);
 		textInput.value = this.key;
 		this.namesList = [];
-		this.callbackOn = this.gameRef.child("players").on("child_added", snap=>this.handlePlayer(snap));
 	}
 	update() {
-		if (textInput.value != this.key)
-			textInput.value = this.key;
+		if (this.user && textInput.value != this.user.uid)
+			textInput.value = this.user.uid;
 		this.objects.forEach(oj=>oj.update());
 	}
 	draw() {
 		this.objects.forEach(oj=>oj.draw());
-		ctx.fillStyle = palette.normal;
-		var yStart = 100;
-		var yIncrement = 30;
-		var maxNames = Math.floor((HEIGHT-200) / yIncrement);
-		var namesDraw = this.namesList.slice(-maxNames);
-		//console.log(yStart, yIncrement, maxNames, namesDraw)
-		for (var i = 0; i < namesDraw.length; i++) {
-			//console.log(namesDraw[i], WIDTH/2, yStart+yIncrement*i, WIDTH/2, yIncrement);
-			drawTextInRect(namesDraw[i], WIDTH/2, yStart+yIncrement*i, WIDTH/2, yIncrement);
+		if (this.user) {
+			ctx.fillStyle = palette.normal;
+			var yStart = 100;
+			var yIncrement = 30;
+			var maxNames = Math.floor((HEIGHT-200) / yIncrement);
+			var namesDraw = this.namesList.slice(-maxNames);
+			//console.log(yStart, yIncrement, maxNames, namesDraw)
+			for (var i = 0; i < namesDraw.length; i++) {
+				//console.log(namesDraw[i], WIDTH/2, yStart+yIncrement*i, WIDTH/2, yIncrement);
+				drawTextInRect(namesDraw[i], WIDTH/2, yStart+yIncrement*i, WIDTH/2, yIncrement);
+			}
+		} else {
+			drawTextInRect(lg("Multiplayer-Connecting"), 225, 10, WIDTH-250, 40);
 		}
 	}
 	tryPlay() {
@@ -59,10 +62,28 @@ class HostSettingsScreen extends Screen {
 		}
 	}
 	delete() {
+		firebase.auth().signOut();//if reusing codes, don't do this
 		this.gameRef.remove();
 	}
 	modeClicked(dex) {
 		
+	}
+	signedIn(user) {
+		if (user) {
+			this.user = user;
+			this.finishSignIn();
+		} else {
+		
+		}
+	}
+	finishSignIn() {
+		var allRef = firebase.database().ref("hostgamesa");
+		this.gameRef = allRef.child(this.user.uid);
+		this.gameRef.set({begun:false, players:[]});
+		//this.gameRef.child("begun").set(false);
+		//this.gameRef.child("players").set([]);
+		setTextInput(225, 10, WIDTH-250, 40, this.user.uid);
+		this.callbackOn = this.gameRef.child("players").on("child_added", snap=>this.handlePlayer(snap));
 	}
 	handlePlayer(snap) {
 		var val = snap.val();
@@ -157,6 +178,7 @@ class HostScoreboard extends Screen {
 		this.gameRef.child("players").off("value", this.callbackOnV);
 		this.gameRef.child("players").off("child_changed", this.callbackOnC);
 		this.gameRef.remove();
+		firebase.auth().signOut();//if reusing codes, don't do this
 		switchScreen(new MultiplayerMenu());
 	}
 }
