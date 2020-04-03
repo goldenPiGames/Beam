@@ -33,6 +33,37 @@ function getColorDescription(color) {
 		return nhue;
 }
 
+function changeSingleColor(which, val) {
+	settings[which+"_color"] = val;
+	palette[which] = val;
+	saveSettings();
+}
+
+var currentScint = 0;
+
+function getColorScint(time) {
+	time = time % (0x100 * 6);
+	if (time < 0x100)
+		return "#ff"+fillLeft((time-0x000).toString(16), 2, "0")+"00";
+	else if (time < 0x200)
+		return "#"+fillLeft((0x1FF-time).toString(16), 2, "0")+"ff00";
+	else if (time < 0x300)
+		return "#00ff"+fillLeft((time-0x200).toString(16), 2, "0");
+	else if (time < 0x400)
+		return "#00"+fillLeft((0x3FF-time).toString(16), 2, "0")+"ff";
+	else if (time < 0x500)
+		return "#"+fillLeft((time-0x400).toString(16), 2, "0")+"00ff";
+	else
+		return "#ff00"+fillLeft((0x5FF-time).toString(16), 2, "0");
+}
+
+function scintBeam(d = 1) {
+	if (settings.rainbowBeam) {
+		currentScint += d;
+		palette.beam = getColorScint(currentScint);
+	}
+}
+
 //https://stackoverflow.com/questions/39118528/rgb-to-hsl-conversion
 function rgb2hsl(r, g, b) {
     // see https://en.wikipedia.org/wiki/HSL_and_HSV#Formal_derivation

@@ -107,7 +107,7 @@ function fitCanvas(e) {
 		canvas.classList.remove("fullscreenWider");
 		canvas.classList.add("fullscreenTaller");
 	}
-	resizeTextInput();
+	resizeInputs();
 }
 
 function attemptFullscreen() {

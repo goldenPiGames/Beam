@@ -31,6 +31,8 @@
 		<script type="text/javascript" src="src/Math/RNG.js"></script>
 		<script type="text/javascript" src="src/engine.js"></script>
 		<script type="text/javascript" src="src/controller.js"></script>
+		<script type="text/javascript" src="src/Settings.js"></script>
+		<script type="text/javascript" src="src/Palette.js"></script>
 		
 		<!-- Languages -->
 		<script type="text/javascript" src="src/Lang/Lang.js"></script>
@@ -60,8 +62,6 @@
 		<script type="text/javascript" src="src/Audio/Jukebox.js"></script>
 		<script type="text/javascript" src="src/Audio/SFX.js"></script>
 		<!-- Particles -->
-		<script type="text/javascript" src="src/Settings.js"></script>
-		<script type="text/javascript" src="src/Palette.js"></script>
 		<script type="text/javascript" src="src/Particles/ParticleBase.js"></script>
 		<script type="text/javascript" src="src/Particles/ParticleText.js"></script>
 		<script type="text/javascript" src="src/Particles/Transitions.js"></script>
@@ -74,7 +74,14 @@
 		<script type="text/javascript" src="src/Levels/Level.js"></script>
 		<script type="text/javascript" src="src/Levels/Grid.js"></script>
 		<script type="text/javascript" src="src/Levels/DragPath.js"></script>
+		<script type="text/javascript" src="src/Levels/Transition.js"></script>
 		<script type="text/javascript" src="src/Math/RandomPath.js"></script>
+		
+		<script type="text/javascript" src="src/Editor/LevelEditor.js"></script>
+		<script type="text/javascript" src="src/Editor/EditorMenu.js"></script>
+		<script type="text/javascript" src="src/Editor/Save.js"></script>
+		<script type="text/javascript" src="src/Editor/Load.js"></script>
+		<script type="text/javascript" src="src/Editor/Test.js"></script>
 		
 		<script type="text/javascript" src="src/Levels/PipePath/PipePath.js"></script>
 		<script type="text/javascript" src="src/Levels/PipePath/Levels.js"></script>
@@ -96,10 +103,11 @@
 		<script type="text/javascript" src="src/Levels/Maze/Maze.js"></script>
 		<script type="text/javascript" src="src/Levels/Maze/Levels.js"></script>
 		<script type="text/javascript" src="src/Levels/Maze/Random.js"></script>
+		<script type="text/javascript" src="src/Levels/Maze/Editor.js"></script>
+		
 		
 		<script type="text/javascript" src="src/Levels/Other/Victory.js"></script>
 		<script type="text/javascript" src="src/Levels/LevelAfter.js"></script>
-		<script type="text/javascript" src="src/Levels/Transition.js"></script>
 		
 		<script type="text/javascript" src="src/Levels/Linear.js"></script>
 		<script type="text/javascript" src="src/Levels/Infinite.js"></script>
@@ -107,8 +115,8 @@
 		
 		<!-- Menus -->
 		<script type="text/javascript" src="src/MainMenu.js"></script>
-		<script type="text/javascript" src="src/SettingsScreen.js"></script>
 		<script type="text/javascript" src="src/Lang/Select.js"></script>
+		<script type="text/javascript" src="src/SettingsScreen.js"></script>
 		<script type="text/javascript" src="src/Credits.js"></script>
 		
 		<!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -166,6 +174,9 @@
 			#TextInput {
 				position: absolute;
 			}
+			#FileInput {
+				position: absolute;
+			}
 		</style>
 	</head>
 	<body>
@@ -173,6 +184,7 @@
 			<canvas id="GraphicsBox" class="partscreen" width="800px" height="600px">Your browser requires Canvas support to play this game. Seriously, what browser are you using? Netscape Navigator?</canvas>
 			<div id="Test100"> </div>
 			<input id="TextInput" type="text" hidden />
+			<input id="FileInput" type="file" accept="application/json" hidden />
 		</div>
 		<audio id="Music" preload="auto" controls="none" style="display:none"></audio>
 		

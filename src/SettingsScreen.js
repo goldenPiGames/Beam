@@ -2,7 +2,7 @@ class SettingsScreen extends Screen {
 	constructor(returnTo) {
 		super();
 		this.returnTo = returnTo;
-		this.returnButton = new BubbleButton(WIDTH-50, 50, 45, ()=>{runnee=this.returnTo}, bubbleDrawIReturn);
+		this.returnButton = new BubbleButton(WIDTH-50, 50, 45, ()=>{saveSettings();runnee=this.returnTo}, bubbleDrawIReturn);
 		this.tabs = new Tabs(0, 0, WIDTH-100, 40, SETTINGS_TAB_LIST.map(ta=>lg(ta.lTitle)), num=>this.setTab(num), ()=>this.tabIndex);
 		this.setTab(0);
 	}
@@ -21,7 +21,10 @@ class SettingsScreen extends Screen {
 			return false;
 		this.tabIndex = dex;
 		hideTextInput();
-		this.subscreen = new (SETTINGS_TAB_LIST[this.tabIndex].cons)();
+		this.subscreen = new (SETTINGS_TAB_LIST[this.tabIndex].cons)(this);
+	}
+	relangTabs() {
+		this.tabs.tabs.forEach((tab,dex)=>tab.text = lg(SETTINGS_TAB_LIST[dex].lTitle));
 	}
 }
 
@@ -46,30 +49,50 @@ class SettingsScreenGeneral {
 
 class SettingsScreenPalette {
 	constructor() {
-		this.normalPicker = new ColorPicker(10, 60, lg("Palette-Normal"), val=>this.changeColor("normal", val), settings.normal_color);
-		this.backgroundPicker = new ColorPicker(310, 60, lg("Palette-Background"), val=>this.changeColor("background", val), settings.background_color);
-		this.hoverPicker = new ColorPicker(10, 260, lg("Palette-Hover"), val=>this.changeColor("hover", val), settings.hover_color);
-		this.clickPicker = new ColorPicker(310, 260, lg("Palette-Click"), val=>this.changeColor("click", val), settings.click_color);
-		this.colorblindBox = new Checkbox(10, 460, 256, 30, lg("Settings-Colorblind"), val=>settings.colorblind=val, settings.colorblind);
+		var marg = (WIDTH-3*255)/4;
+		var x1 = Math.floor(marg);
+		var x2 = Math.floor(2*marg+255);
+		var x3 = Math.floor(3*marg+255*2);
+		this.normalPicker = new ColorPicker(x1, 110, lg("Palette-Normal"), val=>changeSingleColor("normal", val), settings.normal_color);
+		this.backgroundPicker = new ColorPicker(x2, 110, lg("Palette-Background"), val=>changeSingleColor("background", val), settings.background_color);
+		this.disabledPicker = new ColorPicker(x3, 110, lg("Palette-Disabled"), val=>changeSingleColor("disabled", val), settings.disabled_color);
+		this.hoverPicker = new ColorPicker(x1, 330, lg("Palette-Hover"), val=>changeSingleColor("hover", val), settings.hover_color);
+		this.clickPicker = new ColorPicker(x2, 330, lg("Palette-Click"), val=>changeSingleColor("click", val), settings.click_color);
+		this.beamPicker = new ColorPicker(x3, 330, lg("Palette-Beam"), val=>changeSingleColor("beam", val), settings.beam_color);
+		this.colorblindBox = new Checkbox(10, 500, 256, 30, lg("Settings-Colorblind"), val=>settings.colorblind=val, settings.colorblind);
+		this.rainbowBox = new Checkbox(x3, 300, 256, 30, lg("Settings-RainbowBeam"), val=>this.setRainbowBeam(val), settings.rainbowBeam);
 		//this.allowChangeBox = new Checkbox(//TODO prevent game from changing palette
 		this.objects = [
 			this.normalPicker,
 			this.backgroundPicker,
+			this.disabledPicker,
 			this.hoverPicker,
 			this.clickPicker,
 			this.colorblindBox,
+			this.rainbowBox,
 		];
 	}
 	update() {
 		this.objects.forEach(oj=>oj.update());
+		if (!settings.rainbowBeam)
+			this.beamPicker.update();
 	}
 	draw() {
 		this.objects.forEach(oj=>oj.draw());
+		if (!settings.rainbowBeam)
+			this.beamPicker.draw();
 	}
-	changeColor(which, val) {
-		settings[which+"_color"] = val;
-		palette[which] = val;
-		saveSettings();
+	setRainbowBeam(val) {
+		settings.rainbowBeam = val;
+		if (settings.rainbowBeam) {
+			if (levelIterator && levelIterator instanceof LinearLevelIterator) {
+				palette.beam = levelIterator.seq.color;
+			} else {
+				scintBeam(0);
+			}
+		} else {
+			palette.beam = settings.beam_color;
+		}
 	}
 }
 
@@ -161,9 +184,10 @@ class FontRadioOther extends FontRadio {
 }
 
 const SETTINGS_TAB_LIST = [
-	{lTitle:"SettingsTab-General", desc:"Change music and SFX volume, profanity, and a few other things.", cons:SettingsScreenGeneral},
-	{lTitle:"SettingsTab-Palette", desc:"Adjust the color palette of the interface.", cons:SettingsScreenPalette},
-	{lTitle:"SettingsTab-Font", desc:"Choose which font is used to display the interface.", cons:SettingsScreenFont},
+	{lTitle:"SettingsTab-General", cons:SettingsScreenGeneral},
+	{lTitle:"SettingsTab-Palette", cons:SettingsScreenPalette},
+	{lTitle:"SettingsTab-Font", cons:SettingsScreenFont},
+	{lTitle:"SettingsTab-Lang", cons:SettingsScreenLang},
 ]
 
 function bubbleDrawISettings() {

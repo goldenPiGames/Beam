@@ -100,7 +100,11 @@ class InfiniteIterator extends LevelIterator {
 		return levelFromJSON(this.lastJSON);
 	}
 	drawBack() {
+		scintBeam();
 		this.drawBackText(this.beaten);
+	}
+	exit() {
+		runnee = new InfiniteSelectScreen();
 	}
 }
 

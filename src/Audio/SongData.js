@@ -64,6 +64,8 @@ const SONG_LIST = [
 		by:"Kubbi", yt:"6DB6hBRPsWc", site:"https://kubbimusic.com/track/up-in-my-jam-all-of-a-sudden", siten:"KubbiMusic.com", sc:"kubbi/up-in-my-jam-all-of-a-sudden", ng:538102},
 	{name:"Seahorse Dreams", intensity:3/4,
 		by:"Kubbi", yt:"DLvrDRRaftQ", site:"https://kubbimusic.com/track/seahorse-dreams", siten:"KubbiMusic.com", sc:"kubbi/seahorse-dreams", ng:538406},
+	{name:"Blue Sky", intensity:1/2,
+		by:"ParagonX9", yt:"QdL18RWUS8E", ng:5437},
 	{name:"Deep Valley 2", intensity:0,
 		by:"PeriTune", yt:"iStkj9BMmWw", site:"https://peritune.com/deep_valley2/", siten:"PeriTune.com", sc:"sei_peridot/deep-valley2", license:CC_BY_4},
 	{name:"Demise", intensity:1, loopStart:13.111, loopEnd:99.403,

@@ -3,7 +3,7 @@ function popupConfirm(onYes, textTop, textYes, textNo) {
 }
 
 
-class ConfirmPopup extends Screen {
+class ConfirmPopup extends OverScreen {
 	constructor(returnTo, onYes, textTop, textYes, textNo) {
 		super();
 		this.returnTo = returnTo;
@@ -38,4 +38,3 @@ class ConfirmPopup extends Screen {
 		this.buttons.forEach(butt=>butt.draw());
 	}
 }
-ConfirmPopup.prototype.intersectsMouse = UIObject.prototype.intersectsMouse;

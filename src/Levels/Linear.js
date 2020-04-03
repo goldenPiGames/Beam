@@ -29,7 +29,8 @@ class LevelSelectLinearScreen extends Screen {
 	}
 	tryPlay() {
 		if (this.selected) {
-			palette.beam = this.selected.seq.color;
+			if (settings.rainbowBeam)
+				palette.beam = this.selected.seq.color;
 			levelIterator = new LinearLevelIterator(this.selected.seq, this.selected.index);
 			startLevel();
 		}
@@ -69,7 +70,7 @@ class LevelSelectSeqBeads extends UIObject {
 		ctx.moveTo(this.midX, this.lineY);
 		ctx.lineTo(this.rightX, this.lineY);
 		ctx.stroke();
-		ctx.strokeStyle = settings.colorblind ? palette.normal : this.seq.color;
+		ctx.strokeStyle = settings.rainbowBeam ? this.seq.color : palette.normal;
 		ctx.beginPath();
 		ctx.moveTo(this.leftX, this.lineY);
 		ctx.lineTo(this.midX, this.lineY);
@@ -145,11 +146,15 @@ class LinearLevelIterator extends LevelIterator {
 			localStorage.setItem("Beam"+this.seq.id+"Progress", this.index);
 		if (this.index >= this.seq.levelIDs.length) {
 			this.index = "";
-			localStorage.setItem("Beam"+this.seq.id+"Beaten", 1);
+			localStorage.setItem("Beam"+this.seq.id+"Beaten", true);
 			return new LevelVictoryLinear(this.seq, prev);
 		} else {
 			return new (Levels[this.seq.levelIDs[this.index]])();
 		}
+	}
+	exit() {
+		//if I have multiple level sets I'll have to change this
+		runnee = new LevelSelectLinearScreen(MAIN_LEVEL_SEQS);
 	}
 	redoLevel() {
 		return new (Levels[this.seq.levelIDs[this.index]])();

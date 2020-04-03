@@ -64,11 +64,11 @@ class ColorPicker extends UIObject {
 		this.width = 255;
 		this.height = 150;
 		this.header = text;
-		this.redSlider =   new Slider(this.x, this.y+ 65, 255, 25, "R", 0, 255, (val)=>{this.changed=true;this.red=val}, ()=>this.red);
+		this.redSlider =   new Slider(this.x, this.y+ 65, 255, 25, "R", 0, 255, val=>{this.changed=true;this.red=Math.round(val)}, ()=>this.red);
 		this.redSlider.forceColor = "#FF0000"; this.redSlider.forceBG = "#000000";
-		this.greenSlider = new Slider(this.x, this.y+ 95, 255, 25, "G", 0, 255, (val)=>{this.changed=true;this.green=val}, ()=>this.green);
+		this.greenSlider = new Slider(this.x, this.y+ 95, 255, 25, "G", 0, 255, val=>{this.changed=true;this.green=Math.round(val)}, ()=>this.green);
 		this.greenSlider.forceColor = "#00FF00"; this.greenSlider.forceBG = "#000000";
-		this.blueSlider =  new Slider(this.x, this.y+125, 255, 25, "B", 0, 255, (val)=>{this.changed=true;this.blue=val}, ()=>this.blue);
+		this.blueSlider =  new Slider(this.x, this.y+125, 255, 25, "B", 0, 255, val=>{this.changed=true;this.blue=Math.round(val)}, ()=>this.blue);
 		this.blueSlider.forceColor = "#0000FF"; this.blueSlider.forceBG = "#000000";
 		if (initial) {
 			if (typeof initial == "function") {

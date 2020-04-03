@@ -19,7 +19,12 @@ function startLevel() {
 }
 
 function nextLevel() {
-	runnee = new LevelTransition(runnee, levelIterator);
+	var from = runnee;
+	var trans = new LevelTransition(from);
+	if (trans.tryIter(levelIterator))
+		runnee = trans;
+	else if (runnee == from)
+		switchScreen(new MainMenu());
 }
 
 function redoLevel() {
@@ -28,16 +33,20 @@ function redoLevel() {
 
 function exitLevel() {
 	levelIterator.exit();
-	runnee = new MainMenu();
+	//runnee = new MainMenu();
 }
 
 class LevelTransition extends Screen {
-	constructor(fromWrap, iter) {
+	constructor(fromWrap) {
 		super();
 		this.fromWrap = fromWrap;
 		this.fromLevel = fromWrap.level;
 		this.fromsnap = this.fromWrap.snap();
+	}
+	tryIter(iter) {
 		this.toLevel = iter.nextLevel(this.fromLevel);
+		if (!this.toLevel)
+			return false;
 		this.toWrap = new LevelWrapper(this.toLevel);
 		this.tosnap = this.toWrap.snap();
 		switch (this.toLevel.beamEntranceSide) {
@@ -56,6 +65,7 @@ class LevelTransition extends Screen {
 		}
 		this.st = 0;
 		this.sd = 0;
+		return true;
 	}
 	update() {
 		this.st += .02;

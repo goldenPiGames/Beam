@@ -35,3 +35,20 @@ class LangSelectScreenButton extends Button {
 		this.parent = parent;
 	}
 }
+
+class SettingsScreenLang {
+	constructor(parent) {
+		this.parent = parent;
+		this.buttons = new RadioButtons(10, 90, 400, 30, LANGUAGES.map(l=>LANG[l]["Lang-Name"]), dex=>this.langClicked(dex), LANGUAGES.indexOf(settings.lang));
+	}
+	update() {
+		this.buttons.update();
+	}
+	draw() {
+		this.buttons.draw();
+	}
+	langClicked(dex) {
+		settings.lang = LANGUAGES[dex];
+		this.parent.relangTabs();
+	}
+}

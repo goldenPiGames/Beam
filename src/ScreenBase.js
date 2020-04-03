@@ -18,6 +18,28 @@ class Screen {
 Screen.prototype.isScreen = true;
 Screen.prototype.overrideTouch = true;
 
+class OverScreen extends Screen {
+	constructor() {
+		super();
+	}
+	clickedOutside() {
+		return mouse.clicked && !this.intersectsMouse();
+	}
+	fillBackAndFrame(alphaAll, alphaBack) {
+		ctx.fillStyle = palette.background;
+		ctx.globalAlpha = alphaAll;
+		ctx.fillRect(0, 0, WIDTH, HEIGHT);
+		ctx.globalAlpha = alphaBack;
+		ctx.fillRect(this.x, this.y, this.width, this.height);
+		ctx.globalAlpha = 1;
+		ctx.lineWidth = 4;
+		ctx.strokeStyle = palette.normal;
+		ctx.strokeRect(this.x, this.y, this.width, this.height);
+	}
+}
+OverScreen.prototype.overrideTouch = false;
+OverScreen.prototype.intersectsMouse = UIObject.prototype.intersectsMouse;
+
 function switchScreen(to) {
 	if (typeof to == "function") {
 		if (to.prototype.isScreen)

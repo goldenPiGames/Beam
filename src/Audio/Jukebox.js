@@ -125,7 +125,7 @@ class Jukebox extends Screen {
 	}
 }
 
-class JukeboxLinkPopup extends Screen {
+class JukeboxLinkPopup extends OverScreen {
 	constructor(returnTo) {
 		super();
 		this.returnTo = returnTo;
@@ -136,7 +136,7 @@ class JukeboxLinkPopup extends Screen {
 		this.buttons = song.siteList.map((sit, dex) => new Button(this.x+this.width/10, this.y+5+50*dex, this.width*4/5, 40, sit.name, ()=>window.open(sit.href)));
 	}
 	update() {
-		if (mouse.clicked && !this.intersectsMouse()) {
+		if (this.clickedOutside()) {
 			runnee = this.returnTo;
 			return;
 		}
@@ -144,19 +144,10 @@ class JukeboxLinkPopup extends Screen {
 	}
 	draw() {
 		this.returnTo.draw();
-		ctx.fillStyle = palette.background;
-		ctx.globalAlpha = .7;
-		ctx.fillRect(0, 0, WIDTH, HEIGHT);
-		ctx.globalAlpha = .4;
-		ctx.fillRect(this.x, this.y, this.width, this.height);
-		ctx.globalAlpha = 1;
-		ctx.lineWidth = 4;
-		ctx.strokeStyle = palette.normal;
-		ctx.strokeRect(this.x, this.y, this.width, this.height);
+		this.fillBackAndFrame(.7, .4);
 		this.buttons.forEach(butt=>butt.draw());
 	}
 }
-JukeboxLinkPopup.prototype.intersectsMouse = UIObject.prototype.intersectsMouse;
 
 
 var songList = SONG_LIST.slice();

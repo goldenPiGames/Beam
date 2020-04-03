@@ -105,5 +105,6 @@ function levelFromJSON(data) {
 		case "SameGame": return new SameLevel(data);
 		case "Maze" : return new MazeLevel(data);
 		case "Gridlock": return new GridlockLevel(data);
+		case "ConcentricCircles": return new ConcentricLevel(data);
 	}
 }

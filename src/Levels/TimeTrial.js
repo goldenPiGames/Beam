@@ -18,6 +18,7 @@ class TimeTrialIterator extends InfiniteIterator {
 		}
 	}
 	drawBack(wrap) {
+		scintBeam();
 		this.timeTaken += lastFrameDelay;
 		if (!this.finished) {
 			this.drawBackText(this.goal - this.beaten);

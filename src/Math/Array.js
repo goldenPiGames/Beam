@@ -26,6 +26,10 @@ function newArray2d(i, j, fill = 0) {
 	return new Array(i).fill(fill).map(()=>new Array(j).fill(fill));
 }
 
+function newArray2dLambda(i, j, func) {
+	return new Array(i).fill(0).map((oji, i)=>new Array(j).fill(0).map((ojj, j)=>func(i, j)));
+}
+
 function slice2d(ray) {
 	return ray.map(row=>row.slice());
 }

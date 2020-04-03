@@ -152,6 +152,8 @@ class MultiplayerGuestIterator extends LevelIterator {
 	}
 	exit() {
 		this.playRef.off("value", this.callbackOn);
+		//this.playRef.remove();
+		runnee = new MultiplayerMenu();
 	}
 }
 
@@ -167,6 +169,7 @@ class MultiplayerGuestEndScreen extends Level {
 		
 	}
 	draw() {
+		scintBeam();
 		ctx.fillStyle = palette.normal;
 		drawTextInRect(lg("MultiplayerGuestEnd-Header"), 80, 0, WIDTH-160, HEIGHT/3);
 		if (this.placeDrawBuffer) {

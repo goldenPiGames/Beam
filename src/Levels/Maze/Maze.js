@@ -9,15 +9,10 @@ class MazeLevel extends DragPathLevel {
 			usingTo = false;
 			gridUsed = layout.gridDownRight;
 		}
-		super({
-			width : gridUsed.length,
-			height : gridUsed[0].length,
-			gap : 0,
-			entranceSide : layout.entranceSide,
-			entrancePosition : layout.entrancePosition,
-			exitSide : layout.exitSide,
-			exitPosition : layout.exitPosition,
-		});
+		layout.gap = 0;
+		layout.width = gridUsed.length,
+		layout.height = gridUsed[0].length,
+		super(layout);
 		this.tiles = [];
 		for (var i = 0; i < gridUsed.length; i++) {
 			this.tiles[i] = [];
@@ -83,7 +78,9 @@ class MazeLevel extends DragPathLevel {
 		this.beamStopX = null;
 		super.win();
 	}
-	
+	getGridDownRight() {
+		return (this.tiles.map(col=>col.map(pix=>(pis.neighborsD[RIGHT]?1:0)+(pis.neighborsD[DOWN]?2:0))));
+	}
 }
 MazeLevel.prototype.lModeName = "Maze-Name";
 MazeLevel.prototype.lModeRules = "Maze-Rules";
@@ -149,5 +146,8 @@ class MazeTile extends DragPathTile {
 		ctx.beginPath();
 		ctx.arc(this.displayX+this.displayWidth/2, this.displayY+this.displayHeight/2, this.displayHeight/8, 0, 2*Math.PI);
 		ctx.stroke();
+	}
+	getGridDownRight() {
+		return this.tiles.map(col=>col.map(pis=>(pis.neighborsD[RIGHT]?1:0)+(pis.neighborsD[DOWN]?2:0)))
 	}
 }

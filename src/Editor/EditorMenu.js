@@ -1,4 +1,4 @@
-class GameMenu extends OverScreen {
+class EditorMenu extends OverScreen {
 	constructor(wrap) {
 		super();
 		this.wrap = wrap;
@@ -7,10 +7,12 @@ class GameMenu extends OverScreen {
 		this.x = 0;
 		this.y = 0;
 		this.objects = [
-			...alternateHybridButtons(this.x+5, this.y+30, this.width-10, 200, [
+			...alternateHybridButtons(this.x+5, this.y+30, this.width-10, 300, [
 					{text:lg("GameMenu-Fullscreen"), drawI:bubbleDrawIFullscreen, handler:()=>attemptFullscreen()},
-					{text:lg("GameMenu-Exit"), drawI:bubbleDrawIReturn, handler:()=>popupConfirm(()=>exitLevel(), lg("GameMenu-ExitAsk"))},
-					{text:lg("GameMenu-Redo"), drawI:bubbleDrawIReset, handler:()=>redoLevel()},
+					{text:lg("EditorMenu-Exit"), drawI:bubbleDrawIReturn, handler:()=>popupConfirm(()=>this.exit(), lg("EditorMenu-ExitAsk"))},
+					{text:lg("EditorMenu-New"), drawI:bubbleDrawINew, handler:()=>runnee=new EditorNewSelect(this.wrap)},
+					{text:lg("EditorMenu-Save"), drawI:bubbleDrawISave, handler:()=>this.wrap.save()},
+					{text:lg("EditorMenu-Load"), drawI:bubbleDrawILoad, handler:()=>this.wrap.load()},
 					{text:lg("GameMenu-Settings"), drawI:bubbleDrawISettings, handler:()=>switchScreen(new SettingsScreen(this))},
 				]),
 			//new Button(this.x, this.y+100, this.width, 30, lg("GameMenu-Quit"), ()=>runnee=new GameMenuQuitConfirm(this)),
@@ -18,8 +20,8 @@ class GameMenu extends OverScreen {
 	}
 	update() {
 		this.wrap.jukeboxButton.update();
-		this.wrap.hintButton.update();
-		if (runnee == this && this.clickedOutside()) {
+		//this.wrap.hintButton.update();
+		if (runnee == this && mouse.clicked && !this.intersectsMouse()) {
 			runnee = this.wrap;
 			return;
 		}
@@ -34,18 +36,11 @@ class GameMenu extends OverScreen {
 		ctx.fillRect(this.x, this.y, this.width, this.height);
 		ctx.globalAlpha = 1;
 		this.wrap.jukeboxButton.draw();
-		this.wrap.hintButton.draw();
+		//this.wrap.hintButton.draw();
 		this.objects.forEach(oj=>oj.draw());
 	}
-}
-
-function bubbleDrawIMenu() {
-	ctx.lineWidth = this.radius*.1;
-	ctx.moveTo(this.x-this.radius/2, this.y-this.radius/3);
-	ctx.lineTo(this.x+this.radius/2, this.y-this.radius/3);
-	ctx.moveTo(this.x-this.radius/2, this.y);
-	ctx.lineTo(this.x+this.radius/2, this.y);
-	ctx.moveTo(this.x-this.radius/2, this.y+this.radius/3);
-	ctx.lineTo(this.x+this.radius/2, this.y+this.radius/3);
-	ctx.stroke();
+	exit() {
+		this.wrap.quicksave();
+		runnee = new MainMenu();
+	}
 }

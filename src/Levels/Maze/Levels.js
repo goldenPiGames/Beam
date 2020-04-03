@@ -45,6 +45,33 @@ Levels.Maze3 = class LevelMaze3 extends MazeLevel {
 	}
 }
 
+Levels.MazeFR1 = class LevelMazeFR1 extends MazeLevel {
+	constructor() {
+		super({
+			entranceSide:3,
+			exitSide:1,
+			width:12,
+			height:8,
+			entrancePosition:4,
+			exitPosition:0,
+			gridTo:[
+				[2,1,2,1,2,1,2,1],
+				[3,1,3,0,0,2,1,1],
+				[3,2,2,2,2,2,1,1],
+				[1,0,3,1,0,1,0,0],
+				[1,2,1,2,1,0,3,1],
+				[1,3,1,2,2,1,3,1],
+				[1,2,1,2,1,2,2,1],
+				[1,3,1,2,1,0,0,0],
+				[2,1,0,0,1,2,1,3],
+				[1,0,2,3,0,1,0,1],
+				[1,1,0,0,3,0,0,1],
+				[8,0,3,0,0,3,2,8]
+			],
+		});
+	}
+}
+
 Levels.MazeRCTMini = class LevelMazeRCTMini extends MazeLevel { //Mini Maze from Roller Coaster Tycoon
 	constructor() {
 		super({

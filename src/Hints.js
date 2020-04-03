@@ -70,8 +70,6 @@ class HintScreen extends Screen {
 		this.text = this.hints[this.hintIndices[this.tabIndex]];
 	}
 }
-HintScreen.prototype.intersectsMouse = UIObject.prototype.intersectsMouse;
-HintScreen.prototype.overrideTouch = false;
 
 
 function bubbleDrawIHint() {

@@ -6,10 +6,11 @@ class MainMenu extends Screen {
 	constructor() {
 		super();
 		this.buttons = [
-			...alternateHybridButtons(WIDTH/4, HEIGHT/3, WIDTH/2, HEIGHT/2, [
+			...alternateHybridButtons(WIDTH/4, HEIGHT/3, WIDTH/2, HEIGHT*3/5, [
 					{text:lg("MainMenu-Play"), drawI:bubbleDrawIPlay, handler:()=>continueGame()},
 					{text:lg("MainMenu-Infinite"), drawI:bubbleDrawIInfinity, handler:()=>switchScreen(new InfiniteSelectScreen())},
 					{text:lg("MainMenu-Race"), drawI:bubbleDrawIRace, handler:()=>switchScreen(new MultiplayerMenu())},
+					{text:lg("MainMenu-Editor"), drawI:bubbleDrawINew, handler:()=>startEditor()},
 					{text:lg("MainMenu-Credits"), drawI:bubbleDrawICredits, handler:()=>switchScreen(new CreditsScreen())},
 					{text:lg("MainMenu-Settings"), drawI:bubbleDrawISettings, handler:()=>switchScreen(new SettingsScreen(this))},
 				]),
@@ -27,6 +28,7 @@ class MainMenu extends Screen {
 		this.buttons.forEach(oj=>oj.update());
 	}
 	draw() {
+		scintBeam();
 		ctx.font = "100px "+settings.font;
 		ctx.textBaseline = "top";
 		ctx.textAlign = "center";
