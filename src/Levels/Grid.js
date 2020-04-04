@@ -17,7 +17,7 @@ class GridLevel extends Level {
 		//console.log(args);
 		this.gridWidth = args.width;
 		this.gridHeight = args.height;
-		this.gridScale = Math.floor(Math.min(WIDTH / (this.gridWidth+2*args.gap+1), (HEIGHT-140) / (this.gridHeight+2*args.gap)) / 2) * 2;
+		this.gridScale = Math.floor(Math.min((WIDTH-140) / (this.gridWidth+2*args.gap), (HEIGHT-140) / (this.gridHeight+2*args.gap)) / 2) * 2;
 		this.gridXOffset = (WIDTH/2 - this.gridScale*(this.gridWidth-1)/2);
 		this.gridYOffset = (HEIGHT/2 - this.gridScale*(this.gridHeight-1)/2);
 		this.entranceSide = args.entranceSide;

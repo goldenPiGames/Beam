@@ -103,6 +103,18 @@ LANG.en = {
 	"EditorLoad-Error" : "Error loading",
 	"EditorLoad-FileLoading" : "Loading file...",
 	
+	"MazeEditor-TabWall" : "Walls",
+	"MazeEditor-TabAddRow" : "+Row",
+	"MazeEditor-TabRemoveRow" : "-Row",
+	"MazeEditor-TabAddColumn" : "+Col",
+	"MazeEditor-TabRemoveColumn" : "-Col",
+	"MazeEditor-TabEntrance" : "Enter",
+	"MazeEditor-TabExit" : "Exit",
+	"MazeEditor-MaxHeight" : "Maximum height reached.",
+	"MazeEditor-MinHeight" : "Minimum height reached.",
+	"MazeEditor-MaxWidth" : "Maximum width reached.",
+	"MazeEditor-MinWidth" : "Minimum width reached.",
+	
 	"LevelOther-Name" : "???",
 	"LevelOther-Rules" : "This is some other level. Figuring out the rules is part of the challenge.",
 	"LevelOther-Hints" : ["Look for things that change color when your mouse is over them. If clicking does nothing, try dragging."
