@@ -75,6 +75,7 @@ function editorFromJSON(data) {
 		case "Gridlock": return new GridlockEditor(data);
 		case "ConcentricCircles": return new ConcentricEditor(data);
 	}
+	throw "Mode not specified";
 }
 
 function bubbleDrawILoad() {

@@ -1,4 +1,4 @@
-class HintScreen extends Screen {
+class HintScreen extends OverScreen {
 	constructor(wrap) {
 		super();
 		this.wrap = wrap;
@@ -29,7 +29,7 @@ class HintScreen extends Screen {
 	}
 	update() {
 		this.wrap.menuButton.update();
-		if (runnee == this && mouse.clicked && !this.intersectsMouse()) {
+		if (runnee == this && this.clickedOutside()) {
 			this.wrap.hintTabIndex = this.tabIndex;
 			this.wrap.hintIndices = this.hintIndices;
 			runnee = this.wrap;
@@ -70,7 +70,6 @@ class HintScreen extends Screen {
 		this.text = this.hints[this.hintIndices[this.tabIndex]];
 	}
 }
-
 
 function bubbleDrawIHint() {
 	ctx.lineWidth = .08*this.radius;

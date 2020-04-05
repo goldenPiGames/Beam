@@ -13,8 +13,11 @@ class EditorWrapper extends Screen {
 		if (!this.editor) {
 			var loaded = localStorage.getItem("BeamLastLevelEditor");
 			if (loaded)
-				this.editor = loaded ? editorFromJSON(loaded) : new BlankEditor();
+				this.editor = editorFromJSON(loaded);
+			else 
+				this.editor = new BlankEditor();
 		}
+		
 		this.editor.wrapper = this;
 		this.menuButton = new BubbleButton(35, 35, 30, ()=>runnee=new EditorMenu(this), bubbleDrawIMenu);
 		this.jukeboxButton = new BubbleButton(WIDTH-35, 35, 30, ()=>runnee=new Jukebox(this, this.level), bubbleDrawIJukebox);
@@ -49,6 +52,8 @@ class EditorWrapper extends Screen {
 		runnee = new EditorLoadScreen(this);
 	}
 	test() {
+		if (this.editor instanceof BlackEditor)
+			return false;
 		var lo = quicksaveEditor(this.editor);
 		levelIterator = new EditorTestIterator(lo);
 		startLevel();
