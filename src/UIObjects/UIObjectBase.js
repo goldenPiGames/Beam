@@ -27,6 +27,10 @@ class UIObject {
 		this.draggedY = this.held && mouse.y - mouse.lastY || 0;
 		this.draggedTheta = this.held && (Math.atan2(mouse.y-this.y, mouse.x-this.x) - Math.atan2(mouse.lastY-this.y, mouse.lastX-this.x)) || 0;
 	}
+	stroke() {
+		ctx.lineWidth = BUTTON_BORDER_WIDTH;
+		ctx.strokeRect((this.displayX || this.x) + BUTTON_BORDER_WIDTH/2, (this.displayY || this.y) + BUTTON_BORDER_WIDTH/2, (this.displayWidth || this.width) - BUTTON_BORDER_WIDTH, (this.displayHeight || this.height) - BUTTON_BORDER_WIDTH);
+	}
 }
 
 class BlankUIObject extends UIObject {

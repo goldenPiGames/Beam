@@ -63,7 +63,6 @@ class EditorLoadScreen extends OverScreen {
 	}
 }
 
-
 function editorFromJSON(data) {
 	while (typeof data == "string")
 		data = JSON.parse(data);
@@ -76,4 +75,15 @@ function editorFromJSON(data) {
 		case "Gridlock": return new GridlockEditor(data);
 		case "ConcentricCircles": return new ConcentricEditor(data);
 	}
+}
+
+function bubbleDrawILoad() {
+	ctx.strokeRect(this.x-.6*this.radius, this.y-.5*this.radius, 1.2*this.radius, 1.0*this.radius);
+	ctx.beginPath();
+	ctx.moveTo(this.x, this.y+.3*this.radius);
+	ctx.lineTo(this.x, this.y-.3*this.radius);
+	ctx.moveTo(this.x-.3*this.radius, this.y);
+	ctx.lineTo(this.x, this.y-.3*this.radius);
+	ctx.lineTo(this.x+.3*this.radius, this.y);
+	ctx.stroke();
 }

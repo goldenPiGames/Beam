@@ -49,18 +49,15 @@ class TabsTab extends UIObject {
 	}
 	draw(index) {
 		var color = index == this.index ? palette.click : this.hovered ? palette.hover : palette.normal;
-		ctx.lineWidth = BUTTON_BORDER_WIDTH;
 		ctx.strokeStyle = color;
 		
 		ctx.fillStyle = palette.background;
 		ctx.fillRect(this.x, this.y, this.width, this.height);
 		
-		var bbw = BUTTON_BORDER_WIDTH;
-		ctx.strokeRect(this.x + bbw/2, this.y + bbw/2, this.width - bbw, this.height - bbw);
+		this.stroke();
 		
-		var fontSize = 18;
 		ctx.fillStyle = color;
-		drawTextInRect(this.text, this.x+bbw, this.y+bbw, this.width-bbw*2, this.height-bbw*2);
+		drawTextInRect(this.text, this.x+BUTTON_BORDER_WIDTH, this.y+BUTTON_BORDER_WIDTH, this.width-BUTTON_BORDER_WIDTH*2, this.height-BUTTON_BORDER_WIDTH*2);
 		
 	}
 }

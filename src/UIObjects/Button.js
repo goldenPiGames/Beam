@@ -23,8 +23,7 @@ class Button extends UIObject {
 		ctx.fillStyle = palette.background;
 		ctx.fillRect(this.x, this.y, this.width, this.height);
 		
-		var bbw = BUTTON_BORDER_WIDTH;
-		ctx.strokeRect(this.x + bbw/2, this.y + bbw/2, this.width - bbw, this.height - bbw);
+		this.stroke();
 		
 		var fontSize = 20;
 		ctx.fillStyle = color;

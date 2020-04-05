@@ -12,69 +12,73 @@ Arguments: {
 }
 */
 class GridLevel extends Level {
-	constructor(args) {
-		super(args);
-		//console.log(args);
-		this.gridWidth = args.width;
-		this.gridHeight = args.height;
-		this.gridScale = Math.floor(Math.min((WIDTH-140) / (this.gridWidth+2*args.gap), (HEIGHT-140) / (this.gridHeight+2*args.gap)) / 2) * 2;
+	constructor(layout, args = {}) {
+		super(layout);
+		//console.log(layout);
+		if (!args.gap)
+			args.gap = 0;
+		if (!args.margin)
+			args.margin = 0;
+		this.gridWidth = layout.width;
+		this.gridHeight = layout.height;
+		this.gridScale = Math.floor(Math.min((WIDTH-(70+args.margin)*2) / (this.gridWidth+2*args.gap), (HEIGHT-(70+args.margin)*2) / (this.gridHeight+2*args.gap)) / 2) * 2;
 		this.gridXOffset = (WIDTH/2 - this.gridScale*(this.gridWidth-1)/2);
 		this.gridYOffset = (HEIGHT/2 - this.gridScale*(this.gridHeight-1)/2);
-		this.entranceSide = args.entranceSide;
-		this.entrancePosition = args.entrancePosition;
-		this.exitSide = args.exitSide;
-		this.exitPosition = args.exitPosition;
+		this.entranceSide = layout.entranceSide;
+		this.entrancePosition = layout.entrancePosition;
+		this.exitSide = layout.exitSide;
+		this.exitPosition = layout.exitPosition;
 		//set entrances
-		this.beamEntranceSide = args.entranceSide;
+		this.beamEntranceSide = layout.entranceSide;
 		switch (this.beamEntranceSide) {
-			case 0: this.beamEntrancePosition = this.gridToPixX(args.entrancePosition);
-					this.gridStartX = args.entrancePosition;
+			case 0: this.beamEntrancePosition = this.gridToPixX(layout.entrancePosition);
+					this.gridStartX = layout.entrancePosition;
 					this.gridStartY = 0;
 					this.gridStartOutX = this.gridStartX;
 					this.gridStartOutY = -1;
 					break;
-			case 1: this.beamEntrancePosition = this.gridToPixY(args.entrancePosition);
-					this.gridStartX = args.width-1;
-					this.gridStartY = args.entrancePosition;
+			case 1: this.beamEntrancePosition = this.gridToPixY(layout.entrancePosition);
+					this.gridStartX = layout.width-1;
+					this.gridStartY = layout.entrancePosition;
 					this.gridStartOutX = this.gridWidth;
 					this.gridStartOutY = this.gridStartY;
 					break;
-			case 2: this.beamEntrancePosition = this.gridToPixX(args.entrancePosition);
-					this.gridStartX = args.entrancePosition;
+			case 2: this.beamEntrancePosition = this.gridToPixX(layout.entrancePosition);
+					this.gridStartX = layout.entrancePosition;
 					this.gridStartY = this.gridHeight-1;
 					this.gridStartOutX = this.gridStartX;
 					this.gridStartOutY = this.gridStartY+1;
 					break;
-			case 3: this.beamEntrancePosition = this.gridToPixY(args.entrancePosition);
+			case 3: this.beamEntrancePosition = this.gridToPixY(layout.entrancePosition);
 					this.gridStartX = 0;
-					this.gridStartY = args.entrancePosition;
+					this.gridStartY = layout.entrancePosition;
 					this.gridStartOutX = -1;
 					this.gridStartOutY = this.gridStartY;
 					break;
 		}
-		this.beamExitSide = args.exitSide;
+		this.beamExitSide = layout.exitSide;
 		switch (this.beamExitSide) {
-			case 0: this.beamExitPosition = this.gridToPixX(args.exitPosition);
-					this.gridEndX = args.exitPosition;
+			case 0: this.beamExitPosition = this.gridToPixX(layout.exitPosition);
+					this.gridEndX = layout.exitPosition;
 					this.gridEndY = 0;
 					this.gridEndOutX = this.gridEndX;
 					this.gridEndOutY = -1;
 					break;
-			case 1: this.beamExitPosition = this.gridToPixY(args.exitPosition);
-					this.gridEndX = args.width-1;
-					this.gridEndY = args.exitPosition;
+			case 1: this.beamExitPosition = this.gridToPixY(layout.exitPosition);
+					this.gridEndX = layout.width-1;
+					this.gridEndY = layout.exitPosition;
 					this.gridEndOutX = this.gridWidth;
 					this.gridEndOutY = this.gridEndY;
 					break;
-			case 2: this.beamExitPosition = this.gridToPixX(args.exitPosition);
-					this.gridEndX = args.exitPosition;
+			case 2: this.beamExitPosition = this.gridToPixX(layout.exitPosition);
+					this.gridEndX = layout.exitPosition;
 					this.gridEndY = this.gridHeight-1;
 					this.gridEndOutX = this.gridEndX;
 					this.gridEndOutY = this.gridEndY+1;
 					break;
-			case 3: this.beamExitPosition = this.gridToPixY(args.exitPosition);
+			case 3: this.beamExitPosition = this.gridToPixY(layout.exitPosition);
 					this.gridEndX = 0;
-					this.gridEndY = args.exitPosition;
+					this.gridEndY = layout.exitPosition;
 					this.gridEndOutX = -1;
 					this.gridEndOutY = this.gridEndY;
 					break;

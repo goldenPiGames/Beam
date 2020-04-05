@@ -3,7 +3,7 @@ class OnceLevel extends DragPathLevel {
 		layout.width = layout.grid.length;
 		layout.height = layout.grid[0].length;
 		layout.gap = 0;
-		super(layout);
+		super(layout, {gap:0});
 		this.pieces = layout.grid.map((row, i) => row.map((pis, j) => pis ? new OnceTile(i, j) : new OnceEmpty(i, j)));
 		for (var i = 0; i < layout.grid.length; i++) {
 			this.pieces[i] = [];

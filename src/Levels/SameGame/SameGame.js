@@ -2,12 +2,11 @@ class SameLevel extends GridLevel {
 	constructor(layout) {
 		layout.width = layout.grid.length;
 		layout.height = layout.grid[0].length;
-		layout.gap = 0;
 		layout.entranceSide = directionOpposite(layout.direction);
 		layout.entrancePosition = layout.direction%2 ? layout.height-1 : 0;
 		layout.exitSide = layout.direction;
 		layout.exitPosition = layout.direction%2 ? layout.height-1 : 0;
-		super(layout);
+		super(layout, {gap:0});
 		this.direction = layout.direction;
 		this.initGrid = layout.grid;
 		this.reset(false);

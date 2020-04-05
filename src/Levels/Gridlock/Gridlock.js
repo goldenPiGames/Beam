@@ -1,12 +1,11 @@
 //TODO change layout so it has data instead of actual pieces
 class GridlockLevel extends GridLevel {
 	constructor(layout) {
-		layout.gap = 0.05;
 		layout.entranceSide = directionOpposite(layout.direction);
 		layout.entrancePosition = layout.position,
 		layout.exitSide = layout.direction,
 		layout.exitPosition = layout.position,
-		super(layout);
+		super(layout, {gap:0.05});
 		this.direction = layout.direction;
 		this.width = layout.width;
 		this.height = layout.height;

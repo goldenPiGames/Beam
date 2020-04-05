@@ -1,5 +1,12 @@
+const MAZE_EDITOR_MIN_WIDTH = 4;
+const MAZE_EDITOR_MAX_WIDTH = 16;
+const MAZE_EDITOR_MIN_HEIGHT = 4;
+const MAZE_EDITOR_MAX_HEIGHT = 12;
+const MAZE_EDITOR_MARGIN = 30;
+
 class MazeEditor extends Editor {
 	constructor(layout) {
+		layout.mode = "Maze"
 		if (!layout) {
 			layout = {
 				mode : "Maze",
@@ -20,16 +27,20 @@ class MazeEditor extends Editor {
 		}
 		layout.width = layout.gridDownRight.length;
 		layout.height = layout.gridDownRight[0].length;
-		layout.gap = 0;
 		super(layout);
 		this.tabIndex = 0;
 		this.tabs = new Tabs(100, HEIGHT-35, WIDTH-200, 35, [lg("MazeEditor-TabWall"), lg("MazeEditor-TabAddRow"), lg("MazeEditor-TabRemoveRow"), lg("MazeEditor-TabAddColumn"), lg("MazeEditor-TabRemoveColumn"), lg("MazeEditor-TabEntrance"), lg("MazeEditor-TabExit")], t=>this.setTab(t), ()=>this.tabIndex);
 		this.redoGrid();
 	}
+	reconstructGridLevel() {
+		this.gridLevel = new GridLevel(this.layout, {gap:0,margin:MAZE_EDITOR_MARGIN});
+	}
+	redoBorder() {
+		this.reconstructGridLevel();
+		this.setTab();
+	}
 	redoGrid() {
-		console.log(this.layout);
-		this.layout.gap = 0;
-		this.gridLevel = new GridLevel(this.layout);
+		this.reconstructGridLevel();
 		this.wallsRight = [];
 		for (var i = 0; i < this.layout.gridDownRight.length-1; i++) {
 			this.wallsRight[i] = [];
@@ -76,6 +87,18 @@ class MazeEditor extends Editor {
 				var clicked = this.stripes.find(s=>s.clicked);
 				if (clicked)
 					this.removeColumn(clicked.iHoriz, clicked.iVert);
+				break;
+			case 5:
+				this.stripes.forEach(s=>s.update());
+				var clicked = this.stripes.find(s=>s.clicked);
+				if (clicked)
+					this.setEntrance(clicked.side, clicked.position);
+				break;
+			case 6:
+				this.stripes.forEach(s=>s.update());
+				var clicked = this.stripes.find(s=>s.clicked);
+				if (clicked)
+					this.setExit(clicked.side, clicked.position);
 				break;
 		}
 	}
@@ -125,10 +148,25 @@ class MazeEditor extends Editor {
 				}
 				this.stripes.push(new MazeEditorStripeVert(this.gridLevel.gridToPixX(this.layout.width-3/2), 50, this.gridLevel.gridScale, HEIGHT-100, this, this.layout.width-1, this.layout.width-2));
 				break;
+			case 5: case 6: //entrance/exit
+				this.stripes = [];
+				var blockSide, blockPosition;
+				for (var i = 0; i < this.layout.width; i++) {
+					if (!(this.layout.entranceSide == UP && this.layout.entrancePosition == i || this.layout.exitSide == UP && this.layout.exitPosition == i))
+						this.stripes.push(new MazeEditorStripeEdge(this.gridLevel.gridToPixX(i-1/2), this.gridLevel.gridToPixY(-1/2)-MAZE_EDITOR_MARGIN, this.gridLevel.gridScale, MAZE_EDITOR_MARGIN, UP, i));
+					if (!(this.layout.entranceSide == DOWN && this.layout.entrancePosition == i || this.layout.exitSide == DOWN && this.layout.exitPosition == i))
+						this.stripes.push(new MazeEditorStripeEdge(this.gridLevel.gridToPixX(i-1/2), this.gridLevel.gridToPixY(this.layout.height-1/2), this.gridLevel.gridScale, MAZE_EDITOR_MARGIN, DOWN, i));
+				}
+				for (var j = 0; j < this.layout.height; j++) {
+					if (!(this.layout.entranceSide == LEFT && this.layout.entrancePosition == j || this.layout.exitSide == LEFT && this.layout.exitPosition == j))
+						this.stripes.push(new MazeEditorStripeEdge(this.gridLevel.gridToPixX(-1/2)-MAZE_EDITOR_MARGIN, this.gridLevel.gridToPixY(j-1/2), MAZE_EDITOR_MARGIN, this.gridLevel.gridScale, LEFT, j));
+					if (!(this.layout.entranceSide == RIGHT && this.layout.entrancePosition == j || this.layout.exitSide == RIGHT && this.layout.exitPosition == j))
+						this.stripes.push(new MazeEditorStripeEdge(this.gridLevel.gridToPixX(this.layout.width-1/2), this.gridLevel.gridToPixY(j-1/2), MAZE_EDITOR_MARGIN, this.gridLevel.gridScale, RIGHT, j));
+				}
+			
 		}
 	}
 	getLayout() {
-		this.layout.gap = undefined;
 		this.layout.gridDownRight = newArray2d(this.layout.width, this.layout.height, 0);
 		this.wallsRight.forEach((col, i)=>col.forEach((wal, j)=>{
 			if (wal.open)
@@ -142,59 +180,81 @@ class MazeEditor extends Editor {
 	}
 	addRow(jVert) {
 		this.getLayout();
-		if (this.layout.height >= 12) {
+		if (this.layout.height >= MAZE_EDITOR_MAX_HEIGHT) {
 			qAlert(lg("MazeEditor-MaxHeight"));
 			return false;
 		}
 		this.layout.height++;
 		this.layout.gridDownRight.forEach(col=>col.splice(jVert, 0, (col[jVert]&1)+2));
+		if ((this.layout.entranceSide == LEFT || this.layout.entranceSide == RIGHT) && this.layout.entrancePosition > jVert)
+			this.layout.entrancePosition++;
+		if ((this.layout.exitSide == LEFT || this.layout.exitSide == RIGHT) && this.layout.exitPosition > jVert)
+			this.layout.exitPosition++;
 		this.redoGrid();
 	}
 	removeRow(jVert, jHoriz) {
 		this.getLayout();
-		if (this.layout.height <= 4) {
+		if (this.layout.height <= MAZE_EDITOR_MIN_HEIGHT) {
 			qAlert(lg("MazeEditor-MinHeight"));
 			return false;
 		} else if (jVert == jHoriz) {
 			this.layout.height--;
-			//this.layout.gridDownRight.splice(iHoriz, 1);
 			this.layout.gridDownRight.forEach(col=>col.splice(jVert, 1));
-			this.redoGrid();
 		} else if (jVert-1 == jHoriz) {
 			this.layout.height--;
-			//this.layout.gridDownRight.splice(iVert, 2, this.layout.gridDownRight[iVert].map((o,j)=>(o&2)+(this.layout.gridDownRight[iHoriz][j]&1)));
 			this.layout.gridDownRight.forEach(col=>col.splice(jHoriz, 2, (col[jHoriz]&1) + (col[jVert]&2)));
-			this.redoGrid();
 		} else {
 			return false;
 		}
+		if ((this.layout.entranceSide == LEFT || this.layout.entranceSide == RIGHT) && this.layout.entrancePosition >= jVert)
+			this.layout.entrancePosition--;
+		if ((this.layout.exitSide == LEFT || this.layout.exitSide == RIGHT) && this.layout.exitPosition >= jVert)
+			this.layout.exitPosition--;
+		this.redoGrid();
 	}
 	addColumn(iHoriz) {
 		this.getLayout();
-		if (this.layout.width >= 16) {
+		if (this.layout.width >= MAZE_EDITOR_MAX_WIDTH) {
 			qAlert(lg("MazeEditor-MaxWidth"));
 			return false;
 		}
 		this.layout.width++;
 		this.layout.gridDownRight.splice(iHoriz, 0, this.layout.gridDownRight[iHoriz].map(o=>(o&2)+1));
+		if ((this.layout.entranceSide == UP || this.layout.entranceSide == DOWN) && this.layout.entrancePosition > iHoriz)
+			this.layout.entrancePosition++;
+		if ((this.layout.exitSide == UP || this.layout.exitSide == DOWN) && this.layout.exitPosition > iHoriz)
+			this.layout.exitPosition++;
 		this.redoGrid();
 	}
 	removeColumn(iHoriz, iVert) {
 		this.getLayout();
-		if (this.layout.width <= 4) {
+		if (this.layout.width <= MAZE_EDITOR_MIN_WIDTH) {
 			qAlert(lg("MazeEditor-MinWidth"));
 			return false;
 		} else if (iHoriz == iVert) {
 			this.layout.width--;
 			this.layout.gridDownRight.splice(iHoriz, 1);
-			this.redoGrid();
 		} else if (iHoriz-1 == iVert) {
 			this.layout.width--;
 			this.layout.gridDownRight.splice(iVert, 2, this.layout.gridDownRight[iVert].map((o,j)=>(o&2)+(this.layout.gridDownRight[iHoriz][j]&1)));
-			this.redoGrid();
 		} else {
 			return false;
 		}
+		if ((this.layout.entranceSide == UP || this.layout.entranceSide == DOWN) && this.layout.entrancePosition >= iHoriz)
+			this.layout.entrancePosition--;
+		if ((this.layout.exitSide == UP || this.layout.exitSide == DOWN) && this.layout.exitPosition >= iHoriz)
+			this.layout.exitPosition--;
+		this.redoGrid();
+	}
+	setEntrance(side, position) {
+		this.layout.entranceSide = side;
+		this.layout.entrancePosition = position;
+		this.redoBorder();
+	}
+	setExit(side, position) {
+		this.layout.exitSide = side;
+		this.layout.exitPosition = position;
+		this.redoBorder();
 	}
 }
 
@@ -340,4 +400,61 @@ class MazeEditorStripeVert extends UIObject {
 	draw() {
 		
 	}
+}
+
+class MazeEditorStripeEdge extends UIObject {
+	constructor(x, y, width, height, side, position, out) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.side = side;
+		this.position = position;
+		this.out = out;
+	}
+	update() {
+		this.updateMouse();
+		if (this.hovered)
+			hovered = true;
+	}
+	draw() {
+		ctx.globalAlpha = 1;
+		var color = this.hovered ? palette.hover : palette.normal;
+		ctx.strokeStyle = color;
+		
+		ctx.fillStyle = palette.background;
+		ctx.fillRect(this.x, this.y, this.width, this.height);
+		
+		this.stroke();
+	}
+}
+
+const EDITOR_MODE_MAZE = {
+	id:"Maze",
+	lName:"Maze-Name",
+	getPane:()=>{
+		var objects = {};
+		objects.widthSelector = new NumberSelector(WIDTH/2, 50, 110, 110, MAZE_EDITOR_MIN_WIDTH, MAZE_EDITOR_MAX_WIDTH, 8);
+		objects.widthLabel = new LabelAbove(objects.widthSelector, 28, lg("MazeEditorNew-Width"));
+		objects.heightSelector = new NumberSelector(WIDTH/2+130, 50, 110, 110, MAZE_EDITOR_MIN_HEIGHT, MAZE_EDITOR_MAX_HEIGHT, 7);
+		objects.heightLabel = new LabelAbove(objects.heightSelector, 28, lg("MazeEditorNew-Height"));
+		objects.fillRadio = new RadioButtons(WIDTH/2, 200, 140, 30, [lg("MazeEditorNew-Empty"), lg("MazeEditorNew-Full")], doNothing, 0);
+		return new EditorNewPane(objects);
+	},
+	getEditor:pane=>{
+		var layout = {};
+		layout.width = pane.widthSelector.getNumber();
+		layout.height = pane.heightSelector.getNumber();
+		layout.entranceSide = LEFT;
+		layout.entrancePosition = Math.floor(layout.height/2);
+		layout.exitSide = RIGHT;
+		layout.exitPosition = Math.floor(layout.height/2);
+		if (pane.fillRadio.index) {
+			layout.gridDownRight = newArray2d(layout.width, layout.height, 0);
+		} else {
+			layout.gridDownRight = newArray2dLambda(layout.width, layout.height, (i, j)=>(i<layout.width-1)+2*(j<layout.height-1));
+		}
+		return new MazeEditor(layout);
+	},
 }

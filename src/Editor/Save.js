@@ -53,3 +53,15 @@ class EditorSaveScreen extends OverScreen {
 		navigator.clipboard.writeText(this.data);
 	}
 }
+
+
+function bubbleDrawISave() {
+	ctx.strokeRect(this.x-.6*this.radius, this.y-.5*this.radius, 1.2*this.radius, 1.0*this.radius);
+	ctx.beginPath();
+	ctx.moveTo(this.x, this.y-.3*this.radius);
+	ctx.lineTo(this.x, this.y+.3*this.radius);
+	ctx.moveTo(this.x-.3*this.radius, this.y);
+	ctx.lineTo(this.x, this.y+.3*this.radius);
+	ctx.lineTo(this.x+.3*this.radius, this.y);
+	ctx.stroke();
+}

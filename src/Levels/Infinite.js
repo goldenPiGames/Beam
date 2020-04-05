@@ -13,11 +13,11 @@ class InfiniteSelectScreen extends Screen {
 			this.seedCheckbox,
 			this.raceCheckbox,
 		];
-		this.seedSelector = new NumberSelector(this.seedCheckbox.x, this.seedCheckbox.y+this.seedCheckbox.height, this.seedCheckbox.width, 100, 4, 16);
+		this.seedSelector = new CodeNumberSelector(this.seedCheckbox.x, this.seedCheckbox.y+this.seedCheckbox.height, this.seedCheckbox.width, 100, 4, 16);
 		this.objectsSeedOnly = [
 			this.seedSelector,
 		];
-		this.goalSelector = new NumberSelector(this.raceCheckbox.x, this.raceCheckbox.y+this.raceCheckbox.height, this.raceCheckbox.width, 100, 2);
+		this.goalSelector = new NumberSelector(this.raceCheckbox.x, this.raceCheckbox.y+this.raceCheckbox.height, this.raceCheckbox.width, 100, 1, 99, 5, 10);
 		this.objectsRaceOnly = [
 			this.goalSelector,
 		];

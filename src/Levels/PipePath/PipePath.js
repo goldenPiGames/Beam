@@ -2,8 +2,7 @@ class PipeLevel extends GridLevel {
 	constructor(layout) {
 		layout.width = layout.pipeGrid.length;
 		layout.height = layout.pipeGrid[0].length;
-		layout.gap = 1/2;
-		super(layout);
+		super(layout, {gap:1/2});
 		this.pieces = layout.pipeGrid.map((row, i) => row.map((pis, j) => new PipePiece(this.gridToPixX(i), this.gridToPixY(j), this.gridScale / 2, pis)));
 		/*for (var i = 0; i < pipeGrid.length; i++) {
 			this.pieces[i] = [];

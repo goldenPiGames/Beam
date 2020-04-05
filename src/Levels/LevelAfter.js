@@ -25,3 +25,8 @@ MAIN_LEVEL_SEQS.forEach((seq, sdex) => {
 	});
 	seq.color = RAINBOW_7[sdex];
 });
+
+
+const EDITOR_MODES = [
+	EDITOR_MODE_MAZE,
+];

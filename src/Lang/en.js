@@ -103,6 +103,10 @@ LANG.en = {
 	"EditorLoad-Error" : "Error loading",
 	"EditorLoad-FileLoading" : "Loading file...",
 	
+	"MazeEditorNew-Width" : "Width",
+	"MazeEditorNew-Height" : "Height",
+	"MazeEditorNew-Empty" : "Empty",
+	"MazeEditorNew-Full" : "Full",
 	"MazeEditor-TabWall" : "Walls",
 	"MazeEditor-TabAddRow" : "+Row",
 	"MazeEditor-TabRemoveRow" : "-Row",
