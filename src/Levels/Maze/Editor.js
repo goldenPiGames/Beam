@@ -6,7 +6,6 @@ const MAZE_EDITOR_MARGIN = 30;
 
 class MazeEditor extends Editor {
 	constructor(layout) {
-		layout.mode = "Maze"
 		if (!layout) {
 			layout = {
 				mode : "Maze",
@@ -25,6 +24,7 @@ class MazeEditor extends Editor {
 				exitPosition : 3,
 			}
 		}
+		layout.mode = "Maze";
 		layout.width = layout.gridDownRight.length;
 		layout.height = layout.gridDownRight[0].length;
 		super(layout);

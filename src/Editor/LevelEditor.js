@@ -52,11 +52,14 @@ class EditorWrapper extends Screen {
 		runnee = new EditorLoadScreen(this);
 	}
 	test() {
-		if (this.editor instanceof BlackEditor)
-			return false;
-		var lo = quicksaveEditor(this.editor);
-		levelIterator = new EditorTestIterator(lo);
-		startLevel();
+		try {
+			var lo = quicksaveEditor(this.editor);
+			levelIterator = new EditorTestIterator(lo);
+			startLevel();
+		} catch (e) {
+			qAlert(lg("Editor-PlayError"));
+			console.log(e);
+		}
 	}
 }
 

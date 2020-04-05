@@ -1,8 +1,9 @@
 class ToggleLevel extends Level {
-	constructor(layout) {
+	constructor(layout, pex) {
 		super(layout);
 		let numGates = layout.gates.length;
 		let numSwitches = layout.gates[0].length;
+		this.direction = typeof pex == "number" ? pex : layout.direction;
 		var switchXStart, switchYStart, switchXInc, switchYInc, gateXStart, gateYStart, gateXInc, gateYInc, gateOrient;
 		switch (layout.direction) {
 			case 0: this.beamEntranceSide = 2;

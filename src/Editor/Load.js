@@ -73,7 +73,7 @@ function editorFromJSON(data) {
 		case "SameGame": return new SameEditor(data);
 		case "Maze" : return new MazeEditor(data);
 		case "Gridlock": return new GridlockEditor(data);
-		case "ConcentricCircles": return new ConcentricEditor(data);
+		case "ConcentricCircles": return new ConcentricCirclesEditor(data);
 	}
 	throw "Mode not specified";
 }

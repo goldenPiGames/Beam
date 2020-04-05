@@ -92,6 +92,7 @@ LANG.en = {
 	"EditorMenu-New" : "New",
 	"EditorMenu-Save" : "Save",
 	"EditorMenu-Load" : "Load",
+	"Editor-PlayError" : "Error making level",
 	"Editor-BlankPara" : "Welcome to the level editor! <br> <br> To get started, go to the menu (upper-left) and select <lg|EditorMenu-New>.",
 	"EditorSave-ComplainPara" : "Trying to save files is one of those things that browsers do differently for some reason",
 	"EditorSave-Clipboard" : "Copy to Clipboard",
@@ -118,6 +119,12 @@ LANG.en = {
 	"MazeEditor-MinHeight" : "Minimum height reached.",
 	"MazeEditor-MaxWidth" : "Maximum width reached.",
 	"MazeEditor-MinWidth" : "Minimum width reached.",
+	
+	"ConcentricCirclesEditorNew-Rings" : "Rings",
+	"ConcentricCirclesEditor-Cause" : "Cause",
+	"ConcentricCirclesEditor-Effect" : "Effect",
+	"ConcentricCirclesEditor-Inner" : "Inner",
+	"ConcentricCirclesEditor-Outer" : "Outer",
 	
 	"LevelOther-Name" : "???",
 	"LevelOther-Rules" : "This is some other level. Figuring out the rules is part of the challenge.",

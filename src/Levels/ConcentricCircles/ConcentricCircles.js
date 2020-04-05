@@ -1,9 +1,9 @@
 class ConcentricLevel extends Level {
-	constructor(layout) {
+	constructor(layout, pex) {
 		super(layout);
 		let numRings = layout.also.length;
 		var switchXStart, switchYStart, switchXInc, switchYInc, gateXStart, gateYStart, gateXInc, gateYInc, gateOrient;
-		this.direction = layout.direction;
+		this.direction = typeof pex == "number" ? pex : layout.direction;
 		switch (this.direction) {
 			case UP: this.beamEntranceSide = DOWN;
 					this.beamExitSide = UP;
