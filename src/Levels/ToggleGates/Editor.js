@@ -25,7 +25,7 @@ class ToggleGatesEditor extends Editor {
 	}
 	redoGrid() {
 		this.reconstructGridLevel();
-		this.checks = this.layout.gates.map((row, i) => row.map((cze, j) => new ToggleGatesEditorCheck(this.gridLevel.gridToPixX(i), this.gridLevel.gridToPixY(j), this.gridLevel.gridScale*2/5, cze, i==j)));
+		this.checks = this.layout.gates.map((row, i) => row.map((cze, j) => new ToggleGatesEditorCheck(this.gridLevel.gridToPixX(i), this.gridLevel.gridToPixY(j), this.gridLevel.gridScale*.45, cze, i==j)));
 	}
 	update() {
 		this.checks.forEach(col=>col.forEach(cze=>cze.update()));

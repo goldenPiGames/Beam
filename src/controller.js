@@ -50,7 +50,7 @@ function addEvents() {
 	});
 	
 	eventCatcher.addEventListener("touchstart", function(e) {
-		if (runnee.overrideTouch)
+		//if (runnee.overrideTouch)
 			e.preventDefault();
 		mouse.clicked = true;
 		mouse.down = true;
