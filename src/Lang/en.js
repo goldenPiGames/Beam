@@ -104,6 +104,11 @@ LANG.en = {
 	"EditorLoad-Error" : "Error loading",
 	"EditorLoad-FileLoading" : "Loading file...",
 	
+	"ToggleGatesEditorNew-Gates" : "Gates",
+	"ToggleGatesEditorNew-Switches" : "Switches",
+	"ToggleGatesEditor-Switches" : "Switches",
+	"ToggleGatesEditor-Gates" : "Gates",
+	
 	"MazeEditorNew-Width" : "Width",
 	"MazeEditorNew-Height" : "Height",
 	"MazeEditorNew-Empty" : "Empty",

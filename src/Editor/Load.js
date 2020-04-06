@@ -67,9 +67,9 @@ function editorFromJSON(data) {
 	while (typeof data == "string")
 		data = JSON.parse(data);
 	switch (data.mode) {
-		case "PipePath": return new PipeEditor(data);
-		case "WalkOnce": return new OnceEditor(data);
-		case "ToggleGates": return new ToggleEditor(data);
+		case "PipePath": return new PipePathEditor(data);
+		case "WalkOnce": return new WalkOnceEditor(data);
+		case "ToggleGates": return new ToggleGatesEditor(data);
 		case "SameGame": return new SameEditor(data);
 		case "Maze" : return new MazeEditor(data);
 		case "Gridlock": return new GridlockEditor(data);
