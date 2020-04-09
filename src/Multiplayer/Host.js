@@ -3,15 +3,16 @@ class HostSettingsScreen extends Screen {
 		super();
 		initFirebase();
 		hideTextInput();
-		firebase.auth().onAuthStateChanged(user => this.signedIn(user));
+		this.unsubscribe = firebase.auth().onAuthStateChanged(user => this.signedIn(user));
 		firebase.auth().signInAnonymously();
 		//this.code = "TEST";
 		//this.key = this.gameRef.key;
 		this.modeButtons = new RadioButtons(10, 110, 200, 30, INFINITE_MODES.map(mod=>lg(mod.lName)), dex=>this.modeClicked(dex));
 		this.beginButton = new BubbleButton(WIDTH-50, HEIGHT-50, 45, ()=>this.tryPlay(), bubbleDrawIPlay);
 		this.goalSelector = new NumberSelector(10, HEIGHT/2+50, 180, 120, 1, 99, 5, 10);
-		this.returnButton = new BubbleButton(50, HEIGHT-50, 45, ()=>{this.delete();hideTextInput();switchScreen(new MultiplayerMenu())}, bubbleDrawIReturn);
+		this.returnButton = new BubbleButton(50, HEIGHT-50, 45, ()=>popupConfirm(()=>this.exit(), lg("MultiplayerHostStart-ExitAsk")), bubbleDrawIReturn);
 		this.fullscreenButton = new BubbleButton(50, 50, 45, ()=>attemptFullscreen(), bubbleDrawIFullscreen);
+		this.copyButton = new Button(WIDTH-200, 55, 100, 40, lg("MultiplayerHost-Copy"), ()=>this.copyToClipboard());
 		this.objects = [
 			this.returnButton,
 			this.modeButtons,
@@ -23,8 +24,11 @@ class HostSettingsScreen extends Screen {
 		this.namesList = [];
 	}
 	update() {
-		if (this.user && textInput.value != this.user.uid)
-			textInput.value = this.user.uid;
+		if (this.user) {
+			if (textInput.value != this.user.uid)
+				textInput.value = this.user.uid;
+			this.copyButton.update();
+		}
 		this.objects.forEach(oj=>oj.update());
 	}
 	draw() {
@@ -40,6 +44,7 @@ class HostSettingsScreen extends Screen {
 				//console.log(namesDraw[i], WIDTH/2, yStart+yIncrement*i, WIDTH/2, yIncrement);
 				drawTextInRect(namesDraw[i], WIDTH/2, yStart+yIncrement*i, WIDTH/2, yIncrement);
 			}
+			this.copyButton.draw();
 		} else {
 			drawTextInRect(lg("Multiplayer-Connecting"), 225, 10, WIDTH-250, 40);
 		}
@@ -61,9 +66,13 @@ class HostSettingsScreen extends Screen {
 			runnee = new HostScoreboard(this.gameRef, levels);
 		}
 	}
-	delete() {
-		firebase.auth().signOut();//if reusing codes, don't do this
+	exit() {
+		this.unsubscribe();
+		this.gameRef.child("players").off("child_added", this.callbackOn);
+		hideTextInput();
+		firebase.auth().signOut();
 		this.gameRef.remove();
+		switchScreen(new MultiplayerMenu())
 	}
 	modeClicked(dex) {
 		
@@ -82,8 +91,11 @@ class HostSettingsScreen extends Screen {
 		this.gameRef.set({begun:false, players:[]});
 		//this.gameRef.child("begun").set(false);
 		//this.gameRef.child("players").set([]);
-		setTextInput(225, 10, WIDTH-250, 40, this.user.uid);
+		setTextInput(100, 5, WIDTH-200, 40, this.user.uid);
 		this.callbackOn = this.gameRef.child("players").on("child_added", snap=>this.handlePlayer(snap));
+	}
+	copyToClipboard() {
+		copyToClipboard(this.user.uid);
 	}
 	handlePlayer(snap) {
 		var val = snap.val();

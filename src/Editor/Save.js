@@ -50,10 +50,13 @@ class EditorSaveScreen extends OverScreen {
 		}, 0); 
 	}
 	copyToClipboard() {
-		navigator.clipboard.writeText(this.data);
+		copyToClipboard(this.data);
 	}
 }
 
+function copyToClipboard(text) {
+	navigator.clipboard.writeText(text);
+}
 
 function bubbleDrawISave() {
 	ctx.strokeRect(this.x-.6*this.radius, this.y-.5*this.radius, 1.2*this.radius, 1.0*this.radius);

@@ -104,6 +104,23 @@ gate-major but with nulls:
 				[null,null,null,null,0,1,1,1],
 */
 
+Levels.ToggleGateGud = class LevelToggleGateGut extends ToggleLevel {
+	constructor() {
+		super({
+			direction:1,
+			gates:[
+				[1,0,1,1,0,0,0],
+				[1,1,0,0,1,0,0],
+				[0,1,1,0,1,1,0],
+				[1,0,1,1,0,1,0],
+				[0,0,0,0,1,0,1],
+				[0,0,0,1,1,1,0],
+				[0,0,0,0,0,0,1],
+			],
+		});
+	}
+}
+
 const SEQ_MAIN_TOGGLE = {
 	id : "MainToggle",
 	levelIDs : [
@@ -112,5 +129,6 @@ const SEQ_MAIN_TOGGLE = {
 		"ToggleFirstTrick",
 		"ToggleAlternating",
 		"ToggleMirrorHall",
+		"ToggleGateGud",
 	]
 }

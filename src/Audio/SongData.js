@@ -70,6 +70,8 @@ const SONG_LIST = [
 		by:"PeriTune", yt:"iStkj9BMmWw", site:"https://peritune.com/deep_valley2/", siten:"PeriTune.com", sc:"sei_peridot/deep-valley2", license:CC_BY_4},
 	{name:"Demise", intensity:1, loopStart:13.111, loopEnd:99.403,
 		by:"PeriTune", yt:"Ouj_cwWJdmo", site:"https://peritune.com/demise/", siten:"PeriTune.com", sc:"sei_peridot/demise"},
+	{name:"Dramatic", intensity:1,
+		by:"PeriTune", yt:"o2GeoGLDjDg", site:"https://peritune.com/dramatic1/", siten:"PeriTune.com", sc:"sei_peridot/dramatic"},
 	{name:"Firmament", intensity:1/4, loopStart:8.365, loopEnd:109.615, alt:true,
 		by:"PeriTune", yt:"4cBY3v4NCsw", site:"https://peritune.com/firmament/", siten:"PeriTune.com", sc:"sei_peridot/firmament-calm", license:CC_BY_4},
 	{name:"Firmament 2", intensity:1/4, alt:true,

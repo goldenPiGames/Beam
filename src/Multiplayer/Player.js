@@ -72,8 +72,11 @@ class JoinWaitingScreen extends Screen {
 			});
 		this.key = this.playRef.key;
 		this.callbackOn = this.gameRef.child("begun").on("value", snap=>this.handleBegin(snap));
+		setTextInput(WIDTH/2-150, 350, 200, 40, "Name");
 		this.objects = [
 			new BubbleButton(50, 50, 45, ()=>attemptFullscreen(), bubbleDrawIFullscreen),
+			new BubbleButton(50, HEIGHT-50, 45, ()=>this.exit(), bubbleDrawIReturn),
+			new Button(WIDTH/2+60, 350, 90, 40, lg("MultiplayerJoin-NameChange"), ()=>this.changeName()),
 		];
 	}
 	update() {
@@ -83,7 +86,8 @@ class JoinWaitingScreen extends Screen {
 		this.objects.forEach(oj=>oj.draw());
 		ctx.fillStyle = settings.normal_color;
 		drawTextInRect(lg("MultiplayerJoin-Joined"), 10, 120, WIDTH-20, 60);
-		drawParagraphInRect(lg("MultiplayerJoin-JoinedPara"), 10, 220, WIDTH-20, 60, 24);
+		drawParagraphInRect(lg("MultiplayerJoin-JoinedPara"), 10, 200, WIDTH-20, 60, 24);
+		drawTextInRect(lg("MultiplayerJoin-Name", {"name":settings.name}), 10, 305, WIDTH-20, 34);
 	}
 	handleBegin(snap) {
 		var val = snap.val();
@@ -95,9 +99,17 @@ class JoinWaitingScreen extends Screen {
 	}
 	trulyBegin(snap) {
 		var val = snap.val();
-		console.log(val);
+		//console.log(val);
 		levelIterator = new MultiplayerGuestIterator(val, this.gameRef, this.playRef);
 		startLevel();
+	}
+	changeName() {
+		settings.name = textInput.value;
+		this.playRef.update({"name":settings.name});
+	}
+	exit() {
+		this.playRef.remove();
+		runnee = new MultiplayerMenu();
 	}
 }
 JoinWaitingScreen.prototype.overrideTouch = false;
@@ -132,6 +144,7 @@ class MultiplayerGuestIterator extends LevelIterator {
 		return levelFromJSON(this.levelData[this.index]);
 	}
 	drawBack(wrap) {
+		scintBeam();
 		if (!this.finished) {
 			this.drawBackText(this.index);
 		} else {
@@ -169,7 +182,7 @@ class MultiplayerGuestEndScreen extends Level {
 		
 	}
 	draw() {
-		scintBeam();
+		//scintBeam();
 		ctx.fillStyle = palette.normal;
 		drawTextInRect(lg("MultiplayerGuestEnd-Header"), 80, 0, WIDTH-160, HEIGHT/3);
 		if (this.placeDrawBuffer) {
