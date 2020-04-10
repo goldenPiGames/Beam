@@ -135,6 +135,9 @@ LANG.en = {
 	"ConcentricCirclesEditor-Inner" : "Inner",
 	"ConcentricCirclesEditor-Outer" : "Outer",
 	
+	"GridlockEditorNew-Width" : "Width",
+	"GridlockEditorNew-Height" : "Height",
+	
 	"LevelOther-Name" : "???",
 	"LevelOther-Rules" : "This is some other level. Figuring out the rules is part of the challenge.",
 	"LevelOther-Hints" : ["Look for things that change color when your mouse is over them. If clicking does nothing, try dragging."

@@ -66,6 +66,11 @@ class GridlockLevel extends GridLevel {
 	isSpaceOccupied(i, j) {
 		return this.pieces.find(pis => i >= pis.gridX && i < pis.gridX + pis.gridWidth && j >= pis.gridY && j < pis.gridY + pis.gridHeight);
 	}
+	isPlaceOccupied(com, x = com.gridX, y = com.gridY, width = com.gridWidth, height = com.gridHeight) {
+		if (x < 0 || x + width > this.layout.width || y < 0 || y + height > this.layout.height)
+			return "wall";
+		return this.pieces.find(pis => pis != com && x + width > pis.gridX && x < pis.gridX + pis.gridWidth && y + height > pis.gridY && y < pis.gridY + pis.gridHeight);
+	}
 	win() {
 		this.pieces.forEach(pis=>pis.snapEnd());
 		super.win();
