@@ -137,6 +137,15 @@ LANG.en = {
 	
 	"GridlockEditorNew-Width" : "Width",
 	"GridlockEditorNew-Height" : "Height",
+	"GridlockEditor-TabAddRow" : "+Height",
+	"GridlockEditor-TabRemoveRow" : "-Height",
+	"GridlockEditor-TabAddColumn" : "+Width",
+	"GridlockEditor-TabRemoveColumn" : "-Width",
+	"GridlockEditor-TabExit" : "Exit",
+	"GridlockEditor-MaxHeight" : "Maximum height reached.",
+	"GridlockEditor-MinHeight" : "Minimum height reached.",
+	"GridlockEditor-MaxWidth" : "Maximum width reached.",
+	"GridlockEditor-MinWidth" : "Minimum width reached.",
 	
 	"LevelOther-Name" : "???",
 	"LevelOther-Rules" : "This is some other level. Figuring out the rules is part of the challenge.",

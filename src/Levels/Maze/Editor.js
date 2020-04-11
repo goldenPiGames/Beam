@@ -149,21 +149,8 @@ class MazeEditor extends Editor {
 				this.stripes.push(new MazeEditorStripeVert(this.gridLevel.gridToPixX(this.layout.width-3/2), 50, this.gridLevel.gridScale, HEIGHT-100, this, this.layout.width-1, this.layout.width-2));
 				break;
 			case 5: case 6: //entrance/exit
-				this.stripes = [];
-				var blockSide, blockPosition;
-				for (var i = 0; i < this.layout.width; i++) {
-					if (!(this.layout.entranceSide == UP && this.layout.entrancePosition == i || this.layout.exitSide == UP && this.layout.exitPosition == i))
-						this.stripes.push(new MazeEditorStripeEdge(this.gridLevel.gridToPixX(i-1/2), this.gridLevel.gridToPixY(-1/2)-MAZE_EDITOR_MARGIN, this.gridLevel.gridScale, MAZE_EDITOR_MARGIN, UP, i));
-					if (!(this.layout.entranceSide == DOWN && this.layout.entrancePosition == i || this.layout.exitSide == DOWN && this.layout.exitPosition == i))
-						this.stripes.push(new MazeEditorStripeEdge(this.gridLevel.gridToPixX(i-1/2), this.gridLevel.gridToPixY(this.layout.height-1/2), this.gridLevel.gridScale, MAZE_EDITOR_MARGIN, DOWN, i));
-				}
-				for (var j = 0; j < this.layout.height; j++) {
-					if (!(this.layout.entranceSide == LEFT && this.layout.entrancePosition == j || this.layout.exitSide == LEFT && this.layout.exitPosition == j))
-						this.stripes.push(new MazeEditorStripeEdge(this.gridLevel.gridToPixX(-1/2)-MAZE_EDITOR_MARGIN, this.gridLevel.gridToPixY(j-1/2), MAZE_EDITOR_MARGIN, this.gridLevel.gridScale, LEFT, j));
-					if (!(this.layout.entranceSide == RIGHT && this.layout.entrancePosition == j || this.layout.exitSide == RIGHT && this.layout.exitPosition == j))
-						this.stripes.push(new MazeEditorStripeEdge(this.gridLevel.gridToPixX(this.layout.width-1/2), this.gridLevel.gridToPixY(j-1/2), MAZE_EDITOR_MARGIN, this.gridLevel.gridScale, RIGHT, j));
-				}
-			
+				this.stripes = this.getEdgeStripes().filter(oj=>!(oj.side == this.layout.entranceSide && oj.position == this.layout.entrancePosition || oj.side == this.layout.exitSide && oj.position == this.layout.exitPosition));
+				break;
 		}
 	}
 	getLayout() {
@@ -399,34 +386,6 @@ class MazeEditorStripeVert extends UIObject {
 	}
 	draw() {
 		
-	}
-}
-
-class MazeEditorStripeEdge extends UIObject {
-	constructor(x, y, width, height, side, position, out) {
-		super();
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.side = side;
-		this.position = position;
-		this.out = out;
-	}
-	update() {
-		this.updateMouse();
-		if (this.hovered)
-			hovered = true;
-	}
-	draw() {
-		ctx.globalAlpha = 1;
-		var color = this.hovered ? palette.hover : palette.normal;
-		ctx.strokeStyle = color;
-		
-		ctx.fillStyle = palette.background;
-		ctx.fillRect(this.x, this.y, this.width, this.height);
-		
-		this.stroke();
 	}
 }
 

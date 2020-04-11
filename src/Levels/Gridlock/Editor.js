@@ -17,14 +17,15 @@ class GridlockEditor extends Editor {
 		layout.mode = "Gridlock";
 		//layout.width = layout.also.length;
 		super(layout);
+		this.tabIndex = -1;
+		this.tabs = new Tabs(100, HEIGHT-35, WIDTH-200, 35, [lg("GridlockEditor-TabAddRow"), lg("GridlockEditor-TabRemoveRow"), lg("GridlockEditor-TabAddColumn"), lg("GridlockEditor-TabRemoveColumn"), lg("GridlockEditor-TabExit")], t=>this.setTab(t), ()=>this.tabIndex);
 		this.objects = [
 			new GridlockEditorDragFrom(0, HEIGHT/2-140, 70, 70, this, 2, true),
 			new GridlockEditorDragFrom(0, HEIGHT/2-70, 70, 70, this, 3, true),
 			new GridlockEditorDragFrom(0, HEIGHT/2, 70, 70, this, 2, false),
 			new GridlockEditorDragFrom(0, HEIGHT/2+70, 70, 70, this, 3, false),
+			this.tabs,
 		]
-		this.tabIndex = 0;
-		//this.tabs = new Tabs(100, HEIGHT-35, WIDTH-200, 35, [lg("GridlockEditor-TabWall"), lg("GridlockEditor-TabAddRow"), lg("GridlockEditor-TabRemoveRow"), lg("GridlockEditor-TabAddColumn"), lg("GridlockEditor-TabRemoveColumn"), lg("GridlockEditor-TabEntrance"), lg("GridlockEditor-TabExit")], t=>this.setTab(t), ()=>this.tabIndex);
 		this.redoGrid();
 	}
 	reconstructGridLevel() {
@@ -35,15 +36,30 @@ class GridlockEditor extends Editor {
 			entrancePosition : this.layout.position,
 			exitSide : this.layout.direction,
 			exitPosition : this.layout.position,
-		}, {gap:0,margin:0});
+		}, {gap:0.05,margin:MAZE_EDITOR_MARGIN});
+	}
+	redoBorder() {
+		this.reconstructGridLevel();
+		this.pieces.forEach(pis=>pis.checkThru());
+		this.setTab();
 	}
 	redoGrid() {
 		this.reconstructGridLevel();
 		this.pieces = this.layout.pieces.map(pis=>new GridlockEditorPiece(pis, this));
+		this.tabIndex = -1;
 		//this.pieces.forEach(pis=>pis.setParent(this));
 	}
 	update() {
 		this.objects.forEach(oj=>oj.update());
+		if (this.stripes) {
+			this.stripes.forEach(oj=>oj.update());
+			var clicked = this.stripes.find(s=>s.clicked);
+			if (clicked) {
+				this.setExit(clicked.side, clicked.position);
+			}
+			if (this.pieces.find(pis=>pis.held))
+				this.setTab(-1);
+		}
 		this.pieces.forEach(pis=>pis.update());
 		//console.log(this.pieces);
 		this.pieces = this.pieces.filter(pis=>!pis.dead);
@@ -52,6 +68,8 @@ class GridlockEditor extends Editor {
 		ctx.strokeStyle = palette.normal;
 		this.gridLevel.drawBorder();
 		this.objects.forEach(oj=>oj.draw());
+		if (this.stripes)
+			this.stripes.forEach(oj=>oj.draw());
 		this.pieces.forEach(pis=>pis.draw());
 	}
 	getLayout() {
@@ -63,6 +81,89 @@ class GridlockEditor extends Editor {
 		if (x < 0 || x + width > this.layout.width || y < 0 || y + height > this.layout.height)
 			return "wall";
 		return this.pieces.find(pis => pis != com && x + width > pis.gridX && x < pis.gridX + pis.gridWidth && y + height > pis.gridY && y < pis.gridY + pis.gridHeight);
+	}
+	setTab(dex) {
+		if (typeof dex != "number")
+			dex = this.tabIndex;
+		switch (dex) {
+			case -1:
+				this.tabIndex = -1;
+				this.stripes = null;
+				break;
+			case 0: //+row
+				this.tabIndex = -1;
+				this.stripes = null;
+				this.addRow();
+				break;
+			case 1: //-row
+				this.tabIndex = -1;
+				this.stripes = null;
+				this.removeRow();
+				break;
+			case 2: //+col
+				this.tabIndex = -1;
+				this.stripes = null;
+				this.addColumn();
+				break;
+			case 3: //-col
+				this.tabIndex = -1;
+				this.stripes = null;
+				this.removeColumn();
+				break;
+			case 4: //exit
+				this.tabIndex = -1;
+				this.tabIndex = 4;
+				this.stripes = this.getEdgeStripes().filter(oj=>!(oj.side == this.layout.direction && oj.position == this.layout.position));
+				break;
+		}
+	}
+	addRow() {
+		this.getLayout();
+		if (this.layout.height >= GRIDLOCK_EDITOR_MAX_HEIGHT) {
+			qAlert(lg("GridlockEditor-MaxHeight"));
+			return false;
+		}
+		this.layout.height++;
+		this.redoGrid();
+	}
+	removeRow() {
+		this.getLayout();
+		if (this.layout.height <= GRIDLOCK_EDITOR_MIN_HEIGHT) {
+			qAlert(lg("GridlockEditor-MinHeight"));
+			return false;
+		}
+		this.layout.height--;
+		if ((this.layout.entranceSide == LEFT || this.layout.entranceSide == RIGHT) && this.layout.position >= this.layout.height)
+			this.layout.position--;
+		this.layout.pieces = this.layout.pieces.filter(pis=>pis.horiz?pis.y<this.layout.height:(pis.y+pis.len-1<this.layout.height));
+		this.redoGrid();
+	}
+	addColumn() {
+		this.getLayout();
+		if (this.layout.width >= GRIDLOCK_EDITOR_MAX_WIDTH) {
+			qAlert(lg("GridlockEditor-MaxWidth"));
+			return false;
+		}
+		this.layout.width++;
+		this.redoGrid();
+	}
+	removeColumn() {
+		this.getLayout();
+		if (this.layout.width <= GRIDLOCK_EDITOR_MIN_WIDTH) {
+			qAlert(lg("GridlockEditor-MinWidth"));
+			return false;
+		}
+		this.layout.width--;
+		if ((this.layout.entranceSide == LEFT || this.layout.entranceSide == RIGHT) && this.layout.position >= this.layout.width)
+			this.layout.position--;
+		this.layout.pieces = this.layout.pieces.filter(pis=>pis.horiz?pis.x+pis.len-1<this.layout.width:(pis.x<this.layout.width));
+		this.redoGrid();
+	}
+	setExit(side, position) {
+		//console.log(side, position);
+		this.layout.direction = side;
+		this.layout.position = position;
+		this.redoBorder();
 	}
 }
 
@@ -127,10 +228,10 @@ class GridlockEditorPiece extends UIObject {
 		if (!this.parent.isPlaceOccupied(this, newX, newY)) {
 			this.gridX = newX;
 			this.gridY = newY;
-			if (this.gridX == undefined) {
-				this.dead = true;
-				return false;
-			}
+		}
+		if (this.gridX == undefined) {
+			this.dead = true;
+			return false;
 		}
 		this.updateDisplayPosition();
 	}
@@ -149,6 +250,9 @@ class GridlockEditorPiece extends UIObject {
 			this.displayY = mouse.y - this.displayHeight/2;
 			this.held = true;
 		}
+		this.checkThru();
+	}
+	checkThru() {
 		this.thru = false;
 		if (this.parent.layout.direction % 2) {//horizontal
 			if (this.movesHoriz && this.gridY == this.parent.layout.position)
@@ -178,6 +282,8 @@ class GridlockEditorDragFrom extends UIObject {
 		this.len = len;
 		this.horiz = horiz;
 		this.parent = parent;
+		this.iwidth = this.width/5*(horiz?len:1);
+		this.iheight = this.height/5*(horiz?1:len);
 	}
 	update() {
 		this.updateMouse();
@@ -189,6 +295,7 @@ class GridlockEditorDragFrom extends UIObject {
 	draw() {
 		ctx.strokeStyle = this.held ? palette.click : this.hovered ? palette.hover : palette.normal;
 		this.stroke();
+		ctx.strokeRect(this.x+this.width/2-this.iwidth/2, this.y+this.height/2-this.iheight/2, this.iwidth, this.iheight);
 	}
 }
 
@@ -209,7 +316,7 @@ const EDITOR_MODE_GRIDLOCK = {
 		layout.width = pane.widthSelector.getNumber();
 		layout.height = pane.heightSelector.getNumber();
 		layout.direction = RIGHT;
-		layout.position = Math.floor(layout.height/2);
+		layout.position = Math.floor((layout.height-1)/2);
 		layout.pieces = [];
 		return new GridlockEditor(layout);
 	},

@@ -53,6 +53,7 @@ class EditorLoadScreen extends OverScreen {
 			this.wrap.editor = editorFromJSON(data);
 			hideInputs();
 			runnee = this.wrap;
+			quicksaveEditor(this.wrap.editor);
 		} catch (e) {
 			qAlert(lg("EditorLoad-Error"));
 			console.log(e);

@@ -67,6 +67,46 @@ class Editor {
 	constructor(layout) {
 		this.layout = layout;
 	}
+	getEdgeStripes() {
+		var stripes = [];
+		for (var i = 0; i < this.layout.width; i++) {
+			stripes.push(new GridEditorStripeEdge(this.gridLevel.gridToPixX(i-1/2), this.gridLevel.gridToPixY(-1/2)-MAZE_EDITOR_MARGIN, this.gridLevel.gridScale, MAZE_EDITOR_MARGIN, UP, i));
+			stripes.push(new GridEditorStripeEdge(this.gridLevel.gridToPixX(i-1/2), this.gridLevel.gridToPixY(this.layout.height-1/2), this.gridLevel.gridScale, MAZE_EDITOR_MARGIN, DOWN, i));
+		}
+		for (var j = 0; j < this.layout.height; j++) {
+			stripes.push(new GridEditorStripeEdge(this.gridLevel.gridToPixX(-1/2)-MAZE_EDITOR_MARGIN, this.gridLevel.gridToPixY(j-1/2), MAZE_EDITOR_MARGIN, this.gridLevel.gridScale, LEFT, j));
+			stripes.push(new GridEditorStripeEdge(this.gridLevel.gridToPixX(this.layout.width-1/2), this.gridLevel.gridToPixY(j-1/2), MAZE_EDITOR_MARGIN, this.gridLevel.gridScale, RIGHT, j));
+		}
+		return stripes;
+	}
+}
+
+class GridEditorStripeEdge extends UIObject {
+	constructor(x, y, width, height, side, position, out) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.side = side;
+		this.position = position;
+		this.out = out;
+	}
+	update() {
+		this.updateMouse();
+		if (this.hovered)
+			hovered = true;
+	}
+	draw() {
+		ctx.globalAlpha = 1;
+		var color = this.hovered ? palette.hover : palette.normal;
+		ctx.strokeStyle = color;
+		
+		ctx.fillStyle = palette.background;
+		ctx.fillRect(this.x, this.y, this.width, this.height);
+		
+		this.stroke();
+	}
 }
 
 class BlankEditor extends Editor {

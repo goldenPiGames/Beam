@@ -31,7 +31,7 @@ class GridlockLevel extends GridLevel {
 		//Just kidding, it's so that the beam goes through as soon as you drag the last piece out of the way, instead of waiting until you set it down.
 		switch (this.direction) {
 			case UP:
-					blocked = this.pieces.filter(pis => !pis.thru && this.beamEntrancePosition >= pis.displayX && this.beamEntrancePosition <= pis.displayX + pis.displayWidth).sort((a, b) => a.displayY - b.displayY)[0];
+					blocked = this.pieces.filter(pis => !pis.thru && this.beamEntrancePosition >= pis.displayX && this.beamEntrancePosition <= pis.displayX + pis.displayWidth).sort((a, b) => b.displayY - a.displayY)[0];
 					by = blocked ? blocked.displayY + blocked.displayHeight : this.beamEndY;
 					break;
 			case RIGHT:
@@ -44,7 +44,7 @@ class GridlockLevel extends GridLevel {
 					by = blocked ? blocked.displayY : this.beamEndY;
 					break;
 			case LEFT:
-					blocked = this.pieces.filter(pis => !pis.thru && this.beamEntrancePosition >= pis.displayY && this.beamEntrancePosition <= pis.displayY + pis.displayHeight).sort((a, b) => a.displayX - b.displayX)[0];
+					blocked = this.pieces.filter(pis => !pis.thru && this.beamEntrancePosition >= pis.displayY && this.beamEntrancePosition <= pis.displayY + pis.displayHeight).sort((a, b) => b.displayX - a.displayX)[0];
 					bx = blocked ? blocked.displayX + blocked.displayWidth : this.beamEndX;
 					break;
 		}
