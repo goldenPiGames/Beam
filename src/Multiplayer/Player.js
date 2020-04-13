@@ -101,6 +101,7 @@ class JoinWaitingScreen extends Screen {
 		var val = snap.val();
 		//console.log(val);
 		levelIterator = new MultiplayerGuestIterator(val, this.gameRef, this.playRef);
+		hideTextInput();
 		startLevel();
 	}
 	changeName() {

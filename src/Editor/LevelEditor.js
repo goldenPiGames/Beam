@@ -70,12 +70,12 @@ class Editor {
 	getEdgeStripes() {
 		var stripes = [];
 		for (var i = 0; i < this.layout.width; i++) {
-			stripes.push(new GridEditorStripeEdge(this.gridLevel.gridToPixX(i-1/2), this.gridLevel.gridToPixY(-1/2)-MAZE_EDITOR_MARGIN, this.gridLevel.gridScale, MAZE_EDITOR_MARGIN, UP, i));
-			stripes.push(new GridEditorStripeEdge(this.gridLevel.gridToPixX(i-1/2), this.gridLevel.gridToPixY(this.layout.height-1/2), this.gridLevel.gridScale, MAZE_EDITOR_MARGIN, DOWN, i));
+			stripes.push(new GridEditorStripeEdge(this.gridLevel.gridToPixX(i-1/2), this.gridLevel.borderTop-MAZE_EDITOR_MARGIN, this.gridLevel.gridScale, MAZE_EDITOR_MARGIN, UP, i));
+			stripes.push(new GridEditorStripeEdge(this.gridLevel.gridToPixX(i-1/2), this.gridLevel.borderBottom, this.gridLevel.gridScale, MAZE_EDITOR_MARGIN, DOWN, i));
 		}
 		for (var j = 0; j < this.layout.height; j++) {
-			stripes.push(new GridEditorStripeEdge(this.gridLevel.gridToPixX(-1/2)-MAZE_EDITOR_MARGIN, this.gridLevel.gridToPixY(j-1/2), MAZE_EDITOR_MARGIN, this.gridLevel.gridScale, LEFT, j));
-			stripes.push(new GridEditorStripeEdge(this.gridLevel.gridToPixX(this.layout.width-1/2), this.gridLevel.gridToPixY(j-1/2), MAZE_EDITOR_MARGIN, this.gridLevel.gridScale, RIGHT, j));
+			stripes.push(new GridEditorStripeEdge(this.gridLevel.borderLeft-MAZE_EDITOR_MARGIN, this.gridLevel.gridToPixY(j-1/2), MAZE_EDITOR_MARGIN, this.gridLevel.gridScale, LEFT, j));
+			stripes.push(new GridEditorStripeEdge(this.gridLevel.borderRight, this.gridLevel.gridToPixY(j-1/2), MAZE_EDITOR_MARGIN, this.gridLevel.gridScale, RIGHT, j));
 		}
 		return stripes;
 	}

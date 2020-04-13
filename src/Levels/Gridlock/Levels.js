@@ -27,6 +27,29 @@ Levels.Gridlock2 = class LevelGridlock2 extends GridlockLevel {
 	}
 }
 
+Levels.GridlockFull = class LevelGridlockFull extends GridlockLevel {
+	constructor() {
+		super({
+			width:5,
+			height:5,
+			direction:1,
+			position:2,
+			pieces:[
+				{x:2,y:1,len:2,horiz:false},
+				{x:3,y:2,len:2,horiz:false},
+				{x:0,y:3,len:3,horiz:true},
+				{x:3,y:1,len:2,horiz:true},
+				{x:2,y:4,len:3,horiz:true},
+				{x:2,y:0,len:2,horiz:true},
+				{x:0,y:0,len:2,horiz:true},
+				{x:0,y:1,len:2,horiz:true},
+				{x:4,y:2,len:2,horiz:false},
+				{x:0,y:2,len:2,horiz:true}
+			]
+		});
+	}
+}
+
 /*Levels.Gridlock4 = class LevelGridlock4 extends GridlockLevel {
 	constructor() {
 		super({
@@ -172,6 +195,7 @@ const SEQ_MAIN_GRIDLOCK = {
 	levelIDs : [
 		"Gridlock1",
 		"Gridlock2",
+		"GridlockFull",
 		"GridlockFR3",
 		"GridlockFR1",
 		//"GridlockThruDouble",
