@@ -20,6 +20,7 @@ class OnceLevel extends DragPathLevel {
 	update() {
 		//super.update();
 		this.pieces.forEach(row=>row.forEach(pis=>pis.update()));
+		this.checkClickAlert();
 		if (this.evalPath()) {
 			this.win();
 		}

@@ -2,12 +2,6 @@ class MultiplayerMenu extends Screen {
 	constructor() {
 		super();
 		this.buttons = [
-			/*...alternateHybridButtons(WIDTH/8, HEIGHT/8, WIDTH/4, HEIGHT/4, [
-					{text:lg("RaceMenu-TimeTrial"), drawI:bubbleDrawIPlay, handler:()=>{hideTextInput(); switchScreen(new InfiniteSelectScreen({race:true}))}},
-					//{text:lg("RaceMenu-HeadToHead"), drawI:bubbleDrawIPlay, handler:()=>switchScreen(new CreditsScreen())},
-					{text:lg("RaceMenu-Host"), drawI:bubbleDrawIPlay, handler:()=>switchScreen(new HostSettingsScreen())},
-					{text:lg("RaceMenu-Join"), drawI:bubbleDrawIPlay, handler:()=>switchScreen(new JoinMultiplayerScreen())},
-				]),*/
 			new ParagraphButton(5, 5, 250, HEIGHT-110, lg("RaceMenu-TimeTrial"), lg("RaceMenu-TimeTrial-Desc"), ()=>{hideTextInput(); switchScreen(new InfiniteSelectScreen({race:true}))}),
 			new ParagraphButton(WIDTH-500, 5, 490, 190, lg("RaceMenu-Host"), lg("RaceMenu-Host-Desc"), ()=>switchScreen(new HostSettingsScreen())),
 			new ParagraphButton(WIDTH-500, 200, 490, HEIGHT-300, lg("RaceMenu-Join"), lg("RaceMenu-Join-Desc"), ()=>switchScreen(new JoinMultiplayerScreen())),

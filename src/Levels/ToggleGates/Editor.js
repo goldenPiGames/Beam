@@ -50,6 +50,7 @@ class ToggleGatesEditor extends Editor {
 		return this.layout;
 	}
 }
+ToggleGatesEditor.prototype.gridName = "gates";
 
 class ToggleGatesEditorCheck extends UIObject {
 	constructor(x, y, radius, start) {

@@ -6,11 +6,12 @@ const MUSIC_GENRES = ["all", "chiptune"];
 const SONG_LIST = [
 	{name:"Boat Paint", intensity:1/4,
 		by:"Al Gorgeous", sc:"al-goregous/boat-paint"},
-	/*
-	{name:"Saturday Morning Mood", intensity:1/4,
-		by"Asher Please", sc:"asherplease/saturday-morning-mood-1"},
-	{name:"Broken Record Blues", intensity:1/4,
-		by"Asher Please", sc:"asherplease/broken-record-blues"},
+	{name:"Saturday Morning Mood", intensity:0,
+		by:"Asher Please", sc:"asherplease/saturday-morning-mood-1"},
+	{name:"Sunday Night Sailing", intensity:1/4,
+		by:"Asher Please"},
+	/*{name:"Broken Record Blues", intensity:1/4,
+		by:"Asher Please", sc:"asherplease/broken-record-blues"},
 	*/
 	{name:"Beatdown City", intensity:3/4,
 		by:"Darren Curtis", yt:"qL4u3u5WKgU", site:"https://www.darrencurtismusic.com", siten:"DarrenCurtisMusic.com", sc:"desperate-measurez/beatdown-city-80s-action-theme-royalty-free", pat:"darrencurtismusic"},

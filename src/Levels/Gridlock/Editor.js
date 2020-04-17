@@ -120,7 +120,7 @@ class GridlockEditor extends Editor {
 	addRow() {
 		this.getLayout();
 		if (this.layout.height >= GRIDLOCK_EDITOR_MAX_HEIGHT) {
-			qAlert(lg("GridlockEditor-MaxHeight"));
+			qAlert(lg("Editor-MaxHeight"));
 			return false;
 		}
 		this.layout.height++;
@@ -129,7 +129,7 @@ class GridlockEditor extends Editor {
 	removeRow() {
 		this.getLayout();
 		if (this.layout.height <= GRIDLOCK_EDITOR_MIN_HEIGHT) {
-			qAlert(lg("GridlockEditor-MinHeight"));
+			qAlert(lg("Editor-MinHeight"));
 			return false;
 		}
 		this.layout.height--;
@@ -141,7 +141,7 @@ class GridlockEditor extends Editor {
 	addColumn() {
 		this.getLayout();
 		if (this.layout.width >= GRIDLOCK_EDITOR_MAX_WIDTH) {
-			qAlert(lg("GridlockEditor-MaxWidth"));
+			qAlert(lg("Editor-MaxWidth"));
 			return false;
 		}
 		this.layout.width++;
@@ -150,7 +150,7 @@ class GridlockEditor extends Editor {
 	removeColumn() {
 		this.getLayout();
 		if (this.layout.width <= GRIDLOCK_EDITOR_MIN_WIDTH) {
-			qAlert(lg("GridlockEditor-MinWidth"));
+			qAlert(lg("Editor-MinWidth"));
 			return false;
 		}
 		this.layout.width--;
@@ -219,7 +219,7 @@ class GridlockEditorPiece extends UIObject {
 		}
 	}
 	snapToGrid() {
-		if (this.released && (mouse.x < this.parent.gridLevel.gridToPixX(-1/2) || mouse.y < this.parent.gridLevel.gridToPixY(-1/2) || mouse.x > this.parent.gridLevel.gridToPixX(this.parent.layout.width-1/2) || mouse.y > this.parent.gridLevel.gridToPixY(this.parent.layout.height-1/2))) {
+		if (this.released && (mouse.lastX < this.parent.gridLevel.gridToPixX(-1/2) || mouse.lastY < this.parent.gridLevel.gridToPixY(-1/2) || mouse.lastX > this.parent.gridLevel.gridToPixX(this.parent.layout.width-1/2) || mouse.lastY > this.parent.gridLevel.gridToPixY(this.parent.layout.height-1/2))) {
 			this.dead = true;
 			return false;
 		}

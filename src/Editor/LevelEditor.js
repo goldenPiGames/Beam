@@ -5,19 +5,23 @@ function startEditor() {
 class EditorWrapper extends Screen {
 	constructor(data) {
 		super();
-		if (data instanceof Editor) {
-			this.editor = data;
-		} else if (data) {
-			this.editor = editorFromJSON(data);
+		try {
+			if (data instanceof Editor) {
+				this.editor = data;
+			} else if (data) {
+				this.editor = editorFromJSON(data);
+			}
+			if (!this.editor) {
+				var loaded = localStorage.getItem("BeamLastLevelEditor");
+				if (loaded)
+					this.editor = editorFromJSON(loaded);
+				else 
+					this.editor = new BlankEditor();
+			}
+		} catch (e) {
+			qAlert(lg("EditorLoad-Error"));
+			this.editor = new BlankEditor();
 		}
-		if (!this.editor) {
-			var loaded = localStorage.getItem("BeamLastLevelEditor");
-			if (loaded)
-				this.editor = editorFromJSON(loaded);
-			else 
-				this.editor = new BlankEditor();
-		}
-		
 		this.editor.wrapper = this;
 		this.menuButton = new BubbleButton(35, 35, 30, ()=>runnee=new EditorMenu(this), bubbleDrawIMenu);
 		this.jukeboxButton = new BubbleButton(WIDTH-35, 35, 30, ()=>runnee=new Jukebox(this, this.level), bubbleDrawIJukebox);
@@ -67,6 +71,72 @@ class Editor {
 	constructor(layout) {
 		this.layout = layout;
 	}
+	addRow(j) {
+		this.getLayout();
+		if (this.layout.height >= PIPE_PATH_EDITOR_MAX_HEIGHT) {
+			qAlert(lg(this.lMaxHeight));
+			return false;
+		}
+		this.layout.height++;
+		this.layout[this.gridName].forEach(col=>col.splice(j, 0, 0));
+		if ((this.layout.entranceSide == LEFT || this.layout.entranceSide == RIGHT) && this.layout.entrancePosition > j)
+			this.layout.entrancePosition++;
+		if ((this.layout.exitSide == LEFT || this.layout.exitSide == RIGHT) && this.layout.exitPosition > j)
+			this.layout.exitPosition++;
+		this.redoGrid();
+	}
+	removeRow(j) {
+		this.getLayout();
+		if (this.layout.height <= PIPE_PATH_EDITOR_MIN_HEIGHT) {
+			qAlert(lg(this.lMinHeight));
+			return false;
+		}
+		this.layout.height--;
+		this.layout[this.gridName].forEach(col=>col.splice(j, 1));
+		if ((this.layout.entranceSide == LEFT || this.layout.entranceSide == RIGHT) && (this.layout.entrancePosition > j || this.layout.entrancePosition >= this.layout.height))
+			this.layout.entrancePosition--;
+		if ((this.layout.exitSide == LEFT || this.layout.exitSide == RIGHT) && (this.layout.exitPosition > j || this.layout.exitPosition >= this.layout.height))
+			this.layout.exitPosition--;
+		this.redoGrid();
+	}
+	addColumn(i) {
+		this.getLayout();
+		if (this.layout.width >= PIPE_PATH_EDITOR_MAX_WIDTH) {
+			qAlert(lg(this.lMaxWidth));
+			return false;
+		}
+		this.layout.width++;
+		this.layout[this.gridName].splice(i, 0, new Array(this.layout.height).fill(0));
+		if ((this.layout.entranceSide == UP || this.layout.entranceSide == DOWN) && this.layout.entrancePosition > i)
+			this.layout.entrancePosition++;
+		if ((this.layout.exitSide == UP || this.layout.exitSide == DOWN) && this.layout.exitPosition > i)
+			this.layout.exitPosition++;
+		this.redoGrid();
+	}
+	removeColumn(i) {
+		this.getLayout();
+		if (this.layout.width <= PIPE_PATH_EDITOR_MIN_WIDTH) {
+			qAlert(lg(this.lMinWidth));
+			return false;
+		}
+		this.layout.width--;
+		this.layout[this.gridName].splice(i, 1);
+		if ((this.layout.entranceSide == UP || this.layout.entranceSide == DOWN) && (this.layout.entrancePosition > i || this.layout.entrancePosition >= this.layout.width))
+			this.layout.entrancePosition--;
+		if ((this.layout.exitSide == UP || this.layout.exitSide == DOWN) && (this.layout.exitPosition > i || this.layout.exitPosition >= this.layout.width))
+			this.layout.exitPosition--;
+		this.redoGrid();
+	}
+	setEntrance(side, position) {
+		this.layout.entranceSide = side;
+		this.layout.entrancePosition = position;
+		this.redoBorder();
+	}
+	setExit(side, position) {
+		this.layout.exitSide = side;
+		this.layout.exitPosition = position;
+		this.redoBorder();
+	}
 	getEdgeStripes() {
 		var stripes = [];
 		for (var i = 0; i < this.layout.width; i++) {
@@ -78,6 +148,127 @@ class Editor {
 			stripes.push(new GridEditorStripeEdge(this.gridLevel.borderRight, this.gridLevel.gridToPixY(j-1/2), MAZE_EDITOR_MARGIN, this.gridLevel.gridScale, RIGHT, j));
 		}
 		return stripes;
+	}
+	ifStripeClicked(func) {
+		var clicked = this.stripes.find(s=>s.clicked);
+		if (clicked)
+			func(clicked);
+	}
+	getLayout() {
+		return this.layout;
+	}
+}
+Editor.prototype.lMaxWidth = "Editor-MaxWidth";
+Editor.prototype.lMinWidth = "Editor-MinWidth";
+Editor.prototype.lMaxHeight = "Editor-MaxHeight";
+Editor.prototype.lMinHeight = "Editor-MinHeight";
+
+class GridEditorStripeAddHoriz extends UIObject {
+	constructor(x, y, width, height, parent, j) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.parent = parent;
+		this.j = j;
+	}
+	update() {
+		this.updateMouse();
+		if (this.hovered) {
+			hovered = true;
+		}
+	}
+	draw() {
+		if (this.hovered) {
+			ctx.lineWidth = 4;
+			ctx.strokeStyle = palette.hover;
+			ctx.beginPath();
+			ctx.moveTo(this.x, this.y+this.height/2);
+			ctx.lineTo(this.x+this.width, this.y+this.height/2);
+			ctx.stroke();
+		}
+	}
+}
+
+class GridEditorStripeRemoveHoriz extends UIObject {
+	constructor(x, y, width, height, parent, j) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.parent = parent;
+		this.pieces = [];
+		this.j = j;
+		for (var i = 0; i < this.parent.layout.width; i++) {
+			this.pieces.push(this.parent.pieces[i][j]);
+		}
+	}
+	update() {
+		this.updateMouse();
+		if (this.hovered) {
+			hovered = true;
+			this.pieces.forEach(pis=>pis.drawHovered = true);
+		}
+	}
+	draw() {
+		
+	}
+}
+
+class GridEditorStripeAddVert extends UIObject {
+	constructor(x, y, width, height, parent, i) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.parent = parent;
+		this.i = i;
+	}
+	update() {
+		this.updateMouse();
+		if (this.hovered) {
+			hovered = true;
+		}
+	}
+	draw() {
+		if (this.hovered) {
+			ctx.lineWidth = 4;
+			ctx.strokeStyle = palette.hover;
+			ctx.beginPath();
+			ctx.moveTo(this.x+this.width/2, this.y);
+			ctx.lineTo(this.x+this.width/2, this.y+this.height);
+			ctx.stroke();
+		}
+	}
+}
+
+class GridEditorStripeRemoveVert extends UIObject {
+	constructor(x, y, width, height, parent, i) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.parent = parent;
+		this.pieces = [];
+		this.i = i;
+		//console.log(this.parent);
+		for (var j = 0; j < this.parent.layout.height; j++) {
+			this.pieces.push(this.parent.pieces[i][j]);
+		}
+	}
+	update() {
+		this.updateMouse();
+		if (this.hovered) {
+			hovered = true;
+			this.pieces.forEach(pis=>pis.drawHovered = true);
+		}
+	}
+	draw() {
+		
 	}
 }
 

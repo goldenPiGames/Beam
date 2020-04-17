@@ -168,7 +168,7 @@ class MazeEditor extends Editor {
 	addRow(jVert) {
 		this.getLayout();
 		if (this.layout.height >= MAZE_EDITOR_MAX_HEIGHT) {
-			qAlert(lg("MazeEditor-MaxHeight"));
+			qAlert(lg("Editor-MaxHeight"));
 			return false;
 		}
 		this.layout.height++;
@@ -182,7 +182,7 @@ class MazeEditor extends Editor {
 	removeRow(jVert, jHoriz) {
 		this.getLayout();
 		if (this.layout.height <= MAZE_EDITOR_MIN_HEIGHT) {
-			qAlert(lg("MazeEditor-MinHeight"));
+			qAlert(lg("Editor-MinHeight"));
 			return false;
 		} else if (jVert == jHoriz) {
 			this.layout.height--;
@@ -202,7 +202,7 @@ class MazeEditor extends Editor {
 	addColumn(iHoriz) {
 		this.getLayout();
 		if (this.layout.width >= MAZE_EDITOR_MAX_WIDTH) {
-			qAlert(lg("MazeEditor-MaxWidth"));
+			qAlert(lg("Editor-MaxWidth"));
 			return false;
 		}
 		this.layout.width++;
@@ -216,7 +216,7 @@ class MazeEditor extends Editor {
 	removeColumn(iHoriz, iVert) {
 		this.getLayout();
 		if (this.layout.width <= MAZE_EDITOR_MIN_WIDTH) {
-			qAlert(lg("MazeEditor-MinWidth"));
+			qAlert(lg("Editor-MinWidth"));
 			return false;
 		} else if (iHoriz == iVert) {
 			this.layout.width--;
@@ -232,16 +232,6 @@ class MazeEditor extends Editor {
 		if ((this.layout.exitSide == UP || this.layout.exitSide == DOWN) && this.layout.exitPosition >= iHoriz)
 			this.layout.exitPosition--;
 		this.redoGrid();
-	}
-	setEntrance(side, position) {
-		this.layout.entranceSide = side;
-		this.layout.entrancePosition = position;
-		this.redoBorder();
-	}
-	setExit(side, position) {
-		this.layout.exitSide = side;
-		this.layout.exitPosition = position;
-		this.redoBorder();
 	}
 }
 

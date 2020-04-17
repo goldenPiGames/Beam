@@ -49,6 +49,7 @@ class ConcentricCirclesEditor extends Editor {
 		return this.layout;
 	}
 }
+ConcentricCirclesEditor.prototype.gridName = "also";
 
 class ConcentricCirclesEditorCheck extends UIObject {
 	constructor(x, y, radius, start, locked) {

@@ -2,7 +2,6 @@ const PIPE_PATH_EDITOR_MIN_WIDTH = 4;
 const PIPE_PATH_EDITOR_MAX_WIDTH = 12;
 const PIPE_PATH_EDITOR_MIN_HEIGHT = 4;
 const PIPE_PATH_EDITOR_MAX_HEIGHT = 10;
-const PIPE_PATH_EDITOR_MARGIN = 30;
 
 class PipePathEditor extends Editor {
 	constructor(layout) {
@@ -26,7 +25,7 @@ class PipePathEditor extends Editor {
 		layout.height = layout.pipeGrid[0].length;
 		super(layout);
 		this.tabIndex = 0;
-		this.tabs = new Tabs(100, HEIGHT-35, WIDTH-200, 35, [lg("PipePathEditor-TabWall"), lg("PipePathEditor-TabAddRow"), lg("PipePathEditor-TabRemoveRow"), lg("PipePathEditor-TabAddColumn"), lg("PipePathEditor-TabRemoveColumn"), lg("PipePathEditor-TabEntrance"), lg("PipePathEditor-TabExit")], t=>this.setTab(t), ()=>this.tabIndex);
+		this.tabs = new Tabs(100, HEIGHT-35, WIDTH-200, 35, [lg("PipePathEditor-TabType"), lg("PipePathEditor-TabAddRow"), lg("PipePathEditor-TabRemoveRow"), lg("PipePathEditor-TabAddColumn"), lg("PipePathEditor-TabRemoveColumn"), lg("PipePathEditor-TabEntrance"), lg("PipePathEditor-TabExit")], t=>this.setTab(t), ()=>this.tabIndex);
 		this.redoGrid();
 	}
 	reconstructGridLevel() {
@@ -43,45 +42,29 @@ class PipePathEditor extends Editor {
 	}
 	update() {
 		this.tabs.update();
+		if (this.stripes)
+			this.stripes.forEach(s=>s.update());
 		switch (this.tabIndex) {
 			case 0:
 				this.pieces.forEach(col=>col.forEach(wal=>wal.update()));
 				break;
 			case 1:
-				this.stripes.forEach(s=>s.update());
-				var clicked = this.stripes.find(s=>s.clicked);
-				if (clicked)
-					this.addRow(clicked.j);
+				this.ifStripeClicked(clicked=>this.addRow(clicked.j));
 				break;
 			case 2:
-				this.stripes.forEach(s=>s.update());
-				var clicked = this.stripes.find(s=>s.clicked);
-				if (clicked)
-					this.removeRow(clicked.j);
+				this.ifStripeClicked(clicked=>this.removeRow(clicked.j));
 				break;
 			case 3:
-				this.stripes.forEach(s=>s.update());
-				var clicked = this.stripes.find(s=>s.clicked);
-				if (clicked)
-					this.addColumn(clicked.i);
+				this.ifStripeClicked(clicked=>this.addColumn(clicked.i));
 				break;
 			case 4:
-				this.stripes.forEach(s=>s.update());
-				var clicked = this.stripes.find(s=>s.clicked);
-				if (clicked)
-					this.removeColumn(clicked.i);
+				this.ifStripeClicked(clicked=>this.removeColumn(clicked.i));
 				break;
 			case 5:
-				this.stripes.forEach(s=>s.update());
-				var clicked = this.stripes.find(s=>s.clicked);
-				if (clicked)
-					this.setEntrance(clicked.side, clicked.position);
+				this.ifStripeClicked(clicked=>this.setEntrance(clicked.side, clicked.position));
 				break;
 			case 6:
-				this.stripes.forEach(s=>s.update());
-				var clicked = this.stripes.find(s=>s.clicked);
-				if (clicked)
-					this.setExit(clicked.side, clicked.position);
+				this.ifStripeClicked(clicked=>this.setExit(clicked.side, clicked.position));
 				break;
 		}
 	}
@@ -133,73 +116,8 @@ class PipePathEditor extends Editor {
 		this.layout.pipeGrid = this.pieces.map(col=>col.map(pis=>pis.type));
 		return this.layout;
 	}
-	addRow(j) {
-		this.getLayout();
-		if (this.layout.height >= PIPE_PATH_EDITOR_MAX_HEIGHT) {
-			qAlert(lg("PipePathEditor-MaxHeight"));
-			return false;
-		}
-		this.layout.height++;
-		this.layout.pipeGrid.forEach(col=>col.splice(j, 0, 0));
-		if ((this.layout.entranceSide == LEFT || this.layout.entranceSide == RIGHT) && this.layout.entrancePosition > j)
-			this.layout.entrancePosition++;
-		if ((this.layout.exitSide == LEFT || this.layout.exitSide == RIGHT) && this.layout.exitPosition > j)
-			this.layout.exitPosition++;
-		this.redoGrid();
-	}
-	removeRow(j) {
-		this.getLayout();
-		if (this.layout.height <= PIPE_PATH_EDITOR_MIN_HEIGHT) {
-			qAlert(lg("PipePathEditor-MinHeight"));
-			return false;
-		}
-		this.layout.height--;
-		this.layout.pipeGrid.forEach(col=>col.splice(j, 1));
-		if ((this.layout.entranceSide == LEFT || this.layout.entranceSide == RIGHT) && (this.layout.entrancePosition > j || this.layout.entrancePosition >= this.layout.height))
-			this.layout.entrancePosition--;
-		if ((this.layout.exitSide == LEFT || this.layout.exitSide == RIGHT) && (this.layout.exitPosition > j || this.layout.exitPosition >= this.layout.height))
-			this.layout.exitPosition--;
-		this.redoGrid();
-	}
-	addColumn(i) {
-		this.getLayout();
-		if (this.layout.width >= PIPE_PATH_EDITOR_MAX_WIDTH) {
-			qAlert(lg("PipePathEditor-MaxWidth"));
-			return false;
-		}
-		this.layout.width++;
-		this.layout.pipeGrid.splice(i, 0, new Array(this.layout.height).fill(0));
-		if ((this.layout.entranceSide == UP || this.layout.entranceSide == DOWN) && this.layout.entrancePosition > i)
-			this.layout.entrancePosition++;
-		if ((this.layout.exitSide == UP || this.layout.exitSide == DOWN) && this.layout.exitPosition > i)
-			this.layout.exitPosition++;
-		this.redoGrid();
-	}
-	removeColumn(i) {
-		this.getLayout();
-		if (this.layout.width <= PIPE_PATH_EDITOR_MIN_WIDTH) {
-			qAlert(lg("PipePathEditor-MinWidth"));
-			return false;
-		}
-		this.layout.width--;
-		this.layout.pipeGrid.splice(i, 1);
-		if ((this.layout.entranceSide == UP || this.layout.entranceSide == DOWN) && (this.layout.entrancePosition > i || this.layout.entrancePosition >= this.layout.width))
-			this.layout.entrancePosition--;
-		if ((this.layout.exitSide == UP || this.layout.exitSide == DOWN) && (this.layout.exitPosition > i || this.layout.exitPosition >= this.layout.width))
-			this.layout.exitPosition--;
-		this.redoGrid();
-	}
-	setEntrance(side, position) {
-		this.layout.entranceSide = side;
-		this.layout.entrancePosition = position;
-		this.redoBorder();
-	}
-	setExit(side, position) {
-		this.layout.exitSide = side;
-		this.layout.exitPosition = position;
-		this.redoBorder();
-	}
 }
+PipePathEditor.prototype.gridName = "pipeGrid";
 
 class PipeEditorPiece extends UIObject {
 	constructor(x, y, radius, type) {
@@ -252,115 +170,6 @@ class PipeEditorPiece extends UIObject {
 			ctx.closePath();
 			ctx.stroke();
 		}
-	}
-}
-
-class GridEditorStripeAddHoriz extends UIObject {
-	constructor(x, y, width, height, parent, j) {
-		super();
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.parent = parent;
-		this.j = j;
-	}
-	update() {
-		this.updateMouse();
-		if (this.hovered) {
-			hovered = true;
-		}
-	}
-	draw() {
-		if (this.hovered) {
-			ctx.lineWidth = 4;
-			ctx.strokeStyle = palette.hover;
-			ctx.beginPath();
-			ctx.moveTo(this.x, this.y+this.height/2);
-			ctx.lineTo(this.x+this.width, this.y+this.height/2);
-			ctx.stroke();
-		}
-	}
-}
-
-class GridEditorStripeRemoveHoriz extends UIObject {
-	constructor(x, y, width, height, parent, j) {
-		super();
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.parent = parent;
-		this.pieces = [];
-		this.j = j;
-		for (var i = 0; i < this.parent.layout.width; i++) {
-			this.pieces.push(this.parent.pieces[i][j]);
-		}
-	}
-	update() {
-		this.updateMouse();
-		if (this.hovered) {
-			hovered = true;
-			this.pieces.forEach(pis=>pis.drawHovered = true);
-		}
-	}
-	draw() {
-		
-	}
-}
-
-class GridEditorStripeAddVert extends UIObject {
-	constructor(x, y, width, height, parent, i) {
-		super();
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.parent = parent;
-		this.i = i;
-	}
-	update() {
-		this.updateMouse();
-		if (this.hovered) {
-			hovered = true;
-		}
-	}
-	draw() {
-		if (this.hovered) {
-			ctx.lineWidth = 4;
-			ctx.strokeStyle = palette.hover;
-			ctx.beginPath();
-			ctx.moveTo(this.x+this.width/2, this.y);
-			ctx.lineTo(this.x+this.width/2, this.y+this.height);
-			ctx.stroke();
-		}
-	}
-}
-
-class GridEditorStripeRemoveVert extends UIObject {
-	constructor(x, y, width, height, parent, i) {
-		super();
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.parent = parent;
-		this.pieces = [];
-		this.i = i;
-		//console.log(this.parent);
-		for (var j = 0; j < this.parent.layout.height; j++) {
-			this.pieces.push(this.parent.pieces[i][j]);
-		}
-	}
-	update() {
-		this.updateMouse();
-		if (this.hovered) {
-			hovered = true;
-			this.pieces.forEach(pis=>pis.drawHovered = true);
-		}
-	}
-	draw() {
-		
 	}
 }
 

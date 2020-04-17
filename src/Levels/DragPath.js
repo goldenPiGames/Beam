@@ -33,7 +33,25 @@ class DragPathLevel extends GridLevel {
 			chain.forEach(pis => pis.tagged = true);
 		}
 	}
+	checkClickAlert() {
+		if (this.recentClicks)
+			this.recentClickTime++;
+		if (this.recentClickTime >= 120) {
+			this.recentClicks = 0;
+			this.recentClickTime = 120;
+		}
+		if (mouse.clicked) {
+			this.recentClicks++;
+			if (this.recentClicks >= 4) {
+				qAlert(lg("WalkOnce-AlertDrag"));
+				this.recentClicks = 0;
+				this.recentClickTime = 0;
+			}
+		}
+	}
 }
+Level.prototype.recentClickTime = 0;
+Level.prototype.recentClicks = 0;
 
 class DragPathTile extends UIObject {
 	
