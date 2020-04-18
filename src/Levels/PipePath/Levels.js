@@ -109,7 +109,9 @@ Levels.PipeStraightSearch = class LevelPipeStraightSearch extends PipeLevel {
 }
 
 const SEQ_MAIN_PIPE = {
-	id : "MainPipe", 
+	id : "MainPipe",
+	mode : "PipePath",
+	music : SONGREC.main.PipePath,
 	levelIDs : [
 		"PipeStraight",
 		"PipeSBend",

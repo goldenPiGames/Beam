@@ -31,6 +31,7 @@ class LevelSelectLinearScreen extends Screen {
 		if (this.selected) {
 			if (settings.rainbowBeam)
 				palette.beam = this.selected.seq.color;
+			recommendSongs(this.selected.seq.music);
 			levelIterator = new LinearLevelIterator(this.selected.seq, this.selected.index);
 			startLevel();
 		}

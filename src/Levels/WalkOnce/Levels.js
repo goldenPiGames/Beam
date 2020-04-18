@@ -121,6 +121,8 @@ Levels.OnceFR1 = class LevelOnceFR1 extends OnceLevel {
 
 const SEQ_MAIN_ONCE = {
 	id : "MainOnce",
+	mode : "WalkOnce",
+	music : SONGREC.main.WalkOnce,
 	levelIDs : [
 		"OnceSBend",
 		"OnceMGrid",

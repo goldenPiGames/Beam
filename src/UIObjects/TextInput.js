@@ -60,12 +60,12 @@ function moveInput(input, x, y, width, height) {
 	
 }
 
-function setFileInput(x, y, width, height, text) {
+function setFileInput(x, y, width, height, type) {
 	fileInput.lastMoveArgs = [x, y, width, height];
 	fileInput.hidden = false;
 	moveInput(fileInput, x, y, width, height);
-	fileInput.innerHTML = text;
 	fileInput.files = null;
+	fileInput.accept = type || "application/json";
 	//fileInput.style.border = "3px solid "+settings.normal_color;
 	fileInput.style.background = settings.background_color;
 	fileInput.style.color = settings.normal_color;

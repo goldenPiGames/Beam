@@ -123,6 +123,8 @@ Levels.ToggleGateGud = class LevelToggleGateGut extends ToggleLevel {
 
 const SEQ_MAIN_TOGGLE = {
 	id : "MainToggle",
+	mode : "ToggleGates",
+	music : SONGREC.main.ToggleGates,
 	levelIDs : [
 		"Toggle1",
 		"Toggle2",

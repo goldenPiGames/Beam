@@ -150,6 +150,10 @@ class GridLevel extends Level {
 		ctx.lineWidth = 4;
 		ctx.stroke(this.borderPath);
 	}
+	drawExitArrow() {
+		ctx.strokeStyle = palette.beam;
+		ctx.stroke(this.exitArrowPath);
+	}
 	gridToPixX(x) {
 		return this.gridXOffset + x * this.gridScale;
 	}

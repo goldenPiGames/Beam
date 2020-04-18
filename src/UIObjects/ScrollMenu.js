@@ -22,15 +22,27 @@ class ScrollMenu extends UIObject {
 		this.setItems(items);
 	}
 	setItems(items) {
-		this.currentScroll = 0;
 		this.items = items;
 		this.maxScroll = Math.max(items.length-this.maxEntries, 0);
 		this.scrollBar.max = items.length;
+		if (this.currentScroll > this.maxScroll) {
+			this.currentScroll = this.maxScroll;
+		}
 		this.itemElements = [];
 		var newElement = null;
 		for (var i = 0; i < this.maxEntries; i++) {
 			newElement = new ScrollMenuElement(this.x, this.y + (i * SCROLL_ELEMENT_HEIGHT), this.width - SCROLL_BAR_WIDTH, SCROLL_ELEMENT_HEIGHT, this, items[i]);
 			this.itemElements.push(newElement);
+		}
+	}
+	putItems() { //TODO use putItems as part of setItems
+		this.maxScroll = Math.max(this.items.length-this.maxEntries, 0);
+		this.scrollBar.max = this.items.length;
+		if (this.currentScroll > this.maxScroll) {
+			this.currentScroll = this.maxScroll;
+		}
+		for(var i = 0; i < this.maxEntries; i++) {
+			this.itemElements[i].setItem(this.items[i + this.currentScroll]);
 		}
 	}
 	scrollUp(amount = 1, canLoop = true) {
@@ -63,16 +75,6 @@ class ScrollMenu extends UIObject {
 			return;
 		this.currentScroll = Math.max(0, Math.min(this.maxScroll, Math.floor(selectIndex-this.maxEntries/2)));
 		this.putItems();
-	}
-	putItems() { //TODO use putItems as part of setItems
-		this.maxScroll = Math.max(this.items.length-this.maxEntries, 0);
-		this.scrollBar.max = this.items.length;
-		if (this.currentScroll > this.maxScroll) {
-			this.currentScroll = this.maxScroll;
-		}
-		for(var i = 0; i < this.maxEntries; i++) {
-			this.itemElements[i].setItem(this.items[i + this.currentScroll]);
-		}
 	}
 	update() {
 		super.update();

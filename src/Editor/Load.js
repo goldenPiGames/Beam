@@ -8,7 +8,7 @@ class EditorLoadScreen extends OverScreen {
 		this.height = HEIGHT/3;
 		this.wrap = wrap;
 		//this.fileButton = new Button(this.x+10, this.y+10, this.width-20, 40, lg("EditorLoad-File"), ()=>this.saveFile());
-		setFileInput(this.x+10, this.y+10, this.width-20, 30, lg("EditorLoad-FileInput"));
+		setFileInput(this.x+10, this.y+10, this.width-20, 30, ".beamlevel");
 		this.fileButton = new Button(this.x+10, this.y+50, this.width-20, 40, lg("EditorLoad-File"), ()=>this.loadFile());
 		setTextInput(this.x+10, this.y+this.height-90, this.width-20, 30, lg("EditorLoad-Paste"));
 		this.copyButton = new Button(this.x+10, this.y+this.height-50, this.width-20, 40, lg("EditorLoad-Text"), ()=>this.loadFromInput());

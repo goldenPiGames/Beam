@@ -63,6 +63,9 @@ LANG.en = {
 	"Credits-Sources" : "Levels",
 	"Credits-SourcesRest" : "Everything else",
 	"Credits-SourcesOriginal" : "Original",
+	
+	"Jukebox-Position" : "Position",
+	"Jukebox-Volume" : "Volume",
 	"Jukebox-SortBy" : "Author A-Z",
 	"Jukebox-SortName" : "Title A-Z",
 	"Jukebox-SortHeader" : "Sort & Filter",
@@ -71,7 +74,9 @@ LANG.en = {
 	"Jukebox-MinimumIntensity" : "Min",
 	"Jukebox-MaximumIntensity" : "Max",
 	"Jukebox-Intensities" : ["Lullaby", "Calm", "Moderate", "Exciting", "Intense"],
+	"Jukebox-Manual" : "Manual",
 	"Jukebox-Shuffle" : "Shuffle",
+	"Jukebox-Recommend" : "Recommend",
 	"Jukebox-Genre-all" : "Any",
 	"Jukebox-Genre-chiptune" : "Chiptune",
 	"Hint-TabModeRules" : "Mode Rules",
@@ -258,7 +263,7 @@ LANG.en = {
 	"SameSlideDemo-Hints" : ["You literally can't fail this one, just click until you win."],
 	"SameTower1-Hints" : ["First, click the <SameGameColor|0> pair. Otherwise, you'll have a singleton block of either <SameGameColor|1> or <SameGameColor|2> left."],
 	"SameLemonade-Hints" : ["Tempting though it may be, do not remove the large <SameGameColor|2> group at the start; otherwise, you'll leave that single <SameGameColor|2> remaining.", "Don't remove the <SameGameColor|1> in the lower left either, for the same reason."],
-	"SameFRHard-Hints" : ["The <SameGameColor|0> and <SameGameColor|3> in the lower-right will be the hardest, so focus on them.", "Pick the two <SameGameColor|0> tiles in the middle first.", "You can't remove the rightmost <SameGameColor|0> using the closest group of <SameGameColor|0> - instead, remove it using the group in the third column."],
+	"SameFRHard-Hints" : ["The <SameGameColor|0> and <SameGameColor|3> in the lower-right will be the hardest, so focus on them.", "Pick the two <SameGameColor|0> tiles in the middle first.", "You can't remove the rightmost <SameGameColor|3> using the closest group of <SameGameColor|3> - instead, remove it using the group in the third column."],
 	
 	"SameGame-SolutionStep" : "Move <move>: Remove <count> <color> at column <col> from left, row <row> from bottom.",
 	

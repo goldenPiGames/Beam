@@ -27,14 +27,14 @@ class Jukebox extends Screen {
 					bubbleDrawIHeart.call(this);
 				}});
 		var swid = Math.floor(WIDTH - midx) - 10;
-		this.positionSlider = new Slider(midx, 205, swid, 50, "Position", 0, 60, setMusicPosition, getMusicPosition);
-		this.volumeSlider = new Slider(midx, 265, swid, 30, "Volume", 0, 1, val=>{settings.music=val;setMusicVolume(val);saveSettings();}, ()=>settings.music, ()=>asInfuriatingPercent(settings.music));
+		this.positionSlider = new Slider(midx, 205, swid, 50, lg("Jukebox-Position"), 0, 60, setMusicPosition, getMusicPosition, getMusicPosition);
+		this.volumeSlider = new Slider(midx, 265, swid, 30, lg("Jukebox-Volume"), 0, 1, val=>{settings.music=val;setMusicVolume(val);saveSettings();}, ()=>settings.music, ()=>asInfuriatingPercent(settings.music));
 		this.setSliderBounds();
 		this.sortButtons = new RadioButtons(midx, 300, swid/2, 24, [lg("Jukebox-SortBy"), lg("Jukebox-SortName")], dex=>this.setSort(dex), jukeboxSpecs.sort);
 		this.intensityMinSlider = new Slider(midx, 360, swid/2-5, 25, lg("Jukebox-MinimumIntensity"), 0, 1, val=>this.setIntensityMin(val), ()=>jukeboxSpecs.intensityMin, ()=>getIntensityDesc(jukeboxSpecs.intensityMin));
 		this.intensityMaxSlider = new Slider(midx, 390, swid/2-5, 25, lg("Jukebox-MaximumIntensity"), 0, 1, val=>this.setIntensityMax(val), ()=>jukeboxSpecs.intensityMax, ()=>getIntensityDesc(jukeboxSpecs.intensityMax));
+		this.changeRadio = new RadioButtons(midx, HEIGHT-90, swid, 30, [lg("Jukebox-Manual"), lg("Jukebox-Shuffle"), lg("Jukebox-Recommend")], val=>this.setChange(val), jukeboxSpecs.recommend ? 2 : jukeboxSpecs.shuffle ? 1 : 0);
 		this.favCheckbox = new Checkbox(midx+swid/2, 450, swid/2, 24, lg("Jukebox-FavsOnly"), val=>this.setFavsOnly(val), jukeboxSpecs.favsOnly);
-		this.shuffleCheckbox = new Checkbox(midx, HEIGHT-35, swid, 30, lg("Jukebox-Shuffle"), val=>this.setShuffle(val), jukeboxSpecs.shuffle);
 		this.genreButtons = new RadioButtons(midx+swid/2, 300, swid/2, 24, MUSIC_GENRES.map(n=>lg("Jukebox-Genre-"+n)), val=>this.setGenre(val), jukeboxSpecs.genre);
 		this.objects = [
 			this.songMenu,
@@ -48,7 +48,7 @@ class Jukebox extends Screen {
 			this.favCheckbox,
 			this.intensityMinSlider,
 			this.intensityMaxSlider,
-			this.shuffleCheckbox,
+			this.changeRadio,
 			this.genreButtons,
 		];
 	}
@@ -71,17 +71,7 @@ class Jukebox extends Screen {
 		this.positionSlider.max = song ? (jukeboxSpecs.shuffle ? music.duration : song.loopEnd) || music.duration : 60;
 	}
 	refreshList() {
-		songList = SONG_LIST.slice().filter(s=>s.intensity>=jukeboxSpecs.intensityMin && s.intensity<=jukeboxSpecs.intensityMax);
-		if (jukeboxSpecs.favsOnly)
-			songList = songList.filter(s=>s.fav);
-		if (jukeboxSpecs.genre) {
-			var genreName = MUSIC_GENRES[jukeboxSpecs.genre];
-			songList = songList.filter(s=>s[genreName]);
-		}
-		switch (jukeboxSpecs.sort) {
-			case 0: songList.sort((a,b)=> a.by < b.by ? -1 : 1); break;
-			case 1: songList.sort((a,b)=> a.name < b.name ? -1 : 1); break;
-		}
+		filterSongList();
 		if (this.songMenu) {
 			this.songMenu.setItems(songList);
 			this.songMenu.scrollToSelected();
@@ -114,9 +104,23 @@ class Jukebox extends Screen {
 		this.refreshList();
 		//this.setSliderBounds();
 	}
-	setShuffle(val) {
-		jukeboxSpecs.shuffle = val;
-		setMusicShuffle(jukeboxSpecs.shuffle)
+	setChange(val) {
+		switch (val) {
+			case 0:
+				jukeboxSpecs.shuffle = false;
+				jukeboxSpecs.recommend = false;
+				break;
+			case 1:
+				jukeboxSpecs.shuffle = true;
+				jukeboxSpecs.recommend = false;
+				recommendSongs(lastRecommendedSongs);
+				break;
+			case 2:
+				jukeboxSpecs.shuffle = false;
+				jukeboxSpecs.recommend = true;
+				break;
+		}
+		setMusicShuffle(jukeboxSpecs.shuffle);
 		this.setSliderBounds();
 	}
 	setGenre(val) {
@@ -158,7 +162,24 @@ var jukeboxSpecs = {
 	intensityMax : 1,
 	favsOnly : false,
 	shuffle : false,
+	recommend : true,
 	genre : 0,
+}
+
+function filterSongList() {
+	songList = SONG_LIST.slice().filter(s=>s.intensity>=jukeboxSpecs.intensityMin && s.intensity<=jukeboxSpecs.intensityMax);
+	if (jukeboxSpecs.favsOnly)
+		songList = songList.filter(s=>s.fav);
+	if (jukeboxSpecs.genre) {
+		var genreName = MUSIC_GENRES[jukeboxSpecs.genre];
+		songList = songList.filter(s=>s[genreName]);
+	}
+	SONG_LIST.forEach(s=>s.s=false);
+	songList.forEach(s=>s.s=true);
+	switch (jukeboxSpecs.sort) {
+		case 0: songList.sort((a,b)=> a.by < b.by ? -1 : 1); break;
+		case 1: songList.sort((a,b)=> a.name < b.name ? -1 : 1); break;
+	}
 }
 
 function getIntensityDesc(val) {

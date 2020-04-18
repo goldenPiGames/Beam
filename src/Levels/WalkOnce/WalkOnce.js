@@ -56,7 +56,7 @@ class OnceLevel extends DragPathLevel {
 	draw() {
 		this.drawBorder();
 		if (!this.won)
-			ctx.stroke(this.exitArrowPath);
+			this.drawExitArrow();
 		this.pieces.forEach(row=>row.forEach(pis=>pis.draw()));
 		drawBeam(this.beamPath);
 		if (this.beamStopX)

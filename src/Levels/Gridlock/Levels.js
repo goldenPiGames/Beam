@@ -134,6 +134,7 @@ Levels.GridlockFR3 = class LevelGridlockFR3 extends GridlockLevel {
 				{x:3, y:3, len:2, horiz:false},
 				{x:0, y:2, len:2, horiz:false},
 				{x:0, y:0, len:2, horiz:false},
+				{x:2, y:0, len:2, horiz:false},
 				{x:1, y:2, len:2, horiz:false},
 				{x:0, y:4, len:3, horiz:true}
 			]
@@ -192,6 +193,8 @@ Levels.GridlockRH3 = class LevelGridlockRH3 extends GridlockLevel {
 
 const SEQ_MAIN_GRIDLOCK = {
 	id : "MainGridlock",
+	mode : "Gridlock",
+	music : SONGREC.main.Gridlock,
 	levelIDs : [
 		"Gridlock1",
 		"Gridlock2",

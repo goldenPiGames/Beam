@@ -92,6 +92,8 @@ Levels.ConcentricRound4 = class LevelConcentricRound3 extends ConcentricLevel {
 
 const SEQ_MAIN_CONCENTRIC = {
 	id : "MainConcentric",
+	mode : "ConcentricCircles",
+	music : SONGREC.main.ConcentricCircles,
 	levelIDs : [
 		"ConcentricSingle",
 		"ConcentricDouble",

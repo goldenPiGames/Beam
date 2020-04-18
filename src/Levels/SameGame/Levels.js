@@ -93,6 +93,8 @@ Levels.SameFRHard = class LevelSameFRHard extends SameLevel {
 
 const SEQ_MAIN_SAME = {
 	id : "MainSame",
+	mode : "SameGame",
+	music : SONGREC.main.SameGame,
 	levelIDs : [
 		"SameIntro",
 		"SameSlideDemo",

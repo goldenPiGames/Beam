@@ -67,6 +67,11 @@ const SONG_LIST = [
 		by:"Kubbi", yt:"DLvrDRRaftQ", site:"https://kubbimusic.com/track/seahorse-dreams", siten:"KubbiMusic.com", sc:"kubbi/seahorse-dreams", ng:538406},
 	{name:"Blue Sky", intensity:1/2,
 		by:"ParagonX9", yt:"QdL18RWUS8E", ng:5437},
+	{name:"Chaoz Fantasy", intensity:3/4,
+		by:"ParagonX9", yt:"pxIuZC26hXU", sc:"paragonx9/chaozfantasy", ng:85046},
+	{name:"Chaoz Fantasy (8-bit)", intensity:3/4, chiptune:1,
+		by:"ParagonX9", sc:"paragonx9/paragonx9-chaoz-fantasy-8-bit", ng:486695},
+	//PeriTune / Sei Mutsuki / むつき醒
 	{name:"Deep Valley 2", intensity:0,
 		by:"PeriTune", yt:"iStkj9BMmWw", site:"https://peritune.com/deep_valley2/", siten:"PeriTune.com", sc:"sei_peridot/deep-valley2", license:CC_BY_4},
 	{name:"Demise", intensity:1, loopStart:13.111, loopEnd:99.403,
@@ -144,6 +149,10 @@ const SONG_LIST = [
 	{name:"勝利を信じて", fname:"Battle 1", intensity:3/4, chiptune:1, loopStart:6.1998185941043085, loopEnd:54.19823129251701,
 		by:"YouFulca", site:"https://wingless-seraph.net/material-music_8bit.html", siten:"Wingless Seraph"},
 	{name:"決戦の地へ", fname:"Dungeon 03", intensity:1/2, chiptune:1, loopStart:18.659954648526078, loopEnd:77.73732426303854,
+		by:"YouFulca", site:"https://wingless-seraph.net/material-music_8bit.html", siten:"Wingless Seraph"},
+	{name:"神秘の海を越えて", fname:"Voyage", intensity:0, loopStart:14.865419501133786, loopEnd:125.07396825396826,
+		by:"YouFulca", site:"https://wingless-seraph.net/material-music_field.html", siten:"Wingless Seraph"},
+	{name:"遥かなる冒険", fname:"Field 01", intensity:1/4, chiptune:1, loopStart:4.933741496598639, loopEnd:65.56698412698412,
 		by:"YouFulca", site:"https://wingless-seraph.net/material-music_8bit.html", siten:"Wingless Seraph"},
 ]
 var SONG_HASH = {};

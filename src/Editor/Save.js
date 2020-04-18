@@ -37,11 +37,11 @@ class EditorSaveScreen extends OverScreen {
 	}
 	//https://stackoverflow.com/questions/13405129/javascript-create-and-save-file
 	saveFile() {
-		var file = new Blob([this.data], {type : "application/json"});
+		var file = new Blob([this.data], {type : "text/plain"});
 		var a = document.createElement("a");
 		var url = URL.createObjectURL(file);
 		a.href = url;
-		a.download = "level";
+		a.download = "mylevel.beamlevel";
 		document.body.appendChild(a);
 		a.click();
 		setTimeout(function() {
