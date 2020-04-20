@@ -84,6 +84,28 @@ Levels.PipeAround = class LevelPipeAround extends PipeLevel {
 	}
 }
 
+/*Levels.PipeSWStraight = class LevelPipeSStraight extends PipeLevel {
+	constructor() {
+		super({
+			entranceSide:3,
+			entrancePosition:7,
+			exitSide:1,
+			exitPosition:5,
+			pipeGrid:[
+				[1,1,0,0,0,0,0,0],
+				[0,0,1,0,0,0,1,0],
+				[0,1,0,0,0,1,0,0],
+				[1,0,1,0,0,0,0,0],
+				[0,1,0,1,0,1,0,1],
+				[0,1,0,0,1,0,0,1],
+				[0,0,1,0,1,1,0,1],
+				[0,0,0,1,0,0,1,0]
+			],
+		});
+	}
+}*/
+Levels.PipeSWStraight = levelClassFromJSON({"width":8,"height":8,"entranceSide":3,"entrancePosition":7,"exitSide":1,"exitPosition":5,"pipeGrid":[[1,1,0,0,0,0,0,0],[0,0,1,0,0,0,1,0],[0,1,0,0,0,1,0,0],[1,0,1,0,0,0,0,0],[0,1,0,1,0,1,0,1],[0,1,0,0,1,0,0,1],[0,0,1,0,1,1,0,1],[0,0,0,1,0,0,1,0]],"mode":"PipePath"});
+
 Levels.PipeStraightSearch = class LevelPipeStraightSearch extends PipeLevel {
 	constructor() {
 		super({
@@ -118,6 +140,7 @@ const SEQ_MAIN_PIPE = {
 		"Pipe3",
 		"PipeReal",
 		"PipeAround",
+		"PipeSWStraight",
 		"PipeStraightSearch",
 	]
 }

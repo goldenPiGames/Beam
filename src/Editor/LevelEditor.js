@@ -19,6 +19,7 @@ class EditorWrapper extends Screen {
 					this.editor = new BlankEditor();
 			}
 		} catch (e) {
+			console.log(e)
 			qAlert(lg("EditorLoad-Error"));
 			this.editor = new BlankEditor();
 		}
@@ -73,7 +74,7 @@ class Editor {
 	}
 	addRow(j) {
 		this.getLayout();
-		if (this.layout.height >= PIPE_PATH_EDITOR_MAX_HEIGHT) {
+		if (this.layout.height >= this.maxHeight) {
 			qAlert(lg(this.lMaxHeight));
 			return false;
 		}
@@ -87,7 +88,7 @@ class Editor {
 	}
 	removeRow(j) {
 		this.getLayout();
-		if (this.layout.height <= PIPE_PATH_EDITOR_MIN_HEIGHT) {
+		if (this.layout.height <= this.minHeight) {
 			qAlert(lg(this.lMinHeight));
 			return false;
 		}
@@ -101,7 +102,7 @@ class Editor {
 	}
 	addColumn(i) {
 		this.getLayout();
-		if (this.layout.width >= PIPE_PATH_EDITOR_MAX_WIDTH) {
+		if (this.layout.width >= this.maxWidth) {
 			qAlert(lg(this.lMaxWidth));
 			return false;
 		}
@@ -115,7 +116,7 @@ class Editor {
 	}
 	removeColumn(i) {
 		this.getLayout();
-		if (this.layout.width <= PIPE_PATH_EDITOR_MIN_WIDTH) {
+		if (this.layout.width <= this.minWidth) {
 			qAlert(lg(this.lMinWidth));
 			return false;
 		}

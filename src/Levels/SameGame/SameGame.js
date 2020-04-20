@@ -15,7 +15,7 @@ class SameLevel extends GridLevel {
 	reset(re) {
 		if (re)
 			playSFX("blipdown");
-		this.blockGrid = this.initGrid.map((col,x)=>col.map((pis,y)=>new SameBlock(x, y, pis, this)));
+		this.blockGrid = this.initGrid.map((col,x)=>col.map((pis,y)=>pis<0?null:new SameBlock(x, y, pis, this)));
 		this.refreshList();
 		this.evalPath();
 	}
@@ -157,9 +157,17 @@ class SameBlock extends UIObject {
 			this.displayX = Math.max(this.displayXGoal, this.displayX - 20);
 		}
 	}
-	draw() {//TODO add patterns for the colorblind
-		ctx.globalAlpha = 1;
+	draw() {
 		ctx.lineWidth = 4;
+		this.drawI();
+		ctx.globalAlpha = 1;
+		ctx.strokeStyle = this.drawHovered ? palette.hover : palette.normal;
+		this.stroke();
+		this.drawHovered = false;
+	}
+	drawI() {
+		ctx.globalAlpha = 1;
+		//console.log(palette["samegame"+this.color], "samegame"+this.color);
 		ctx.fillStyle = palette["samegame"+this.color];
 		ctx.fillRect(this.displayX, this.displayY, this.displayWidth, this.displayHeight);
 		if (settings.colorblind) {
@@ -220,10 +228,6 @@ class SameBlock extends UIObject {
 					break;
 			}
 		}
-		ctx.globalAlpha = 1;
-		ctx.strokeStyle = this.drawHovered ? palette.hover : palette.normal;
-		ctx.strokeRect(this.displayX+2, this.displayY+2, this.displayWidth-4, this.displayHeight-4);
-		this.drawHovered = false;
 	}
 	updateDisplayPosition() {
 		this.displayWidth = this.parent.gridScale;

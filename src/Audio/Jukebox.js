@@ -28,7 +28,7 @@ class Jukebox extends Screen {
 				}});
 		var swid = Math.floor(WIDTH - midx) - 10;
 		this.positionSlider = new Slider(midx, 205, swid, 50, lg("Jukebox-Position"), 0, 60, setMusicPosition, getMusicPosition, getMusicPosition);
-		this.volumeSlider = new Slider(midx, 265, swid, 30, lg("Jukebox-Volume"), 0, 1, val=>{settings.music=val;setMusicVolume(val);saveSettings();}, ()=>settings.music, ()=>asInfuriatingPercent(settings.music));
+		this.volumeSlider = new Slider(midx, 265, swid, 30, lg("Jukebox-Volume"), 0, 1, val=>{settings.music=val;setMusicVolume(val);saveSettings();}, ()=>settings.music, ()=>asPercent(settings.music));
 		this.setSliderBounds();
 		this.sortButtons = new RadioButtons(midx, 300, swid/2, 24, [lg("Jukebox-SortBy"), lg("Jukebox-SortName")], dex=>this.setSort(dex), jukeboxSpecs.sort);
 		this.intensityMinSlider = new Slider(midx, 360, swid/2-5, 25, lg("Jukebox-MinimumIntensity"), 0, 1, val=>this.setIntensityMin(val), ()=>jukeboxSpecs.intensityMin, ()=>getIntensityDesc(jukeboxSpecs.intensityMin));

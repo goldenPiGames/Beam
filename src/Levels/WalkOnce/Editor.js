@@ -118,6 +118,10 @@ class WalkOnceEditor extends Editor {
 	}
 }
 WalkOnceEditor.prototype.gridName = "grid";
+WalkOnceEditor.prototype.minWidth = WALK_ONCE_EDITOR_MIN_WIDTH;
+WalkOnceEditor.prototype.maxWidth = WALK_ONCE_EDITOR_MAX_WIDTH;
+WalkOnceEditor.prototype.minHeight = WALK_ONCE_EDITOR_MIN_HEIGHT;
+WalkOnceEditor.prototype.maxHeight = WALK_ONCE_EDITOR_MAX_HEIGHT;
 
 class OnceEditorPiece extends UIObject {
 	constructor(x, y, radius, clear) {

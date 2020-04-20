@@ -217,6 +217,16 @@ LANG.en = {
 	"GridlockEditor-TabRemoveColumn" : "-Width",
 	"GridlockEditor-TabExit" : "Exit",
 	
+	"SameGameEditorNew-Width" : "Width",
+	"SameGameEditorNew-Height" : "Height",
+	"SameGameEditor-TabOverwrite" : "Over",
+	"SameGameEditor-TabInsert" : "Ins",
+	"SameGameEditor-TabAddRow" : "+Width",
+	"SameGameEditor-TabRemoveRow" : "-Width",
+	"SameGameEditor-TabAddColumn" : "+Col",
+	"SameGameEditor-TabRemoveColumn" : "-Col",
+	"SameGameEditor-TabExit" : "Exit",
+	
 	//-------------------------------------------------------------- Level-Specific Hints -------------------------------------
 	"Toggle1-Hints" : ["You see that circly thing up there? Click on it."],
 	"Toggle2-Hints" : ["Click both of the circly buttons up there."],
@@ -225,6 +235,8 @@ LANG.en = {
 	"ToggleMirrorHall-Hints" : ["The solution is much more simple than it may seem."],
 	"ToggleMirrorHall-Source" : "Super Paper Mario; Mirror Hall",
 	"ToggleGateGud-Hints" : ["The seventh switch must be on because it is the only one that affects the seventh gate."],
+	"ToggleLoss-Hints" : ["For real, try drawing it out on a grid. Maybe with gates as columns and switches and rows?",
+		"The fourth and seventh switches must be on because they are the only ones that affect the fourth and sixth gates, respectively."],
 	
 	"MazeStraight-Hints" : ["Just drag from left to right."],
 	"MazeU-Hints" : ["Wht dou you want me to say? It's a one-way path."],
@@ -243,14 +255,17 @@ LANG.en = {
 	"ConcentricCascade3-Hints" : ["When you drag one of the rings, it drags all of the rings inside it too.", "Work either from the outside in or from the inside out."],
 	"ConcentricReverse4-Hints" : ["Just like a previous level, but in reverse", "Each ring moves all of the rings outside itself.", "Work either from the outside in or from the inside out."],
 	"ConcentricCascramble31425" : ["This is just like the previous levels, except that the order of the rings is scrambled."],
-	"ConcentricRound3-Hints" : ["If you're near the end, make small movements."],//TODO maybe more hints?
-	"ConcentricRound4-Hints" : ["Each ring brings with it the bring to either side (looping around).", "If you can line up three of them, you can line up all of them."],//TODO maybe more hints?
+	"ConcentricRound3-Hints" : ["If you can line up two of them, you can line up all of them.", "If all the rings are lined up, move them to the end by dragging each ring the same amount."],//TODO maybe more hints?
+	"ConcentricRound4-Hints" : ["Each ring brings with it the ring to either side (looping around).", "If you can line up three of them, you can line up all of them.", "If all the rings are lined up, move them to the end by dragging each ring the same amount."],
 	
 	"OnceSBend-Hints" : ["Just drag from circle to circle."],
 	"OnceMGrid-Hints" : ["Go down from the start."],
 	"OnceSymPip-Hints" : ["You have to go down from the start; otherwise, you'll leave yourself with a dead end.", "The solution is symmetrical."],
 	"OnceIronFortress-Hints" : ["Go down from the start."],
 	"OnceIronFortress-Source" : "Epic Battle Fantasy 5; Iron Fortress",
+	"OnceSectorsHard-Hints" : ["There are three gaps between the top half and the bottom half, so you'll need to go down two of them and up one of them.",
+		"There are several tiles where you can close yourself off if you're not careful, especially the tile in the very center.",
+		"There are multiple solutions, but here's one: start by going all the way to the right"],
 	
 	"PipeStraight-Hints" : ["Make all of the pieces horizontal."],
 	"PipeSBend-Hints" : ["You don't need to connect all the pieces. Just get to the exit."],
@@ -267,6 +282,7 @@ LANG.en = {
 	
 	"SameGame-SolutionStep" : "Move <move>: Remove <count> <color> at column <col> from left, row <row> from bottom.",
 	
+	//-------------------------------------------------------------- Settings & Colors ----------------------------------------
 	"Settings-Music" : "Music",
 	"Settings-SFX" : "SFX",
 	"Settings-Colorblind" : "Colorblind-Friendly",

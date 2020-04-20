@@ -4,15 +4,20 @@ const MUSIC_GENRES = ["all", "chiptune"];
 
 
 const SONG_LIST = [
+	//Jon Matson / Al Gorgeous / Al Goregeous
 	{name:"Boat Paint", intensity:1/4,
 		by:"Al Gorgeous", sc:"al-goregous/boat-paint"},
+	
+	//Asher Please
 	{name:"Saturday Morning Mood", intensity:0,
-		by:"Asher Please", sc:"asherplease/saturday-morning-mood-1"},
+		by:"Asher Please", site:"https://distrokid.com/hyperfollow/asherplease/break-beater", siten:"DistroKid", yt:"i6W33mnXeCg", sc:"asherplease/saturday-morning-mood-1", spot:"45jYDG8Jx7xnjMtunTcZh9"},
 	{name:"Sunday Night Sailing", intensity:1/4,
 		by:"Asher Please"},
 	/*{name:"Broken Record Blues", intensity:1/4,
 		by:"Asher Please", sc:"asherplease/broken-record-blues"},
 	*/
+	
+	//Darren Curtis
 	{name:"Beatdown City", intensity:3/4,
 		by:"Darren Curtis", yt:"qL4u3u5WKgU", site:"https://www.darrencurtismusic.com", siten:"DarrenCurtisMusic.com", sc:"desperate-measurez/beatdown-city-80s-action-theme-royalty-free", pat:"darrencurtismusic"},
 	{name:"Dark Anthem", intensity:3/4,
@@ -29,6 +34,8 @@ const SONG_LIST = [
 		by:"Darren Curtis", yt:"NOGZX7Z4wSI", site:"https://www.darrencurtismusic.com", siten:"DarrenCurtisMusic.com", sc:"desperate-measurez/samurai-sake-showdown-asian-royalty-free-music", pat:"darrencurtismusic"},
 	{name:"War of the Pianos",
 		by:"Darren Curtis", yt:"CP8HoV4ArHw", site:"https://www.darrencurtismusic.com", siten:"DarrenCurtisMusic.com", sc:"desperate-measurez/war-of-the-pianos-royalty-free", pat:"darrencurtismusic"},
+	
+	//Eric Matyas / SoundImage
 	{name:"Decisions", intensity:0, bpm:95.34,
 		by:"Eric Matyas", site:"https://soundimage.org/introspective/", siten:"SoundImage.org", sc:"eric-matyas/decisions"},
 	{name:"Hong Kong Midnight", intensity:0,
@@ -45,10 +52,14 @@ const SONG_LIST = [
 		by:"Eric Matyas", site:"https://soundimage.org/nature-science-3/", siten:"SoundImage.org"},
 	//{name:"Toilet Story 4", intensity:1/2, chiptune:1,
 	//	by:"Ghidorah", site:"https://modarchive.org/index.php?request=view_by_moduleid&query=63621", siten:"The Mod Archive"},//site:"https://www.last.fm/music/Ghidorah/_/Toilet+Story+4", siten:"last.fm"}, //
+	
+	//Jeremy Blake / RedMeansRecording
 	{name:"Flex", intensity:3/4,
 		by:"Jeremy Blake", yt:"btp2AZVWekM", sc:"jeremyblake", pat:"redmeansrecording"},
-	{name:"Turn Up, Let's Go", intensity:1/2,
+	{name:"Turn Up, Let's Go", intensity:1/2, hop:1, vocals:1,
 		by:"Jeremy Blake", yt:"btp2AZVWekM", sc:"jeremyblake", pat:"redmeansrecording"},
+	
+	//Kevin MacLeod / Incompetech
 	{name:"Blip Stream", intensity:1/2, chiptune:1,
 		by:"Kevin MacLeod", yt:"9np9KK4ccuA", site:"https://incompetech.com/music/royalty-free/index.html?isrc=usuan1500056", siten:"Incompetech", sc:"kevin-9-1/blip-stream", pat:"kmacleod"},
 	{name:"Exit the Premises", intensity:3/4,
@@ -61,16 +72,21 @@ const SONG_LIST = [
 		by:"Kevin MacLeod", yt:"Z-bi29z4Z1k", site:"https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1500076", siten:"Incompetech", sc:"kevin-9-1/pixelland", pat:"kmacleod"},
 	{name:"Who Likes to Party", intensity:1/2,
 		by:"Kevin MacLeod", yt:"O-2DwDG0EqM", site:"https://incompetech.com/music/royalty-free/index.html?isrc=usuan1200075", siten:"Incompetech", pat:"kmacleod"},
+	
+	//Kubbi
 	{name:"Up In My Jam (All Of A Sudden)", intensity:3/4,
 		by:"Kubbi", yt:"6DB6hBRPsWc", site:"https://kubbimusic.com/track/up-in-my-jam-all-of-a-sudden", siten:"KubbiMusic.com", sc:"kubbi/up-in-my-jam-all-of-a-sudden", ng:538102},
 	{name:"Seahorse Dreams", intensity:3/4,
 		by:"Kubbi", yt:"DLvrDRRaftQ", site:"https://kubbimusic.com/track/seahorse-dreams", siten:"KubbiMusic.com", sc:"kubbi/seahorse-dreams", ng:538406},
+	
+	//ParagonX9
 	{name:"Blue Sky", intensity:1/2,
 		by:"ParagonX9", yt:"QdL18RWUS8E", ng:5437},
 	{name:"Chaoz Fantasy", intensity:3/4,
 		by:"ParagonX9", yt:"pxIuZC26hXU", sc:"paragonx9/chaozfantasy", ng:85046},
 	{name:"Chaoz Fantasy (8-bit)", intensity:3/4, chiptune:1,
 		by:"ParagonX9", sc:"paragonx9/paragonx9-chaoz-fantasy-8-bit", ng:486695},
+	
 	//PeriTune / Sei Mutsuki / むつき醒
 	{name:"Deep Valley 2", intensity:0,
 		by:"PeriTune", yt:"iStkj9BMmWw", site:"https://peritune.com/deep_valley2/", siten:"PeriTune.com", sc:"sei_peridot/deep-valley2", license:CC_BY_4},
@@ -106,8 +122,12 @@ const SONG_LIST = [
 		by:"PeriTune", yt:"g3c-dHAI-ts", site:"https://peritune.com/rapid4/", siten:"PeriTune.com", sc:"sei_peridot/rapid4"},
 	{name:"Unknown World 2", intensity:1/2, alt:true,
 		by:"PeriTune", yt:"OpsZR7O5H-A", site:"https://peritune.com/unknownworld2/", siten:"PeriTune.com", sc:"sei_peridot/unknownworld2", license:CC_BY_4}, //alt sc:"sei_peridot/unknownworld2_harp"
-	{name:"Heartbeam 1", bpm:128, //intensity:1/4, 
-		by:"Prexot"},
+	
+	
+	//{name:"Heartbeam 1", bpm:128, //intensity:1/4, 
+	//	by:"Prexot"},
+	
+	//TeknoAXE
 	{name:"Edge of Tomorrow", intensity:1/2,
 		by:"TeknoAXE", yt:"hqsI5atn1U4", site:"http://teknoaxe.com/Link_Code_3.php?q=1242", siten:"TeknoAXE.com", license:CC_BY_4},
 	{name:"Inside Prism City", intensity:1/4,
@@ -116,8 +136,16 @@ const SONG_LIST = [
 		by:"TeknoAXE", yt:"Atzw6dxu-L0", site:"https://teknoaxe.com/Link_Code_3.php?q=1307", siten:"TeknoAXE.com", license:CC_BY_4},
 	{name:"This is My City", intensity:1/4,
 		by:"TeknoAXE", yt:"08aevamNz60", site:"https://teknoaxe.com/Link_Code_3.php?q=1404", siten:"TeknoAXE.com", license:CC_BY_4},
+		
+	//TeknoAXE
+	{name:"Unity", intensity:3/4, hop:1, vocals:1,
+		by:"TheFatRat", yt:"n8X9_MgEdCg", site:"https://lnk.to/thefatratunity", siten:"Linkfire", spot:"1cxmFr3tma40mHVD1NsLAV", ng:621134, license:CC_BY_3},
+	
+	
 	{name:"Looked Back Saw Nothing - Kenyon", bpm:100, intensity:0,
 		by:"Twin Musicom", yt:"A1LiBWXE_08", site:"http://www.twinmusicom.org/song/273/looked-back-saw-nothing-kenyon", siten:"TwinMusicom.org", license:CC_BY_4},
+	
+	//Ucchii0
 	{name:"Collapse of the Labyrinth", intensity:1, chiptune:1, bpm:145, loopStart:108.161, loopEnd:232.294,
 		by:"Ucchii 0", yt:"RiLqC-sFl6U", sc:"vskktqtpbuqs/chiptunecollapse-of-the-labyrinthucchii0"},
 	{name:"Don't Sleep", intensity:1, loopStart:13.81606, loopEnd:97.81608, bpm:160,
@@ -130,6 +158,8 @@ const SONG_LIST = [
 		by:"Ucchii 0", yt:"vcJNE87j7js"},
 	{name:"聖域決戦", fname:"Seiiki Kessen", intensity:1, loopStart:11.380, loopEnd:169.484,
 		by:"Ucchii 0", yt:"6Yx2__wLYek"},
+	
+	//YouFulca / Wingless Seraph
 	{name:"Deadly Sins", intensity:3/4, loopStart:11.475668934240362, loopEnd:90.53138321995465,
 		by:"YouFulca", site:"https://wingless-seraph.net/material-music_battle.html", siten:"Wingless Seraph"},
 	{name:"Get Along", intensity:3/4, chiptune:1, loopStart:3.5554875283446714, loopEnd:62.29578231292517,
@@ -174,6 +204,8 @@ SONG_LIST.forEach(function(sing, dex) {
 		sing.siteList.push({name:"SoundCloud", href:"https://soundcloud.com/"+sing.sc});
 	if (sing.ng)
 		sing.siteList.push({name:"Newgrounds", href:"https://www.newgrounds.com/audio/listen/"+sing.ng});
+	if (sing.spot)
+		sing.siteList.push({name:"Spotify", href:"https://open.spotify.com/album/"+sing.spot});
 	if (sing.pat)
 		sing.siteList.push({name:"Patreon", href:"https://www.patreon.com/"+sing.pat});
 });

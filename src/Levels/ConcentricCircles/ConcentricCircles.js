@@ -1,7 +1,12 @@
+const CONCENTRIC_START_ROTATIONS = [Math.PI*1/12, Math.PI*2/12, Math.PI*3/12, Math.PI*4/12, Math.PI*5/12, Math.PI*7/12, Math.PI*8/12, Math.PI*9/12, Math.PI*10/12, Math.PI*11/12];
+const CONCENTRIC_GAP_LENGTH = Math.PI*.04;
+
 class ConcentricLevel extends Level {
 	constructor(layout, pex) {
 		super(layout);
 		let numRings = layout.also.length;
+		if (numRings > CONCENTRIC_START_ROTATIONS.length)
+			throw "you can't have those many rings";
 		var switchXStart, switchYStart, switchXInc, switchYInc, gateXStart, gateYStart, gateXInc, gateYInc, gateOrient;
 		this.direction = typeof pex == "number" ? pex : layout.direction;
 		switch (this.direction) {
@@ -28,15 +33,16 @@ class ConcentricLevel extends Level {
 		}
 		var ringRStart = HEIGHT/16;
 		var ringRInterval = (HEIGHT*3/4)/numRings/2;
+		var rots = CONCENTRIC_START_ROTATIONS.slice();
 		this.rings = [];
 		for (var i = 0; i < numRings; i++) {
-			this.rings[i] = new ConcentricRing(ringRStart + ringRInterval*i, ringRInterval);
+			this.rings[i] = new ConcentricRing(ringRStart + ringRInterval*i, ringRInterval, ...rots.splice(Math.floor(Math.random()*rots.length), 1));
 		}
 		this.rings.forEach((rin,dex)=>rin.setAlso(this.rings.filter((nir,xed)=>layout.also[dex][xed])));
 		this.ringsOI = this.rings.slice().reverse();
 		let failsafe = 0;
 		while (this.evalPath() && failsafe < 69) {
-			this.rings.forEach(rin=>rin.scrambleRotation());
+			//this.rings.forEach(rin=>rin.scrambleRotation());
 			failsafe++;
 		}
 		this.beamStopX = null;
@@ -96,18 +102,15 @@ ConcentricLevel.prototype.lModeRules = "ConcentricCircles-Rules";
 ConcentricLevel.prototype.lModeHints = "ConcentricCircles-Hints";
 
 class ConcentricRing extends UIObject {//TODO prevent them from being aligned at the start
-	constructor(inner, width) {
+	constructor(inner, width, theta) {
 		super();
 		this.x = WIDTH/2;
 		this.y = HEIGHT/2;
 		this.radiusInner = inner;
 		this.radiusOuter = inner + width;
-		this.gapLen = Math.PI*.05;
-		this.gapLenI = Math.PI*.06;
-		this.scrambleRotation();
-	}
-	scrambleRotation() {
-		this.gapTheta = Math.random()*Math.PI/3 + (Math.random() < .5 ? Math.PI/12 : Math.PI*7/12);
+		this.gapLen = CONCENTRIC_GAP_LENGTH;
+		this.gapLenI = CONCENTRIC_GAP_LENGTH*this.radiusOuter/(this.radiusInner+this.radiusOuter)*2;
+		this.gapTheta = theta;
 	}
 	setAlso(soal) {
 		this.also = soal.filter(bup=>bup!=this);
@@ -122,7 +125,7 @@ class ConcentricRing extends UIObject {//TODO prevent them from being aligned at
 			this.drawHeld = true;
 			this.gapTheta = (this.gapTheta + this.draggedTheta) % Math.PI;
 			this.also.forEach(rin=>rin.rotateAlso(this.draggedTheta));
-		} else if (this.hovered) {
+		} else if (this.hovered && !mouse.down) {
 			this.drawHovered = true;
 			hovered = true;
 			this.also.forEach(rin=>rin.hoverAlso());

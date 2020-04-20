@@ -108,3 +108,17 @@ function levelFromJSON(data) {
 		case "ConcentricCircles": return new ConcentricLevel(data);
 	}
 }
+
+function levelClassFromJSON(data) {
+	while (typeof data == "string")
+		data = JSON.parse(data);
+	switch (data.mode) {
+		case "PipePath": return class extends PipeLevel {constructor(...args) {super(data, ...args)}};
+		case "WalkOnce": return class extends OnceLevel {constructor(...args) {super(data, ...args)}};
+		case "ToggleGates": return class extends ToggleLevelLevel {constructor(...args) {super(data, ...args)}};
+		case "SameGame": return class extends SameLevel {constructor(...args) {super(data, ...args)}};
+		case "Maze" : return class extends PipeLevel {constructor(...args) {super(data, ...args)}};
+		case "Gridlock": return class extends PipeLevel {constructor(...args) {super(data, ...args)}};
+		case "ConcentricCircles": return class extends PipeLevel {constructor(...args) {super(data, ...args)}};
+	}
+}

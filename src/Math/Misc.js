@@ -16,7 +16,7 @@ function PRound(num, seed) {
 	return whole + ((seed < partial) ? 1 : 0);
 }
 
-function asPercent(num, precision) {
+function asPercent(num, precision = 0) {
 	return round(num*100, precision)+"%";
 }
 

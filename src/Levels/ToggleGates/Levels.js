@@ -121,6 +121,23 @@ Levels.ToggleGateGud = class LevelToggleGateGut extends ToggleLevel {
 	}
 }
 
+Levels.ToggleLoss = class LevelToggleLoss extends ToggleLevel {
+	constructor() {
+		super({
+			direction:1,
+			gates:[
+				[0,0,0,0,0,1,1],
+				[1,1,1,0,0,0,0],
+				[0,0,0,0,1,1,1],
+				[0,0,0,1,0,0,0],
+				[1,1,0,0,1,1,1],
+				[0,0,0,0,0,0,1],
+				[0,1,1,0,0,0,1],
+			],
+		});
+	}
+}
+
 const SEQ_MAIN_TOGGLE = {
 	id : "MainToggle",
 	mode : "ToggleGates",
@@ -132,5 +149,6 @@ const SEQ_MAIN_TOGGLE = {
 		"ToggleAlternating",
 		"ToggleMirrorHall",
 		"ToggleGateGud",
+		"ToggleLoss",
 	]
 }

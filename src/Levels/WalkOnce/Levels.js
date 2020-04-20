@@ -118,6 +118,30 @@ Levels.OnceFR1 = class LevelOnceFR1 extends OnceLevel {
 	}
 }
 
+Levels.OnceSectorsHard = class LevelOnceSectorsHard extends OnceLevel {
+	constructor() {
+		super({
+			entranceSide:3,
+			entrancePosition:0,
+			exitSide:1,
+			exitPosition:8,
+			grid:[
+				[1,1,1,1,0,1,1,1,1],
+				[1,1,1,1,0,1,1,0,1],
+				[1,1,1,1,1,1,1,1,1],
+				[1,1,1,1,0,1,1,1,1],
+				[1,1,1,1,0,0,0,0,1],
+				[1,0,0,1,1,1,1,1,1],
+				[1,1,1,1,0,1,1,1,1],
+				[1,1,1,1,0,1,0,1,1],
+				[1,1,1,1,1,1,0,1,1],
+				[1,1,1,1,0,1,1,1,1],
+				[1,1,1,1,0,1,1,1,1],
+			],
+		});
+	}
+}
+
 
 const SEQ_MAIN_ONCE = {
 	id : "MainOnce",
@@ -130,5 +154,6 @@ const SEQ_MAIN_ONCE = {
 		"OnceSymPip",
 		"OnceIronFortress",
 		"OnceFR1",
+		"OnceSectorsHard",
 	]
 }

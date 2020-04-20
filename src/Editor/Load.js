@@ -71,7 +71,7 @@ function editorFromJSON(data) {
 		case "PipePath": return new PipePathEditor(data);
 		case "WalkOnce": return new WalkOnceEditor(data);
 		case "ToggleGates": return new ToggleGatesEditor(data);
-		case "SameGame": return new SameEditor(data);
+		case "SameGame": return new SameGameEditor(data);
 		case "Maze" : return new MazeEditor(data);
 		case "Gridlock": return new GridlockEditor(data);
 		case "ConcentricCircles": return new ConcentricCirclesEditor(data);

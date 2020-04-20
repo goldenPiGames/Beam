@@ -7,6 +7,7 @@ var palette = {
 
 function loadPaletteFromSettings() {
 	PALETTE_NAMES.forEach(nom => palette[nom] = settings[nom+"_color"]);
+	palette["samegame-1"] = palette.background;
 }
 
 function getColorDescription(color) {

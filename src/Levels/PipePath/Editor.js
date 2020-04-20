@@ -118,6 +118,10 @@ class PipePathEditor extends Editor {
 	}
 }
 PipePathEditor.prototype.gridName = "pipeGrid";
+PipePathEditor.prototype.minWidth = PIPE_PATH_EDITOR_MIN_WIDTH;
+PipePathEditor.prototype.maxWidth = PIPE_PATH_EDITOR_MAX_WIDTH;
+PipePathEditor.prototype.minHeight = PIPE_PATH_EDITOR_MIN_HEIGHT;
+PipePathEditor.prototype.maxHeight = PIPE_PATH_EDITOR_MAX_HEIGHT;
 
 class PipeEditorPiece extends UIObject {
 	constructor(x, y, radius, type) {
