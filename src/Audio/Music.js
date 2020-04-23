@@ -19,12 +19,14 @@ function playMusic(sin) {
 	if (typeof sin == "string") {
 		sin = SONG_HASH[sin];
 	}
-	if (sin == song) {
+	if (sin == song && music.src == song.src) {
 		music.play();
 		return;
 	}
 	song = sin;
 	musicIsAlt = false;
+	if (!settings.music)
+		return;
 	music.src = song.src;
 	music.currentTime = 0;
 	music.volume = settings.music;
@@ -79,7 +81,21 @@ function shuffleMusic() {
 function setMusicVolume(pingas) {
 	if (!music)
 		return;
+	var sp;
+	console.log(music.volume, pingas);
+	if (!pingas) {
+		if (music.volume) {
+			music.pause();
+			//music.currentTime = 0;
+			music.src = null;
+		}
+	} else if (!music.volume) {
+		sp = true;
+	}
 	music.volume = pingas;
+	if (sp) {
+		playMusic(song);
+	}
 }
 
 function getMusicPosition() {

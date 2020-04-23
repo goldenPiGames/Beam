@@ -30,6 +30,8 @@ function initSFX() {
 
 function playSFX(name) {
 	//console.log(name)
+	if (!settings.sfx)
+		return;
 	sfx[name].play();
 }
 
