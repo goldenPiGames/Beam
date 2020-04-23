@@ -1,16 +1,24 @@
+const LOADEXT_LEVEL = ".beamlevel";
+const LOADEXT_SET = ".beamseat";
 
-class EditorLoadScreen extends OverScreen {
-	constructor(wrap) {
+class LoadPopup extends OverScreen {
+	constructor(returnTo, extension, onSucceed) {
 		super();
 		this.x = WIDTH/4;
 		this.y = HEIGHT/3;
 		this.width = WIDTH/2;
 		this.height = HEIGHT/3;
-		this.wrap = wrap;
+		this.returnTo = returnTo;
+		this.extension = extension;
+		this.onSucceed = onSucceed;
+		/*this.beforeFileHidden = fileInput.hidden;
+		this.beforeFilePosition = fileInput.lastMoveArgs;
+		this.beforeTextHidden = textInput0.hidden;
+		this.beforeTextHidden = textInput0.lastMoveArgs;*/
 		//this.fileButton = new Button(this.x+10, this.y+10, this.width-20, 40, lg("EditorLoad-File"), ()=>this.saveFile());
-		setFileInput(this.x+10, this.y+10, this.width-20, 30, ".beamlevel");
+		setFileInput(this.x+10, this.y+10, this.width-20, 30, this.extension);
 		this.fileButton = new Button(this.x+10, this.y+50, this.width-20, 40, lg("EditorLoad-File"), ()=>this.loadFile());
-		setTextInput(this.x+10, this.y+this.height-90, this.width-20, 30, lg("EditorLoad-Paste"));
+		setTextInput(0, this.x+10, this.y+this.height-90, this.width-20, 30, lg("EditorLoad-Paste"));
 		this.copyButton = new Button(this.x+10, this.y+this.height-50, this.width-20, 40, lg("EditorLoad-Text"), ()=>this.loadFromInput());
 		this.buttons = [
 			//this.fileButton,
@@ -28,11 +36,11 @@ class EditorLoadScreen extends OverScreen {
 			this.fileButton.update();
 		if (this.clickedOutside()) {
 			hideInputs();
-			runnee = this.wrap;
+			this.returnToReturnTo();
 		}
 	}
 	draw() {
-		this.wrap.draw();
+		this.returnTo.draw();
 		this.fillBackAndFrame(.7, .6);
 		this.buttons.forEach(butt=>butt.draw());
 		if (this.dataLoaded) {
@@ -42,22 +50,19 @@ class EditorLoadScreen extends OverScreen {
 			drawTextInRect(lg("EditorLoad-FileLoading"), this.x, this.y+55, this.width, 30);
 		}
 	}
+	returnToReturnTo() {
+		hideInputs();
+		runnee = this.returnTo;
+	}
 	loadFile() {
 		this.loadData(this.dataLoaded);
 	}
 	loadFromInput() {
-		this.loadData(textInput.value);
+		this.loadData(textInput0.value);
 	}
 	loadData(data) {
-		try {
-			this.wrap.editor = editorFromJSON(data);
-			hideInputs();
-			runnee = this.wrap;
-			quicksaveEditor(this.wrap.editor);
-		} catch (e) {
-			qAlert(lg("EditorLoad-Error"));
-			console.log(e);
-		}
+		this.returnToReturnTo();
+		this.onSucceed(data);
 	}
 	fileRead(txt) {
 		this.dataLoaded = txt;

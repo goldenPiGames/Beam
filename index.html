@@ -181,7 +181,7 @@
 				height: 100px;
 				visibility : hidden;
 			}
-			#TextInput {
+			.TextInput {
 				position: absolute;
 			}
 			#FileInput {
@@ -193,7 +193,8 @@
 		<div id="BackgroundBox">
 			<canvas id="GraphicsBox" class="partscreen" width="800px" height="600px">Your browser requires Canvas support to play this game. Seriously, what browser are you using? Netscape Navigator?</canvas>
 			<div id="Test100"> </div>
-			<input id="TextInput" type="text" hidden />
+			<input id="TextInput0" class="TextInput" type="text" hidden />
+			<input id="TextInput1" class="TextInput" type="text" hidden />
 			<input id="FileInput" type="file" accept="application/json" hidden />
 		</div>
 		<audio id="Music" preload="auto" controls="none" style="display:none"></audio>

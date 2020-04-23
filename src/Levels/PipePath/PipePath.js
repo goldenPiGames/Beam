@@ -37,7 +37,7 @@ class PipeLevel extends GridLevel {
 		this.beamPath.moveTo(bx, by);
 		var i = 0;
 		var p;
-		while (i < 100) {
+		while (i < 6969) {
 			i++;
 			x += directionDX(d);
 			y += directionDY(d);

@@ -4,23 +4,34 @@ class JoinMultiplayerScreen extends Screen {
 		initFirebase();
 		firebase.auth().onAuthStateChanged(user => this.signedIn(user));
 		firebase.auth().signInAnonymously();
-		setTextInput(10, 110, WIDTH-20, 40, "Key");
-		this.returnButton = new BubbleButton(50, HEIGHT-50, 45, ()=>{hideTextInput();switchScreen(new MultiplayerMenu())}, bubbleDrawIReturn);
+		setTextInput(0, 10, 110, WIDTH-20, 40, "Paste the Room Key");
+		setTextInput(1, 290, HEIGHT/2+COLOR_PICKER_TEXT_HEIGHT+5, WIDTH-300, 40, "Enter Your Name");
+		textInput1.value = settings.name;
+		this.returnButton = new BubbleButton(50, HEIGHT-50, 45, ()=>{hideInputs();switchScreen(new MultiplayerMenu())}, bubbleDrawIReturn);
 		this.beginButton = new BubbleButton(WIDTH-50, HEIGHT-50, 45, ()=>this.tryPlay(), bubbleDrawIPlay);
 		this.fullscreenButton = new BubbleButton(50, 50, 45, ()=>attemptFullscreen(), bubbleDrawIFullscreen);
+		this.colorPicker = new ColorPicker(10, HEIGHT/2, lg("MultiplayerJoin-SetColor"), val=>changeSingleColor("player", val), palette.player);
 		this.objects = [
 			this.returnButton,
 			this.beginButton,
 			this.fullscreenButton,
+			this.colorPicker,
 		];
 	}
 	update() {
+		if (textInput1.value != settings.name) {
+			settings.name = textInput1.value;
+			saveSettings();
+		}
 		this.objects.forEach(oj=>oj.update());
-		if (this.foundHost && this.user)
+		if (this.foundHost && this.user) {
+			hideInputs();
 			runnee = new JoinWaitingScreen(this.gameRef, this.user);
+		}
 	}
 	draw() {
 		this.objects.forEach(oj=>oj.draw());
+		//setTextInput(1, 290, HEIGHT/2+COLOR_PICKER_TEXT_HEIGHT+5, WIDTH-300, 40, "Enter Your Name");
 		var text;
 		if (this.waiting) {
 			text = lg("MultiplayerJoin-Waiting");
@@ -29,13 +40,13 @@ class JoinMultiplayerScreen extends Screen {
 		}
 		if (text) {
 			ctx.fillStyle = palette.normal;
-			drawTextInRect(text, 0, 200, WIDTH, 60);
+			drawTextInRect(text, 0, 160, WIDTH, 60);
 		}
 	}
 	tryPlay() {
-		if (!this.waiting && textInput.value) {
+		if (!this.waiting && textInput0.value) {
 			this.waiting = true;
-			this.gameRef = firebase.database().ref("hostgamesa").child(textInput.value);
+			this.gameRef = firebase.database().ref("hostgamesa").child(textInput0.value);
 			this.gameRef.once("value", snap=>this.handleReturn(snap));
 		}
 	}
@@ -67,16 +78,18 @@ class JoinWaitingScreen extends Screen {
 		this.user = user;
 		this.playRef = this.gameRef.child("players").child(this.user.uid);
 		this.playRef.set({
-				name:settings.name,progress:-1,
+				name:settings.name,
+				color:palette.player,
+				progress:-1,
 				lastprogP:Date.now()
 			});
 		this.key = this.playRef.key;
 		this.callbackOn = this.gameRef.child("begun").on("value", snap=>this.handleBegin(snap));
-		setTextInput(WIDTH/2-150, 350, 200, 40, "Name");
+		//setTextInput(0, WIDTH/2-150, 350, 200, 40, "Name");
 		this.objects = [
 			new BubbleButton(50, 50, 45, ()=>attemptFullscreen(), bubbleDrawIFullscreen),
 			new BubbleButton(50, HEIGHT-50, 45, ()=>this.exit(), bubbleDrawIReturn),
-			new Button(WIDTH/2+60, 350, 90, 40, lg("MultiplayerJoin-NameChange"), ()=>this.changeName()),
+			//new Button(WIDTH/2+60, 350, 90, 40, lg("MultiplayerJoin-NameChange"), ()=>this.changeName()),
 		];
 	}
 	update() {
@@ -105,7 +118,7 @@ class JoinWaitingScreen extends Screen {
 		startLevel();
 	}
 	changeName() {
-		settings.name = textInput.value;
+		settings.name = textInput0.value;
 		this.playRef.update({"name":settings.name});
 	}
 	exit() {

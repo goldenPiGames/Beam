@@ -112,6 +112,8 @@ const SONG_LIST = [
 		by:"PeriTune", yt:"L7XPGa67poA", site:"https://peritune.com/lost-place/", siten:"PeriTune.com", sc:"sei_peridot/lost-place", license:CC_BY_4},
 	{name:"Night 2", intensity:1/2,
 		by:"PeriTune", yt:"GO8FavhnqiU", site:"https://peritune.com/night2/", siten:"PeriTune.com", sc:"sei_peridot/peritunematerial-night2royalty-free-music", license:CC_BY_4},
+	{name:"Prairie 4", intensity:3/4,
+		by:"PeriTune", yt:"EOlXXpqlS5k", site:"https://peritune.com/prairie4", siten:"PeriTune.com", sc:"sei_peridot/prairie4", licence:CC_BY_4},
 	{name:"Raid FolkMetal", intensity:1,
 		by:"PeriTune", yt:"zpXKr5VK5go", site:"https://peritune.com/raid_folkmetal/", siten:"PeriTune.com", sc:"sei_peridot/raid_folkmetal", license:CC_BY_4},
 	{name:"Raid FolkMetal 2", intensity:1,
@@ -137,8 +139,8 @@ const SONG_LIST = [
 	{name:"This is My City", intensity:1/4,
 		by:"TeknoAXE", yt:"08aevamNz60", site:"https://teknoaxe.com/Link_Code_3.php?q=1404", siten:"TeknoAXE.com", license:CC_BY_4},
 		
-	//TeknoAXE
-	{name:"Unity", intensity:3/4, hop:1, vocals:1,
+	//TheFatRat
+	{name:"Unity", intensity:3/4, hop:1, vocals:1, //TODO make it loop
 		by:"TheFatRat", yt:"n8X9_MgEdCg", site:"https://lnk.to/thefatratunity", siten:"Linkfire", spot:"1cxmFr3tma40mHVD1NsLAV", ng:621134, license:CC_BY_3},
 	
 	

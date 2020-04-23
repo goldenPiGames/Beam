@@ -12,7 +12,7 @@ class LevelSameRandom extends SameLevel {
 			layout.height = Math.floor(5 + 4 * rng.get());
 		}
 		if (!layout.numColors) {
-			layout.numColors = Math.floor(3 + 2 * rng.get());
+			layout.numColors = Math.floor(3 + 3 * rng.get());
 		}
 		var cycles = 0;
 		var downs = 0;

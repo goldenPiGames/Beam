@@ -170,7 +170,7 @@ class FontRadioOther extends FontRadio {
 		this.parent = parent;
 	}
 	update() {
-		this.font = textInput.value;
+		this.font = textInput0.value;
 		this.updateMouse();
 		if (this.hovered)
 			hovered = true;

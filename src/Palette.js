@@ -1,4 +1,4 @@
-const PALETTE_NAMES = ["background", "normal", "beam", "hover", "click", "disabled", "samegame0", "samegame1", "samegame2", "samegame3", "samegame4", "samegame5", "samegame6", "samegame7"];
+const PALETTE_NAMES = ["background", "normal", "beam", "hover", "click", "disabled", "samegame0", "samegame1", "samegame2", "samegame3", "samegame4", "samegame5", "samegame6", "samegame7", "player"];
 const RAINBOW_7 = ["#FF0000", "#FF8000", "#FFFF00", "#00FF00", "#0000FF", "#4000FF", "#8000FF"];
 
 var palette = {

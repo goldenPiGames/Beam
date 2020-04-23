@@ -19,7 +19,7 @@ class EditorWrapper extends Screen {
 					this.editor = new BlankEditor();
 			}
 		} catch (e) {
-			console.log(e)
+			console.log(e);
 			qAlert(lg("EditorLoad-Error"));
 			this.editor = new BlankEditor();
 		}
@@ -54,7 +54,16 @@ class EditorWrapper extends Screen {
 		runnee = new EditorSaveScreen(this, lo);
 	}
 	load() {
-		runnee = new EditorLoadScreen(this);
+		runnee = new LoadPopup(this, LOADEXT_LEVEL, data=>this.loadData(data));
+	}
+	loadData(data) {
+		try {
+			this.editor = editorFromJSON(data);
+			quicksaveEditor(this.editor);
+		} catch (e) {
+			qAlert(lg("EditorLoad-Error"));
+			console.log(e);
+		}
 	}
 	test() {
 		try {

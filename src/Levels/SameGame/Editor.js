@@ -208,11 +208,7 @@ const EDITOR_MODE_SAMEGAME = {
 		layout.width = pane.widthSelector.getNumber();
 		layout.height = pane.heightSelector.getNumber();
 		layout.direction = RIGHT;
-		layout.grid = newArray2d(layout.width, layout.height, -1);
-		/*switch (pane.fillRadio.index) {
-			case 0: layout.grid = newArray2d(layout.width, layout.height, 0); break;
-			case 1: layout.grid = newArray2d(layout.width, layout.height, 1); break;
-		}*/
+		layout.grid = newArray2d(layout.width, layout.height, 0);
 		return new SameGameEditor(layout);
 	},
 }

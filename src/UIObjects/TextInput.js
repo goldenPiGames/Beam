@@ -1,32 +1,31 @@
-var textInput;
+var textInput0;
 var test100;
 var fileInput;
 var inputs;
 
 function initInputs() {
-	textInput = document.getElementById("TextInput");
 	test100 = document.getElementById("Test100");
+	textInput0 = document.getElementById("TextInput0");
+	textInput1 = document.getElementById("TextInput1");
 	fileInput = document.getElementById("FileInput");
 	inputs = [
-		textInput,
+		textInput0,
+		textInput1,
 		fileInput,
 	];
 }
 
-function setTextInput(x, y, width, height, text) {
+function setTextInput(which, x, y, width, height, text) {
 	//console.log(x, y, width, height, text)
-	textInput.lastMoveArgs = [x, y, width, height];
-	showTextInput();
-	moveTextInput(x, y, width, height);
-	textInput.placeholder = text;
-	textInput.value = "";
-	textInput.style.border = "3px solid "+settings.normal_color;
-	textInput.style.background = settings.background_color;
-	textInput.style.color = settings.normal_color;
-}
-
-function moveTextInput(x, y, width, height) {
-	moveInput(textInput, x, y, width, height);
+	var p = typeof which == "number" ? inputs[which] : which;
+	p.lastMoveArgs = [x, y, width, height];
+	p.hidden = false;
+	moveInput(p, x, y, width, height);
+	p.placeholder = text;
+	p.value = "";
+	p.style.border = "3px solid "+settings.normal_color;
+	p.style.background = settings.background_color;
+	p.style.color = settings.normal_color;
 }
 
 function resizeInputs() {
@@ -37,12 +36,8 @@ function resizeInputs() {
 	});
 }
 
-function showTextInput() {
-	textInput.hidden = false;
-}
-
 function hideTextInput() {
-	textInput.hidden = true;
+	textInput0.hidden = true;
 }
 
 function hideInputs() {
@@ -69,6 +64,10 @@ function setFileInput(x, y, width, height, type) {
 	//fileInput.style.border = "3px solid "+settings.normal_color;
 	fileInput.style.background = settings.background_color;
 	fileInput.style.color = settings.normal_color;
+}
+
+function hideFileInput() {
+	fileInput.hidden = true;
 }
 
 function canvasToCSSRect(x, y, width, height) {

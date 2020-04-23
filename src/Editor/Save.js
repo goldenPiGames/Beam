@@ -14,7 +14,7 @@ class EditorSaveScreen extends OverScreen {
 		this.wrap = wrap;
 		this.data = data;
 		this.fileButton = new Button(this.x+10, this.y+10, this.width-20, 40, lg("EditorSave-File"), ()=>this.saveFile());
-		setTextInput(this.x+10, this.y+this.height-90, this.width-20, 30, lg("EditorSave-Data"));
+		setTextInput(0, this.x+10, this.y+this.height-90, this.width-20, 30, lg("EditorSave-Data"));
 		this.copyButton = new Button(this.x+10, this.y+this.height-50, this.width-20, 40, lg("EditorSave-Clipboard"), ()=>this.copyToClipboard());
 		this.buttons = [
 			this.fileButton,
@@ -22,8 +22,8 @@ class EditorSaveScreen extends OverScreen {
 		];
 	}
 	update() {
-		if (textInput.value != this.data)
-			textInput.value = this.data;
+		if (textInput0.value != this.data)
+			textInput0.value = this.data;
 		this.buttons.forEach(butt=>butt.update());
 		if (this.clickedOutside()) {
 			hideTextInput();

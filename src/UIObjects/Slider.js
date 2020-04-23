@@ -55,6 +55,8 @@ class Slider extends UIObject {
 
 // ------------------------------------------------------------------------------ Color Picker ---------------------------------
 
+const COLOR_PICKER_TEXT_HEIGHT = 30;
+
 class ColorPicker extends UIObject {
 	constructor(x, y, text, handler, initial) {
 		super();
@@ -96,7 +98,7 @@ class ColorPicker extends UIObject {
 			ctx.fillRect(this.x, this.y, this.width, 30);
 		}
 		ctx.fillStyle = this.color;
-		drawTextInRect(this.header, this.x, this.y, this.width, 30);
+		drawTextInRect(this.header, this.x, this.y, this.width, COLOR_PICKER_TEXT_HEIGHT);
 		ctx.fillRect(this.x, this.y+35, this.width, 25);
 		this.redSlider.draw();
 		this.greenSlider.draw();

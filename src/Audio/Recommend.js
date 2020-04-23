@@ -24,7 +24,13 @@ const SONGREC = {
 		ConcentricCircles : ["Up In My Jam (All Of A Sudden)", "March of the Spoons", "Pixelland"],
 	},
 	race : {
-		same : ["まだ見ぬ明日への誓い", "レイピアを継ぐ少女"],
+		PipePath : ["Chaoz Fantasy", "Chaoz Fantasy (8-bit)"],
+		Maze : ["Raid FolkMetal 2"],
+		WalkOnce : ["Dramatic"],
+		ToggleGates : ["Flap"],
+		Gridlock : ["Dueling with Cyborg Ninjas"],
+		SameGame : ["まだ見ぬ明日への誓い", "レイピアを継ぐ少女", "勝利を信じて"],
+		ConcentricCircles : ["Gambles"],
 	},
 	boss : ["Don't Sleep", "Collapse of the Labyrinth"],
 }

@@ -19,6 +19,7 @@ var settings = {
 	samegame5_color : "#008000",
 	samegame6_color : "#808080",
 	samegame7_color : "#808000",
+	player_color : "#7F7F7F",
 	colorblind : false,
 	rainbowBeam : true,
 	name : "Anon " + Math.floor((Math.random()*36**4)).toString(36).toUpperCase(),
