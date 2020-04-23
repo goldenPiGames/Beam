@@ -5,7 +5,7 @@ class JoinMultiplayerScreen extends Screen {
 		firebase.auth().onAuthStateChanged(user => this.signedIn(user));
 		firebase.auth().signInAnonymously();
 		setTextInput(0, 10, 110, WIDTH-20, 40, "Paste the Room Key");
-		setTextInput(1, 290, HEIGHT/2+COLOR_PICKER_TEXT_HEIGHT+5, WIDTH-300, 40, "Enter Your Name");
+		setTextInput(1, 290, HEIGHT/2+COLOR_PICKER_TEXT_HEIGHT+5, WIDTH-300, 40, lg("MultiplayerJoin-InputName"));
 		textInput1.value = settings.name;
 		this.returnButton = new BubbleButton(50, HEIGHT-50, 45, ()=>{hideInputs();switchScreen(new MultiplayerMenu())}, bubbleDrawIReturn);
 		this.beginButton = new BubbleButton(WIDTH-50, HEIGHT-50, 45, ()=>this.tryPlay(), bubbleDrawIPlay);
@@ -31,7 +31,8 @@ class JoinMultiplayerScreen extends Screen {
 	}
 	draw() {
 		this.objects.forEach(oj=>oj.draw());
-		//setTextInput(1, 290, HEIGHT/2+COLOR_PICKER_TEXT_HEIGHT+5, WIDTH-300, 40, "Enter Your Name");
+		ctx.fillStyle = palette.normal;
+		drawTextInRect(lg("MultiplayerJoin-SetName"), 290, HEIGHT/2, WIDTH-300, COLOR_PICKER_TEXT_HEIGHT);
 		var text;
 		if (this.waiting) {
 			text = lg("MultiplayerJoin-Waiting");
