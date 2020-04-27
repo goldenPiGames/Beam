@@ -13,6 +13,7 @@ function initInputs() {
 		textInput1,
 		fileInput,
 	];
+	inputs.forEach(i=>i.style.fontFamily=settings.font);
 }
 
 function setTextInput(which, x, y, width, height, text) {

@@ -29,7 +29,8 @@ class LoadPopup extends OverScreen {
 		if (fileInput.files && fileInput.files[0] != this.file) {
 			this.dataLoaded = null;
 			this.file = fileInput.files[0];
-			this.file.text().then(txt=>this.fileRead(txt));
+			if (this.file)
+				this.file.text().then(txt=>this.fileRead(txt));
 		}
 		this.buttons.forEach(butt=>butt.update());
 		if (this.dataLoaded)

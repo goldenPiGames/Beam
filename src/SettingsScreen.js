@@ -2,7 +2,7 @@ class SettingsScreen extends Screen {
 	constructor(returnTo) {
 		super();
 		this.returnTo = returnTo;
-		this.returnButton = new BubbleButton(WIDTH-50, 50, 45, ()=>{saveSettings();runnee=this.returnTo}, bubbleDrawIReturn);
+		this.returnButton = new BubbleButton(WIDTH-50, 50, 45, ()=>{saveSettings();hideInputs();runnee=this.returnTo}, bubbleDrawIReturn);
 		this.tabs = new Tabs(0, 0, WIDTH-100, 40, SETTINGS_TAB_LIST.map(ta=>lg(ta.lTitle)), num=>this.setTab(num), ()=>this.tabIndex);
 		this.setTab(0);
 	}
@@ -20,7 +20,7 @@ class SettingsScreen extends Screen {
 		if (this.tabIndex === dex)
 			return false;
 		this.tabIndex = dex;
-		hideTextInput();
+		hideInputs();
 		this.subscreen = new (SETTINGS_TAB_LIST[this.tabIndex].cons)(this);
 	}
 	relangTabs() {
@@ -102,8 +102,8 @@ class SettingsScreenFont {
 		this.radios = [
 			...FONT_FAMILIES.map((oj, dex) => new FontRadio(20, 60+30*dex, 300, 30, oj, this)),
 			...FONTS_INCLUDED.map((oj, dex) => new FontRadio(20, 200+30*dex, 300, 30, oj, this)),
-			new FontRadioOther(20, HEIGHT-120, 300, 30, this),
 		];
+		this.radios.push(new FontRadioOther(20, HEIGHT-120, 300, 30, this, this.radios.find(r=>r.selected)));
 	}
 	update() {
 		this.radios.forEach(oj => oj.update());
@@ -113,7 +113,7 @@ class SettingsScreenFont {
 	}
 	setRadio(newsel) {
 		this.radios.forEach(rad=>rad.selected = (rad == newsel));
-		settings.font = newsel.font;
+		setFont(newsel.font);
 	}
 }
 
@@ -161,25 +161,32 @@ class FontRadio extends RadioButtonElement {
 }
 
 class FontRadioOther extends FontRadio {
-	constructor(x, y, width, height, parent) {
+	constructor(x, y, width, height, parent, already) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
 		this.parent = parent;
+		this.selected = !already;
+		setTextInput(0, x+height, y, width-height, height, lg("SettingsFont-Other"));
+		if (this.selected)
+			textInput0.value = settings.font;
 	}
 	update() {
+		this.fontLast = this.font;
 		this.font = textInput0.value;
 		this.updateMouse();
 		if (this.hovered)
 			hovered = true;
 		if (this.clicked) {
 			this.parent.setRadio(this);
+		} else if (this.selected && this.font && this.font != this.fontLast) {
+			setFont(this.font);
 		}
 	}
 	draw() {
-		
+		this.drawBubble();
 	}
 }
 

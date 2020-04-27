@@ -1,16 +1,21 @@
+const CREDITS_HEADING_GAP = 36;
+
 class CreditsScreen extends Screen {
 	constructor() {
 		super();
-		this.levelSources = ALL_LEVEL_IDS.map(id => {
-			var sauce = lg(id+"-Source");
-			var lev = Levels[id];
-			if (!sauce)
-				return false;
-			return {
-				name: lg("Credits-LevelName", {"seq":lg("Seq-"+lev.prototype.seq.id), "index":lev.prototype.index}),
-				source: sauce,
-			}
-		}).filter(a=>a);
+		this.levelSources = [];
+		MAIN_LEVEL_SEQS.forEach(seq => {
+			seq.levelIDs.forEach((id, dex)=>{
+				var sauce = lg(id+"-Source");
+				var lev = Levels[id];
+				if (!sauce)
+					return false;
+				this.levelSources.push({
+					name: lg("Credits-LevelName", {"seq":lg("Seq-"+seq.id), "index":dex}),//if I want to have data instead of classes for levels, I'll need to change this
+					source: sauce,
+				});
+			});
+		});
 		this.objectsIn = [];
 		this.scroll = 0;
 		this.scrollMax = 1200;
@@ -18,14 +23,20 @@ class CreditsScreen extends Screen {
 		this.creditsArea.addHeading(lg("Credits-IDid"));
 		this.creditsArea.addText("Prexot (goldenPiGames)");
 		this.creditsArea.addMultipleButtons(
-				{text:"Kongregate", href:"https://www.kongregate.com/accounts/goldenPiGames"},
-				{text:"Newgrounds", href:"https://goldenpigames.newgrounds.com/"},
-				{text:"itch", href:"https://goldenpigames.itch.io/"},
-				{text:"YouTube", href:"https://www.youtube.com/channel/UCb4QliR5GWppUqOLXBYKYHw"}
-			);
+			{text:"Kongregate", href:"https://www.kongregate.com/accounts/goldenPiGames"},
+			{text:"Newgrounds", href:"https://goldenpigames.newgrounds.com/"},
+			{text:"itch", href:"https://goldenpigames.itch.io/"},
+			{text:"YouTube", href:"https://www.youtube.com/channel/UCb4QliR5GWppUqOLXBYKYHw"}
+		);
 		this.creditsArea.addHeading(lg("Credits-Sources"));
 		this.levelSources.forEach(sauce => this.creditsArea.addDouble(sauce.name, sauce.source));
 		this.creditsArea.addDouble(lg("Credits-SourcesRest"), lg("Credits-SourcesOriginal"));
+		this.creditsArea.addHeading(lg("Credits-SpecialThanks"));
+		this.creditsArea.addTexts([
+			"Delaware Games Collective",
+			"UD Board Game Club",
+			"@ihartnia",
+		]);
 		this.creditsArea.finalize();
 		
 		this.scrollBar = new ScrollBar(WIDTH-50, 100, 50, HEIGHT-200, HEIGHT, this.creditsArea.maxScroll+this.creditsArea.height, val=>this.creditsArea.scroll=val, ()=>this.creditsArea.scroll);
@@ -83,12 +94,15 @@ class CreditsArea extends UIObject {
 		this.objects.forEach(oj=>oj.draw());
 	}
 	addHeading(text) {
-		this.objects.push(new ScrollingText(this, text, this.x+this.width/2, this.curry+16, 28, "center"));
-		this.curry += 48;
+		this.objects.push(new ScrollingText(this, text, this.x+this.width/2, this.curry+CREDITS_HEADING_GAP, 28, "center"));
+		this.curry += CREDITS_HEADING_GAP+32;
 	}
 	addText(text) {
 		this.objects.push(new ScrollingText(this, text, this.x+this.width/2, this.curry, 20, "center"));
 		this.curry += 24;
+	}
+	addTexts(ray) {
+		ray.forEach(t=>this.addText(t));
 	}
 	addDouble(textL, textR) {
 		this.objects.push(new ScrollingText(this, textL, this.x+this.width/2-5, this.curry, 20, "right"));

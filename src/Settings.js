@@ -40,6 +40,7 @@ function loadSettings() {
 	loadFavSongs();
 	loadPaletteFromSettings();
 	setMusicVolume(settings.music);
+	applyFont(settings.font);
 }
 
 function saveSettings() {
@@ -52,4 +53,15 @@ function profane() {
 
 function doSettings() {
 	runnee = new SettingsScreen();
+}
+
+function setFont(now) {
+	settings.font = now;
+	applyFont(settings.font);
+}
+
+function applyFont(now) {
+	document.body.font = now;
+	if (inputs)
+		inputs.forEach(i=>i.style.fontFamily=now);
 }

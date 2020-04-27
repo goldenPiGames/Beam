@@ -82,7 +82,7 @@ function setMusicVolume(pingas) {
 	if (!music)
 		return;
 	var sp;
-	console.log(music.volume, pingas);
+	//console.log(music.volume, pingas);
 	if (!pingas) {
 		if (music.volume) {
 			music.pause();
