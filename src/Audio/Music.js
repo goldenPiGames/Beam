@@ -12,6 +12,9 @@ function initMusic() {
 }
 
 function playMusic(sin) {
+	if (!music) {
+		//return;
+	}
 	if (sin == null) {
 		music.pause();
 		return;
@@ -19,18 +22,20 @@ function playMusic(sin) {
 	if (typeof sin == "string") {
 		sin = SONG_HASH[sin];
 	}
-	if (sin == song && music.src == song.src) {
-		music.play();
+	//console.log(sin, song, music.src, sin.src)
+	if (sin == song && sin == songLast) {
+		if (music.paused)
+			music.play();
 		return;
 	}
 	song = sin;
+	songLast = sin;
 	musicIsAlt = false;
-	if (!settings.music)
-		return;
 	music.src = song.src;
 	music.currentTime = 0;
 	music.volume = settings.music;
-	music.play();
+	if (settings.music)
+		music.play();
 }
 
 function switchMusic() {
@@ -87,7 +92,7 @@ function setMusicVolume(pingas) {
 		if (music.volume) {
 			music.pause();
 			//music.currentTime = 0;
-			music.src = null;
+			songLast = song;
 		}
 	} else if (!music.volume) {
 		sp = true;

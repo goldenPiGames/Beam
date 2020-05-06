@@ -1,4 +1,5 @@
 var lastRecommendedSongs;
+var askedMusic
 
 function recommendSongs(list) {
 	if (!list)
@@ -33,6 +34,98 @@ const SONGREC = {
 		ConcentricCircles : ["Gambles"],
 	},
 	boss : ["Don't Sleep", "Collapse of the Labyrinth"],
+}
+
+class MusicAskScreen extends Screen {
+	constructor() {
+		super();
+		this.dontAsk = false;
+		this.objects = [
+			...MUSICASK_OPTIONS.map((o, i)=>new Button(WIDTH/3, HEIGHT/3+i*HEIGHT/10, WIDTH/3, 45, lg(o.lName), ()=>this.optClicked(o))),
+			new Checkbox(WIDTH/4, HEIGHT-35, WIDTH/2, 30, lg("MusicAsk-DontAsk"), val=>this.dontAsk=val, false),
+		];
+	}
+	update() {
+		this.objects.forEach(oj=>oj.update());
+	}
+	draw() {
+		ctx.fillStyle = palette.normal;
+		drawTextInRect(lg("MusicAsk-Heading"), 10, 20, WIDTH-20, HEIGHT/4);
+		this.objects.forEach(oj=>oj.draw());
+	}
+	optClicked(op) {
+		console.log(op)
+		for (var p in op.specs) {
+			jukeboxSpecs[p] = op.specs[p];
+		}
+		settings.musicDontAsk = this.dontAsk ? jukeboxSpecs : false;
+		saveSettings();
+		filterSongList();
+		if (op.jukebox)
+			runnee = new Jukebox(new MainMenu());
+		else
+			runnee = new MainMenu();
+	}
+}
+
+const MUSICASK_OPTIONS = [
+	{
+		lName : "MusicAsk-RecommendAny",
+		specs: {
+			genre : 0,
+			intensityMin : 0,
+			intensityMax : 1,
+			shuffle : false,
+			recommend : true,
+		}
+	},
+	{
+		lName : "MusicAsk-RecommendCalm",
+		specs: {
+			genre : 0,
+			intensityMin : 0,
+			intensityMax : 1/4,
+			shuffle : false,
+			recommend : true,
+		}
+	},
+	{
+		lName : "MusicAsk-RecommendChiptune",
+		specs: {
+			genre : 1,
+			intensityMin : 0,
+			intensityMax : 1,
+			shuffle : false,
+			recommend : true,
+		}
+	},
+	{
+		lName : "MusicAsk-Jukebox",
+		jukebox : true,
+		specs: {
+			genre : 0,
+			intensityMin : 0,
+			intensityMax : 1,
+			shuffle : false,
+			recommend : false,
+		}
+	},
+	{
+		lName : "MusicAsk-Nothing",
+		specs: {
+			genre : 0,
+			intensityMin : 0,
+			intensityMax : 1,
+			shuffle : false,
+			recommend : false,
+		}
+	},
+	
+]
+
+function loadMusicRec() {
+	jukeboxSpecs = settings.musicDontAsk;
+	filterSongList();
 }
 
 //checks to make sure I didn't misspell any of the song names

@@ -20,14 +20,26 @@ function startLoading() {
 
 function startGame() {
 	ctx.textBaseline = "top";
-	if (settings.lang)
-		runnee = new MainMenu();
-	else
-		runnee = new LangSelectScreen();
 	initMusic();
 	initSFX();
 	initInputs();
+	nextStartupScreen();
 	coreEngine.run();
+}
+
+function nextStartupScreen() {
+	if (!settings.lang) {
+		runnee = new LangSelectScreen();
+		return;
+	}
+	if (!askedMusic) {
+		if (!settings.musicDontAsk) {
+			runnee = new MusicAskScreen();
+			return;
+		} else
+			loadMusicRec();
+	}
+	runnee = new MainMenu();
 }
 
 function doNothing() {

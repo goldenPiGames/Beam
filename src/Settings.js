@@ -23,6 +23,7 @@ var settings = {
 	colorblind : false,
 	rainbowBeam : true,
 	name : "Anon " + Math.floor((Math.random()*36**4)).toString(36).toUpperCase(),
+	musicDontAsk : false,
 }
 
 function mainHeight() {

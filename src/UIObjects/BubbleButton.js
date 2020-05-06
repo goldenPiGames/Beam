@@ -36,6 +36,14 @@ function bubbleDrawIPlay() {
 	ctx.fill(path);
 }
 
+function bubbleDrawIPlayReverse() {
+	var path = new Path2D();
+	path.moveTo(this.x+this.radius/3, this.y-this.radius/2);
+	path.lineTo(this.x-this.radius/2, this.y);
+	path.lineTo(this.x+this.radius/3, this.y+this.radius/2);
+	ctx.fill(path);
+}
+
 function bubbleDrawIPause() {
 	ctx.fillRect(this.x-.5*this.radius, this.y-.5*this.radius, .4*this.radius, 1.0*this.radius);
 	ctx.fillRect(this.x+.1*this.radius, this.y-.5*this.radius, .4*this.radius, 1.0*this.radius);

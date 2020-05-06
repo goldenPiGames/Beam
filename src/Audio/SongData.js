@@ -18,6 +18,8 @@ const SONG_LIST = [
 	*/
 	
 	//Darren Curtis
+	{name:"A Robust Crew", intensity:1/4,
+		by:"Darren Curtis", yt:"OY_gV_3A7MU", site:"https://www.darrencurtismusic.com/freemusic", siten:"DarrenCurtisMusic.com", pat:"darrencurtismusic"},
 	{name:"Beatdown City", intensity:3/4,
 		by:"Darren Curtis", yt:"qL4u3u5WKgU", site:"https://www.darrencurtismusic.com", siten:"DarrenCurtisMusic.com", sc:"desperate-measurez/beatdown-city-80s-action-theme-royalty-free", pat:"darrencurtismusic"},
 	{name:"Dark Anthem", intensity:3/4,
@@ -116,6 +118,8 @@ const SONG_LIST = [
 		by:"PeriTune", yt:"iMkX3NxQYv0", site:"https://peritune.com/prairie/", siten:"PeriTune.com", sc:"sei_peridot/prairie", license:CC_BY_4},
 	{name:"Prairie 4", intensity:3/4,
 		by:"PeriTune", yt:"EOlXXpqlS5k", site:"https://peritune.com/prairie4", siten:"PeriTune.com", sc:"sei_peridot/prairie4", licence:CC_BY_4},
+	{name:"Prairie 5", intensity:1,
+		by:"PeriTune", yt:"XerGSyUXCUc", site:"https://peritune.com/prairie5", siten:"PeriTune.com", sc:"sei_peridot/prairie5", licence:CC_BY_4},
 	{name:"Raid FolkMetal", intensity:1,
 		by:"PeriTune", yt:"zpXKr5VK5go", site:"https://peritune.com/raid_folkmetal/", siten:"PeriTune.com", sc:"sei_peridot/raid_folkmetal", license:CC_BY_4},
 	{name:"Raid FolkMetal 2", intensity:1,
@@ -154,7 +158,7 @@ const SONG_LIST = [
 		by:"Ucchii 0", yt:"RiLqC-sFl6U", sc:"vskktqtpbuqs/chiptunecollapse-of-the-labyrinthucchii0"},
 	{name:"Don't Sleep", intensity:1, loopStart:13.81606, loopEnd:97.81608, bpm:160,
 		by:"Ucchii 0", yt:"pluUDQCBSso", site:"https://creofuga.net/audios/106981", siten:"CreoFuga"},
-	{name:"Gambles", intensity:1, bpm:155,
+	{name:"Gambles", intensity:3/4, bpm:155,
 		by:"Ucchii 0", yt:"lp7oqpZW7xQ"},
 	{name:"Secret Power", intensity:1, loopStart:16.093, loopEnd:330.35, bpm:165, intensity:1,
 		by:"Ucchii 0", yt:"ivspAGvhA8E", site:"https://creofuga.net/audios/106993", siten:"CreoFuga"},

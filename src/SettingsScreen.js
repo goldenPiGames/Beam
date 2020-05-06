@@ -53,32 +53,51 @@ class SettingsScreenPalette {
 		var x1 = Math.floor(marg);
 		var x2 = Math.floor(2*marg+255);
 		var x3 = Math.floor(3*marg+255*2);
-		this.normalPicker = new ColorPicker(x1, 110, lg("Palette-Normal"), val=>changeSingleColor("normal", val), settings.normal_color);
-		this.backgroundPicker = new ColorPicker(x2, 110, lg("Palette-Background"), val=>changeSingleColor("background", val), settings.background_color);
-		this.disabledPicker = new ColorPicker(x3, 110, lg("Palette-Disabled"), val=>changeSingleColor("disabled", val), settings.disabled_color);
-		this.hoverPicker = new ColorPicker(x1, 330, lg("Palette-Hover"), val=>changeSingleColor("hover", val), settings.hover_color);
-		this.clickPicker = new ColorPicker(x2, 330, lg("Palette-Click"), val=>changeSingleColor("click", val), settings.click_color);
-		this.beamPicker = new ColorPicker(x3, 330, lg("Palette-Beam"), val=>changeSingleColor("beam", val), settings.beam_color);
+		var y1 = 110;
+		var y2 = 330;
+		this.tabIndex = 0;
+		this.normalPicker = new ColorPicker(x1, y1, lg("Palette-Normal"), val=>changeSingleColor("normal", val), settings.normal_color);
+		this.backgroundPicker = new ColorPicker(x2, y1, lg("Palette-Background"), val=>changeSingleColor("background", val), settings.background_color);
+		this.disabledPicker = new ColorPicker(x3, y1, lg("Palette-Disabled"), val=>changeSingleColor("disabled", val), settings.disabled_color);
+		this.hoverPicker = new ColorPicker(x1, y2, lg("Palette-Hover"), val=>changeSingleColor("hover", val), settings.hover_color);
+		this.clickPicker = new ColorPicker(x2, y2, lg("Palette-Click"), val=>changeSingleColor("click", val), settings.click_color);
+		this.beamPicker = new ColorPicker(x3, y2, lg("Palette-Beam"), val=>changeSingleColor("beam", val), settings.beam_color);
 		this.colorblindBox = new Checkbox(10, 500, 256, 30, lg("Settings-Colorblind"), val=>settings.colorblind=val, settings.colorblind);
-		this.rainbowBox = new Checkbox(x3, 300, 256, 30, lg("Settings-RainbowBeam"), val=>this.setRainbowBeam(val), settings.rainbowBeam);
-		//this.allowChangeBox = new Checkbox(//TODO prevent game from changing palette
+		this.rainbowBox = new Checkbox(x3, 300, y2-74, 30, lg("Settings-RainbowBeam"), val=>this.setRainbowBeam(val), settings.rainbowBeam);
+		this.tabs = new Tabs(0, 40, WIDTH-100, 40, [lg("Palette-General"), lg("Palette-SameGame")], num=>this.setTab(num), ()=>this.tabIndex);
+		this.samegamePickers = [
+			new ColorPicker(x1, y1, lg("Palette-SameGame0"), val=>changeSingleColor("samegame0", val), settings.samegame0_color),
+			new ColorPicker(x2, y1, lg("Palette-SameGame1"), val=>changeSingleColor("samegame1", val), settings.samegame1_color),
+			new ColorPicker(x3, y1, lg("Palette-SameGame2"), val=>changeSingleColor("samegame2", val), settings.samegame2_color),
+			new ColorPicker(x1, y2, lg("Palette-SameGame3"), val=>changeSingleColor("samegame3", val), settings.samegame3_color),
+			new ColorPicker(x2, y2, lg("Palette-SameGame4"), val=>changeSingleColor("samegame4", val), settings.samegame4_color),
+			new ColorPicker(x3, y2, lg("Palette-SameGame5"), val=>changeSingleColor("samegame5", val), settings.samegame5_color),
+		]
 		this.objects = [
-			this.normalPicker,
-			this.backgroundPicker,
-			this.disabledPicker,
-			this.hoverPicker,
-			this.clickPicker,
-			this.colorblindBox,
-			this.rainbowBox,
+			[
+				this.normalPicker,
+				this.backgroundPicker,
+				this.disabledPicker,
+				this.hoverPicker,
+				this.clickPicker,
+				this.colorblindBox,
+				this.rainbowBox,
+			],
+			[
+				...this.samegamePickers,
+				this.colorblindBox,
+			],
 		];
 	}
 	update() {
-		this.objects.forEach(oj=>oj.update());
+		this.tabs.update();
+		this.objects[this.tabIndex].forEach(oj=>oj.update());
 		if (!settings.rainbowBeam)
 			this.beamPicker.update();
 	}
 	draw() {
-		this.objects.forEach(oj=>oj.draw());
+		this.tabs.draw();
+		this.objects[this.tabIndex].forEach(oj=>oj.draw());
 		if (!settings.rainbowBeam)
 			this.beamPicker.draw();
 	}
@@ -93,6 +112,9 @@ class SettingsScreenPalette {
 		} else {
 			palette.beam = settings.beam_color;
 		}
+	}
+	setTab(now) {
+		this.tabIndex = now;
 	}
 }
 

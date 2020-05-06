@@ -10,20 +10,36 @@ class SameLevel extends GridLevel {
 		this.direction = layout.direction;
 		this.initGrid = layout.grid;
 		this.reset(false);
-		this.resetButton = new BubbleButton(WIDTH/2, HEIGHT-35, 30, ()=>this.reset(true), bubbleDrawIReset);
+		this.resetButton = new BubbleButton(WIDTH/2-50, HEIGHT-35, 30, ()=>this.reset(true), bubbleDrawIReset);
+		this.rewindButton = new BubbleButton(WIDTH/2+50, HEIGHT-35, 30, ()=>this.rewind(), bubbleDrawIPlayReverse);
 	}
 	reset(re) {
 		if (re)
 			playSFX("blipdown");
-		this.blockGrid = this.initGrid.map((col,x)=>col.map((pis,y)=>pis<0?null:new SameBlock(x, y, pis, this)));
-		this.refreshList();
+		this.history = [this.initGrid];
+		this.setGridData(this.initGrid);
 		this.evalPath();
+	}
+	setGridData(data) {
+		this.blockGrid = data.map((col,x)=>col.map((pis,y)=>pis<0?null:new SameBlock(x, y, pis, this)));
+		this.refreshList();
+	}
+	getGridData() {
+		return this.blockGrid.map(b=>b?b.color:-1);
+	}
+	rewind() {
+		if (this.history.length > 1) {
+			playSFX("blipdown");
+			this.history.pop();
+			this.setGridData(this.history[this.history.length-1]);
+		}
 	}
 	refreshList() {
 		this.blockList = this.blockGrid.reduce((a,c)=>a.concat(c), []).filter(a=>a).reverse();
 	}
 	update() {
 		this.resetButton.update();
+		this.rewindButton.update();
 		this.tryingRemove = false;
 		this.hovered = null;
 		this.blockList.forEach(b=>b.update());
@@ -43,6 +59,7 @@ class SameLevel extends GridLevel {
 	draw() {
 		this.drawBorder();
 		this.resetButton.draw();
+		this.rewindButton.draw();
 		this.blockList.forEach(b=>b.draw());
 		drawBeam(this.beamPath);
 		if (this.beamStopX)
@@ -88,6 +105,7 @@ class SameLevel extends GridLevel {
 		}
 		this.refreshList();
 		this.blockList.forEach(b=>b.fall());
+		this.history.push(this.getGridData());
 	}
 	evalPath() {
 		this.beamStopX = null;
@@ -122,6 +140,9 @@ class SameLevel extends GridLevel {
 			return false;
 		} else
 			return true;
+	}
+	getGridData() {
+		return this.blockGrid.map(c=>c.map(b=>b?b.color:-1));
 	}
 	getSolutionHints() {
 		return this.solution.map((move, dex) => lg("SameGame-SolutionStep", {"move":dex+1, "count":move.length, "color":getSameGameColorDescription(move[0].color), "col":move[0].x+1, "row":move[0].y+1}));
