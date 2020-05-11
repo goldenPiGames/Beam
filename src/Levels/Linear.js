@@ -31,7 +31,7 @@ class LevelSelectLinearScreen extends Screen {
 		if (this.selected) {
 			if (settings.rainbowBeam)
 				palette.beam = this.selected.seq.color;
-			recommendSongs(this.selected.seq.music);
+			recommendSongs(SONGREC.main[this.selected.seq.mode]);
 			levelIterator = new LinearLevelIterator(this.selected.seq, this.selected.index);
 			startLevel();
 		}
@@ -173,12 +173,16 @@ class LevelVictoryLinear extends Level {
 		this.beamEntrancePosition = HEIGHT/2;
 		this.calcBeamEnds();
 		this.levelButton = new Button(WIDTH/2-80, HEIGHT/2+100, 160, 40, lg("Victory-Return"), ()=>switchScreen(new LevelSelectLinearScreen()));
+		this.path = new Path2D();
+		this.path.moveTo(0, this.beamEntrancePosition);
+		this.path.lineTo(WIDTH, this.beamEntrancePosition);
 	}
 	update() {
 		this.levelButton.update();
 	}
 	draw() {
 		ctx.globalAlpha = 1;
+		drawBeam(this.path);
 		ctx.fillStyle = palette.normal;
 		ctx.textAlign = "center";
 		ctx.textBaseline = "middle";

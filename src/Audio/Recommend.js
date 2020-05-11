@@ -13,28 +13,43 @@ function recommendSongs(list) {
 	playMusic(found);
 }
 
+function recommendSilence() {
+	playMusic(null);
+}
+
 const SONGREC = {
 	mainMenu : ["Decisions"],
 	main : {
 		PipePath : ["Exit the Premises", "Sunday Night Sailing", "Blip Stream"],
 		Maze : ["Blue Sky", "Deep Valley 2", "遥かなる冒険"],
-		WalkOnce : ["Flex", "Firmament", "ステージ4"],
+		WalkOnce : ["Flex", "Labyrinth", "ステージ4"],
 		ToggleGates : ["Lost Place", "Investigation 3", "決戦の地へ"],
 		Gridlock : ["Beatdown City", "Feel It In Your Feet", "Boat Paint", "勝利を信じて"],
 		SameGame : ["レイピアを継ぐ少女", "神秘の海を越えて", "ステージ5"],
 		ConcentricCircles : ["Up In My Jam (All Of A Sudden)", "March of the Spoons", "Pixelland"],
 	},
+	infinite : {
+		PipePath : ["Fearless First"],
+		Maze : [],
+		WalkOnce : ["Labyrinth"],
+		ToggleGates : [],
+		Gridlock : [],
+		SameGame : [],
+		ConcentricCircles : [],
+	},
 	race : {
-		PipePath : ["Chaoz Fantasy", "Chaoz Fantasy (8-bit)"],
-		Maze : ["Raid FolkMetal 2"],
-		WalkOnce : ["Dramatic"],
-		ToggleGates : ["Flap"],
-		Gridlock : ["Dueling with Cyborg Ninjas"],
+		PipePath : ["Chaoz Fantasy", "Chaoz Fantasy (8-bit)", "聖域決戦"],
+		Maze : ["Raid FolkMetal 2", "Raid FolkMetal", "Rapid 4", "Blue Sky"],
+		WalkOnce : ["Dramatic", "Dramatic 3", "Dramatic 4", "Deadly Sins"],
+		ToggleGates : ["Flap", "Dramatic 2", "Secret Power"],
+		Gridlock : ["Dueling With Cyborg Ninjas", "Dark Anthem"],
 		SameGame : ["まだ見ぬ明日への誓い", "レイピアを継ぐ少女", "勝利を信じて"],
 		ConcentricCircles : ["Gambles"],
 	},
 	boss : ["Don't Sleep", "Collapse of the Labyrinth"],
 }
+
+
 
 class MusicAskScreen extends Screen {
 	constructor() {
@@ -61,6 +76,7 @@ class MusicAskScreen extends Screen {
 		settings.musicDontAsk = this.dontAsk ? jukeboxSpecs : false;
 		saveSettings();
 		filterSongList();
+		setMusicShuffle(jukeboxSpecs.shuffle);
 		if (op.jukebox)
 			runnee = new Jukebox(new MainMenu());
 		else
@@ -126,6 +142,7 @@ const MUSICASK_OPTIONS = [
 function loadMusicRec() {
 	jukeboxSpecs = settings.musicDontAsk;
 	filterSongList();
+	setMusicShuffle(jukeboxSpecs.shuffle);
 }
 
 //checks to make sure I didn't misspell any of the song names

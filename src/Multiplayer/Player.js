@@ -26,6 +26,7 @@ class JoinMultiplayerScreen extends Screen {
 		this.objects.forEach(oj=>oj.update());
 		if (this.foundHost && this.user) {
 			hideInputs();
+			recommendSilence();
 			runnee = new JoinWaitingScreen(this.gameRef, this.user);
 		}
 	}

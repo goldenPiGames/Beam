@@ -31,8 +31,8 @@ class Jukebox extends Screen {
 		this.volumeSlider = new Slider(midx, 265, swid, 30, lg("Jukebox-Volume"), 0, 1, val=>{settings.music=val;setMusicVolume(val);saveSettings();}, ()=>settings.music, ()=>asPercent(settings.music));
 		this.setSliderBounds();
 		this.sortButtons = new RadioButtons(midx, 300, swid/2, 24, [lg("Jukebox-SortBy"), lg("Jukebox-SortName")], dex=>this.setSort(dex), jukeboxSpecs.sort);
-		this.intensityMinSlider = new Slider(midx, 360, swid/2-5, 25, lg("Jukebox-MinimumIntensity"), 0, 1, val=>this.setIntensityMin(val), ()=>jukeboxSpecs.intensityMin, ()=>getIntensityDesc(jukeboxSpecs.intensityMin));
-		this.intensityMaxSlider = new Slider(midx, 390, swid/2-5, 25, lg("Jukebox-MaximumIntensity"), 0, 1, val=>this.setIntensityMax(val), ()=>jukeboxSpecs.intensityMax, ()=>getIntensityDesc(jukeboxSpecs.intensityMax));
+		this.intensityMinSlider = new Slider(midx, 360, swid/2-10, 25, lg("Jukebox-MinimumIntensity"), 0, 1, val=>this.setIntensityMin(val), ()=>jukeboxSpecs.intensityMin, ()=>getIntensityDesc(jukeboxSpecs.intensityMin));
+		this.intensityMaxSlider = new Slider(midx, 390, swid/2-10, 25, lg("Jukebox-MaximumIntensity"), 0, 1, val=>this.setIntensityMax(val), ()=>jukeboxSpecs.intensityMax, ()=>getIntensityDesc(jukeboxSpecs.intensityMax));
 		this.changeRadio = new RadioButtons(midx, HEIGHT-90, swid, 30, [lg("Jukebox-Manual"), lg("Jukebox-Shuffle"), lg("Jukebox-Recommend")], val=>this.setChange(val), jukeboxSpecs.recommend ? 2 : jukeboxSpecs.shuffle ? 1 : 0);
 		this.favCheckbox = new Checkbox(midx+swid/2, 450, swid/2, 24, lg("Jukebox-FavsOnly"), val=>this.setFavsOnly(val), jukeboxSpecs.favsOnly);
 		this.genreButtons = new RadioButtons(midx+swid/2, 300, swid/2, 24, MUSIC_GENRES.map(n=>lg("Jukebox-Genre-"+n)), val=>this.setGenre(val), jukeboxSpecs.genre);

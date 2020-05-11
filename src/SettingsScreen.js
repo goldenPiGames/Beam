@@ -147,7 +147,7 @@ const FONT_FAMILIES = [
 
 const FONTS_INCLUDED = [
 	"OpenDyslexic",
-	"Determination Mono",
+	//"Determination Mono",
 	"Futura Medium",
 ];
 

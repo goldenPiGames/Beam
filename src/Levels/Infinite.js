@@ -55,9 +55,12 @@ class InfiniteSelectScreen extends Screen {
 	tryPlay() {
 		if (this.modeButtons.index >= 0) {
 			var rngseed = null;
+			var mode = INFINITE_MODES[this.modeButtons.index];
 			if (this.doingSeed) {
 				rngseed = this.seedSelector.getNumber()
 				rng = new SM64RNG(rngseed);
+			} else {
+				rng = new JSRandom();
 			}
 			if (this.doingRace) {
 				var num = this.goalSelector.getNumber();
@@ -65,9 +68,12 @@ class InfiniteSelectScreen extends Screen {
 				if (num <= 0) {
 					return false;
 				}
-				levelIterator = new TimeTrialIterator(INFINITE_MODES[this.modeButtons.index], num, rngseed);
-			} else
-				levelIterator = new InfiniteIterator(INFINITE_MODES[this.modeButtons.index]);
+				recommendSongs([...SONGREC.race[mode.id], ...SONGREC.main[mode.id]]);
+				levelIterator = new TimeTrialIterator(mode, num, rngseed);
+			} else {
+				recommendSongs([...SONGREC.infinite[mode.id], ...SONGREC.main[mode.id]]);
+				levelIterator = new InfiniteIterator(mode);
+			}
 			startLevel();
 			return true;
 		} else
@@ -109,20 +115,20 @@ class InfiniteIterator extends LevelIterator {
 }
 
 const INFINITE_MODES = [
-	{id:"ToggleGates", lName:"ToggleGates-Name", getLevel:(pex)=>new LevelToggleRandom({
-			direction: pex
-		})},
 	{id:"PipePath", lName:"PipePath-Name", getLevel:(pex)=>new LevelPipeRandom({
+			entranceSide:directionOpposite(pex)
+		})},
+	{id:"Maze", lName:"Maze-Name", getLevel:(pex)=>new LevelMazeRandom({
 			entranceSide:directionOpposite(pex)
 		})},
 	{id:"WalkOnce", lName:"WalkOnce-Name", getLevel:(pex)=>new LevelOnceRandom({
 			entranceSide:directionOpposite(pex)
 		})},
-	{id:"SameGame", lName:"SameGame-Name", getLevel:(pex)=>new LevelSameRandom({
+	{id:"ToggleGates", lName:"ToggleGates-Name", getLevel:(pex)=>new LevelToggleRandom({
 			direction: pex
 		})},
-	{id:"Maze", lName:"Maze-Name", getLevel:(pex)=>new LevelMazeRandom({
-			entranceSide:directionOpposite(pex)
+	{id:"SameGame", lName:"SameGame-Name", getLevel:(pex)=>new LevelSameRandom({
+			direction: pex
 		})},
 	/*{id:"Gridlock", lName:"Gridlock-Name", getLevel:(pex)=>new LevelGridlockRandom({
 			direction: pex

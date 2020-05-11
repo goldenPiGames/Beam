@@ -47,3 +47,15 @@ function transposeArray(array) {
 	}
 	return newArray;
 }
+
+//Fisher-Yates shuffle
+function shuffleArray(orig, determ) {
+	ray = orig.slice();
+	for (var i = ray.length-1; i > 0; i--) {
+		let r  = Math.floor((determ ? rng.get() : Math.random()) * (i+1));
+		let temp = ray[i];
+		ray[i] = ray[r];
+		ray[r] = temp;
+	}
+	return ray;
+}

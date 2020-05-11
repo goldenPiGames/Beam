@@ -7,12 +7,13 @@ class EditorMenu extends OverScreen {
 		this.x = 0;
 		this.y = 0;
 		this.objects = [
-			...alternateHybridButtons(this.x+5, this.y+30, this.width-10, 300, [
+			...alternateHybridButtons(this.x+5, this.y+30, this.width-10, 350, [
 					{text:lg("GameMenu-Fullscreen"), drawI:bubbleDrawIFullscreen, handler:()=>attemptFullscreen()},
 					{text:lg("EditorMenu-Exit"), drawI:bubbleDrawIReturn, handler:()=>this.exit()},
 					{text:lg("EditorMenu-New"), drawI:bubbleDrawINew, handler:()=>runnee=new EditorNewSelect(this.wrap)},
 					{text:lg("EditorMenu-Save"), drawI:bubbleDrawISave, handler:()=>this.wrap.save()},
 					{text:lg("EditorMenu-Load"), drawI:bubbleDrawILoad, handler:()=>this.wrap.load()},
+					{text:lg("EditorMenu-Sets"), drawI:bubbleDrawISets, handler:()=>this.sets()},
 					{text:lg("GameMenu-Settings"), drawI:bubbleDrawISettings, handler:()=>switchScreen(new SettingsScreen(this))},
 				]),
 			//new Button(this.x, this.y+100, this.width, 30, lg("GameMenu-Quit"), ()=>runnee=new GameMenuQuitConfirm(this)),
@@ -42,5 +43,9 @@ class EditorMenu extends OverScreen {
 	exit() {
 		this.wrap.quicksave();
 		runnee = new MainMenu();
+	}
+	sets() {
+		this.wrap.quicksave();
+		runnee = new EditorSetsScreen();
 	}
 }

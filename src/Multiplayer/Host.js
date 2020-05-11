@@ -101,8 +101,10 @@ class HostSettingsScreen extends Screen {
 	}
 	tryPlay() {
 		var levels;
+		var musicMode;
 		if (this.loadedSet) {
 			levels = this.loadedSet;
+			musicMode = levels[0].mode;
 		} else {
 			var laps = this.goalSelector.getNumber();
 			if (this.modeButtons.index >= 0 && laps > 0) {
@@ -113,6 +115,7 @@ class HostSettingsScreen extends Screen {
 					prev = levelIterator.nextLevel(prev);
 					levels.push(prev.json);
 				}
+				musicMode = JSON.parse(levels[0]).mode;
 			} else {
 				qAlert(lg("MultiplayerHost-NeedSet"));
 				return null;
@@ -122,6 +125,7 @@ class HostSettingsScreen extends Screen {
 		this.gameRef.child("begun").set(true);
 		this.gameRef.child("players").off("child_added", this.callbackOn);
 		hideTextInput();
+		recommendSongs([...shuffleArray(SONGREC.race[musicMode]), ...SONGREC.main[musicMode]]);
 		runnee = new HostScoreboard(this.gameRef, levels);
 	}
 	exit() {
