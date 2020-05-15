@@ -148,6 +148,8 @@ Levels.MazeBig1 = class LevelMazeBig1 extends MazeLevel {
 }
 //TODO Emerald Temple from Cactus McCoy
 
+Levels.MazeTY = levelClassFromJSON({"width":16,"height":12,"entranceSide":3,"entrancePosition":0,"exitSide":1,"exitPosition":0,"gridDownRight":[[3,0,3,2,2,0,2,3,3,2,0,1],[1,3,2,3,2,2,2,1,2,2,2,0],[1,3,0,2,2,2,1,2,2,0,2,1],[2,0,1,2,2,2,2,2,2,2,3,0],[3,2,3,2,2,2,2,3,2,1,2,1],[1,2,1,3,2,2,2,3,0,3,3,0],[3,1,1,2,1,2,1,1,3,0,1,1],[1,1,2,1,2,1,1,1,0,3,2,0],[1,0,2,0,2,2,0,1,1,0,3,1],[2,2,3,2,1,2,1,3,0,3,0,1],[3,2,2,0,3,1,2,0,3,0,2,1],[2,3,1,2,1,2,3,2,2,0,3,1],[2,0,3,1,0,2,0,3,2,2,1,0],[2,2,0,2,0,3,2,0,2,1,2,1],[3,2,2,2,2,0,2,2,1,3,3,0],[0,2,2,2,2,2,2,2,2,0,2,0]],"mode":"Maze"});
+
 const SEQ_MAIN_MAZE = {
 	id : "MainMaze",
 	mode : "Maze",
@@ -160,5 +162,6 @@ const SEQ_MAIN_MAZE = {
 		"MazeRCTMini",
 		"MazeFR1",
 		"MazeBig1",
+		"MazeTY",
 	]
 }

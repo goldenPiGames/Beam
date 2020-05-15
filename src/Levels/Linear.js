@@ -48,6 +48,7 @@ class LevelSelectSeqBeads extends UIObject {
 		this.height = height;
 		this.seq = seq;
 		this.progress = parseInt(localStorage.getItem("Beam"+this.seq.id+"Progress")) || 0;
+		submitToAPI("Progress"+this.seq.id, this.progress);
 		var bradius = this.height*5/16;
 		var by = this.y+this.height-bradius;
 		this.beads = this.seq.levelIDs.map((lev, dex, ray)=>new LevelSelectSeqBeadsBead(this.x+bradius + (this.width-2*bradius)*(dex/(ray.length)), by, bradius, dex, this));
@@ -143,6 +144,7 @@ class LinearLevelIterator extends LevelIterator {
 	nextLevel(prev) {
 		this.index++;
 		var currSaved = localStorage.getItem("Beam"+this.seq.id+"Progress");
+		submitToAPI("Progress"+this.seq.id, this.index);
 		if (this.index > currSaved)
 			localStorage.setItem("Beam"+this.seq.id+"Progress", this.index);
 		if (this.index >= this.seq.levelIDs.length) {
@@ -163,6 +165,16 @@ class LinearLevelIterator extends LevelIterator {
 	drawBack() {
 		if (this.index >= 0)
 			this.drawBackText(this.index);
+		if (this.index == 0 && !this.seenHintsAlready) {
+			ctx.globalAlpha = 1;
+			ctx.fillStyle = palette.normal;
+			ctx.font = "30px "+settings.font;
+			ctx.textAlign = "right";
+			ctx.textBaseline = "bottom";
+			ctx.fillText(lg("Hint-Prompt"), WIDTH-70, HEIGHT-5);
+			if (runnee instanceof HintScreen)
+				this.seenHintsAlready = true;
+		}
 	}
 }
 

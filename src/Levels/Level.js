@@ -115,10 +115,10 @@ function levelClassFromJSON(data) {
 	switch (data.mode) {
 		case "PipePath": return class extends PipeLevel {constructor(...args) {super(data, ...args)}};
 		case "WalkOnce": return class extends OnceLevel {constructor(...args) {super(data, ...args)}};
-		case "ToggleGates": return class extends ToggleLevelLevel {constructor(...args) {super(data, ...args)}};
+		case "ToggleGates": return class extends ToggleLevel {constructor(...args) {super(data, ...args)}};
 		case "SameGame": return class extends SameLevel {constructor(...args) {super(data, ...args)}};
-		case "Maze" : return class extends PipeLevel {constructor(...args) {super(data, ...args)}};
-		case "Gridlock": return class extends PipeLevel {constructor(...args) {super(data, ...args)}};
-		case "ConcentricCircles": return class extends PipeLevel {constructor(...args) {super(data, ...args)}};
+		case "Maze" : return class extends MazeLevel {constructor(...args) {super(data, ...args)}};
+		case "Gridlock": return class extends GridlockLevel {constructor(...args) {super(data, ...args)}};
+		case "ConcentricCircles": return class extends ConcentricLevel {constructor(...args) {super(data, ...args)}};
 	}
 }

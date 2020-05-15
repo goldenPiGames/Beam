@@ -22,7 +22,7 @@ class LangSelectScreen extends Screen {
 	langClicked(lang) {
 		settings.lang = lang;
 		saveSettings();
-		runnee = new MainMenu();
+		nextStartupScreen();
 	}
 }
 

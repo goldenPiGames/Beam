@@ -1,5 +1,7 @@
 LANG.en = {
 	"Lang-Name" : "English",
+	"Lang-Credits" : ["Prexot (goldenPiGames)"],
+	
 	"Title" : "Beam",
 	"MainMenu-Play" : "Play",
 	"MainMenu-Jukebox" : "Jukebox",
@@ -86,7 +88,8 @@ LANG.en = {
 	"Jukebox-Intensities" : ["Lullaby", "Calm", "Moderate", "Exciting", "Intense"],
 	"Jukebox-Manual" : "Manual",
 	"Jukebox-Shuffle" : "Shuffle",
-	"Jukebox-Recommend" : "Recommend",
+	"Jukebox-Recommend" : "Auto",
+	"Jukebox-SaveDefault" : "Save as Default",
 	"Jukebox-Genre-all" : "Any",
 	"Jukebox-Genre-chiptune" : "Chiptune",
 	"MusicAsk-Heading" : "What music would you like?",
@@ -101,6 +104,7 @@ LANG.en = {
 	"Hint-TabModeHints" : "Mode Hints",
 	"Hint-TabLevelHints" : "Level Hints",
 	"Hint-NoLevelHints" : "No hints available for this particular level.",
+	"Hint-Prompt" : "Rules & Hints",
 	"Hint-Poke" : "Need a hint?",
 	"Victory-Title" : "Sequence Complete",
 	"Victory-Paragraph" : "Check out the other modes, or try the infinite levels.",
@@ -262,6 +266,7 @@ LANG.en = {
 	"MazeU-Hints" : ["Wht dou you want me to say? It's a one-way path."],
 	"Maze3-Hints" : ["If you go the wrong way, you can always rewind."],
 	"MazeRCTMini-Source" : "Roller Coaster Tycoon; Mini Maze",
+	"MazeTY-Hints" : ["Down and up, down and up."],
 	
 	"Gridlock1-Hints" : ["Just drag the rectangle down."],
 	"Gridlock2-Hints" : ["You'll need to drag the vertical rectangle down.", "First, you need to get the horizontal rectangle out of the way."],

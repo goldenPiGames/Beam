@@ -26,6 +26,7 @@
 		<!-- Important stuff -->
 		<!-- <script src='https://cdn1.kongregate.com/javascripts/kongregate_api.js'></script> -->
 		<script type="text/javascript" src="src/main.js"></script>
+		<script type="text/javascript" src="src/Version.js"></script>
 		<script type="text/javascript" src="src/Math/Misc.js"></script>
 		<script type="text/javascript" src="src/Math/Array.js"></script>
 		<script type="text/javascript" src="src/Math/Direction.js"></script>
@@ -201,19 +202,6 @@
 		<audio id="Music" preload="auto" controls="none" style="display:none"></audio>
 		
 		<script>
-			const ONLINE = window.location.href.indexOf("C:") < 0;
-			var kongregate = {stats:{submit:function(){}}};
-			/*
-			kongregateAPI.loadAPI(function(){
-				window.kongregate = kongregateAPI.getAPI();
-				updateFields();
-				
-				kongregate.services.addEventListener('login', function(){
-					updateFields();
-				});
-			});
-			*/
-			initFirebase();//TODO go back to initting only when needed
 			startLoading();
 		</script>
 		

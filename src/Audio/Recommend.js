@@ -39,7 +39,7 @@ const SONGREC = {
 	},
 	race : {
 		PipePath : ["Chaoz Fantasy", "Chaoz Fantasy (8-bit)", "聖域決戦"],
-		Maze : ["Raid FolkMetal 2", "Raid FolkMetal", "Rapid 4", "Blue Sky"],
+		Maze : ["Raid FolkMetal 2", "Raid FolkMetal", "Rapid 4", "Prairie 5", "Blue Sky"],
 		WalkOnce : ["Dramatic", "Dramatic 3", "Dramatic 4", "Deadly Sins"],
 		ToggleGates : ["Flap", "Dramatic 2", "Secret Power"],
 		Gridlock : ["Dueling With Cyborg Ninjas", "Dark Anthem"],
@@ -146,15 +146,20 @@ function loadMusicRec() {
 }
 
 //checks to make sure I didn't misspell any of the song names
-function checkSongRec(from = SONGREC) {
+function checkSongRec(from = SONGREC, key = "start") {
 	if (Array.isArray(from)) {
 		from.forEach(s=>{
 			if(!SONG_HASH[s])
 				throw s;
+			else {
+				//console.log(SONG_HASH[s].src);
+				if (!SONG_HASH[s].used)
+					SONG_HASH[s].used = key
+			}
 		});
 	} else {
 		for (var thing in from) {
-			checkSongRec(from[thing]);
+			checkSongRec(from[thing], key+"."+thing);
 		}
 	}
 }

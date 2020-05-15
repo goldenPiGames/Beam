@@ -65,6 +65,14 @@ function scintBeam(d = 1) {
 	}
 }
 
+function drawScintTest() {
+	ctx.globalAlpha = 1;
+	for (var i = 0; i < 0x600; i+= 2) {
+		ctx.fillStyle = getColorScint(i);
+		ctx.fillRect(i/2, 0, 2, HEIGHT);
+	}
+}
+
 //https://stackoverflow.com/questions/39118528/rgb-to-hsl-conversion
 function rgb2hsl(r, g, b) {
     // see https://en.wikipedia.org/wiki/HSL_and_HSV#Formal_derivation

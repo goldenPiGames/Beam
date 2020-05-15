@@ -32,3 +32,12 @@ function evalTag(tag, subs) {
 function getSameGameColorDescription(which) {
 	return settings.colorblind ? lg("SameGame-Pattern"+which) : getColorDescription(palette["samegame"+which]);
 }
+
+function getLangCredits() {
+	return LANGUAGES.map(l=>{
+		return {
+			name : LANG[l]["Lang-Name"],
+			credits : LANG[l]["Lang-Credits"]
+		}
+	});
+}

@@ -98,6 +98,9 @@ class InfiniteIterator extends LevelIterator {
 	}
 	nextLevel(prev) {
 		this.beaten++;
+		if (this.beaten > 0) {
+			submitToAPI("TotalInfinite"+this.mode.id, 1);
+		}
 		var level = this.mode.getLevel(prev ? prev.beamExitSide : RIGHT);
 		this.lastJSON = level.json;
 		return level;

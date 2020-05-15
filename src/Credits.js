@@ -11,7 +11,7 @@ class CreditsScreen extends Screen {
 				if (!sauce)
 					return false;
 				this.levelSources.push({
-					name: lg("Credits-LevelName", {"seq":lg("Seq-"+seq.id), "index":dex}),//if I want to have data instead of classes for levels, I'll need to change this
+					name: lg("Credits-LevelName", {"seq":lg("Seq-"+seq.id), "index":dex}),
 					source: sauce,
 				});
 			});
