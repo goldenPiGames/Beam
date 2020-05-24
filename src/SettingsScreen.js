@@ -2,7 +2,8 @@ class SettingsScreen extends Screen {
 	constructor(returnTo) {
 		super();
 		this.returnTo = returnTo;
-		this.returnButton = new BubbleButton(WIDTH-50, 50, 45, ()=>{saveSettings();hideInputs();runnee=this.returnTo}, bubbleDrawIReturn);
+		this.langStarted = settings.lang;
+		this.returnButton = new BubbleButton(WIDTH-50, 50, 45, ()=>this.exit(), bubbleDrawIReturn);
 		this.tabs = new Tabs(0, 0, WIDTH-100, 40, SETTINGS_TAB_LIST.map(ta=>lg(ta.lTitle)), num=>this.setTab(num), ()=>this.tabIndex);
 		this.setTab(0);
 	}
@@ -26,15 +27,25 @@ class SettingsScreen extends Screen {
 	relangTabs() {
 		this.tabs.tabs.forEach((tab,dex)=>tab.text = lg(SETTINGS_TAB_LIST[dex].lTitle));
 	}
+	exit() {
+		saveSettings();
+		hideInputs();
+		if (this.returnTo instanceof MainMenu && this.langStarted != settings.lang)
+			runnee = new MainMenu();
+		else
+			runnee = this.returnTo;
+	}
 }
 
 class SettingsScreenGeneral {
 	constructor() {
 		this.musicSlider = new Slider(50, 200, WIDTH-100, 30, lg("Settings-Music"), 0, 1, val=>{settings.music=val;setMusicVolume(val);saveSettings();}, ()=>settings.music, ()=>asInfuriatingPercent(settings.music));
 		this.sfxSlider = new Slider(50, 300, WIDTH-100, 30, lg("Settings-SFX"), 0, 1, val=>{settings.sfx=val;setSFXVolume(val);saveSettings();}, ()=>settings.sfx, ()=>asInfuriatingPercent(settings.sfx));
+		this.focusOutPauseCheckbox = new Checkbox(69, this.musicSlider.y+35, WIDTH/2, 24, lg("Settings-FocusOutPause"), val=>{settings.focusOutPause=val;saveSettings();}, settings.focusOutPause);
 		this.objects = [
 			this.musicSlider,
 			this.sfxSlider,
+			this.focusOutPauseCheckbox,
 		]
 	}
 	update() {
@@ -125,7 +136,7 @@ class SettingsScreenFont {
 			...FONT_FAMILIES.map((oj, dex) => new FontRadio(20, 60+30*dex, 300, 30, oj, this)),
 			...FONTS_INCLUDED.map((oj, dex) => new FontRadio(20, 200+30*dex, 300, 30, oj, this)),
 		];
-		this.radios.push(new FontRadioOther(20, HEIGHT-120, 300, 30, this, this.radios.find(r=>r.selected)));
+		this.radios.push(new FontRadioOther(20, HEIGHT-180, 300, 30, this, this.radios.find(r=>r.selected)));
 	}
 	update() {
 		this.radios.forEach(oj => oj.update());
@@ -196,12 +207,12 @@ class FontRadioOther extends FontRadio {
 			textInput0.value = settings.font;
 	}
 	update() {
-		this.fontLast = this.font;
+		this.fontLast = this.font || "";
 		this.font = textInput0.value;
 		this.updateMouse();
 		if (this.hovered)
 			hovered = true;
-		if (this.clicked) {
+		if (this.clicked || !this.selected && this.font != this.fontLast) {
 			this.parent.setRadio(this);
 		} else if (this.selected && this.font && this.font != this.fontLast) {
 			setFont(this.font);
@@ -209,6 +220,8 @@ class FontRadioOther extends FontRadio {
 	}
 	draw() {
 		this.drawBubble();
+		ctx.fillStyle = palette.normal;
+		drawParagraphInRect(lg("Settings-FontOtherDesc"), this.x, this.y+this.height+5, WIDTH-this.x*2, 300, this.height*.8);
 	}
 }
 

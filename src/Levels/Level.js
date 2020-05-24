@@ -18,9 +18,8 @@ class LevelWrapper extends Screen {
 	update() {
 		this.timeTaken++;
 		this.level.update();
-		this.timeTaken++;
 		if (this.level.won) {
-			nextLevel();
+			this.win();
 			return;
 		}
 		if (runnee == this)
@@ -39,6 +38,9 @@ class LevelWrapper extends Screen {
 		levelIterator.drawBack(this);
 		this.level.draw();
 		return ctx.getImageData(0, 0, WIDTH, HEIGHT);
+	}
+	win() {
+		nextLevel();
 	}
 }
 

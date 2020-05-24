@@ -9,10 +9,10 @@ class LevelSelectLinearScreen extends Screen {
 		super();
 		this.seqs = seqs;
 		this.seqBeads = this.seqs.map((seq, dex, ray) => new LevelSelectSeqBeads(seq, 10, HEIGHT*(dex)/(ray.length), WIDTH-120, HEIGHT/(ray.length+1), this));
-		this.playButton = new BubbleButton(WIDTH-50, HEIGHT-50, 45, ()=>this.tryPlay(), bubbleDrawIPlay);
+		//this.playButton = new BubbleButton(WIDTH-50, HEIGHT-50, 45, ()=>this.tryPlay(), bubbleDrawIPlay);
 		this.returnButton = new BubbleButton(WIDTH-50, 50, 45, ()=>switchScreen(new MainMenu()), bubbleDrawIReturn);
 		this.buttons = [
-			this.playButton,
+			//this.playButton,
 			this.returnButton,
 		];
 	}
@@ -24,17 +24,12 @@ class LevelSelectLinearScreen extends Screen {
 		this.seqBeads.forEach(b=>b.draw());
 		this.buttons.forEach(b=>b.draw());
 	}
-	beadsClicked(beep) {
-		this.selected = beep;
-	}
-	tryPlay() {
-		if (this.selected) {
-			if (settings.rainbowBeam)
-				palette.beam = this.selected.seq.color;
-			recommendSongs(SONGREC.main[this.selected.seq.mode]);
-			levelIterator = new LinearLevelIterator(this.selected.seq, this.selected.index);
-			startLevel();
-		}
+	tryPlay(selected, index) {
+		if (settings.rainbowBeam)
+			palette.beam = selected.seq.color;
+		recommendSongs(SONGREC.main[selected.seq.mode]);
+		levelIterator = new LinearLevelIterator(selected.seq, index);
+		startLevel();
 	}
 }
 
@@ -60,9 +55,6 @@ class LevelSelectSeqBeads extends UIObject {
 	update() {
 		this.clicked = false;
 		this.beads.forEach(b=>b.update());
-		if (this.clicked) {
-			this.parent.beadsClicked(this);
-		}
 	}
 	draw() {
 		ctx.globalAlpha = 1;
@@ -86,10 +78,7 @@ class LevelSelectSeqBeads extends UIObject {
 	}
 	beadClicked(dex) {
 		if (dex <= this.progress) {
-			if (dex == this.index && this.parent.selected == this)
-				this.parent.tryPlay();
-			this.index = dex;
-			this.clicked = true;
+			this.parent.tryPlay(this, dex);
 		}
 	}
 }
@@ -148,7 +137,7 @@ class LinearLevelIterator extends LevelIterator {
 		if (this.index > currSaved)
 			localStorage.setItem("Beam"+this.seq.id+"Progress", this.index);
 		if (this.index >= this.seq.levelIDs.length) {
-			this.index = "";
+			//this.index = "";
 			localStorage.setItem("Beam"+this.seq.id+"Beaten", true);
 			return new LevelVictoryLinear(this.seq, prev);
 		} else {
@@ -165,7 +154,7 @@ class LinearLevelIterator extends LevelIterator {
 	drawBack() {
 		if (this.index >= 0)
 			this.drawBackText(this.index);
-		if (this.index == 0 && !this.seenHintsAlready) {
+		if (this.index === 0 && !this.seenHintsAlready) {
 			ctx.globalAlpha = 1;
 			ctx.fillStyle = palette.normal;
 			ctx.font = "30px "+settings.font;

@@ -25,12 +25,7 @@ class Button extends UIObject {
 		
 		this.stroke();
 		
-		var fontSize = 20;
 		ctx.fillStyle = color;
-		ctx.font = fontSize + "px "+settings.font;
-		ctx.textAlign = "center";
-		ctx.textBaseline = "middle";
-		
-		ctx.fillText(this.text, this.x + this.width/2, this.y + this.height/2);
+		drawTextInRect(this.text, this.x+BUTTON_BORDER_WIDTH*2, this.y+BUTTON_BORDER_WIDTH*2, this.width-BUTTON_BORDER_WIDTH*4, this.height-BUTTON_BORDER_WIDTH*4);
 	}
 }

@@ -1,4 +1,3 @@
-//TODO
 const SAMEGAME_EDITOR_MIN_WIDTH = 2;
 const SAMEGAME_EDITOR_MAX_WIDTH = 15;
 const SAMEGAME_EDITOR_MIN_HEIGHT = 4;
@@ -32,7 +31,7 @@ class SameGameEditor extends Editor {
 		for (var i = 0; i < SAMEGAME_EDITOR_MAX_COLORS; i++) {
 			this.palette.push(new SameGameEditorColor(0, HEIGHT/2-35*SAMEGAME_EDITOR_MAX_COLORS+70*i, 70, 70, this, i));
 		}
-		this.tabs = new Tabs(100, HEIGHT-35, WIDTH-200, 35, [lg("SameGameEditor-TabOverwrite"), lg("SameGameEditor-TabInsert"), lg("SameGameEditor-TabAddRow"), lg("SameGameEditor-TabRemoveRow"), lg("SameGameEditor-TabAddColumn"), lg("SameGameEditor-TabRemoveColumn")], t=>this.setTab(t), ()=>this.tabIndex);
+		this.tabs = new Tabs(100, HEIGHT-35, WIDTH-200, 35, [lg("SameGameEditor-TabOverwrite"), lg("SameGameEditor-TabAddRow"), lg("SameGameEditor-TabRemoveRow"), lg("SameGameEditor-TabAddColumn"), lg("SameGameEditor-TabRemoveColumn")], t=>this.setTab(t), ()=>this.tabIndex);
 		this.redoGrid();
 	}
 	reconstructGridLevel() {
@@ -56,19 +55,16 @@ class SameGameEditor extends Editor {
 				this.palette.forEach(oj=>oj.update());
 				this.pieces.forEach(col=>col.forEach(wal=>wal.update()));
 				break;
-			case 1: //Insert
-				this.palette.forEach(oj=>oj.update());
-				break;
-			case 2:
+			case 1:
 				this.ifStripeClicked(clicked=>this.addRow(clicked.j));
 				break;
-			case 3:
+			case 2:
 				this.ifStripeClicked(clicked=>this.removeRow(clicked.j));
 				break;
-			case 4:
+			case 3:
 				this.ifStripeClicked(clicked=>this.addColumn(clicked.i));
 				break;
-			case 5:
+			case 4:
 				this.ifStripeClicked(clicked=>this.removeColumn(clicked.i));
 				break;
 		}
@@ -90,28 +86,25 @@ class SameGameEditor extends Editor {
 			case 0: //overwrite
 				this.stripes = null;
 				break;
-			case 1: //insert
-				this.stripes = null;
-				break;
-			case 2: //+row
+			case 1: //+row
 				this.stripes = [];
 				for (var j = 0; j <= this.layout.height; j++) {
 					this.stripes.push(new GridEditorStripeAddHoriz(this.gridLevel.borderLeft, this.gridLevel.gridToPixY(j-1), this.gridLevel.borderRight-this.gridLevel.borderLeft, this.gridLevel.gridScale, this, j));
 				}
 				break;
-			case 3: //-row
+			case 2: //-row
 				this.stripes = [];
 				for (var j = 0; j < this.layout.height; j++) {
 					this.stripes.push(new GridEditorStripeRemoveHoriz(50, this.gridLevel.gridToPixY(j-1/2), WIDTH-100, this.gridLevel.gridScale, this, j));
 				}
 				break;
-			case 4: //+col
+			case 3: //+col
 				this.stripes = [];
 				for (var i = 0; i <= this.layout.width; i++) {
 					this.stripes.push(new GridEditorStripeAddVert(this.gridLevel.gridToPixX(i-1), this.gridLevel.borderTop, this.gridLevel.gridScale, this.gridLevel.borderBottom-this.gridLevel.borderTop, this, i));
 				}
 				break;
-			case 5: //-col
+			case 4: //-col
 				this.stripes = [];
 				for (var i = 0; i < this.layout.width; i++) {
 					this.stripes.push(new GridEditorStripeRemoveVert(this.gridLevel.gridToPixX(i-1/2), 50, this.gridLevel.gridScale, HEIGHT-100, this, i));

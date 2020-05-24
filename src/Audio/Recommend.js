@@ -83,6 +83,7 @@ class MusicAskScreen extends Screen {
 			runnee = new MainMenu();
 	}
 }
+MusicAskScreen.prototype.overrideTouch = false;
 
 const MUSICASK_OPTIONS = [
 	{

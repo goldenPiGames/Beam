@@ -1,4 +1,8 @@
+const SURVEY_LINK = "https://docs.google.com/forms/d/e/1FAIpQLScTvIdMyTqUgND45HIuLQV5N0OWx3OxumZzlcQllSS432loDg/viewform?usp=sf_link";
+
 const CREDITS_HEADING_GAP = 36;
+const CREDITS_BUTTON_HEIGHT = 36;
+const CREDITS_SCROLL_SPEED = 60;
 
 class CreditsScreen extends Screen {
 	constructor() {
@@ -16,9 +20,6 @@ class CreditsScreen extends Screen {
 				});
 			});
 		});
-		this.objectsIn = [];
-		this.scroll = 0;
-		this.scrollMax = 1200;
 		this.creditsArea = new CreditsArea(0, WIDTH-100);
 		this.creditsArea.addHeading(lg("Credits-IDid"));
 		this.creditsArea.addText("Prexot (goldenPiGames)");
@@ -31,6 +32,12 @@ class CreditsScreen extends Screen {
 		this.creditsArea.addHeading(lg("Credits-Sources"));
 		this.levelSources.forEach(sauce => this.creditsArea.addDouble(sauce.name, sauce.source));
 		this.creditsArea.addDouble(lg("Credits-SourcesRest"), lg("Credits-SourcesOriginal"));
+		getLangCredits().forEach(ld => {
+			this.creditsArea.addHeading(ld.name);
+			this.creditsArea.addTexts(ld.credits);
+		});
+		this.creditsArea.addHeading(lg("Credits-TranslationBegHead"));
+		this.creditsArea.addTexts(lg("Credits-TranslationBegLines"));
 		this.creditsArea.addHeading(lg("Credits-SpecialThanks"));
 		this.creditsArea.addTexts([
 			"Delaware Games Collective",
@@ -81,9 +88,9 @@ class CreditsArea extends UIObject {
 		this.updateMouse();
 		if (this.hovered && mouse.scrolled) {
 			if (mouse.scrolled < 0)
-				this.scroll = Math.max(0, this.scroll-40);
+				this.scroll = Math.max(0, this.scroll-CREDITS_SCROLL_SPEED);
 			else
-				this.scroll = Math.min(this.maxScroll, this.scroll+40);
+				this.scroll = Math.min(this.maxScroll, this.scroll+CREDITS_SCROLL_SPEED);
 		}
 		if (this.draggedY) {
 			this.scroll = Math.max(0, Math.min(this.maxScroll, this.scroll-this.draggedY));
@@ -111,8 +118,8 @@ class CreditsArea extends UIObject {
 	}
 	addMultipleButtons(...butts) {
 		var len = butts.length;
-		butts.forEach((oj, dex) => this.objects.push(new ScrollingButton(this, this.x+this.width*dex/len, this.curry, this.width/len, 28, oj.text, oj.href ? ()=>{window.open(oj.href); this.held = false} : oj.handler)));
-		this.curry += 32;
+		butts.forEach((oj, dex) => this.objects.push(new ScrollingButton(this, this.x+this.width*dex/len, this.curry, this.width/len, CREDITS_BUTTON_HEIGHT, oj.text, oj.href ? ()=>{window.open(oj.href); this.held = false} : oj.handler)));
+		this.curry += CREDITS_BUTTON_HEIGHT+4;
 	}
 	finalize() {
 		this.maxScroll = this.curry;

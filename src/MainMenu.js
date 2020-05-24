@@ -38,3 +38,4 @@ class MainMenu extends Screen {
 		this.buttons.forEach(oj=>oj.draw());
 	}
 }
+MainMenu.prototype.overrideTouch = false;

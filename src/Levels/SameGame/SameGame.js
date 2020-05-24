@@ -149,6 +149,7 @@ class SameLevel extends GridLevel {
 //			Move <move>: Remove <count> <color> at column <col> from left, row <row> from bottom.
 	}
 }
+SameLevel.prototype.mode = "SameGame";
 SameLevel.prototype.lModeName = "SameGame-Name";
 SameLevel.prototype.lModeRules = "SameGame-Rules";
 SameLevel.prototype.lModeHints = "SameGame-Hints";

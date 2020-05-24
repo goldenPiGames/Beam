@@ -82,6 +82,7 @@ class MazeLevel extends DragPathLevel {
 		return (this.tiles.map(col=>col.map(pis=>(pis.neighborsD[RIGHT]?1:0)+(pis.neighborsD[DOWN]?2:0))));
 	}
 }
+MazeLevel.prototype.mode = "Maze";
 MazeLevel.prototype.lModeName = "Maze-Name";
 MazeLevel.prototype.lModeRules = "Maze-Rules";
 MazeLevel.prototype.lModeHints = "Maze-Hints";

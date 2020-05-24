@@ -9,6 +9,8 @@ class UIObject {
 	}
 	update() {
 		this.updateMouse();
+		if (this.clicked && this.onclick)
+			this.onclick();
 	}
 	intersectsMouse() {
 		if (this.displayRadius || this.radius)

@@ -14,6 +14,7 @@ class TimeTrialIterator extends InfiniteIterator {
 		} else {
 			this.finished = true;
 			this.finishTime = Date.now();
+			submitToAPI("TimeTrial"+this.mode.id+this.goal, this.timeTaken);
 			return new TimeTrialEndScreen(directionOpposite(prev.beamExitSide), this);
 		}
 	}
@@ -48,7 +49,7 @@ class TimeTrialEndScreen extends Level {
 		this.goal = iter.goal;
 		this.paraText = lg(this.mode.lName) + " <br> " +
 				lg("TimeTrialEnd-Length", {"num":this.goal}) + " <br> " +
-	((typeof this.seed == "number") ? lg("TimeTrialEnd-SM64RNG", {"seed":this.seed.toString(16)}) : lg("TimeTrialEnd-NoPRNG"));
+				((typeof this.seed == "number") ? lg("TimeTrialEnd-SM64RNG", {"seed":this.seed.toString(16)}) : lg("TimeTrialEnd-NoPRNG"));
 		this.redoButton = new Button(WIDTH/2-80, HEIGHT/2+100, 160, 40, lg("TimeTrialEnd-Return"), ()=>{
 				switchScreen(new InfiniteSelectScreen({
 					mode : this.mode.id,

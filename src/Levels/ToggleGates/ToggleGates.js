@@ -111,6 +111,7 @@ class ToggleLevel extends Level {
 		super.win();
 	}
 }
+ToggleLevel.prototype.mode = "ToggleGates";
 ToggleLevel.prototype.lModeName = "ToggleGates-Name";
 ToggleLevel.prototype.lModeRules = "ToggleGates-Rules";
 ToggleLevel.prototype.lModeHints = "ToggleGates-Hints";

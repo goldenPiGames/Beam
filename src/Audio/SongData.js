@@ -9,10 +9,10 @@ const SONG_LIST_ABS = [
 		by:"Al Gorgeous", sc:"al-goregous/boat-paint"},
 	
 	//Asher Please
+	{name:"Broken Record Blues", fname:"Sunday Night Sailing", intensity:1/4, kong:1,
+		by:"Asher Please", site:"https://distrokid.com/hyperfollow/asherplease/break-beater", siten:"DistroKid", yt:"5OPUFBZOzdU", sc:"asherplease/broken-record-blues", spot:"45jYDG8Jx7xnjMtunTcZh9"},
 	{name:"Saturday Morning Mood", intensity:0,
 		by:"Asher Please", site:"https://distrokid.com/hyperfollow/asherplease/break-beater", siten:"DistroKid", yt:"i6W33mnXeCg", sc:"asherplease/saturday-morning-mood-1", spot:"45jYDG8Jx7xnjMtunTcZh9"},
-	{name:"Sunday Night Sailing", intensity:1/4, kong:1,
-		by:"Asher Please"},
 	/*{name:"Broken Record Blues", intensity:1/4,
 		by:"Asher Please", sc:"asherplease/broken-record-blues"},
 	*/
@@ -102,6 +102,8 @@ const SONG_LIST_ABS = [
 		by:"PeriTune", yt:"_tR_JxExIfo", site:"https://peritune.com/dramatic3/", siten:"PeriTune.com", sc:"sei_peridot/dramatic3"},
 	{name:"Dramatic 4", intensity:3/4,
 		by:"PeriTune", yt:"dpBh5abRTh8", site:"https://peritune.com/dramatic4/", siten:"PeriTune.com", sc:"sei_peridot/dramatic4"},
+	{name:"Dungeon Tower", intensity:1/2,
+		by:"PeriTune", yt:"C03wgPMeeUs", site:"https://peritune.com/dungeon_tower/", siten:"PeriTune.com", sc:"sei_peridot/dungeon-tower"},
 	{name:"Firmament", intensity:1/4, loopStart:8.365, loopEnd:109.615, alt:true,
 		by:"PeriTune", yt:"4cBY3v4NCsw", site:"https://peritune.com/firmament/", siten:"PeriTune.com", sc:"sei_peridot/firmament-calm", license:CC_BY_4},
 	{name:"Firmament 2", intensity:1/4, alt:true,

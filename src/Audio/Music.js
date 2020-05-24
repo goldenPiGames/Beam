@@ -121,3 +121,19 @@ function musicLoopCheck() {
 		//music.play();
 	}
 }
+
+var musicWasPlaying = true;
+
+function musicFocus() {
+	if (settings.focusOutPause) {
+		if (musicWasPlaying)
+			music.play();
+	}
+}
+
+function musicFocusOut() {
+	if (settings.focusOutPause) {
+		musicWasPlaying = !music.paused;
+		music.pause();
+	}
+}

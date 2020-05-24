@@ -19,6 +19,7 @@ var coreEngine = {
 		clearBack();
 		if (mouse.clicked)
 			particles.push(new ParticleRing(mouse.x, mouse.y, 1.5, palette.click, .04));
+		canvas.style.cursor = hovered ? "pointer" : "default";
 		runnee.draw();
 		addRandomEmbers();
 		particles = particles.filter((oj)=>oj.go());

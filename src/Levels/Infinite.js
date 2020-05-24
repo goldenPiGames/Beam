@@ -3,8 +3,8 @@ class InfiniteSelectScreen extends Screen {
 		super();
 		this.modeButtons = new RadioButtons(10, 10, 200, 30, INFINITE_MODES.map(mod=>lg(mod.lName)), dex=>this.modeClicked(dex));
 		this.beginButton = new BubbleButton(WIDTH-50, HEIGHT-50, 45, ()=>this.tryPlay(), bubbleDrawIPlay);
-		this.seedCheckbox = new Checkbox(WIDTH-170, HEIGHT/2, 160, 30, lg("Infinite-PRNG"), val=>this.toggleSeed(val), false);
-		this.raceCheckbox = new Checkbox(WIDTH-370, HEIGHT/2, 160, 30, lg("Infinite-TimeTrial"), val=>this.toggleRace(val), false);
+		this.seedCheckbox = new Checkbox(WIDTH-170, 10, 160, 30, lg("Infinite-PRNG"), val=>this.toggleSeed(val), false);
+		this.raceCheckbox = new Checkbox(WIDTH-400, 10, 190, 30, lg("Infinite-TimeTrial"), val=>this.toggleRace(val), false);
 		this.returnButton = new BubbleButton(50, HEIGHT-50, 45, ()=>switchScreen(new MainMenu()), bubbleDrawIReturn),
 		this.objects = [
 			this.returnButton,
@@ -13,13 +13,15 @@ class InfiniteSelectScreen extends Screen {
 			this.seedCheckbox,
 			this.raceCheckbox,
 		];
-		this.seedSelector = new CodeNumberSelector(this.seedCheckbox.x, this.seedCheckbox.y+this.seedCheckbox.height, this.seedCheckbox.width, 100, 4, 16);
+		this.seedSelector = new CodeNumberSelector(this.seedCheckbox.x, 100, this.seedCheckbox.width, 100, 4, 16);
 		this.objectsSeedOnly = [
 			this.seedSelector,
 		];
-		this.goalSelector = new NumberSelector(this.raceCheckbox.x, this.raceCheckbox.y+this.raceCheckbox.height, this.raceCheckbox.width, 100, 1, 99, 5, 10);
+		this.goalSelector = new NumberSelector(this.raceCheckbox.x, 100, this.raceCheckbox.width, 100, 1, 99, 5, 10);
+		this.goalLabel = new LabelAbove(this.goalSelector, 30, lg("TimeTrial-Goal"));
 		this.objectsRaceOnly = [
 			this.goalSelector,
+			this.goalLabel,
 		];
 		if (specs) {
 			this.setSpecs(specs);
@@ -49,8 +51,11 @@ class InfiniteSelectScreen extends Screen {
 		this.objects.forEach(butt=>butt.draw());
 		if (this.doingSeed)
 			this.objectsSeedOnly.forEach(butt=>butt.draw());
-		if (this.doingRace)
+		if (this.doingRace) {
 			this.objectsRaceOnly.forEach(butt=>butt.draw());
+			ctx.fillStyle = palette.normal;
+			drawParagraphInRect(getVersionTimeTrialPara(this), 160, HEIGHT/2, WIDTH/2, HEIGHT/2-100, 28);
+		}
 	}
 	tryPlay() {
 		if (this.modeButtons.index >= 0) {
@@ -120,19 +125,19 @@ class InfiniteIterator extends LevelIterator {
 const INFINITE_MODES = [
 	{id:"PipePath", lName:"PipePath-Name", getLevel:(pex)=>new LevelPipeRandom({
 			entranceSide:directionOpposite(pex)
-		})},
+		}), submitKong:[8,15,30]},
 	{id:"Maze", lName:"Maze-Name", getLevel:(pex)=>new LevelMazeRandom({
 			entranceSide:directionOpposite(pex)
-		})},
+		}), submitKong:[12,30,60]},
 	{id:"WalkOnce", lName:"WalkOnce-Name", getLevel:(pex)=>new LevelOnceRandom({
 			entranceSide:directionOpposite(pex)
-		})},
+		}), submitKong:[10,24,50]},
 	{id:"ToggleGates", lName:"ToggleGates-Name", getLevel:(pex)=>new LevelToggleRandom({
 			direction: pex
-		})},
+		}), submitKong:[8,12,20]},
 	{id:"SameGame", lName:"SameGame-Name", getLevel:(pex)=>new LevelSameRandom({
 			direction: pex
-		})},
+		}), submitKong:[6,10,16]},
 	/*{id:"Gridlock", lName:"Gridlock-Name", getLevel:(pex)=>new LevelGridlockRandom({
 			direction: pex
 		})},*/

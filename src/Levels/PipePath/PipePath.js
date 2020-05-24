@@ -102,6 +102,7 @@ class PipeLevel extends GridLevel {
 		super.win();
 	}
 }
+PipeLevel.prototype.mode = "PipePath";
 PipeLevel.prototype.lModeName = "PipePath-Name";
 PipeLevel.prototype.lModeRules = "PipePath-Rules";
 PipeLevel.prototype.lModeHints = "PipePath-Hints";
@@ -120,13 +121,13 @@ class PipePiece extends UIObject {
 		this.scrambleRotation();
 	}
 	update() {
-		this.updateMouse();
+		super.update();
 		if (this.hovered)
 			hovered = true;
-		if (this.clicked) {
-			playSFX("blip1");
-			this.rotation = (this.rotation + 1) % (this.type == 0 ? 2 : 4);
-		}
+	}
+	onclick() {
+		playSFX("blip1");
+		this.rotation = (this.rotation + 1) % (this.type == 0 ? 2 : 4);
 	}
 	draw() {
 		//console.log("bup")

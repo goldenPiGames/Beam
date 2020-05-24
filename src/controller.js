@@ -25,7 +25,7 @@ function addEvents() {
 	});
 	
 	eventCatcher.addEventListener("mousedown", function(e) {
-		mouse.clicked = true;// !mouse.down;
+		mouse.clicked = true;
 		mouse.down = true;
 	});
 	
@@ -33,11 +33,6 @@ function addEvents() {
 		mouse.down = false;
 		mouse.clicked;
 	});
-	
-	/*eventCatcher.addEventListener("mousewheel", function(e) {
-		mouse.scrolled += e.deltaY / 3;
-		console.log(mouse.scrolled);
-	});*/
 	
 	eventCatcher.addEventListener("wheel", function(e) {
 		e.preventDefault();
@@ -50,7 +45,7 @@ function addEvents() {
 	});
 	
 	eventCatcher.addEventListener("touchstart", function(e) {
-		//if (runnee.overrideTouch)
+		if (runnee.overrideTouch)
 			e.preventDefault();
 		mouse.clicked = true;
 		mouse.down = true;
@@ -86,6 +81,10 @@ function addEvents() {
 	});
 	
 	window.addEventListener("resize", fitCanvas);
+	
+	window.addEventListener("focus", musicFocus);
+	
+	window.addEventListener("blur", musicFocusOut);
 }
 
 function fitCanvas(e) {

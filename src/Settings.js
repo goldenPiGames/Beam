@@ -2,6 +2,7 @@ var settings = {
 	//lang : "en",
 	music : .8,
 	sfx : .8,
+	focusOutPause : true,
 	profanity : false,
 	font : "sans-serif",
 	sfxSystem : "audio",

@@ -68,6 +68,7 @@ class OnceLevel extends DragPathLevel {
 		super.win();
 	}
 }
+OnceLevel.prototype.mode = "WalkOnce";
 OnceLevel.prototype.lModeName = "WalkOnce-Name";
 OnceLevel.prototype.lModeRules = "WalkOnce-Rules";
 OnceLevel.prototype.lModeHints = "WalkOnce-Hints";

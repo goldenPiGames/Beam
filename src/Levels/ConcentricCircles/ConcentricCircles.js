@@ -97,6 +97,7 @@ class ConcentricLevel extends Level {
 		super.win();
 	}
 }
+ConcentricLevel.prototype.mode = "ConcentricCircles";
 ConcentricLevel.prototype.lModeName = "ConcentricCircles-Name";
 ConcentricLevel.prototype.lModeRules = "ConcentricCircles-Rules";
 ConcentricLevel.prototype.lModeHints = "ConcentricCircles-Hints";

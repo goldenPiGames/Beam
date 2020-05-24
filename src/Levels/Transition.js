@@ -9,22 +9,29 @@ class LevelIterator {
 		ctx.globalAlpha = 1/5;
 		drawTextInRect(str, 0, 0, WIDTH, HEIGHT);
 	}
+	proceed() {
+		var from = runnee;
+		var fromSnap = from.snap();
+		var toLevel = this.nextLevel(from.level);
+		if (toLevel) {
+			var toWrap = new LevelWrapper(toLevel);
+			var trans = new (this.transitionType)(from, toWrap, fromSnap);
+			runnee = trans;
+		} else if (runnee == from)
+			switchScreen(new MainMenu());
+	}
 	exit() {
 		
 	}
 }
+//sets transitionType at the bottom
 
 function startLevel() {
 	runnee = new LevelWrapper(levelIterator.nextLevel());
 }
 
 function nextLevel() {
-	var from = runnee;
-	var trans = new LevelTransition(from);
-	if (trans.tryIter(levelIterator))
-		runnee = trans;
-	else if (runnee == from)
-		switchScreen(new MainMenu());
+	levelIterator.proceed();
 }
 
 function redoLevel() {
@@ -37,18 +44,14 @@ function exitLevel() {
 }
 
 class LevelTransition extends Screen {
-	constructor(fromWrap) {
+	constructor(fromWrap, toWrap, fromSnap) {
 		super();
 		this.fromWrap = fromWrap;
 		this.fromLevel = fromWrap.level;
-		this.fromsnap = this.fromWrap.snap();
-	}
-	tryIter(iter) {
-		this.toLevel = iter.nextLevel(this.fromLevel);
-		if (!this.toLevel)
-			return false;
-		this.toWrap = new LevelWrapper(this.toLevel);
-		this.tosnap = this.toWrap.snap();
+		this.fromSnap = fromSnap;
+		this.toWrap = toWrap;
+		this.toLevel = toWrap.level;
+		this.toSnap = this.toWrap.snap();
 		switch (this.toLevel.beamEntranceSide) {
 			case 0: this.tx = this.fromLevel.beamExitPosition - this.toLevel.beamEntrancePosition;
 					this.ty = HEIGHT;
@@ -65,7 +68,6 @@ class LevelTransition extends Screen {
 		}
 		this.st = 0;
 		this.sd = 0;
-		return true;
 	}
 	update() {
 		this.st += .02;
@@ -75,7 +77,9 @@ class LevelTransition extends Screen {
 		}
 	}
 	draw() {
-		ctx.putImageData(this.fromsnap, Math.floor(-this.sd * this.tx), Math.floor(-this.sd * this.ty));
-		ctx.putImageData(this.tosnap, Math.floor((1-this.sd) * this.tx), Math.floor((1-this.sd) * this.ty));
+		ctx.putImageData(this.fromSnap, Math.floor(-this.sd * this.tx), Math.floor(-this.sd * this.ty));
+		ctx.putImageData(this.toSnap, Math.floor((1-this.sd) * this.tx), Math.floor((1-this.sd) * this.ty));
 	}
 }
+
+LevelIterator.prototype.transitionType = LevelTransition;

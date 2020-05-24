@@ -4,7 +4,7 @@ class JoinMultiplayerScreen extends Screen {
 		initFirebase();
 		firebase.auth().onAuthStateChanged(user => this.signedIn(user));
 		firebase.auth().signInAnonymously();
-		setTextInput(0, 10, 110, WIDTH-20, 40, "Paste the Room Key");
+		setTextInput(0, 10, 110, WIDTH-20, 40, lg("MultiplayerJoin-InputKey"));
 		setTextInput(1, 290, HEIGHT/2+COLOR_PICKER_TEXT_HEIGHT+5, WIDTH-300, 40, lg("MultiplayerJoin-InputName"));
 		textInput1.value = settings.name;
 		this.returnButton = new BubbleButton(50, HEIGHT-50, 45, ()=>{hideInputs();switchScreen(new MultiplayerMenu())}, bubbleDrawIReturn);
