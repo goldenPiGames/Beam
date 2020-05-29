@@ -23,6 +23,13 @@ class InfiniteSelectScreen extends Screen {
 			this.goalSelector,
 			this.goalLabel,
 		];
+		if (VERSION_KONGREGATE) {
+			this.objectsRaceOnly.push(
+				new TimeTrialDurationButton(WIDTH/2, HEIGHT/2, 100, 60, this, 0),
+				new TimeTrialDurationButton(WIDTH/2+110, HEIGHT/2, 100, 60, this, 1),
+				new TimeTrialDurationButton(WIDTH/2+220, HEIGHT/2, 100, 60, this, 2),
+			);
+		}
 		if (specs) {
 			this.setSpecs(specs);
 		}
@@ -54,7 +61,9 @@ class InfiniteSelectScreen extends Screen {
 		if (this.doingRace) {
 			this.objectsRaceOnly.forEach(butt=>butt.draw());
 			ctx.fillStyle = palette.normal;
-			drawParagraphInRect(getVersionTimeTrialPara(this), 160, HEIGHT/2, WIDTH/2, HEIGHT/2-100, 28);
+			if (VERSION_KONGREGATE && this.modeButtons.index >= 0) {
+				drawParagraphInRect(lg(this.doingSeed?"TimeTrial-KongregateNoPRNG":this.objectsRaceOnly.find(o=>o.showSelected)?"TimeTrial-KongregateYes":"TimeTrial-KongregateLength"), WIDTH/3, HEIGHT/2+80, WIDTH*2/3-10, HEIGHT/2-100, 26);
+			}
 		}
 	}
 	tryPlay() {
@@ -134,7 +143,7 @@ const INFINITE_MODES = [
 		}), submitKong:[10,24,50]},
 	{id:"ToggleGates", lName:"ToggleGates-Name", getLevel:(pex)=>new LevelToggleRandom({
 			direction: pex
-		}), submitKong:[8,12,20]},
+		}), submitKong:[7,12,20]},
 	{id:"SameGame", lName:"SameGame-Name", getLevel:(pex)=>new LevelSameRandom({
 			direction: pex
 		}), submitKong:[6,10,16]},
@@ -150,4 +159,54 @@ function bubbleDrawIInfinity() {
 	ctx.arc(this.x-this.radius*2/5, this.y, this.radius/3, -Math.PI*1/4, Math.PI*1/4, true);
 	ctx.closePath();
 	ctx.stroke();
+}
+
+class TimeTrialDurationButton extends UIObject {
+	constructor(x, y, width, height, screen, index) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.screen = screen;
+		this.index = index;
+		this.lastMode = -1;
+		this.length = null;
+	}
+	update() {
+		super.update();
+		if (this.hovered)
+			hovered = true;
+		let currMode = this.screen.modeButtons.index;
+		if (currMode != this.lastMode) {
+			this.lastMode = currMode;
+			this.length = INFINITE_MODES[currMode].submitKong[this.index];
+			if (this.selected)
+				this.screen.goalSelector.setNumber(this.length);
+		}
+		this.showSelected = this.screen.goalSelector.getNumber() == this.length && this.screen.seedCheckbox.checked == false;
+		if (!this.showSelected)
+			this.selected = false;
+		if (this.clicked) {
+			this.screen.seedCheckbox.checked = false;
+			this.screen.seedCheckbox.handler(false);
+			if (this.length) {
+				this.screen.goalSelector.setNumber(this.length);
+			}
+			this.selected = true;
+			this.showSelected = true;
+		}
+	}
+	draw() {
+		if (!this.length)
+			return;
+		var color = this.showSelected ? palette.click : this.hovered ? palette.hover : palette.normal;
+		ctx.lineWidth = BUTTON_BORDER_WIDTH;
+		ctx.strokeStyle = color;
+		ctx.fillStyle = palette.background;
+		ctx.fillRect(this.x, this.y, this.width, this.height);
+		this.stroke();
+		ctx.fillStyle = color;
+		drawTextInRect(this.length, this.x+BUTTON_BORDER_WIDTH*2, this.y+BUTTON_BORDER_WIDTH*2, this.width-BUTTON_BORDER_WIDTH*4, this.height-BUTTON_BORDER_WIDTH*4);
+	}
 }

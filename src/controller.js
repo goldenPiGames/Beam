@@ -45,7 +45,7 @@ function addEvents() {
 	});
 	
 	eventCatcher.addEventListener("touchstart", function(e) {
-		if (runnee.overrideTouch)
+		//if (runnee.overrideTouch) because otherwise it'll sometimes click twice and i don't know how else to fix that
 			e.preventDefault();
 		mouse.clicked = true;
 		mouse.down = true;

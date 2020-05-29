@@ -8,8 +8,9 @@ class EditorSetsScreen extends Screen {
 	}
 	draw() {
 		this.returnButton.draw();
+		ctx.fillStyle = palette.normal;
+		drawTextInRect(lg("EditorSet-No"), 0, 0, WIDTH, HEIGHT);
 	}
-	
 }
 
 function bubbleDrawISets() {

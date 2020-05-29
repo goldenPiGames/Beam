@@ -1,13 +1,13 @@
-rm -rf Beam_Kong
-mkdir Beam_Kong
-cp Beam/index.html Beam_Kong/index.html
-cp -r Beam/src Beam_Kong/src
-cp Beam/version/Kongregate.js Beam_Kong/src/Version.js
-rm -f Beam_Kong/src/Audio/Songs/*.mp3
+rm -rf submitKong
+mkdir submitKong
+cp index.html submitKong/index.html
+cp -r src submitKong/src
+cp version/Kongregate.js submitKong/src/Version.js
+rm -f submitKong/src/Audio/Songs/*.mp3
 while IFS= read -r line; do
-  cp "Beam/src/Audio/Songs/${line}.mp3" "Beam_Kong/src/Audio/Songs/${line}.mp3"
-done < Beam/src/Audio/include_kong
-mkdir Beam_Kong/zippy
-cp -r Beam_Kong/src Beam_Kong/zippy/src
-7za a Beam_Kong/zippy.zip ./Beam_Kong/zippy/*
-rm -rf Beam_Kong/zippy
+  cp "src/Audio/Songs/${line}.mp3" "submitKong/src/Audio/Songs/${line}.mp3"
+done < src/Audio/include_kong
+mkdir submitKong/zippy
+cp -r submitKong/src submitKong/zippy/src
+7za a submitKong/zippy.zip ./submitKong/zippy/*
+rm -rf submitKong/zippy

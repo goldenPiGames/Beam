@@ -138,8 +138,14 @@ class LinearLevelIterator extends LevelIterator {
 			localStorage.setItem("Beam"+this.seq.id+"Progress", this.index);
 		if (this.index >= this.seq.levelIDs.length) {
 			//this.index = "";
+			this.atEnd = true;
 			localStorage.setItem("Beam"+this.seq.id+"Beaten", true);
-			return new LevelVictoryLinear(this.seq, prev);
+			if (localStorage.getItem("BeamMainCompletionSeen") != "true" && areAllMainLevelsCompleted()) {
+				localStorage.setItem("BeamMainCompletionSeen", "true");
+				return new MainCompletionScreen();
+			} else {
+				return new LevelVictoryLinear(this.seq, prev);
+			}
 		} else {
 			return new (Levels[this.seq.levelIDs[this.index]])();
 		}
@@ -149,10 +155,13 @@ class LinearLevelIterator extends LevelIterator {
 		runnee = new LevelSelectLinearScreen(MAIN_LEVEL_SEQS);
 	}
 	redoLevel() {
-		return new (Levels[this.seq.levelIDs[this.index]])();
+		if (this.atEnd)
+			return null;
+		else
+			return new (Levels[this.seq.levelIDs[this.index]])();
 	}
 	drawBack() {
-		if (this.index >= 0)
+		if (this.index >= 0 && !this.atEnd)
 			this.drawBackText(this.index);
 		if (this.index === 0 && !this.seenHintsAlready) {
 			ctx.globalAlpha = 1;
@@ -179,6 +188,7 @@ class LevelVictoryLinear extends Level {
 		this.path.lineTo(WIDTH, this.beamEntrancePosition);
 	}
 	update() {
+		//runnee = this;
 		this.levelButton.update();
 	}
 	draw() {

@@ -5,7 +5,3 @@ const VERSION_NEWGROUNDS = false;
 function submitToAPI(key, value) {
 	console.log(key + " : " + value);
 }
-
-function getVersionTimeTrialPara(scrin) {
-	return "";
-}

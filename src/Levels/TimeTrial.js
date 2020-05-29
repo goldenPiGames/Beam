@@ -14,7 +14,9 @@ class TimeTrialIterator extends InfiniteIterator {
 		} else {
 			this.finished = true;
 			this.finishTime = Date.now();
-			submitToAPI("TimeTrial"+this.mode.id+this.goal, this.timeTaken);
+			if (!(typeof this.seed == "number")) {
+				submitToAPI("TimeTrial"+this.mode.id+this.goal, this.timeTaken);
+			}
 			return new TimeTrialEndScreen(directionOpposite(prev.beamExitSide), this);
 		}
 	}

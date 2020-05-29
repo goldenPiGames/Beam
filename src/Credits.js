@@ -1,8 +1,11 @@
 const SURVEY_LINK = "https://docs.google.com/forms/d/e/1FAIpQLScTvIdMyTqUgND45HIuLQV5N0OWx3OxumZzlcQllSS432loDg/viewform?usp=sf_link";
+const DISCORD_LINK = "https://discord.gg/ErnbtbJ";
+const PATREON_LINK = "https://www.patreon.com/goldenPiGames";
 
 const CREDITS_HEADING_GAP = 36;
 const CREDITS_BUTTON_HEIGHT = 36;
 const CREDITS_SCROLL_SPEED = 60;
+const CREDITS_AUTO_SPEED = 2;
 
 class CreditsScreen extends Screen {
 	constructor() {
@@ -27,7 +30,9 @@ class CreditsScreen extends Screen {
 			{text:"Kongregate", href:"https://www.kongregate.com/accounts/goldenPiGames"},
 			{text:"Newgrounds", href:"https://goldenpigames.newgrounds.com/"},
 			{text:"itch", href:"https://goldenpigames.itch.io/"},
-			{text:"YouTube", href:"https://www.youtube.com/channel/UCb4QliR5GWppUqOLXBYKYHw"}
+			{text:"YouTube", href:"https://www.youtube.com/channel/UCb4QliR5GWppUqOLXBYKYHw"},
+			{text:"Patreon", href:PATREON_LINK},
+			{text:"Discord", href:DISCORD_LINK},
 		);
 		this.creditsArea.addHeading(lg("Credits-Sources"));
 		this.levelSources.forEach(sauce => this.creditsArea.addDouble(sauce.name, sauce.source));
@@ -45,10 +50,17 @@ class CreditsScreen extends Screen {
 			"@ihartnia",
 		]);
 		this.creditsArea.finalize();
-		
+		let creditsArea = this.creditsArea;
+		this.pauseButton = new BubbleButton(WIDTH-50, 50, 45, ()=>{this.creditsArea.togglePause()}, function() {
+				if (creditsArea.moving) {
+					bubbleDrawIPause.call(this);
+				} else {
+					bubbleDrawIPlay.call(this);
+				}});
 		this.scrollBar = new ScrollBar(WIDTH-50, 100, 50, HEIGHT-200, HEIGHT, this.creditsArea.maxScroll+this.creditsArea.height, val=>this.creditsArea.scroll=val, ()=>this.creditsArea.scroll);
 		this.returnButton = new BubbleButton(WIDTH-50, HEIGHT-50, 45, ()=>switchScreen(new MainMenu()), bubbleDrawIReturn);
 		this.objects = [
+			this.pauseButton,
 			this.scrollBar,
 			this.creditsArea,
 			this.returnButton,
@@ -78,15 +90,21 @@ class CreditsArea extends UIObject {
 		this.y = 0;
 		this.width = width;
 		this.height = HEIGHT;
-		this.scroll = this.height;
+		this.scroll = 0;//this.height;
 		this.maxScroll = 1500;
 		this.curry = this.height;
 		this.objects = [];
-		
+		this.moving = true;
 	}
 	update() {
 		this.updateMouse();
+		if (this.moving) {
+			this.scroll += CREDITS_AUTO_SPEED;
+			if (this.scroll > this.maxScroll)
+				this.scroll = 0;
+		}
 		if (this.hovered && mouse.scrolled) {
+			//this.moving = false;
 			if (mouse.scrolled < 0)
 				this.scroll = Math.max(0, this.scroll-CREDITS_SCROLL_SPEED);
 			else
@@ -94,6 +112,7 @@ class CreditsArea extends UIObject {
 		}
 		if (this.draggedY) {
 			this.scroll = Math.max(0, Math.min(this.maxScroll, this.scroll-this.draggedY));
+			this.moving = false;
 		}
 		this.objects.forEach(oj=>oj.update());
 	}
@@ -122,7 +141,10 @@ class CreditsArea extends UIObject {
 		this.curry += CREDITS_BUTTON_HEIGHT+4;
 	}
 	finalize() {
-		this.maxScroll = this.curry;
+		this.maxScroll = this.curry + 5;
+	}
+	togglePause() {
+		this.moving = !this.moving;
 	}
 }
 
