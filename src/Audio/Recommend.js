@@ -20,7 +20,7 @@ function recommendSilence() {
 const SONGREC = {
 	mainMenu : ["Decisions"],
 	main : {
-		PipePath : ["Exit the Premises", "Sunday Night Sailing", "Blip Stream"],
+		PipePath : ["Exit the Premises", "Broken Record Blues", "Blip Stream"],
 		Maze : ["Blue Sky", "Deep Valley 2", "遥かなる冒険"],
 		WalkOnce : ["Flex", "Labyrinth", "ステージ4"],
 		ToggleGates : ["Lost Place", "Investigation 3", "決戦の地へ"],

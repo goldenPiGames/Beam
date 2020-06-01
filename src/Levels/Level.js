@@ -87,7 +87,7 @@ class Level {
 		var basehints = lg(this.id + "-Hints");
 		if (basehints)
 			return basehints;
-		if (this.solution) {
+		if (this.solution && this.getSolutionHints) {
 			return this.getSolutionHints();
 		}
 		return lg("Hint-NoLevelHints");

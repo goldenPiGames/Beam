@@ -9,6 +9,8 @@ class LevelSelectLinearScreen extends Screen {
 		super();
 		this.seqs = seqs;
 		this.seqBeads = this.seqs.map((seq, dex, ray) => new LevelSelectSeqBeads(seq, 10, HEIGHT*(dex)/(ray.length), WIDTH-120, HEIGHT/(ray.length+1), this));
+		if (areAllMainLevelsCompleted())
+				submitToAPI("MainCompleted", 1);
 		//this.playButton = new BubbleButton(WIDTH-50, HEIGHT-50, 45, ()=>this.tryPlay(), bubbleDrawIPlay);
 		this.returnButton = new BubbleButton(WIDTH-50, 50, 45, ()=>switchScreen(new MainMenu()), bubbleDrawIReturn);
 		this.buttons = [
@@ -141,6 +143,7 @@ class LinearLevelIterator extends LevelIterator {
 			this.atEnd = true;
 			localStorage.setItem("Beam"+this.seq.id+"Beaten", true);
 			if (localStorage.getItem("BeamMainCompletionSeen") != "true" && areAllMainLevelsCompleted()) {
+				submitToAPI("MainCompleted", 1);
 				localStorage.setItem("BeamMainCompletionSeen", "true");
 				return new MainCompletionScreen();
 			} else {
