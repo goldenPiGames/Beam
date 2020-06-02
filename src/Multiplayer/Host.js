@@ -150,7 +150,7 @@ class HostSettingsScreen extends Screen {
 	finishSignIn() {
 		var allRef = firebase.database().ref("hostgamesa");
 		this.gameRef = allRef.child(this.user.uid);
-		this.gameRef.set({begun:false, players:[]});
+		this.gameRef.set({begun:false, players:[], started:Date.now()});
 		//this.gameRef.child("begun").set(false);
 		//this.gameRef.child("players").set([]);
 		this.mustResetTextInput = true;
