@@ -34,6 +34,8 @@ class DragPathLevel extends GridLevel {
 		}
 	}
 	checkClickAlert() {
+		if (!settings.alertDrag)
+			return;
 		if (this.recentClicks)
 			this.recentClickTime++;
 		if (this.recentClickTime >= 120) {

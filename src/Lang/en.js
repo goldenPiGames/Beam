@@ -198,6 +198,9 @@ LANG.en = {
 	"EditorLoad-FileLoading" : "Loading file...",
 	"EditorSet-No" : "Not Available",
 	
+	"EditorSubmit-Submit" : "Submit to Kongregate",
+	"EditorSubmit-Return" : "Return to Editor",
+	
 	"Editor-MaxHeight" : "Maximum height reached.",
 	"Editor-MinHeight" : "Minimum height reached.",
 	"Editor-MaxWidth" : "Maximum width reached.",
@@ -332,6 +335,8 @@ LANG.en = {
 	"Settings-Music" : "Music",
 	"Settings-SFX" : "SFX",
 	"Settings-FocusOutPause" : "Pause when focus lost",
+	"Settings-BGNumber" : "Background Number Opacity",
+	"Settings-AlertDrag" : "Alert when clicking repeatedly in <lg|Maze-Name> and <lg|WalkOnce-Name>",
 	"Settings-Colorblind" : "Colorblind-Friendly",
 	"Settings-RainbowBeam" : "Rainbow Beam",
 	"Settings-FontOther" : "Other",

@@ -25,6 +25,8 @@ var settings = {
 	rainbowBeam : true,
 	name : "Anon " + Math.floor((Math.random()*36**4)).toString(36).toUpperCase(),
 	musicDontAsk : false,
+	bgNumber : 1/5,
+	alertDrag : true,
 }
 
 function mainHeight() {

@@ -40,12 +40,16 @@ class SettingsScreen extends Screen {
 class SettingsScreenGeneral {
 	constructor() {
 		this.musicSlider = new Slider(50, 200, WIDTH-100, 30, lg("Settings-Music"), 0, 1, val=>{settings.music=val;setMusicVolume(val);saveSettings();}, ()=>settings.music, ()=>asInfuriatingPercent(settings.music));
-		this.sfxSlider = new Slider(50, 300, WIDTH-100, 30, lg("Settings-SFX"), 0, 1, val=>{settings.sfx=val;setSFXVolume(val);saveSettings();}, ()=>settings.sfx, ()=>asInfuriatingPercent(settings.sfx));
+		this.sfxSlider = new Slider(50, 280, WIDTH-100, 30, lg("Settings-SFX"), 0, 1, val=>{settings.sfx=val;setSFXVolume(val);saveSettings();}, ()=>settings.sfx, ()=>asPercent(settings.sfx));
 		this.focusOutPauseCheckbox = new Checkbox(69, this.musicSlider.y+35, WIDTH/2, 24, lg("Settings-FocusOutPause"), val=>{settings.focusOutPause=val;saveSettings();}, settings.focusOutPause);
+		this.bgNumberSlider = new Slider(50, 400, (WIDTH-100)*.8, 30, lg("Settings-BGNumber"), 0, .8, val=>{settings.bgNumber=val;saveSettings();}, ()=>settings.bgNumber, ()=>asPercent(settings.bgNumber));
+		this.alertDragCheckbox = new Checkbox(69, 450, WIDTH/2, 24, lg("Settings-AlertDrag"), val=>{settings.alertDrag=val;saveSettings();}, settings.alertDrag);
 		this.objects = [
 			this.musicSlider,
 			this.sfxSlider,
 			this.focusOutPauseCheckbox,
+			this.bgNumberSlider,
+			this.alertDragCheckbox,
 		]
 	}
 	update() {

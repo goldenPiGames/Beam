@@ -39,6 +39,12 @@ class LevelWrapper extends Screen {
 		this.level.draw();
 		return ctx.getImageData(0, 0, WIDTH, HEIGHT);
 	}
+	snap64() {
+		clearBack();
+		levelIterator.drawBack(this);
+		this.level.draw();
+		return canvas.toDataURL();
+	}
 	win() {
 		nextLevel();
 	}
@@ -91,6 +97,16 @@ class Level {
 			return this.getSolutionHints();
 		}
 		return lg("Hint-NoLevelHints");
+	}
+	snap() {
+		clearBack();
+		this.draw();
+		return ctx.getImageData(0, 0, WIDTH, HEIGHT);
+	}
+	snap64() {
+		clearBack();
+		this.draw();
+		return canvas.toDataURL();
 	}
 }
 Level.prototype.lModeName = "LevelOther-Name";

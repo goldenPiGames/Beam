@@ -66,7 +66,7 @@ const SONG_LIST_ABS = [
 		by:"Kevin MacLeod", yt:"9np9KK4ccuA", site:"https://incompetech.com/music/royalty-free/index.html?isrc=usuan1500056", siten:"Incompetech", sc:"kevin-9-1/blip-stream", pat:"kmacleod"},
 	{name:"Exit the Premises", intensity:3/4, kong:1,
 		by:"Kevin MacLeod", yt:"Yy-NyPTRYU8", site:"https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1500029", siten:"Incompetech", sc:"kevin-9-1/exit-the-premises", pat:"kmacleod"},
-	{name:"Fearless First", intensity:1/4,
+	{name:"Fearless First", intensity:1/4, kong:1,
 		by:"Kevin MacLeod", yt:"NrwsOuJ2VvY", site:"https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1600058", siten:"Incompetech", sc:"kevin-9-1/fearless-first", pat:"kmacleod"},
 	{name:"March of the Spoons", intensity:1/4, kong:1,
 		by:"Kevin MacLeod", yt:"JFxJdBhP5dc", site:"https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1700008", siten:"Incompetech", sc:"kevin-9-1/march-of-the-spoons", pat:"kmacleod"},
@@ -78,23 +78,25 @@ const SONG_LIST_ABS = [
 	//Kubbi
 	{name:"Up In My Jam (All Of A Sudden)", fname:"Up In My Jam", intensity:3/4, kong:1,
 		by:"Kubbi", yt:"6DB6hBRPsWc", site:"https://kubbimusic.com/track/up-in-my-jam-all-of-a-sudden", siten:"KubbiMusic.com", sc:"kubbi/up-in-my-jam-all-of-a-sudden", ng:538102},
-	{name:"Seahorse Dreams", intensity:3/4,
+	{name:"Seahorse Dreams", intensity:3/4, kong:1,
 		by:"Kubbi", yt:"DLvrDRRaftQ", site:"https://kubbimusic.com/track/seahorse-dreams", siten:"KubbiMusic.com", sc:"kubbi/seahorse-dreams", ng:538406},
 	
 	//ParagonX9
 	{name:"Blue Sky", intensity:1/2, kong:1,
 		by:"ParagonX9", yt:"QdL18RWUS8E", ng:5437},
-	{name:"Chaoz Fantasy", intensity:3/4,
+	{name:"Chaoz Fantasy", intensity:3/4, kong:1,
 		by:"ParagonX9", yt:"pxIuZC26hXU", sc:"paragonx9/chaozfantasy", ng:85046},
-	{name:"Chaoz Fantasy (8-bit)", intensity:3/4, chiptune:1,
+	{name:"Chaoz Fantasy (8-bit)", intensity:3/4, chiptune:1, kong:1,
 		by:"ParagonX9", sc:"paragonx9/paragonx9-chaoz-fantasy-8-bit", ng:486695},
 	
 	//PeriTune / Sei Mutsuki / むつき醒
+	{name:"Climbing (Retro)", intensity:1/2,
+		by:"PeriTune", yt:"oMi4OrwpClE", site:"https://peritune.com/climbing/", siten:"PeriTune.com", sc:"sei_peridot/sei_peridot/climbing_retro", license:CC_BY_4},
 	{name:"Deep Valley 2", intensity:0, kong:1,
 		by:"PeriTune", yt:"iStkj9BMmWw", site:"https://peritune.com/deep_valley2/", siten:"PeriTune.com", sc:"sei_peridot/deep-valley2", license:CC_BY_4},
 	{name:"Demise", intensity:1, loopStart:13.111, loopEnd:99.403,
 		by:"PeriTune", yt:"Ouj_cwWJdmo", site:"https://peritune.com/demise/", siten:"PeriTune.com", sc:"sei_peridot/demise"},
-	{name:"Dramatic", intensity:1,
+	{name:"Dramatic", intensity:1, kong:1,
 		by:"PeriTune", yt:"o2GeoGLDjDg", site:"https://peritune.com/dramatic1/", siten:"PeriTune.com", sc:"sei_peridot/dramatic"},
 	{name:"Dramatic 2", intensity:1,
 		by:"PeriTune", yt:"okBKjTPrzA4", site:"https://peritune.com/dramatic2/", siten:"PeriTune.com", sc:"sei_peridot/dramatic3"},
@@ -128,7 +130,7 @@ const SONG_LIST_ABS = [
 		by:"PeriTune", yt:"iMkX3NxQYv0", site:"https://peritune.com/prairie/", siten:"PeriTune.com", sc:"sei_peridot/prairie", license:CC_BY_4},
 	{name:"Prairie 4", intensity:3/4,
 		by:"PeriTune", yt:"EOlXXpqlS5k", site:"https://peritune.com/prairie4", siten:"PeriTune.com", sc:"sei_peridot/prairie4", licence:CC_BY_4},
-	{name:"Prairie 5", intensity:1,
+	{name:"Prairie 5", intensity:1, kong:1,
 		by:"PeriTune", yt:"XerGSyUXCUc", site:"https://peritune.com/prairie5", siten:"PeriTune.com", sc:"sei_peridot/prairie5", licence:CC_BY_4},
 	{name:"Raid 3", intensity:1,
 		by:"PeriTune", yt:"Vp-jDXwjOxM", site:"https://peritune.com/raid3/", siten:"PeriTune.com", sc:"sei_peridot/raid3", license:CC_BY_4},
@@ -140,7 +142,7 @@ const SONG_LIST_ABS = [
 		by:"PeriTune", yt:"amnMq-0nv5A", site:"https://peritune.com/rapid2/", siten:"PeriTune.com", sc:"sei_peridot/rapid2"},
 	{name:"Rapid 4", intensity:1,
 		by:"PeriTune", yt:"g3c-dHAI-ts", site:"https://peritune.com/rapid4/", siten:"PeriTune.com", sc:"sei_peridot/rapid4"},
-	{name:"Steam Fortress", intensity:3/4,
+	{name:"Steam Fortress", intensity:3/4, kong:1,
 		by:"PeriTune", yt:"odfg3GNRP0M", site:"https://peritune.com/steam_fortress/", siten:"PeriTune.com", sc:"sei_peridot/steam-fortress"},
 	{name:"Unknown World 2", intensity:1/2, alt:true,
 		by:"PeriTune", yt:"OpsZR7O5H-A", site:"https://peritune.com/unknownworld2/", siten:"PeriTune.com", sc:"sei_peridot/unknownworld2", license:CC_BY_4}, //alt sc:"sei_peridot/unknownworld2_harp"
@@ -162,7 +164,7 @@ const SONG_LIST_ABS = [
 		by:"TeknoAXE", yt:"08aevamNz60", site:"https://teknoaxe.com/Link_Code_3.php?q=1404", siten:"TeknoAXE.com", license:CC_BY_4},
 		
 	//TheFatRat
-	{name:"Unity", intensity:3/4, hop:1, vocals:1, //TODO make it loop
+	{name:"Unity", intensity:3/4, hop:1, vocals:1, kong:1, //TODO make it loop
 		by:"TheFatRat", yt:"n8X9_MgEdCg", site:"https://lnk.to/thefatratunity", siten:"Linkfire", spot:"1cxmFr3tma40mHVD1NsLAV", ng:621134, license:CC_BY_3},
 	
 	
@@ -174,7 +176,7 @@ const SONG_LIST_ABS = [
 		by:"Ucchii 0", yt:"RiLqC-sFl6U", sc:"vskktqtpbuqs/chiptunecollapse-of-the-labyrinthucchii0"},
 	{name:"Don't Sleep", intensity:1, loopStart:13.81606, loopEnd:97.81608, bpm:160, kong:1,
 		by:"Ucchii 0", yt:"pluUDQCBSso", site:"https://creofuga.net/audios/106981", siten:"CreoFuga"},
-	{name:"Gambles", intensity:3/4, bpm:155,
+	{name:"Gambles", intensity:3/4, bpm:155, kong:1,
 		by:"Ucchii 0", yt:"lp7oqpZW7xQ"},
 	{name:"Secret Power", intensity:1, loopStart:16.093, loopEnd:330.35, bpm:165, intensity:1,
 		by:"Ucchii 0", yt:"ivspAGvhA8E", site:"https://creofuga.net/audios/106993", siten:"CreoFuga"},
@@ -184,15 +186,15 @@ const SONG_LIST_ABS = [
 		by:"Ucchii 0", yt:"6Yx2__wLYek"},
 	
 	//YouFulca / Wingless Seraph
-	{name:"Deadly Sins", intensity:3/4, loopStart:11.475668934240362, loopEnd:90.53138321995465,
+	{name:"Deadly Sins", intensity:3/4, loopStart:11.475668934240362, loopEnd:90.53138321995465, kong:1,
 		by:"YouFulca", site:"https://wingless-seraph.net/material-music_battle.html", siten:"Wingless Seraph"},
 	{name:"Get Along", intensity:3/4, chiptune:1, loopStart:3.5554875283446714, loopEnd:62.29578231292517,
 		by:"YouFulca", site:"https://wingless-seraph.net/material-music_battle.html", siten:"Wingless Seraph"},
 	{name:"Never Surrender", intensity:1, loopStart:3.6729931972789114, loopEnd:54.53356009070295,
 		by:"YouFulca", site:"https://wingless-seraph.net/material-music_dangeon.html", siten:"Wingless Seraph"},
-	{name:"Never Surrender (8bit)", intensity:3/4, chiptune:1, loopStart:3.3784353741496598, loopEnd:54.23882086167801,
+	{name:"Never Surrender (8bit)", intensity:3/4, chiptune:1, loopStart:3.3784353741496598, loopEnd:54.23882086167801, kong:1,
 		by:"YouFulca", site:"https://wingless-seraph.net/material-music_8bit.html", siten:"Wingless Seraph"},
-	{name:"まだ見ぬ明日への誓い", fname:"Battle Madaminu", intensity:1, loopStart:5.434172335600907, loopEnd:88.98675736961451,
+	{name:"まだ見ぬ明日への誓い", fname:"Battle Madaminu", intensity:1, loopStart:5.434172335600907, loopEnd:88.98675736961451, kong:1,
 		by:"YouFulca", site:"https://wingless-seraph.net/material-music_battle.html", siten:"Wingless Seraph"},
 	{name:"ステージ4", fname:"Stage 4", intensity:3/4, chiptune:1, loopStart:0.09997732426303856, loopEnd:43.736281179138324, kong:1,
 		by:"YouFulca", site:"https://wingless-seraph.net/material-music_8bit.html", siten:"Wingless Seraph"},
