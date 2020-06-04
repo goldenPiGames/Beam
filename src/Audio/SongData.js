@@ -5,6 +5,8 @@ const MUSIC_GENRES = ["all", "chiptune"];
 
 const SONG_LIST_ABS = [
 	//Jon Matson / Al Gorgeous / Al Goregeous
+	{name:"Beach Buns", intensity:1/4,
+		by:"Al Gorgeous", sc:"al-goregous/beach-buns"},
 	{name:"Boat Paint", intensity:1/4, kong:1,
 		by:"Al Gorgeous", sc:"al-goregous/boat-paint"},
 	

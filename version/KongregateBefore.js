@@ -19,9 +19,13 @@ function submitToAPI(key, value) {
 
 function onLevelLoad(params) {
 	try {
-		var editor = editorFromJSON(params.content);
-		runnee = new EditorWrapper(editor);
+		if (levelIterator) {
+			levelIterator.exit();
+		}
+		levelIterator = new KongSingleIterator(params);
+		startLevel();
 	} catch (e) {
+		console.log(e);
 		qAlert(lg("EditorLoad-Error"));
 	}
 }
@@ -29,6 +33,8 @@ function onLevelLoad(params) {
 function onSetLoad() {
 	
 }
+
+//https://docs.kongregate.com/docs/shared-content
 
 var kongThumbCanvas;
 var kongThumbCtx;

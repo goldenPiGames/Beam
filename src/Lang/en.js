@@ -200,6 +200,8 @@ LANG.en = {
 	
 	"EditorSubmit-Submit" : "Submit to Kongregate",
 	"EditorSubmit-Return" : "Return to Editor",
+	"KongSharedVictory-Browse" : "Another",
+	"KongSharedVictory-Exit" : "Main Menu",
 	
 	"Editor-MaxHeight" : "Maximum height reached.",
 	"Editor-MinHeight" : "Minimum height reached.",
