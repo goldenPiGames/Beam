@@ -49,7 +49,7 @@ LANG.en = {
 	"MultiplayerGuestEnd-Place" : "You placed #<place>",
 	"MultiplayerBeg-Para" : "I try to make Beam, even its multiplayer, free to everyone, but Firebase (the online service I use) can get expensive. <br> Your support would allow me to continue making multilpayer Beam available to all players, and allow me to work on Beam and other projects. You can also get te Supporter role on my Discord.",
 	"MultiplayerBeg-VisitPatreon" : "Go to Patreon",
-	"MultiplayerBeg-TemindLater" : "Ask me later",
+	"MultiplayerBeg-RemindLater" : "Ask me later",
 	"MultiplayerBeg-DontAsk" : "Go away",
 	"Fullscreen-Reject" : "Fullscreen rejected by browser.",
 	
@@ -337,6 +337,7 @@ LANG.en = {
 	"Settings-Music" : "Music",
 	"Settings-SFX" : "SFX",
 	"Settings-FocusOutPause" : "Pause when focus lost",
+	"Settings-CursorParticles" : "Particle trail from cursor",
 	"Settings-BGNumber" : "Background Number Opacity",
 	"Settings-AlertDrag" : "Alert when clicking repeatedly in <lg|Maze-Name> and <lg|WalkOnce-Name>",
 	"Settings-Colorblind" : "Colorblind-Friendly",

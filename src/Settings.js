@@ -27,6 +27,7 @@ var settings = {
 	musicDontAsk : false,
 	bgNumber : 1/5,
 	alertDrag : true,
+	cursorParticles : true,
 }
 
 function mainHeight() {

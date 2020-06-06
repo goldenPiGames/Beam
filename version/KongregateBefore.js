@@ -19,9 +19,9 @@ function submitToAPI(key, value) {
 
 function onLevelLoad(params) {
 	try {
-		if (levelIterator) {
+		/*if (levelIterator) {
 			levelIterator.exit();
-		}
+		}*/
 		levelIterator = new KongSingleIterator(params);
 		startLevel();
 	} catch (e) {

@@ -56,6 +56,8 @@ class Ember extends Particle {
 Ember.prototype.overInfo = false;
 
 function addRandomEmbers() {
+	if (!settings.cursorParticles)
+		return;
 	particles.push(randomCursorEmber(mouse.x, mouse.y));
 	if (EXTRA_EMBER) {
 		//console.log(mouse.x, mouse.lastX)
