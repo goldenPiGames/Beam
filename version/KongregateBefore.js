@@ -1,6 +1,7 @@
-const STRIP_SONGS = "kong";
 const VERSION_KONGREGATE = true;
 const VERSION_NEWGROUNDS = false;
+const VERSION_ARMOR_GAMES = false;
+const STRIP_SONGS = "kong";
 var kongregate;
 
 loadScript("https://cdn1.kongregate.com/javascripts/kongregate_api.js", function() {

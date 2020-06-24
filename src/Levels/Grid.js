@@ -95,29 +95,29 @@ class GridLevel extends Level {
 		var gop;
 		this.borderPath.moveTo(this.borderLeft, this.borderTop);
 		//top
-		if (this.beamEntranceSide == 0 || this.beamExitSide == 0) {
-			gop = this.beamEntranceSide == 0 ? this.beamEntrancePosition : this.beamExitPosition;
+		if (this.beamEntranceSide == UP || this.beamExitSide == UP) {
+			gop = this.beamExitSide == UP ? this.beamExitPosition : this.beamEntrancePosition;
 			this.borderPath.lineTo(gop - gopR, this.borderTop);
 			this.borderPath.moveTo(gop + gopR, this.borderTop);
 		}
 		this.borderPath.lineTo(this.borderRight, this.borderTop);
 		//right
-		if (this.beamEntranceSide == 1 || this.beamExitSide == 1) {
-			gop = this.beamEntranceSide == 1 ? this.beamEntrancePosition : this.beamExitPosition;
+		if (this.beamEntranceSide == RIGHT || this.beamExitSide == RIGHT) {
+			gop = this.beamExitSide == RIGHT ? this.beamExitPosition : this.beamEntrancePosition;
 			this.borderPath.lineTo(this.borderRight, gop - gopR);
 			this.borderPath.moveTo(this.borderRight, gop + gopR);
 		}
 		this.borderPath.lineTo(this.borderRight, this.borderBottom);
 		//bottom
-		if (this.beamEntranceSide == 2 || this.beamExitSide == 2) {
-			gop = this.beamEntranceSide == 2 ? this.beamEntrancePosition : this.beamExitPosition;
+		if (this.beamEntranceSide == DOWN || this.beamExitSide == DOWN) {
+			gop = this.beamExitSide == DOWN ? this.beamExitPosition : this.beamEntrancePosition;
 			this.borderPath.lineTo(gop + gopR, this.borderBottom);
 			this.borderPath.moveTo(gop - gopR, this.borderBottom);
 		}
 		this.borderPath.lineTo(this.borderLeft, this.borderBottom);
 		//left
-		if (this.beamEntranceSide == 3 || this.beamExitSide == 3) {
-			gop = this.beamEntranceSide == 3 ? this.beamEntrancePosition : this.beamExitPosition;
+		if (this.beamEntranceSide == LEFT || this.beamExitSide == LEFT) {
+			gop = this.beamExitSide == LEFT ? this.beamExitPosition : this.beamEntrancePosition;
 			this.borderPath.lineTo(this.borderLeft, gop + gopR);
 			this.borderPath.moveTo(this.borderLeft, gop - gopR);
 		}

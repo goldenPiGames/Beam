@@ -30,10 +30,6 @@ var settings = {
 	cursorParticles : true,
 }
 
-function mainHeight() {
-	return settings.height - settings.infoHeight;
-}
-
 function loadSettings() {
 	var loaded = localStorage.getItem("BeamSettings");
 	if (loaded) {
