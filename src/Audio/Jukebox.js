@@ -42,7 +42,6 @@ class Jukebox extends Screen {
 			this.songMenu,
 			this.returnButton,
 			this.pauseButton,
-			this.linkButton,
 			this.favButton,
 			this.positionSlider,
 			this.volumeSlider,
@@ -55,6 +54,8 @@ class Jukebox extends Screen {
 			this.genreButtons,
 			this.saveDefaultButton,
 		];
+		if (EXTERNAL_LINKS)
+			this.objects.push(this.linkButton);
 	}
 	update() {
 		if (song != this.lastSong || !this.positionSlider.max) {

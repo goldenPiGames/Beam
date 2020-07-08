@@ -1,8 +1,30 @@
+function resubmitTotalCompletion() {
+	var beatenLevels = 0;
+	var beatenSeqs = 0;
+	MAIN_LEVEL_SEQS.find(seq=> {
+		var prog = parseInt(localStorage.getItem("Beam"+seq.id+"Progress"));
+		if (prog >= seq.levelIDs.length) {
+			beatenSeqs += 1;
+			beatenLevels += seq.levelIDs.length;
+		} else if (prog) {
+			beatenLevels += prog;
+		}
+	});
+	if (beatenSeqs >= MAIN_LEVEL_SEQS.length)
+		submitToAPI("MainCompleted", 1);
+	submitToAPI("MainSequencesCompleted", beatenSeqs);
+	submitToAPI("MainLevelsCompleted", beatenLevels);
+}
+
 function areAllMainLevelsCompleted() {
 	return !MAIN_LEVEL_SEQS.find(seq=> {
 		var prog = parseInt(localStorage.getItem("Beam"+seq.id+"Progress"));
 		return !prog || prog < seq.levelIDs.length;
 	});
+}
+
+function getMainCompletionScreen() {
+	return EXTERNAL_LINKS ? new MainCompletionScreen() : new MainCompletionScreenNoExt();
 }
 
 class MainCompletionScreen extends Level {
@@ -38,6 +60,36 @@ class MainCompletionScreen extends Level {
 		ctx.fillStyle = palette.normal;
 		drawParagraphInRect(lg("Completion-Paragraph"), 50, HEIGHT/5+20, WIDTH-100, HEIGHT/4-20, 20);
 		drawParagraphInRect(lg("Completion-FollowPara"), 50, HEIGHT*2/4+50, WIDTH-100, HEIGHT/4-20, 20);
+		drawTextInRect(lg("Completion-Heading"), 75, 0, WIDTH-150, this.beamEntrancePosition-5);
+	}
+}
+
+class MainCompletionScreenNoExt extends Level {
+	constructor() {
+		super();
+		this.beamEntranceSide = LEFT;
+		this.beamExitSide = RIGHT;
+		this.beamEntrancePosition = HEIGHT*1/5;
+		this.beamExitPosition = this.beamEntrancePosition;
+		this.path = new Path2D();
+		this.path.moveTo(0, this.beamEntrancePosition);
+		this.path.lineTo(WIDTH, this.beamEntrancePosition);
+		this.mainMenuButton = new Button(WIDTH/2-100, HEIGHT-45, 200, 40, lg("Completion-Return"), ()=>switchScreen(new MainMenu()));
+		this.buttons = [
+			this.mainMenuButton
+		]
+	}
+	update() {
+		//runnee = this;
+		this.buttons.forEach(b=>b.update());
+	}
+	draw() {
+		scintBeam();
+		ctx.globalAlpha = 1;
+		drawBeam(this.path);
+		this.buttons.forEach(b=>b.draw());
+		ctx.fillStyle = palette.normal;
+		drawParagraphInRect(lg("CompletionNoExt-Paragraph"), 50, HEIGHT/5+20, WIDTH-100, HEIGHT/4-20, 20);
 		drawTextInRect(lg("Completion-Heading"), 75, 0, WIDTH-150, this.beamEntrancePosition-5);
 	}
 }

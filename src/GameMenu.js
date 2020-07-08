@@ -7,8 +7,8 @@ class GameMenu extends OverScreen {
 		this.x = 0;
 		this.y = 0;
 		this.objects = [
-			...alternateHybridButtons(this.x+5, this.y+30, this.width-10, 200, [
-					{text:lg("GameMenu-Fullscreen"), drawI:bubbleDrawIFullscreen, handler:()=>attemptFullscreen()},
+			...alternateHybridButtons(this.x+5, this.y+30, this.width-10, 50, [
+					...(FULLSCREEN_BUTTONS ? [{text:lg("GameMenu-Fullscreen"), drawI:bubbleDrawIFullscreen, handler:()=>attemptFullscreen()}] : []),
 					{text:lg("GameMenu-Exit"), drawI:bubbleDrawIReturn, handler:()=>popupConfirm(()=>exitLevel(), lg("GameMenu-ExitAsk"))},
 					{text:lg("GameMenu-Redo"), drawI:bubbleDrawIReset, handler:()=>redoLevel()},
 					{text:lg("GameMenu-Settings"), drawI:bubbleDrawISettings, handler:()=>switchScreen(new SettingsScreen(this))},

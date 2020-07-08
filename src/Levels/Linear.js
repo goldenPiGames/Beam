@@ -9,8 +9,9 @@ class LevelSelectLinearScreen extends Screen {
 		super();
 		this.seqs = seqs;
 		this.seqBeads = this.seqs.map((seq, dex, ray) => new LevelSelectSeqBeads(seq, 10, HEIGHT*(dex)/(ray.length), WIDTH-120, HEIGHT/(ray.length+1), this));
-		if (areAllMainLevelsCompleted())
-				submitToAPI("MainCompleted", 1);
+		//if (areAllMainLevelsCompleted())
+		//	submitToAPI("MainCompleted", 1);
+		resubmitTotalCompletion();
 		//this.playButton = new BubbleButton(WIDTH-50, HEIGHT-50, 45, ()=>this.tryPlay(), bubbleDrawIPlay);
 		this.returnButton = new BubbleButton(WIDTH-50, 50, 45, ()=>switchScreen(new MainMenu()), bubbleDrawIReturn);
 		this.buttons = [
@@ -136,8 +137,10 @@ class LinearLevelIterator extends LevelIterator {
 		this.index++;
 		var currSaved = localStorage.getItem("Beam"+this.seq.id+"Progress");
 		submitToAPI("Progress"+this.seq.id, this.index);
-		if (this.index > currSaved)
+		if (this.index > currSaved) {
 			localStorage.setItem("Beam"+this.seq.id+"Progress", this.index);
+		}
+		resubmitTotalCompletion();
 		if (this.index >= this.seq.levelIDs.length) {
 			//this.index = "";
 			this.atEnd = true;
@@ -145,7 +148,7 @@ class LinearLevelIterator extends LevelIterator {
 			if (localStorage.getItem("BeamMainCompletionSeen") != "true" && areAllMainLevelsCompleted()) {
 				submitToAPI("MainCompleted", 1);
 				localStorage.setItem("BeamMainCompletionSeen", "true");
-				return new MainCompletionScreen();
+				return getMainCompletionScreen();
 			} else {
 				return new LevelVictoryLinear(this.seq, prev);
 			}

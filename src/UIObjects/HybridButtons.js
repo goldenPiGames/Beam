@@ -86,10 +86,9 @@ class HybridButtonCirc extends UIObject {
 *	drawI : 
 *	handler : 
 */
-function alternateHybridButtons(x, y, width, height, eak) {
+function alternateHybridButtons(x, y, width, yInterval, eak) {
 	var butts = [];
 	var yStart = y;
-	var yInterval = height / eak.length;
 	var rheight = yInterval*.8 - 5;
 	var cradius = rheight;
 	var lcx = x+cradius;

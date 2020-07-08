@@ -51,10 +51,11 @@ LANG.en = {
 	"MultiplayerBeg-VisitPatreon" : "Go to Patreon",
 	"MultiplayerBeg-RemindLater" : "Ask me later",
 	"MultiplayerBeg-DontAsk" : "Go away",
-	"Fullscreen-Reject" : "Fullscreen rejected by browser.",
+	"Fullscreen-Reject" : "Fullscreen rejected.",
 	
 	"Completion-Heading" : "All Levels Complete",
 	"Completion-Paragraph" : "You've beaten every premade level in the game! But wait, there's more! <br> There are an infinite number of randomly generated levels to play, either as-is, against the clock, or head-to-head against friends online. <br> But first, I could use your feedback. Did you like some modes more than others? Do you have any complaints about the game? Take the survey (opens in a new tab), and/or leave a comment.",
+	"CompletionNoExt-Paragraph" : "You've beaten every premade level in the game! But wait, there's more! <br> There are an infinite number of randomly generated levels to play, either as-is or against the clock.",
 	"Completion-SurveyButton" : "Survey",
 	"Completion-FollowPara" : "If you liked this game, you can keep track of my future projects by following me on Discord or whatever site you're playing this on. Maybe even Patreon, if you liked it that much.",
 	"Completion-Return" : "Main Menu",
@@ -135,6 +136,9 @@ LANG.en = {
 	"TimeTrialEnd-Length" : "Length: <num>",
 	"TimeTrialEnd-SM64RNG" : "SM64RNG seed <seed>",
 	"TimeTrialEnd-NoPRNG" : "Standard RNG",
+	
+	"Coolmath-UnlockAllLevels" : "All levels unlocked",
+	"CoolmathSplash-Continue" : "Click to continue",
 	
 	//-------------------------------------------------------------- Mode Info ------------------------------------------------
 	"LevelOther-Name" : "???",

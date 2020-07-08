@@ -14,9 +14,11 @@ class JoinMultiplayerScreen extends Screen {
 		this.objects = [
 			this.returnButton,
 			this.beginButton,
-			this.fullscreenButton,
+			//this.fullscreenButton,
 			this.colorPicker,
 		];
+		if (FULLSCREEN_BUTTONS)
+			this.objects.push(this.fullscreenButton);
 	}
 	update() {
 		if (textInput1.value != settings.name) {

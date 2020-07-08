@@ -26,14 +26,16 @@ class CreditsScreen extends Screen {
 		this.creditsArea = new CreditsArea(0, WIDTH-100);
 		this.creditsArea.addHeading(lg("Credits-IDid"));
 		this.creditsArea.addText("Prexot (goldenPiGames)");
-		this.creditsArea.addMultipleButtons(
-			{text:"Kongregate", href:"https://www.kongregate.com/accounts/goldenPiGames"},
-			{text:"Newgrounds", href:"https://goldenpigames.newgrounds.com/"},
-			{text:"itch", href:"https://goldenpigames.itch.io/"},
-			{text:"YouTube", href:"https://www.youtube.com/channel/UCb4QliR5GWppUqOLXBYKYHw"},
-			{text:"Patreon", href:PATREON_LINK},
-			{text:"Discord", href:DISCORD_LINK},
-		);
+		if (EXTERNAL_LINKS) {
+			this.creditsArea.addMultipleButtons(
+				{text:"Kongregate", href:"https://www.kongregate.com/accounts/goldenPiGames"},
+				{text:"Newgrounds", href:"https://goldenpigames.newgrounds.com/"},
+				{text:"itch", href:"https://goldenpigames.itch.io/"},
+				{text:"YouTube", href:"https://www.youtube.com/channel/UCb4QliR5GWppUqOLXBYKYHw"},
+				{text:"Patreon", href:PATREON_LINK},
+				{text:"Discord", href:DISCORD_LINK},
+			);
+		}
 		this.creditsArea.addHeading(lg("Credits-Sources"));
 		this.levelSources.forEach(sauce => this.creditsArea.addDouble(sauce.name, sauce.source));
 		this.creditsArea.addDouble(lg("Credits-SourcesRest"), lg("Credits-SourcesOriginal"));
@@ -41,13 +43,15 @@ class CreditsScreen extends Screen {
 			this.creditsArea.addHeading(ld.name);
 			this.creditsArea.addTexts(ld.credits);
 		});
-		this.creditsArea.addHeading(lg("Credits-TranslationBegHead"));
-		this.creditsArea.addTexts(lg("Credits-TranslationBegLines"));
+		if (EXTERNAL_LINKS) {
+			this.creditsArea.addHeading(lg("Credits-TranslationBegHead"));
+			this.creditsArea.addTexts(lg("Credits-TranslationBegLines"));
+		}
 		this.creditsArea.addHeading(lg("Credits-SpecialThanks"));
 		this.creditsArea.addTexts([
 			"Delaware Games Collective",
 			"UD Board Game Club",
-			"@ihartnia",
+			EXTERNAL_LINKS ? "Nathania Hartojo @ihartnia" : "Nathania Hartojo",
 		]);
 		this.creditsArea.finalize();
 		let creditsArea = this.creditsArea;

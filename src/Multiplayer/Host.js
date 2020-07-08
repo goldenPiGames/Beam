@@ -15,11 +15,13 @@ class HostSettingsScreen extends Screen {
 		this.loadButton = new Button(10, 100, this.pWidth-20, 30, lg("MultiplayerHost-Load"), ()=>this.openLoad()); 
 		this.objects = [
 			this.returnButton,
-			this.fullscreenButton,
+			//this.fullscreenButton,
 			this.beginButton,
 			//this.levelTabs,
 			this.loadButton,
 		];
+		if (FULLSCREEN_BUTTONS)
+			this.objects.push(this.fullscreenButton);
 		this.modeButtons = new RadioButtons(10, 160, this.pWidth-10, 30, INFINITE_MODES.map(mod=>lg(mod.lName)), dex=>this.modeClicked(dex));
 		this.goalSelector = new NumberSelector(10, HEIGHT/2+50, 180, 120, 1, 99, 5, 10);
 		this.objectsGen = [
@@ -130,10 +132,12 @@ class HostSettingsScreen extends Screen {
 	}
 	exit() {
 		this.unsubscribe();
-		this.gameRef.child("players").off("child_added", this.callbackOn);
+		if (this.gameRef) {
+			this.gameRef.child("players").off("child_added", this.callbackOn);
+			this.gameRef.remove();
+		}
 		hideTextInput();
 		firebase.auth().signOut();
-		this.gameRef.remove();
 		switchScreen(new MultiplayerMenu())
 	}
 	modeClicked(dex) {

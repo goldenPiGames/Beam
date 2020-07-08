@@ -28,6 +28,13 @@ function startGame() {
 }
 
 function nextStartupScreen() {
+	if (window.getVersionSplash) {
+		var sp = getVersionSplash();
+		if (sp) {
+			runnee = sp;
+			return;
+		}
+	}
 	if (!settings.lang) {
 		runnee = new LangSelectScreen();
 		return;
