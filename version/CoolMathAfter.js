@@ -16,7 +16,7 @@ class CoolMathSplash extends Screen {
 	}
 	update() {
 		this.timer++;
-		if (this.timer >= COOLMATH_SPLASH_TIME && (!settings.musicDontAsk || mouse.clicked)) {
+		if (this.timer >= COOLMATH_SPLASH_TIME && (!settings.musicDontAsk || mouse.clicked || !settings.musicDontAsk.recommend)) {
 			nextStartupScreen();
 		}
 	}

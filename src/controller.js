@@ -85,6 +85,8 @@ function addEvents() {
 	window.addEventListener("focus", musicFocus);
 	
 	window.addEventListener("blur", musicFocusOut);
+	
+	fitCanvas();
 }
 
 function fitCanvas(e) {

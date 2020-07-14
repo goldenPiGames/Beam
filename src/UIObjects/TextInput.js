@@ -30,6 +30,8 @@ function setTextInput(which, x, y, width, height, text) {
 }
 
 function resizeInputs() {
+	if (!inputs)
+		return;
 	inputs.forEach(pu=>{
 		if (pu.hidden)
 			return false;

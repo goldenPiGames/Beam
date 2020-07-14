@@ -140,6 +140,7 @@ class PathGenRightHandCrawler {
 	determine() {
 		var crash = 0;
 		while (crash < 1000) {
+			crash++;
 			if (this.x == this.parent.gridEndX && this.y == this.parent.gridEndY)
 				return true;
 			this.d = directionRight(this.d);
