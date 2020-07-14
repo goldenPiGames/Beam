@@ -86,13 +86,21 @@ function addEvents() {
 	
 	window.addEventListener("blur", musicFocusOut);
 	
+	if (ALWAYS_RESIZE) {
+		backDiv.style.width = "100%";
+		backDiv.style.height = "100%";
+	} else {
+		//backDiv.style.width = 800px;
+		//height: 600px;
+	}
+	
 	fitCanvas();
 }
 
 function fitCanvas(e) {
 	var rekt = backDiv.getBoundingClientRect();
 	//console.log(rekt, WIDTH, HEIGHT)
-	if (!document.fullscreen) {
+	if (!document.fullscreen && !ALWAYS_RESIZE) {
 		//console.log("part");
 		canvas.classList.remove("fullscreenWider");
 		canvas.classList.remove("fullscreenTaller");

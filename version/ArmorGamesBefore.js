@@ -3,6 +3,7 @@ const VERSION_KONGREGATE = false;
 const VERSION_NEWGROUNDS = false;
 const VERSION_COOLMATH = false;
 const FULLSCREEN_BUTTONS = false;
+const ALWAYS_RESIZE = false;
 const EXTERNAL_LINKS = true;
 const MULTIPLAYER_IN = true;
 const STRIP_SONGS = "armor";

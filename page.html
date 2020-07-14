@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+		<meta content="utf-8" http-equiv="encoding">
+		<title>Beam</title>
+		<link rel="shortcut icon" type="image/png" href="favicon.png">
+		<link rel="stylesheet" type="text/css" href="pagestyle.css">
+		
+	</head>
+	<body>
+		<div id="GameBox">
+			<iframe id="Game" title="Game" width="800" height="600" src="index.html"></iframe>
+		</div>
+		<div id="Text">
+			<div id="Links">
+				<a href="index.html">Sort of automatic fullscreen mode</a>
+			</div>
+		</div>
+		<script>
+			var igame = document.getElementById("Game");
+			
+			function receiveMessage(e) {
+				
+			}
+			window.addEventListener("message", receiveMessage, false);
+		</script>
+	</body>
+</html>

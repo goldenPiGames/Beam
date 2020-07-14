@@ -3,6 +3,7 @@ const VERSION_NEWGROUNDS = false;
 const VERSION_ARMOR_GAMES = false;
 const VERSION_COOLMATH = true;
 const FULLSCREEN_BUTTONS = false;
+const ALWAYS_RESIZE = true;
 const EXTERNAL_LINKS = false;
 const MULTIPLAYER_IN = false;
 const STRIP_SONGS = "coolmath";
