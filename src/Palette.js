@@ -132,3 +132,10 @@ function bubbleDrawIPalette() {
 	ctx.closePath();
 	ctx.fill();
 }
+
+/*
+for (var i = 0; i < 512; i++) {
+	ctx.fillStyle = getColorScint(i*3);
+	ctx.fillRect(i, 0, 1, 32);
+}
+*/

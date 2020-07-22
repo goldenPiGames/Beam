@@ -1,0 +1,3 @@
+I didn't add any trackers whatsoever to this. That would be underhanded and probably not worth the effort anyway.
+
+Except I do use Google's Firebase service for multiplayer. I honestly don't know if it has any trackers or anything. I would think not, but with Google, you never know. But chances are if you're getting this from the Play Store on an Android phone, an online service in a mediocre HTML5 game is probably not your biggest Google-related privacy concern.

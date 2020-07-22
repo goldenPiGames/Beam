@@ -27,6 +27,7 @@ function addEvents() {
 	eventCatcher.addEventListener("mousedown", function(e) {
 		mouse.clicked = true;
 		mouse.down = true;
+		mouse.lastUsed = "mouse";
 	});
 	
 	document.addEventListener("mouseup", function(e) {
@@ -38,6 +39,7 @@ function addEvents() {
 		e.preventDefault();
 		mouse.scrolled += e.deltaY > 0 ? 1 : -1;
 		//console.log(mouse.scrolled);
+		mouse.lastUsed = "mouse";
 	});
 	
 	eventCatcher.addEventListener('dblclick', function (e) {
@@ -50,6 +52,7 @@ function addEvents() {
 		mouse.clicked = true;
 		mouse.down = true;
 		setMousePosition(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+		mouse.lastUsed = "touch";
 	});
 	
 	eventCatcher.addEventListener("touchend", function(e) {
@@ -72,6 +75,7 @@ function addEvents() {
 		if (runnee.overrideTouch)
 			e.preventDefault();
 		setMousePosition(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+		mouse.lastUsed = "touch";
 	});
 	
 	backDiv.addEventListener("fullscreenchange", fitCanvas);

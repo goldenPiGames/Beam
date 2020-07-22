@@ -1,6 +1,8 @@
 const SCROLL_ELEMENT_HEIGHT = 22;
 const SCROLL_BUTTON_HEIGHT = 30;
-const SCROLL_BAR_WIDTH = 25;
+const SCROLL_BAR_WIDTH = 30;
+const SCROLL_MENU_TAP_LENGTH = 4;
+const SCROLL_MENU_DRAG_DISTANCE = SCROLL_ELEMENT_HEIGHT / 2;
 
 class ScrollMenu extends UIObject {
 	constructor(x, y, width, height, returnFunction, items = [], secondProperty = null, infoProperty = "description", enableProperty = ()=>true, highlightProperty = ()=>false) {
@@ -14,12 +16,16 @@ class ScrollMenu extends UIObject {
 		this.scrollBar = new ScrollBar(x + width - SCROLL_BAR_WIDTH, y + SCROLL_BUTTON_HEIGHT, SCROLL_BAR_WIDTH, height - 2*SCROLL_BUTTON_HEIGHT, this.maxEntries, items.length, (s)=>this.setBarScroll(s), ()=>this.currentScroll)
 		this.upButton = new Button(x + width - SCROLL_BAR_WIDTH, y, SCROLL_BAR_WIDTH, SCROLL_BUTTON_HEIGHT, "↑", ()=>this.scrollUp());
 		this.downButton = new Button(x + width - SCROLL_BAR_WIDTH, y + height - SCROLL_BUTTON_HEIGHT, SCROLL_BAR_WIDTH, SCROLL_BUTTON_HEIGHT, "↓", ()=>this.scrollDown());
+		this.mainArea = new UIObject(); this.mainArea.x = x; this.mainArea.y = y; this.mainArea.width = width - SCROLL_BAR_WIDTH; this.mainArea.height = height;
 		
 		this.secondProperty = secondProperty;
 		this.infoProperty = infoProperty;
 		this.enableProperty = enableProperty;
 		this.highlightProperty = highlightProperty;
 		this.setItems(items);
+		
+		this.touchDrag = 0;
+		this.justDragScrolled = 0;
 	}
 	setItems(items) {
 		this.items = items;
@@ -34,6 +40,7 @@ class ScrollMenu extends UIObject {
 			newElement = new ScrollMenuElement(this.x, this.y + (i * SCROLL_ELEMENT_HEIGHT), this.width - SCROLL_BAR_WIDTH, SCROLL_ELEMENT_HEIGHT, this, items[i]);
 			this.itemElements.push(newElement);
 		}
+		this.putItems();
 	}
 	putItems() { //TODO use putItems as part of setItems
 		this.maxScroll = Math.max(this.items.length-this.maxEntries, 0);
@@ -83,14 +90,39 @@ class ScrollMenu extends UIObject {
 		this.upButton.update();
 		this.downButton.update();
 		this.scrollBar.update();
-		for (var i = 0; i < this.itemElements.length; i++) {
-			this.itemElements[i].update();
-		}
 		if (this.hovered && mouse.scrolled) {
 			if (mouse.scrolled < 0)
 				this.scrollUp(Math.abs(mouse.scrolled), false);
 			else
 				this.scrollDown(Math.abs(mouse.scrolled), false);
+		}
+		if (mouse.lastUsed == "touch") {
+			this.mainArea.update();
+			if (!this.held || this.held <= 1) {
+				this.itemElements.forEach(tem=>{tem.update();tem.hovered=false;});
+			}
+			if (this.mainArea.draggedY) {
+				this.touchDrag += this.mainArea.draggedY;
+			}
+			while (this.touchDrag >= SCROLL_MENU_DRAG_DISTANCE) {
+				this.scrollUp(1, false);
+				this.touchDrag -= SCROLL_MENU_DRAG_DISTANCE;
+				this.justDragScrolled++;
+			}
+			while (this.touchDrag <= -SCROLL_MENU_DRAG_DISTANCE) {
+				this.scrollDown(1, false);
+				this.touchDrag += SCROLL_MENU_DRAG_DISTANCE;
+				this.justDragScrolled++;
+			}
+			if (this.mainArea.released) {
+				if ((this.mainArea.released < SCROLL_MENU_TAP_LENGTH || this.justDragScrolled < 1) && this.valueOnRelease) {
+					this.returnFunction(this.valueOnRelease, this);
+				}
+				this.touchDrag = 0;
+				this.justDragScrolled = 0;
+			}
+		} else {
+			this.itemElements.forEach(tem=>tem.update());
 		}
 	}
 	draw() {
@@ -111,7 +143,11 @@ class ScrollMenu extends UIObject {
 		this.hoveredValue = value;
 	}
 	returnItem(value) {
-		this.returnFunction(value, this);
+		if (mouse.lastUsed == "touch") {
+			this.valueOnRelease = value;
+		} else {
+			this.returnFunction(value, this);
+		}
 	}
 }
 /* ------------------------------------------------ Scroll Menu Elements -------------------------------------------*/
@@ -139,7 +175,7 @@ class ScrollMenuElement extends UIObject {
 	}
 	draw() {
 		if (this.value) {
-			var color = this.parent.enableProperty(this.value) ? ((this.clicked || this.parent.highlightProperty(this.value)) ? palette.click : (this.hovered ? palette.hover : palette.normal)) : palette.disabled;
+			var color = this.parent.enableProperty(this.value) ? (this.parent.highlightProperty(this.value) ? palette.click : (this.hovered ? palette.hover : palette.normal)) : palette.disabled;
 			var fontSize = this.height - 3;
 			ctx.fillStyle = color;
 			ctx.font = fontSize + "px "+settings.font;

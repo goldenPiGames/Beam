@@ -9,7 +9,7 @@ const FULLSCREEN_BUTTONS = false;
 const ALWAYS_RESIZE = true;
 const EXTERNAL_LINKS = true;
 const MULTIPLAYER_IN = true;
-const STRIP_SONGS = false;
+const STRIP_SONGS = "android";
 
 function submitToAPI() {
 	

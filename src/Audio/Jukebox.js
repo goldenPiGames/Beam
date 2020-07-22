@@ -79,7 +79,7 @@ class Jukebox extends Screen {
 		filterSongList();
 		if (this.songMenu) {
 			this.songMenu.setItems(songList);
-			this.songMenu.scrollToSelected();
+			//this.songMenu.scrollToSelected();
 		}
 	}
 	setSort(val) {
