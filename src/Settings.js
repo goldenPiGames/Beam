@@ -38,7 +38,7 @@ function loadSettings() {
 			settings[sett] = loaded[sett];
 		}
 	}
-	loadFavSongs();
+	//loadFavSongs();
 	loadPaletteFromSettings();
 	setMusicVolume(settings.music);
 	applyFont(settings.font);
@@ -65,4 +65,9 @@ function applyFont(now) {
 	document.body.font = now;
 	if (inputs)
 		inputs.forEach(i=>i.style.fontFamily=now);
+}
+
+function loadPaletteFromSettings() {
+	PALETTE_NAMES.forEach(nom => palette[nom] = settings["color_"+nom]);
+	palette["samegame-1"] = palette.background;
 }

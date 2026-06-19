@@ -87,7 +87,7 @@ LANG.es = {
 	"Jukebox-MaximumIntensity" : "Máx",
 	"Jukebox-Intensities" : ["Dormida", "Tranquila", "Moderada", "Excitante", "Intensa"],
 	"Jukebox-Manual" : "Manual",
-	"Jukebox-Shuffle" : "Barajar",
+	"Jukebox-Shuffle" : "Shuffle",
 	"Jukebox-Recommend" : "Auto",
 	"Jukebox-SaveDefault" : "Guardar Ajustes",
 	"Jukebox-Genre-all" : "Todas",

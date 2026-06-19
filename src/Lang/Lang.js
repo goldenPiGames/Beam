@@ -1,6 +1,6 @@
 const LANG = {};
 
-const LANGUAGES = ["en", "es", "ru"/*, "cg"*/];
+const LANGUAGES = ["en", "es", "ru", "ro"/*, "cg"*/];
 
 function lg(name, subs) {
 	if (!subs)

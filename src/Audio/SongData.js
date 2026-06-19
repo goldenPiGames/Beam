@@ -220,7 +220,6 @@ const SONG_LIST = STRIP_SONGS ? SONG_LIST_ABS.filter(s=>s[STRIP_SONGS]) : SONG_L
 
 var SONG_HASH = {};
 SONG_LIST.forEach(function(sing, dex) {
-	sing.description = "\"" + sing.name + "\" by " + sing.by + ". Click to listen.";
 	if (!sing.iname)
 		sing.iname = ((sing.fname || sing.name) + "-" + sing.by).replace(/\s/g, "");
 	sing.src = "src/Audio/Songs/" + sing.iname + ".mp3";
